@@ -6,7 +6,7 @@ import lombok.*;
 import javax.persistence.*;
 
 
-@Entity
+@Entity(name="Article")
 @Table(name = "article")
 @Data
 @NoArgsConstructor
@@ -23,5 +23,10 @@ public class Article {
 
   @Column(name = "text", columnDefinition = "varchar(1024)")
   private String text;
+
+  @OneToOne(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+  @JoinColumn(name = "account_id", referencedColumnName = "id")
+  private Account account;
+
 
 }
