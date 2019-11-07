@@ -19,14 +19,17 @@ public class Account {
   @Column(name = "id", unique = true, nullable = false)
   private Long id;
 
-  @Column(name = "firstname", columnDefinition = "varchar(64)")
-  private String firstname;
+  @Column(name = "email", columnDefinition = "varchar(64)", nullable = false)
+  private String email;
 
-  @Column(name = "lastname", columnDefinition = "varchar(64)")
-  private String lastname;
+  @Column(name = "password", columnDefinition = "varchar(64)", nullable = false)
+  private String password;
 
-//  @OneToOne(mappedBy = "article")
-//  private Article article;
+  @Column(name = "first_name", columnDefinition = "varchar(64)")
+  private String firstName;
+
+  @Column(name = "last_name", columnDefinition = "varchar(64)")
+  private String lastName;
 
 
 }

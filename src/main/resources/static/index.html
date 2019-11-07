@@ -1,10 +1,115 @@
+<!--TO DO: simple UI for test controllers, services, and database-->
+
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+  <meta charset="UTF-8">
+  <title>Test Page</title>
+
+  <script src="./jquery_3.4.1.js"></script>
+  <script src="./bootstrap.js"></script>
+  <script src="./axios.js"></script>
+  <link rel="stylesheet" href="./bootstrap.css">
+
 </head>
+
 <body>
-<p>Hello </p>
+  <div class="container">
+    <div class="bg-info m-5 pb-5">
+      <br><br>
+      <h2>Account:</h2>
+      <div class="input-group input-group-sm w-50  m-2">
+        <div class="input-group-prepend">
+          <span class="input-group-text">First Name</span>
+        </div>
+        <input id="q1" type="text" class="form-control" placeholder="" aria-label="Small"
+          aria-describedby="inputGroup-sizing-sm">
+      </div>
+      <div class="input-group input-group-sm w-50  m-2 ">
+        <div class="input-group-prepend">
+          <span class="input-group-text">Last Name</span>
+        </div>
+        <input id="q2" type="text" class="form-control" placeholder="" aria-label="Small"
+          aria-describedby="inputGroup-sizing-sm">
+      </div>
+      <div class="input-group input-group-sm w-50  m-2 ">
+        <div class="input-group-prepend">
+          <span class="input-group-text">Email</span>
+        </div>
+        <input id="q3" type="text" class="form-control" placeholder="Required" aria-label="Small"
+          aria-describedby="inputGroup-sizing-sm">
+      </div>
+      <div class="input-group input-group-sm w-50  m-2 ">
+        <div class="input-group-prepend">
+          <span class="input-group-text">Password</span>
+        </div>
+        <input id="q4" type="text" class="form-control" placeholder="Required" aria-label="Small"
+          aria-describedby="inputGroup-sizing-sm">
+      </div>
+      <button type="button" id="qbtn" class="btn btn-danger">Add to database</button>
+    </div>
+
+
+    <!--    <div class="bg-warning m-5 pb-5">-->
+    <!--      <br><br>-->
+    <!--      <h2>Article:</h2>-->
+    <!--      <div class="input-group input-group-sm w-50  m-2">-->
+    <!--        <div class="input-group-prepend">-->
+    <!--          <span class="input-group-text" id="a1">Title</span>-->
+    <!--        </div>-->
+    <!--        <input type="text" class="form-control" placeholder="" aria-label="Small"-->
+    <!--          aria-describedby="inputGroup-sizing-sm">-->
+    <!--      </div>-->
+    <!--      <div class="form-group w-50">-->
+    <!--        <label for="a2">Text:</label>-->
+    <!--        <textarea id="a2" class="form-control" rows="5"></textarea>-->
+    <!--      </div>-->
+    <!--      <div class="input-group input-group-sm w-50  m-2 ">-->
+    <!--        <div class="input-group-prepend">-->
+    <!--          <span class="input-group-text" id="a3">Author database primary key</span>-->
+    <!--        </div>-->
+    <!--        <input type="text" class="form-control" placeholder="" aria-label="Small"-->
+    <!--          aria-describedby="inputGroup-sizing-sm">-->
+    <!--      </div>-->
+
+    <!--      <button type="button" id="abtn" class="btn btn-danger">Add to database</button>-->
+    <!--    </div>-->
+
+  </div>
 </body>
+
 </html>
+
+
+<script>
+
+  $(document).ready(function () {
+
+
+
+    document.getElementById("qbtn").addEventListener("click", () => {
+      const data = {
+        firstName: $("#q1").val(),
+        lastName: $("#q2").val(),
+        email: $("#q3").val(),
+        password: $("#q4").val(),
+      }
+
+      axios.post('http://127.0.0.1:8080/account', data).then(res => {
+        if (res.status === 200) {
+          console.log("Good job!", "You are successfully registered!", "success");
+        }
+      }).catch(function (error) {
+          console.log(error);
+        });
+
+
+    });
+
+  });
+
+
+
+</script>
