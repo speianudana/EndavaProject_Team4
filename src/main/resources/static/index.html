@@ -52,31 +52,35 @@
     </div>
 
 
-    <!--    <div class="bg-warning m-5 pb-5">-->
-    <!--      <br><br>-->
-    <!--      <h2>Article:</h2>-->
-    <!--      <div class="input-group input-group-sm w-50  m-2">-->
-    <!--        <div class="input-group-prepend">-->
-    <!--          <span class="input-group-text" id="a1">Title</span>-->
-    <!--        </div>-->
-    <!--        <input type="text" class="form-control" placeholder="" aria-label="Small"-->
-    <!--          aria-describedby="inputGroup-sizing-sm">-->
-    <!--      </div>-->
-    <!--      <div class="form-group w-50">-->
-    <!--        <label for="a2">Text:</label>-->
-    <!--        <textarea id="a2" class="form-control" rows="5"></textarea>-->
-    <!--      </div>-->
-    <!--      <div class="input-group input-group-sm w-50  m-2 ">-->
-    <!--        <div class="input-group-prepend">-->
-    <!--          <span class="input-group-text" id="a3">Author database primary key</span>-->
-    <!--        </div>-->
-    <!--        <input type="text" class="form-control" placeholder="" aria-label="Small"-->
-    <!--          aria-describedby="inputGroup-sizing-sm">-->
-    <!--      </div>-->
+    <div class="bg-warning m-5 pb-5">
+      <br><br>
+      <h2>Article:</h2>
+      <div class="input-group input-group-sm w-50  m-2">
+        <div class="input-group-prepend">
+          <span class="input-group-text">Title</span>
+        </div>
+        <input id="a1" type="text" class="form-control" placeholder="" aria-label="Small"
+          aria-describedby="inputGroup-sizing-sm">
+      </div>
+      <div class="form-group w-50">
+        <label for="a2">Text:</label>
+        <textarea id="a2" class="form-control" rows="5"></textarea>
+      </div>
+      <div class="input-group input-group-sm w-50  m-2 ">
+        <div class="input-group-prepend">
+          <span class="input-group-text">Author database primary key</span>
+        </div>
+        <input id="a3" type="text" class="form-control" placeholder="" aria-label="Small"
+          aria-describedby="inputGroup-sizing-sm">
+      </div>
 
-    <!--      <button type="button" id="abtn" class="btn btn-danger">Add to database</button>-->
-    <!--    </div>-->
+      <button type="button" id="abtn" class="btn btn-danger">Add to database</button>
+    </div>
 
+    <div class="bg-danger m-5 pb-5">
+      <button type="button" id="sbtn" class="btn btn-info">Show articles</button>
+      <div id="ar"></div>
+    </div>
   </div>
 </body>
 
@@ -97,13 +101,80 @@
         password: $("#q4").val(),
       }
 
+      $("#q1").val("")
+      $("#q2").val("")
+      $("#q3").val("")
+      $("#q4").val("")
+
       axios.post('http://127.0.0.1:8080/account', data).then(res => {
         if (res.status === 200) {
-          console.log("Good job!", "You are successfully registered!", "success");
+          console.log("success", res);
         }
       }).catch(function (error) {
-          console.log(error);
-        });
+        console.log(error);
+      });
+
+
+    });
+
+
+    document.getElementById("abtn").addEventListener("click", () => {
+      const data = {
+        title: $("#a1").val(),
+        text: $("#a2").val(),
+        authorId: $("#a3").val()
+      }
+
+      $("#a1").val("")
+      $("#a2").val("")
+      $("#a3").val("")
+
+
+      axios.post('http://127.0.0.1:8080/articles', data).then(res => {
+        if (res.status === 200) {
+          console.log("success");
+        }
+      }).catch(function (error) {
+        console.log(error);
+      });
+
+
+    });
+
+
+    document.getElementById("sbtn").addEventListener("click", () => {
+
+      axios.get('http://127.0.0.1:8080/articles/all').then(res => {
+        if (res.status === 200) {
+          console.log("success");
+          console.log(res.data);
+          const node = document.getElementById("ar")
+          node.innerHTML = ``;
+
+          res.data.forEach(e => {
+            node.innerHTML += `<div class="m-1 pb-1 bg-info">
+              <br>
+              <h4>articleId:</h4>${e.id}, 
+              <br>
+              <h4>articleTitle:</h4>${e.title}, 
+              <br>
+              <h4>articleText:</h4>${e.text}, 
+              <br>
+              <br>
+              <h5>authorId:</h5>${e.authorAccount.id},
+              <br>
+              <h5>authorName:</h5>${e.authorAccount.firstName} ${e.authorAccount.lastName}
+              <br>
+              <h5>authorEmail:</h5>${e.authorAccount.email}
+              <br>
+              <h5>authorPass:</h5>${e.authorAccount.password}
+              <br>
+              </div>`;
+          });
+        }
+      }).catch(function (error) {
+        console.log(error);
+      });
 
 
     });

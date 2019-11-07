@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface ArticleService {
 
-  void createArticle(Article article);
+  Article createArticle(Article article);
   List<Article> allArticles();
 
 }

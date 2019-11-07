@@ -6,6 +6,8 @@ import com.webapp.sportmeetingpoint.repository.ArticleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 
 @Service
 public class AccountServiceImpl implements AccountService {
@@ -17,5 +19,12 @@ public class AccountServiceImpl implements AccountService {
   @Override
   public Account createAccount(Account account) {
     return accountRepository.save(account);
+  }
+
+  @Override
+  public Account findById(Long id) {
+    Optional<Account> result = accountRepository.findById(id);
+
+    return result.get();
   }
 }

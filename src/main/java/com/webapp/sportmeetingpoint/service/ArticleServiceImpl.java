@@ -18,8 +18,8 @@ public class ArticleServiceImpl implements ArticleService {
 
 
   @Override
-  public void createArticle(Article article) {
-    articleRepository.save(article);
+  public Article createArticle(Article article) {
+    return articleRepository.save(article);
   }
 
   @Override
