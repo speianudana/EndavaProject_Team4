@@ -29,3 +29,8 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### Frontend project ###
+sport-meeting-point-frontend/node_modules
+sport-meeting-point-frontend/build
+
