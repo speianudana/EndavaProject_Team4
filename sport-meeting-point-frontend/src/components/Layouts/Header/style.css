@@ -1,0 +1,44 @@
+.mainHeaderProp{
+    background: #01579b;
+}
+
+.aClass {
+  color: rgb(246, 246, 248);
+  padding: 0 11px;
+  position: relative;
+  filter: drop-shadow(1px 1px 1px rgb(69, 69, 94));
+  float: left;
+  font-family: Arial Narrow, sans-serif;
+  font-variant: normal;
+  font-style: normal;
+  font-weight: bold;
+  text-decoration: none;
+  font-size: 15px; 
+}
+
+.aClass:hover {
+  color: rgb(207, 207, 223);
+   text-decoration: none;
+}
+
+#logoProps{
+
+    font-family: Playfair Display, Georgia, Times New Roman, serif;
+    font-size: 22px;
+    font-style: italic;
+    color: rgb(246, 246, 248);
+    filter: drop-shadow(3px 2px 1px rgb(49, 49, 94));
+}
+
+#logoProps:hover{
+    cursor: pointer;
+}
+
+#btn01{
+    background: #69f0ae;
+    font-weight: 400;
+}
+
+#btn01:hover{
+    background: #00e676;
+}
