@@ -19,6 +19,7 @@ module.exports = (env, options) => {
             path: path.join(__dirname, './build'),
             filename: isDev ? '[name].dev.js' : '[name].[contenthash].js',
             chunkFilename: '[name]_[chunkhash].js',
+            publicPath: '/'
         },
         devtool: isDev ? 'inline-source-map' : '',
         devServer: isDev ? {
@@ -72,6 +73,9 @@ module.exports = (env, options) => {
                     },
                 },
             ]
+        },
+        devServer: {
+            historyApiFallback: true,
         },
         plugins: [
             new HtmlWebpackPlugin({

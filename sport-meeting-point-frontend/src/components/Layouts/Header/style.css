@@ -1,5 +1,9 @@
-.mainHeaderProp{
-    background: #01579b;
+@import "../../../mixins/VerticalGradient.mixin.scss";
+@import "../../../mixins/BoxShadow.mixin.scss";
+
+.mainHeaderProp {
+  @include gradient-vertical(#01579b, #0277bd);
+  /* @include box-shadow(22px, -2px, 13px, 2px, rgba(0, 0, 0, 0.45)); */
 }
 
 .aClass {
@@ -13,32 +17,34 @@
   font-style: normal;
   font-weight: bold;
   text-decoration: none;
-  font-size: 15px; 
+  font-size: 15px;
 }
 
 .aClass:hover {
   color: rgb(207, 207, 223);
-   text-decoration: none;
+  text-decoration: none;
 }
 
-#logoProps{
+#logoProps {
 
-    font-family: Playfair Display, Georgia, Times New Roman, serif;
-    font-size: 22px;
-    font-style: italic;
-    color: rgb(246, 246, 248);
-    filter: drop-shadow(3px 2px 1px rgb(49, 49, 94));
+  font-family: Playfair Display, Georgia, Times New Roman, serif;
+  font-size: 22px;
+  font-style: italic;
+  color: rgb(246, 246, 248);
+  filter: drop-shadow(3px 2px 1px rgb(49, 49, 94));
 }
 
-#logoProps:hover{
-    cursor: pointer;
+#logoProps:hover {
+  cursor: pointer;
+  text-decoration: none;
 }
 
-#btn01{
-    background: #69f0ae;
-    font-weight: 400;
+#btn01 {
+  background: #7ada9e;
+  color: rgb(25, 16, 78);
+  font-weight: 500;
 }
 
-#btn01:hover{
-    background: #00e676;
+#btn01:hover {
+  background: #51bd8a;
 }

@@ -1,12 +1,10 @@
 import React from 'react'
-import { HashRouter as Router, Route, Redirect } from 'react-router-dom'
-// import { BaseLayout } from '../layouts/BaseLayout'
+import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom'
 import { Header } from '../Layouts/Header'
 
 import { Index } from '../Pages/Home/Index'
-// import { About } from '../Pages/Home/About'
-
-
+import { Register } from '../Pages/Auth/Register'
+import { index, regestr } from './AppConstRoutes.js'
 
 
 export default class AppRouter extends React.Component {
@@ -18,8 +16,9 @@ export default class AppRouter extends React.Component {
         return (
             <Router>
                 <Header />
-                <Route exact path="/" render={() => (<Redirect to="/home/index" />)} />
-                <Route path="/home/index" component={Index} />
+                <Route exact path="/" render={() => (<Redirect to={index} />)} />
+                <Route path={index} component={Index} />
+                <Route path={regestr} component={Register} />
 
             </Router>)
 
