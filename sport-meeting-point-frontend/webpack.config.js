@@ -5,7 +5,7 @@ const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const webpack = require('webpack')
 
-
+// import moduleName from '../src/main/resources/static'
 
 module.exports = (env, options) => {
     const isDev = options.mode === 'development'
@@ -18,7 +18,8 @@ module.exports = (env, options) => {
             './src/main/index.js'
         ] : ['./src/main/index.js'],
         output: {
-            path: path.join(__dirname, './build'),
+            //'./build'
+            path: path.join(__dirname, '../src/main/resources/static'),
             filename: isDev ? '[name].dev.js' : '[name].[contenthash].js',
             chunkFilename: '[name]_[chunkhash].js',
             publicPath: '/'

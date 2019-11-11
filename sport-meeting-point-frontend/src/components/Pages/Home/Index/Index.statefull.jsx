@@ -16,7 +16,7 @@ class IndexStatefull extends Component {
     return (
       <Container>
         {/* <TestRedux /> */}
-        <h1>Home page</h1>
+        <h1>Home page1</h1>
 
       </Container>
     )
