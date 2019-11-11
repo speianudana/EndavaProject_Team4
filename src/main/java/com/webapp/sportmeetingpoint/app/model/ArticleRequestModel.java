@@ -1,4 +1,4 @@
-package com.webapp.sportmeetingpoint.model;
+package com.webapp.sportmeetingpoint.app.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

@@ -1,6 +1,6 @@
-package com.webapp.sportmeetingpoint.service;
+package com.webapp.sportmeetingpoint.app.service;
 
-import com.webapp.sportmeetingpoint.dto.Account;
+import com.webapp.sportmeetingpoint.app.dto.Account;
 
 public interface AccountService {
   Account createAccount(Account account);

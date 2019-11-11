@@ -1,11 +1,10 @@
-package com.webapp.sportmeetingpoint.service;
+package com.webapp.sportmeetingpoint.app.service;
 
-import com.webapp.sportmeetingpoint.dto.Article;
-import com.webapp.sportmeetingpoint.repository.ArticleRepository;
+import com.webapp.sportmeetingpoint.app.repository.ArticleRepository;
+import com.webapp.sportmeetingpoint.app.dto.Article;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 

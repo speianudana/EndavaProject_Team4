@@ -1,8 +1,8 @@
-package com.webapp.sportmeetingpoint.rest_controller;
+package com.webapp.sportmeetingpoint.app.rest_controller;
 
 
-import com.webapp.sportmeetingpoint.dto.Account;
-import com.webapp.sportmeetingpoint.service.AccountService;
+import com.webapp.sportmeetingpoint.app.service.AccountService;
+import com.webapp.sportmeetingpoint.app.dto.Account;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,6 +15,7 @@ public class AccountController {
 
 
   @RequestMapping("/register")
+  @CrossOrigin(origins = "*", allowedHeaders = "*")//annotation for frontend server request
   @PostMapping(consumes = "application/json", produces = "application/json")
   public Account addAccount(@RequestBody Account account){
 

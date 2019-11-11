@@ -1,6 +1,6 @@
-package com.webapp.sportmeetingpoint.repository;
+package com.webapp.sportmeetingpoint.app.repository;
 
-import com.webapp.sportmeetingpoint.dto.Article;
+import com.webapp.sportmeetingpoint.app.dto.Article;
 import org.springframework.data.repository.CrudRepository;
 
 

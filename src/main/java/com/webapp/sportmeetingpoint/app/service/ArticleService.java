@@ -1,6 +1,6 @@
-package com.webapp.sportmeetingpoint.service;
+package com.webapp.sportmeetingpoint.app.service;
 
-import com.webapp.sportmeetingpoint.dto.Article;
+import com.webapp.sportmeetingpoint.app.dto.Article;
 
 import java.util.List;
 

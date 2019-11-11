@@ -1,11 +1,11 @@
-package com.webapp.sportmeetingpoint.rest_controller;
+package com.webapp.sportmeetingpoint.app.rest_controller;
 
 
-import com.webapp.sportmeetingpoint.dto.Account;
-import com.webapp.sportmeetingpoint.dto.Article;
-import com.webapp.sportmeetingpoint.model.ArticleRequestModel;
-import com.webapp.sportmeetingpoint.service.AccountService;
-import com.webapp.sportmeetingpoint.service.ArticleService;
+import com.webapp.sportmeetingpoint.app.model.ArticleRequestModel;
+import com.webapp.sportmeetingpoint.app.service.AccountService;
+import com.webapp.sportmeetingpoint.app.service.ArticleService;
+import com.webapp.sportmeetingpoint.app.dto.Account;
+import com.webapp.sportmeetingpoint.app.dto.Article;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
