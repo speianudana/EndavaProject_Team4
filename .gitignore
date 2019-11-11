@@ -30,7 +30,12 @@ build/
 ### VS Code ###
 .vscode/
 
-### Frontend project ###
-sport-meeting-point-frontend/node_modules
-sport-meeting-point-frontend/build
+###
+src/main/resources/static
+
+#node_modules
+/sport-meeting-point-frontend/node_modules
+
+#build
+/sport-meeting-point-frontend/build
 
