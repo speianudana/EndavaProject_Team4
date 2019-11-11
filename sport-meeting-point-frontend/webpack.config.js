@@ -5,6 +5,8 @@ const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const webpack = require('webpack')
 
+
+
 module.exports = (env, options) => {
     const isDev = options.mode === 'development'
     console.log('mode: ' + options.mode)

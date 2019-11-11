@@ -15,7 +15,9 @@ class IndexStatefull extends Component {
   render() {
     return (
       <Container>
-        <TestRedux />
+        {/* <TestRedux /> */}
+        <h1>Home page</h1>
+
       </Container>
     )
   }

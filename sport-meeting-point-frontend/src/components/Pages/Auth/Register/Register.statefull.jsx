@@ -19,14 +19,14 @@ class AccountData {
 
 
   sendToServer() {
-    const data = {
+    const data1 = {
       firstName: this.firstName,
       lastName: this.lastName,
       email: this.email,
       password: this.password,
     }
 
-    axios.post(`${adress}/account/register`, data).then(res => {
+    axios.post(`${adress}/account/register`, data1).then(res => {
       if (res.status === 200) {
         alert(`Register success!!!`)
       }
