@@ -1,4 +1,4 @@
-package com.webapp.sportmeetingpoint.controller;
+package com.webapp.sportmeetingpoint.rest_controller;
 
 
 import com.webapp.sportmeetingpoint.dto.Account;

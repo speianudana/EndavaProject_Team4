@@ -1,4 +1,4 @@
-package com.webapp.sportmeetingpoint.controller;
+package com.webapp.sportmeetingpoint.rest_controller;
 
 
 import com.webapp.sportmeetingpoint.dto.Account;
@@ -14,10 +14,9 @@ public class AccountController {
   private AccountService accountService;
 
 
+  @RequestMapping("/register")
   @PostMapping(consumes = "application/json", produces = "application/json")
   public Account addAccount(@RequestBody Account account){
-
-
 
     return accountService.createAccount(account);
   }
