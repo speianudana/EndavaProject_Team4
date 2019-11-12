@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Container, Row, Col, Button, BDiv, BH4, BHr, InputGroup } from 'bootstrap-4-react';
-
+import { Link } from 'react-router-dom'
+import { auth } from '../../../App/AppConstRoutes.js'
 import style from './style.scss'
 
 
@@ -23,7 +24,7 @@ function RegisterStateless(props) {
         <Col col="md-2" order="md-1" mb="4"></Col>
         <Col md="8" order="md-2">
           <React.Fragment>
-            <BH4 mb="3">Registration</BH4>
+            <BH4 mb="3">Registration / <Link to={auth}>Log in</Link> </BH4>
             <br />
             <Row>
 

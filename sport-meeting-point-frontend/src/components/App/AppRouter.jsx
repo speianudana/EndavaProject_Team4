@@ -4,7 +4,8 @@ import { Header } from '../Layouts/Header'
 
 import { Index } from '../Pages/Home/Index'
 import { Register } from '../Pages/Auth/Register'
-import { index, regestr } from './AppConstRoutes.js'
+import { Auth } from '../Pages/Auth/Auth'
+import { index, regestr, auth } from './AppConstRoutes.js'
 
 
 export default class AppRouter extends React.Component {
@@ -19,7 +20,7 @@ export default class AppRouter extends React.Component {
                 <Route exact path="/" render={() => (<Redirect to={index} />)} />
                 <Route path={index} component={Index} />
                 <Route path={regestr} component={Register} />
-
+                <Route path={auth} component={Auth} />
             </Router>)
 
     }

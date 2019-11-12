@@ -4,8 +4,11 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const webpack = require('webpack')
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+
 
 // import moduleName from '../src/main/resources/static'
+const showDiagram = false
 
 module.exports = (env, options) => {
     const isDev = options.mode === 'development'
@@ -86,7 +89,7 @@ module.exports = (env, options) => {
                 filename: 'index.html',
                 // favicon: './favicon.ico'
             }),
-
+            ...(showDiagram ? [new BundleAnalyzerPlugin(),] : []),
             ...(isDev ? [] : [
                 new OptimizeCssAssetsPlugin({}),
                 new MiniCssExtractPlugin({
@@ -95,6 +98,7 @@ module.exports = (env, options) => {
                 }),
                 new CleanWebpackPlugin(),
                 new webpack.HashedModuleIdsPlugin(),
+
             ]),
         ],
         optimization: {

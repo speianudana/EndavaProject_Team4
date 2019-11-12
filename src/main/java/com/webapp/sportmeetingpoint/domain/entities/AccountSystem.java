@@ -1,19 +1,21 @@
-package com.webapp.sportmeetingpoint.app.dto;
-
-
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+package com.webapp.sportmeetingpoint.domain.entities;
 
 import javax.persistence.*;
+import java.util.List;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
-@Entity(name="Account")
-@Table(name = "account")
-@Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Account {
-
+@Getter
+@Setter
+@ToString
+@Entity(name = "AccountSystem")
+@Table(name = "account_system")
+public class AccountSystem {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "id", unique = true, nullable = false)
@@ -25,11 +27,8 @@ public class Account {
   @Column(name = "password", columnDefinition = "varchar(64)", nullable = false)
   private String password;
 
-  @Column(name = "first_name", columnDefinition = "varchar(64)")
-  private String firstName;
-
-  @Column(name = "last_name", columnDefinition = "varchar(64)")
-  private String lastName;
+  @Column(name = "is_activated", columnDefinition = "boolean default false")
+  private boolean is_activated;
 
 
 }
