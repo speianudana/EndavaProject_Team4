@@ -6,6 +6,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -19,6 +21,20 @@ public class UserActivity {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
+  @OneToOne(fetch = FetchType.LAZY,
+          cascade =  CascadeType.ALL,
+          mappedBy = "userActivity")
+  private UserSystem userSystem;
+
+  @OneToMany(
+          mappedBy = "userActivity"
+  )
+  private List<News> news = new ArrayList<>();
+
+  @OneToMany(
+          mappedBy = "userActivity"
+  )
+  private List<Event> events = new ArrayList<>();
 
 
 }

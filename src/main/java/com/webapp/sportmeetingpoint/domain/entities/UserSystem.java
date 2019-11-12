@@ -34,9 +34,13 @@ public class UserSystem {
   @JoinColumn(name = "user_personal_data_fk_id", nullable = false)
   private UserPersonalData userPersonalData;
 
-
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "user_role_fk_id")
   private UserRole userRole;
+
+  @OneToOne(fetch = FetchType.LAZY, optional = false)
+  @JoinColumn(name = "user_activity_fk_id", nullable = false)
+  private UserActivity userActivity;
+
 
 }
