@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 @NoArgsConstructor
@@ -18,8 +19,10 @@ public class News {
   @Id
   @Column(name = "id", unique = true, nullable = false)
   @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @NotNull
   private Long id;
 
+  @NotNull(message="Title is required!")
   @Column(name = "title", columnDefinition = "varchar(64)", nullable = false)
   private String title;
 

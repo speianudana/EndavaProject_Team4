@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 @NoArgsConstructor
@@ -20,15 +21,18 @@ public class Event {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
+  @NotNull(message = "Title is required!")
   @Column(name = "title", columnDefinition = "varchar(128)", nullable = false)
   private String title;
 
+  @NotNull
   @Column(name = "address", columnDefinition = "varchar(128)", nullable = false)
   private String address;
 
   @Column(name = "description", columnDefinition = "varchar(1000)", nullable = false)
   private String description;
 
+  @NotNull
   @Column(name = "date")
   private Date date;
 
