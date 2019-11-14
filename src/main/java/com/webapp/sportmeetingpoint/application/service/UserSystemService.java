@@ -5,7 +5,7 @@ import com.webapp.sportmeetingpoint.domain.entities.UserSystem;
 
 import java.util.List;
 
-public interface AccountService {
+public interface UserSystemService {
 
   UserSystem register(UserSystem userSystem);
 

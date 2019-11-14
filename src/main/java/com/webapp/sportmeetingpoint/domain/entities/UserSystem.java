@@ -20,7 +20,6 @@ public class UserSystem {
   private Long id;
 
   @Column(name = "email", columnDefinition = "varchar(64)", nullable = false)
-
   private String email;
 
   @Column(name = "password", columnDefinition = "varchar(64)", nullable = false)
@@ -30,15 +29,15 @@ public class UserSystem {
   private Boolean isActivated;
 
   //for data
-  @OneToOne(fetch = FetchType.LAZY, optional = false)
+  @OneToOne(fetch = FetchType.EAGER, optional = false)
   @JoinColumn(name = "user_personal_data_fk_id", nullable = false)
   private UserPersonalData userPersonalData;
 
-  @ManyToOne(fetch = FetchType.LAZY)
+  @ManyToOne(fetch = FetchType.EAGER)
   @JoinColumn(name = "user_role_fk_id")
   private UserRole userRole;
 
-  @OneToOne(fetch = FetchType.LAZY, optional = false)
+  @OneToOne(fetch = FetchType.EAGER, optional = false)
   @JoinColumn(name = "user_activity_fk_id", nullable = false)
   private UserActivity userActivity;
 

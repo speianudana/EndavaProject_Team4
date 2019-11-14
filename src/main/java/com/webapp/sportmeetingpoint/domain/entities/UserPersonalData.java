@@ -33,8 +33,7 @@ public class UserPersonalData {
   private Date birthDate;
 
 
-  @OneToOne(fetch = FetchType.LAZY,
-          cascade =  CascadeType.ALL,
+  @OneToOne(fetch = FetchType.EAGER,
           mappedBy = "userPersonalData")
   private UserSystem userSystem;
 

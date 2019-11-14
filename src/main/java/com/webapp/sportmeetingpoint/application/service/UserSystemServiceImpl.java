@@ -1,9 +1,7 @@
 package com.webapp.sportmeetingpoint.application.service;
 
-import com.webapp.sportmeetingpoint.domain.entities.AppUserRoles;
-import com.webapp.sportmeetingpoint.domain.entities.UserPersonalData;
-import com.webapp.sportmeetingpoint.domain.entities.UserRole;
-import com.webapp.sportmeetingpoint.domain.entities.UserSystem;
+import com.webapp.sportmeetingpoint.domain.entities.*;
+import com.webapp.sportmeetingpoint.persistance.UserActivityRepository;
 import com.webapp.sportmeetingpoint.persistance.UserPersonalDataRepository;
 import com.webapp.sportmeetingpoint.persistance.UserRoleRepository;
 import com.webapp.sportmeetingpoint.persistance.UserSystemRepository;
@@ -13,35 +11,44 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class AccountServiceImpl implements AccountService  {
+public class UserSystemServiceImpl implements UserSystemService {
 
 
   private final UserSystemRepository userSystemRepository;
   private final UserRoleRepository userRoleRepository;
   private final UserPersonalDataRepository userPersonalDataRepository;
+  private final UserActivityRepository userActivityRepository;
 
   @Autowired
-  public AccountServiceImpl(UserSystemRepository userSystemRepository, UserRoleRepository userRoleRepository,
-                            UserPersonalDataRepository userPersonalDataRepository) {
+  public UserSystemServiceImpl(UserSystemRepository userSystemRepository, UserRoleRepository userRoleRepository,
+                               UserActivityRepository userActivityRepository,
+                               UserPersonalDataRepository userPersonalDataRepository) {
     this.userSystemRepository = userSystemRepository;
     this.userRoleRepository = userRoleRepository;
     this.userPersonalDataRepository = userPersonalDataRepository;
+    this.userActivityRepository = userActivityRepository;
   }
 
 
   @Override
   public UserSystem register(UserSystem userSystem) {
     UserRole defaultRole = userRoleRepository.findByName(AppUserRoles.USER.toString()).get();
-    userSystem.setUserPersonalData(new UserPersonalData());
+    UserPersonalData defaultPersonalData = userPersonalDataRepository.save(new UserPersonalData());
+    UserActivity defaultUserActivity = userActivityRepository.save(new UserActivity());
+    userSystem.setUserPersonalData(defaultPersonalData);
+    userSystem.setUserActivity(defaultUserActivity);
     userSystem.setUserRole(defaultRole);
+
     userSystem.setIsActivated(true);
 
-    return userSystem;
+    UserSystem u = userSystemRepository.save(userSystem);
+
+    return u;
   }
 
   @Override
   public List<UserSystem> findAll() {
-    return null;
+    return userSystemRepository.findAll();
   }
 
   @Override

@@ -1,6 +1,7 @@
 package com.webapp.sportmeetingpoint;
 
 
+import com.webapp.sportmeetingpoint.application.service.UserSystemService;
 import com.webapp.sportmeetingpoint.domain.entities.AppUserRoles;
 import com.webapp.sportmeetingpoint.domain.entities.UserRole;
 import com.webapp.sportmeetingpoint.domain.entities.UserSystem;
@@ -29,29 +30,34 @@ public class SportMeetingPointApplication {
     }
 
     @Bean
-    public CommandLineRunner demo(UserSystemRepository userSystemRepository, UserRoleRepository userRoleRepository) {
+    public CommandLineRunner demo(UserSystemRepository userSystemRepository, UserRoleRepository userRoleRepository,
+                                  UserSystemService userSystemService) {
         return (args) -> {
 
-//            userRoleRepository.deleteAll();
 
-//            for (AppUserRoles role : AppUserRoles.values()) {
-//
-//                List<UserRole> userRoles = userRoleRepository.findAllByName(role.toString());
-//                if (userRoles.isEmpty()) {
-//                    userRoleRepository.save(new UserRole(role.ordinal(), role.toString(), null));
-//                } else {
-//                    log.info("user role name {}", userRoles.get(0).getName());
-//                }
-//            }
+            for (AppUserRoles role : AppUserRoles.values()) {
+
+                List<UserRole> userRoles = userRoleRepository.findAllByName(role.toString());
+                if (userRoles.isEmpty()) {
+                    userRoleRepository.save(new UserRole(role.ordinal(), role.toString(), null));
+                } else {
+                    log.info("user role name {}", userRoles.get(0).getName());
+                }
+            }
 
 
 //            userRoleRepository.findAll(Sort.by("name")).forEach(it -> log.info("sorted {}", it.getName()));
 //            userRoleRepository.findAll(PageRequest.of(0, 2)).forEach(it -> log.info("page 0 {}", it.getName()));
 //            userRoleRepository.findAll(PageRequest.of(1, 2)).forEach(it -> log.info("page 1 {}", it.getName()));
 //
-            UserSystem u = userSystemRepository.findByEmail("qer").get();
-            UserRole r = userRoleRepository.findByName("ADMIN").get();
+//            UserSystem u = userSystemRepository.findByEmail("qer").get();
+//            UserRole r = userRoleRepository.findByName("ADMIN").get();
 
+            UserSystem u = new UserSystem();
+            u.setPassword("qwerty");
+            u.setEmail("juju@mail.ru");
+
+            userSystemService.register(u);
 
             char c = 'z';
         };
