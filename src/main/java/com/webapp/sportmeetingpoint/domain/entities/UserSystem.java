@@ -12,7 +12,7 @@ import javax.persistence.*;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserSystemDAO {
+public class UserSystem {
 
   @Id
   @Column(name = "id", unique = true, nullable = false)
@@ -27,7 +27,7 @@ public class UserSystemDAO {
   private String password;
 
   @Column(name = "is_activated", columnDefinition = "boolean", nullable = false)
-  private String isActivated;
+  private Boolean isActivated;
 
   //for data
   @OneToOne(fetch = FetchType.LAZY, optional = false)

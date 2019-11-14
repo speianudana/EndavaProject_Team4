@@ -28,7 +28,7 @@ public class UserRole {
   @OneToMany(
           mappedBy = "userRole"
   )
-  private List<UserSystemDAO> usersSystem = new ArrayList<>();
+  private List<UserSystem> usersSystem = new ArrayList<>();
 
 
 
