@@ -1,8 +1,11 @@
 package com.webapp.sportmeetingpoint;
 
 
+import com.webapp.sportmeetingpoint.application.security.jwt.JwtUser;
+import com.webapp.sportmeetingpoint.application.security.jwt.JwtUserFactory;
 import com.webapp.sportmeetingpoint.application.service.UserSystemService;
 import com.webapp.sportmeetingpoint.domain.entities.AppUserRoles;
+import com.webapp.sportmeetingpoint.domain.entities.UserPersonalData;
 import com.webapp.sportmeetingpoint.domain.entities.UserRole;
 import com.webapp.sportmeetingpoint.domain.entities.UserSystem;
 import com.webapp.sportmeetingpoint.persistance.UserRoleRepository;
@@ -17,6 +20,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import java.util.List;
@@ -69,9 +74,38 @@ public class SportMeetingPointApplication {
 //            UserSystem u = userSystemService.findByEmail("qer");
 
 
-                UserSystem u = userSystemService.findById(18l);
+//                UserSystem u = userSystemService.findById(8l);
 
-            char c = 'z';
+          Calendar cal = Calendar.getInstance();
+          cal.set(Calendar.YEAR, 2000);
+          cal.set(Calendar.MONTH, Calendar.JANUARY);
+          cal.set(Calendar.DAY_OF_MONTH, 1);
+
+
+          UserSystem u = new UserSystem();
+          UserPersonalData p = new UserPersonalData();
+
+          p.setFirstName("Vania");
+          p.setLastName("Qwerty");
+          p.setTelephoneNumber("000000000000000");
+          p.setBirthDate(cal.getTime());
+
+          cal.set(Calendar.YEAR, 2017);
+          cal.set(Calendar.MONTH, Calendar.JANUARY);
+          cal.set(Calendar.DAY_OF_MONTH, 1);
+
+          u.setPassword("zqwerty");
+          u.setEmail("qjuju@mail.ru");
+          u.setUpdatedData(cal.getTime());
+          u.setUserPersonalData(p);
+
+          UserSystem u1 = userSystemService.register(u);
+
+          JwtUser ju = JwtUserFactory.create(u1);
+
+
+
+          char c = 'z';
         };
     }
 

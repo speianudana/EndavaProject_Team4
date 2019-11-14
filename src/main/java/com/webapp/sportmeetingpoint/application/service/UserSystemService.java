@@ -9,6 +9,7 @@ public interface UserSystemService {
 
   UserSystem register(UserSystem userSystem);
 
+
   List<UserSystem> findAll();
 
   UserSystem findByEmail(final String email);

@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity(name="UserSystem")
 @Table(name = "user_system")
@@ -28,7 +29,9 @@ public class UserSystem {
   @Column(name = "is_activated", columnDefinition = "boolean", nullable = false)
   private Boolean isActivated;
 
-  //for data
+  @Column(name = "updated_date")
+  private Date updatedData;//data inregistrarii  -  data resetarii passwordului sau a emailui
+
   @OneToOne(fetch = FetchType.EAGER, optional = false)
   @JoinColumn(name = "user_personal_data_fk_id", nullable = false)
   private UserPersonalData userPersonalData;
