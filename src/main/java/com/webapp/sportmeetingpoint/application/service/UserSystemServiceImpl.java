@@ -53,11 +53,12 @@ public class UserSystemServiceImpl implements UserSystemService {
 
   @Override
   public UserSystem findByEmail(String email) {
-    return null;
+    return userSystemRepository.findByEmail(email).orElse(null);
   }
 
   @Override
   public UserSystem findById(Long id) {
-    return null;
+    return userSystemRepository.findById(id).orElse(null);
+
   }
 }

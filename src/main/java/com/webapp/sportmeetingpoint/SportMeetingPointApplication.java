@@ -52,12 +52,24 @@ public class SportMeetingPointApplication {
 //
 //            UserSystem u = userSystemRepository.findByEmail("qer").get();
 //            UserRole r = userRoleRepository.findByName("ADMIN").get();
+//
+//            ==========================
 
-            UserSystem u = new UserSystem();
-            u.setPassword("qwerty");
-            u.setEmail("juju@mail.ru");
+//            UserSystem u = new UserSystem();
+//            u.setPassword("qwerty");
+//            u.setEmail("juju@mail.ru");
+//            userSystemService.register(u);
 
-            userSystemService.register(u);
+
+//            ==================================
+
+
+//            List<UserSystem> arr = userSystemRepository.findAll();
+
+//            UserSystem u = userSystemService.findByEmail("qer");
+
+
+                UserSystem u = userSystemService.findById(18l);
 
             char c = 'z';
         };
