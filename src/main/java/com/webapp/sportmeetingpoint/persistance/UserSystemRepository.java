@@ -1,10 +1,10 @@
 package com.webapp.sportmeetingpoint.persistance;
 
-import com.webapp.sportmeetingpoint.domain.entities.UserSystem;
+import com.webapp.sportmeetingpoint.domain.entities.UserSystemDAO;
 import org.springframework.data.repository.CrudRepository;
 
-public interface UserSystemRepository extends CrudRepository<UserSystem, Long> {
+public interface UserSystemRepository extends CrudRepository<UserSystemDAO, Long> {
 
-  UserSystem save(UserSystem u);
+  UserSystemDAO save(UserSystemDAO u);
 
 }

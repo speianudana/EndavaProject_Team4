@@ -36,7 +36,7 @@ public class UserPersonalData {
   @OneToOne(fetch = FetchType.LAZY,
           cascade =  CascadeType.ALL,
           mappedBy = "userPersonalData")
-  private UserSystem userSystem;
+  private UserSystemDAO userSystemDAO;
 
 //  @OneToOne(fetch = FetchType.LAZY, optional = false)
 //  @JoinColumn(name = "user_id", nullable = false)

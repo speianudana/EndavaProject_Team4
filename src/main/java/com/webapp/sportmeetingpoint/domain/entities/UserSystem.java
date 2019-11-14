@@ -12,7 +12,7 @@ import javax.persistence.*;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserSystem {
+public class UserSystemDAO {
 
   @Id
   @Column(name = "id", unique = true, nullable = false)
