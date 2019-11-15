@@ -1,5 +1,7 @@
 package com.webapp.sportmeetingpoint.application.security;
 
+import com.webapp.sportmeetingpoint.application.security.jwt.JwtUser;
+import com.webapp.sportmeetingpoint.application.security.jwt.JwtUserFactory;
 import com.webapp.sportmeetingpoint.application.service.UserSystemService;
 import com.webapp.sportmeetingpoint.domain.entities.UserSystem;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,9 +30,9 @@ public class JwtUserDetailsService implements UserDetailsService {
       throw new UsernameNotFoundException("User with email: "+ s + "not found!");
     }
 
+    JwtUser jwtUser = JwtUserFactory.create(userSystem);
 
-
-    return null;
+    return jwtUser;
   }
 
 
