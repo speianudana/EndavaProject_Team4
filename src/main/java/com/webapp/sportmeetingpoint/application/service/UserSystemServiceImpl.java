@@ -47,6 +47,23 @@ public class UserSystemServiceImpl implements UserSystemService {
     return userSystemRepository.save(userSystem);
   }
 
+  @Override
+  public UserSystem register(UserSystem userSystem, String userRole) {
+    UserRole defaultRole = userRoleRepository.findByName(userRole).get();
+    UserPersonalData defaultPersonalData =  userPersonalDataRepository.save(new UserPersonalData());
+    UserActivity defaultUserActivity = userActivityRepository.save(new UserActivity());
+    userSystem.setUserActivity(defaultUserActivity);
+    userSystem.setUserRole(defaultRole);
+    userSystem.setIsActivated(true);
+
+    if(userSystem.getUserPersonalData()==null)
+      userSystem.setUserPersonalData(defaultPersonalData);
+    else
+      userSystem.setUserPersonalData(userPersonalDataRepository.save(userSystem.getUserPersonalData()));
+
+    return userSystemRepository.save(userSystem);
+  }
+
 
 
   @Override

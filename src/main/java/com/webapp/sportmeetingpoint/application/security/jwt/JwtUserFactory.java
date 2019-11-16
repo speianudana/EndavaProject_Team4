@@ -1,5 +1,6 @@
 package com.webapp.sportmeetingpoint.application.security.jwt;
 
+import com.webapp.sportmeetingpoint.domain.entities.AppUserRoles;
 import com.webapp.sportmeetingpoint.domain.entities.UserPersonalData;
 import com.webapp.sportmeetingpoint.domain.entities.UserRole;
 import com.webapp.sportmeetingpoint.domain.entities.UserSystem;
@@ -44,6 +45,10 @@ public final class JwtUserFactory {
 
   private static List<GrantedAuthority> mapToGrantedAuthoritiesOne(UserRole userRole){
     List<GrantedAuthority> result = new ArrayList<>();
+//    result.add(new SimpleGrantedAuthority(AppUserRoles.USER.toString()));
+//    result.add(new SimpleGrantedAuthority(AppUserRoles.ADMIN.toString()));
+//    result.add(new SimpleGrantedAuthority(AppUserRoles.MODERATOR.toString()));
+//    result.add(new SimpleGrantedAuthority(AppUserRoles.SUPER_ADMIN.toString()));
     result.add(new SimpleGrantedAuthority(userRole.getName()));
 
     return result;

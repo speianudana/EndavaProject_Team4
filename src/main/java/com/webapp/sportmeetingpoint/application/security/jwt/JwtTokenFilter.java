@@ -2,6 +2,7 @@ package com.webapp.sportmeetingpoint.application.security.jwt;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.filter.GenericFilterBean;
 
 import javax.servlet.FilterChain;
@@ -11,6 +12,7 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
+@CrossOrigin
 public class JwtTokenFilter extends GenericFilterBean {
 
   private JwtTokenProvider jwtTokenProvider;
@@ -20,7 +22,9 @@ public class JwtTokenFilter extends GenericFilterBean {
   }
 
   @Override
-  public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
+  public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain)
+          throws IOException, ServletException {
+
     String token = jwtTokenProvider.resolveToken((HttpServletRequest) servletRequest);
 
     if(token!=null && jwtTokenProvider.validateToken(token)){
@@ -31,7 +35,11 @@ public class JwtTokenFilter extends GenericFilterBean {
 
       }
     }
+
     filterChain.doFilter(servletRequest, servletResponse);
+
+
+
 
 
   }

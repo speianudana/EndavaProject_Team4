@@ -15,16 +15,10 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Import;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
-import java.util.List;
 
 @Slf4j
 @SpringBootApplication
@@ -76,7 +70,7 @@ public class SportMeetingPointApplication {
 
 //                UserSystem u = userSystemService.findById(8l);
 
-          Calendar cal = Calendar.getInstance();
+          /*Calendar cal = Calendar.getInstance();
           cal.set(Calendar.YEAR, 2000);
           cal.set(Calendar.MONTH, Calendar.JANUARY);
           cal.set(Calendar.DAY_OF_MONTH, 1);
@@ -94,18 +88,17 @@ public class SportMeetingPointApplication {
           cal.set(Calendar.MONTH, Calendar.JANUARY);
           cal.set(Calendar.DAY_OF_MONTH, 1);
 
-          u.setPassword("zqwerty");
-          u.setEmail("qjuju@mail.ru");
+          u.setPassword("$2a$04$lhdXARN1DceHbjJ5/ezrKeApr55amsT/XnR2QSW9cH49K59wtZx.O");//test
+          u.setEmail("admin");
           u.setUpdatedData(cal.getTime());
           u.setUserPersonalData(p);
 
-          UserSystem u1 = userSystemService.register(u);
+          UserSystem u1 = userSystemService.register(u, AppUserRoles.ADMIN.toString());
 
-          JwtUser ju = JwtUserFactory.create(u1);
+          JwtUser ju = JwtUserFactory.create(u1);*/
 
 
 
-          char c = 'z';
         };
     }
 

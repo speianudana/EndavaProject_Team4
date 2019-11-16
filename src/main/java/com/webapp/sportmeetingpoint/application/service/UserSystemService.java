@@ -9,6 +9,7 @@ public interface UserSystemService {
 
   UserSystem register(UserSystem userSystem);
 
+  UserSystem register(UserSystem userSystem, String userRole);
 
   List<UserSystem> findAll();
 

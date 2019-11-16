@@ -4,6 +4,8 @@ import com.webapp.sportmeetingpoint.application.security.jwt.JwtUser;
 import com.webapp.sportmeetingpoint.application.security.jwt.JwtUserFactory;
 import com.webapp.sportmeetingpoint.application.service.UserSystemService;
 import com.webapp.sportmeetingpoint.domain.entities.UserSystem;
+import lombok.extern.log4j.Log4j;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -12,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 
 @Service
+@Log4j2
 public class JwtUserDetailsService implements UserDetailsService {
 
   private final UserSystemService userSystemService;
@@ -31,6 +34,7 @@ public class JwtUserDetailsService implements UserDetailsService {
     }
 
     JwtUser jwtUser = JwtUserFactory.create(userSystem);
+    //log.info("IN loadUserByUsername - user with username: {} successfully loaded", s);
 
     return jwtUser;
   }

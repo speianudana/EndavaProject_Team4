@@ -1,4 +1,4 @@
-package com.webapp.sportmeetingpoint.application.controller;
+package com.webapp.sportmeetingpoint.application.rest;
 
 
 import org.springframework.web.bind.annotation.CrossOrigin;
