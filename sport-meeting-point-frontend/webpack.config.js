@@ -8,7 +8,7 @@ const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPl
 
 
 // import moduleName from '../src/main/resources/static'
-const showDiagram = false
+const showDiagram = true
 
 module.exports = (env, options) => {
     const isDev = options.mode === 'development'

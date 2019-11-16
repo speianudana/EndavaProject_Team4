@@ -1,6 +1,7 @@
 import React from 'react'
 import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom'
 import { Header } from '../Layouts/Header'
+import { Footer } from '../Layouts/Footer'
 
 import { Index } from '../Pages/Home/Index'
 import { Register } from '../Pages/Auth/Register'
@@ -17,10 +18,36 @@ export default class AppRouter extends React.Component {
         return (
             <Router>
                 <Header />
+
                 <Route exact path="/" render={() => (<Redirect to={index} />)} />
                 <Route path={index} component={Index} />
                 <Route path={regestr} component={Register} />
                 <Route path={auth} component={Auth} />
+
+                <h1>
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                </h1>
+
+                <Footer />
             </Router>)
 
     }
