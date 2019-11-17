@@ -30,45 +30,23 @@ public class UserSystemServiceImpl implements UserSystemService {
   }
 
 
-//  @Override
-//  public UserSystem register(UserSystem userSystem) {
-//    UserRole defaultRole = userRoleRepository.findByName(AppUserRoles.USER.toString()).get();
-//    UserPersonalData defaultPersonalData =  userPersonalDataRepository.save(new UserPersonalData());
-//    UserActivity defaultUserActivity = userActivityRepository.save(new UserActivity());
-//    userSystem.setUserActivity(defaultUserActivity);
-//    userSystem.setUserRole(defaultRole);
-//    userSystem.setIsActivated(true);
-//
-//    if(userSystem.getUserPersonalData()==null)
-//      userSystem.setUserPersonalData(defaultPersonalData);
-//    else
-//      userSystem.setUserPersonalData(userPersonalDataRepository.save(userSystem.getUserPersonalData()));
-//
-//    return userSystemRepository.save(userSystem);
-//  }
 
   @Override
-  public UserSystem register(UserSystem userSystem) {
-    return null;
-  }
+  public UserSystem register(UserSystem userSystem, UserPersonalData userPersonalData, UserActivity activity, String userRole) {
 
-  @Override
-  public UserSystem register(UserSystem userSystem, String userRole) {
-    UserRole defaultRole = userRoleRepository.findByName(userRole).get();
-    UserPersonalData defaultPersonalData =  userPersonalDataRepository.save(new UserPersonalData());
-    UserActivity defaultUserActivity = userActivityRepository.save(new UserActivity());
-    userSystem.setUserActivity(defaultUserActivity);
-    userSystem.setUserRole(defaultRole);
-    userSystem.setIsActivated(true);
+    if(activity==null ) activity = new UserActivity();
+    if(userPersonalData == null) userPersonalData = new UserPersonalData();
 
-    if(userSystem.getUserPersonalData()==null)
-      userSystem.setUserPersonalData(defaultPersonalData);
-    else
-      userSystem.setUserPersonalData(userPersonalDataRepository.save(userSystem.getUserPersonalData()));
+    UserRole role = userRoleRepository.findByName(userRole).get();
+    UserActivity defaultUserActivity = userActivityRepository.save(activity);
+    UserPersonalData defaultPersonalData =  userPersonalDataRepository.save(userPersonalData);
+
+    userSystem.setUserActivity(activity);
+    userSystem.setUserRole(role);
+    userSystem.setUserPersonalData(userPersonalData);
 
     return userSystemRepository.save(userSystem);
   }
-
 
 
   @Override

@@ -4,10 +4,7 @@ package com.webapp.sportmeetingpoint.application.rest.auth;
 import com.webapp.sportmeetingpoint.application.dto.UserSystemDTO;
 import com.webapp.sportmeetingpoint.application.security.jwt.JwtTokenProvider;
 import com.webapp.sportmeetingpoint.application.service.UserSystemService;
-import com.webapp.sportmeetingpoint.domain.entities.AppUserRoles;
-import com.webapp.sportmeetingpoint.domain.entities.UserPersonalData;
-import com.webapp.sportmeetingpoint.domain.entities.UserRole;
-import com.webapp.sportmeetingpoint.domain.entities.UserSystem;
+import com.webapp.sportmeetingpoint.domain.entities.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -47,12 +44,11 @@ public class RegistrationController {
     userSystem.setPassword(jwtTokenProvider.passwordEncoder().encode(password));
     userSystem.setEmail(data.getEmail());
     userSystem.setUpdatedDate(now);
-    userSystem.setUserPersonalData(personalData);
+    userSystem.setIsActivated(true);
 
-    UserSystem result = userSystemService.register(userSystem, AppUserRoles.USER.toString());
+    UserSystem result = userSystemService.register(userSystem, personalData, null, AppUserRoles.USER.toString());
 
-    List<UserRole> userRoles = new ArrayList<>();
-    userRoles.add(result.getUserRole());
+    List<UserRole> userRoles = new ArrayList<>(Arrays.asList(result.getUserRole()));
 
     String token = jwtTokenProvider.createToken(result.getEmail(), userRoles);
 

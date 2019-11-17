@@ -29,8 +29,8 @@ class AccountData {
 
     axios.post(`${adress}/api/auth/registration`, data).then(res => {
       if (res.status === 200) {
-        alert(`Register success!!!`)
-        console.log(data)
+        alert(`Register success!!!`, '\nqqq')
+        console.log(res.data)
       }
     }).catch(function (error) {
       alert(`Register error!!!`)
