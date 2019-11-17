@@ -9,18 +9,23 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.userdetails.UserDetailsService;
+
+import javax.annotation.Resource;
 
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
   private final JwtTokenProvider jwtTokenProvider;
+  private final UserDetailsService userDetailsService;
 
   private static final String ADMIN_ENDPOINT = "/api/v1/admin/**";
   private static final String LOGIN_ENDPOINT = "/api/v1/auth/login";
 
   @Autowired
-  public SecurityConfig(JwtTokenProvider jwtTokenProvider) {
+  public SecurityConfig(JwtTokenProvider jwtTokenProvider, UserDetailsService userDetailsService) {
     this.jwtTokenProvider = jwtTokenProvider;
+    this.userDetailsService = userDetailsService;
   }
 
   @Bean
@@ -38,10 +43,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .and()
             .authorizeRequests()
             .antMatchers(LOGIN_ENDPOINT).permitAll()
-            .antMatchers(ADMIN_ENDPOINT).hasRole("ADMIN")
+            .antMatchers(ADMIN_ENDPOINT).permitAll()
             .anyRequest().authenticated()
             .and()
-            .apply(new JwtConfigurer(jwtTokenProvider));
+            .apply(new JwtConfigurer(jwtTokenProvider, userDetailsService));
   }
 }
 
