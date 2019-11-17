@@ -2,9 +2,9 @@ import React from 'react'
 import { Container, Row, Col, Button, BDiv, BH4, BHr, InputGroup } from 'bootstrap-4-react';
 import style from './style.scss'
 import { Link } from 'react-router-dom'
-import { regestr } from '../../../../components/App/AppConstRoutes.js'
+import { regestr } from '../../../../components/App/AppConstRoutes'
 
-export default function AuthStateless() {
+export default function LoginStateless() {
   return (
     <Container >
       <br /><br />
@@ -34,7 +34,7 @@ export default function AuthStateless() {
             </BDiv>
           </React.Fragment>
           <BHr mb="4" />
-          <Button primary lg block >Register</Button>
+          <Button primary lg block >LogIn</Button>
         </Col>
       </Row>
       <br />

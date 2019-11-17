@@ -5,8 +5,8 @@ import { Footer } from '../Layouts/Footer'
 
 import { Index } from '../Pages/Home/Index'
 import { Register } from '../Pages/Auth/Register'
-import { Auth } from '../Pages/Auth/Auth'
-import { index, regestr, auth } from './AppConstRoutes.js'
+import { Login } from '../Pages/Auth/LogIn'
+import { index, regestr, login } from './AppConstRoutes.js'
 
 
 export default class AppRouter extends React.Component {
@@ -22,7 +22,7 @@ export default class AppRouter extends React.Component {
                 <Route exact path="/" render={() => (<Redirect to={index} />)} />
                 <Route path={index} component={Index} />
                 <Route path={regestr} component={Register} />
-                <Route path={auth} component={Auth} />
+                <Route path={login} component={Login} />
 
                 <h1>
                     <br />

@@ -17,13 +17,11 @@ import java.util.*;
 @CrossOrigin
 public class RegistrationController {
 
-  private final AuthenticationManager authenticationManager;
   private final JwtTokenProvider jwtTokenProvider;
   private final UserSystemService userSystemService;
 
   @Autowired
-  public RegistrationController(AuthenticationManager authenticationManager, JwtTokenProvider jwtTokenProvider, UserSystemService userService) {
-    this.authenticationManager = authenticationManager;
+  public RegistrationController( JwtTokenProvider jwtTokenProvider, UserSystemService userService) {
     this.jwtTokenProvider = jwtTokenProvider;
     this.userSystemService = userService;
   }
