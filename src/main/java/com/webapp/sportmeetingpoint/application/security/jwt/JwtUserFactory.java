@@ -28,7 +28,7 @@ public final class JwtUserFactory {
             u.getPassword(),
             u.getEmail(),
             u.getIsActivated(),
-            u.getUpdatedData(),
+            u.getUpdatedDate(),
             mapToGrantedAuthoritiesOne(u.getUserRole())
     );
 

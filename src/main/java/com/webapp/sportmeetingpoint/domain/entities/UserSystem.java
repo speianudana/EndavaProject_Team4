@@ -30,7 +30,7 @@ public class UserSystem {
   private Boolean isActivated;
 
   @Column(name = "updated_date")
-  private Date updatedData;//data inregistrarii  -  data resetarii passwordului sau a emailui
+  private Date updatedDate;//data inregistrarii  -  data resetarii passwordului sau a emailui
 
   @OneToOne(fetch = FetchType.EAGER, optional = false)
   @JoinColumn(name = "user_personal_data_fk_id", nullable = false)

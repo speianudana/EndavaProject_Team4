@@ -9,10 +9,11 @@ import lombok.Data;
 @Data
 public class UserSystemDTO {
   private Long id;
-  private String username;
+  private String username;//equal email
   private String firstName;
   private String lastName;
   private String email;
+  private String password;
 
   public UserSystem toUserSystem(){
     UserSystem u = new UserSystem();
@@ -23,6 +24,7 @@ public class UserSystemDTO {
     p.setUserSystem(u);
     u.setUserPersonalData(p);
     u.setEmail(email);
+    u.setPassword(password);
 
     return u;
   }

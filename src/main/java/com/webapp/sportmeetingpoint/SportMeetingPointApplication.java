@@ -33,16 +33,16 @@ public class SportMeetingPointApplication {
                                   UserSystemService userSystemService) {
         return (args) -> {
 
-
-            for (AppUserRoles role : AppUserRoles.values()) {
-
-                List<UserRole> userRoles = userRoleRepository.findAllByName(role.toString());
-                if (userRoles.isEmpty()) {
-                    userRoleRepository.save(new UserRole(role.ordinal(), role.toString(), null));
-                } else {
-                    log.info("user role name {}", userRoles.get(0).getName());
-                }
-            }
+//
+//            for (AppUserRoles role : AppUserRoles.values()) {
+//
+//                List<UserRole> userRoles = userRoleRepository.findAllByName(role.toString());
+//                if (userRoles.isEmpty()) {
+//                    userRoleRepository.save(new UserRole(role.ordinal(), role.toString(), null));
+//                } else {
+//                    log.info("user role name {}", userRoles.get(0).getName());
+//                }
+//            }
 
 
 //            userRoleRepository.findAll(Sort.by("name")).forEach(it -> log.info("sorted {}", it.getName()));
@@ -90,7 +90,7 @@ public class SportMeetingPointApplication {
 
           u.setPassword("$2a$04$lhdXARN1DceHbjJ5/ezrKeApr55amsT/XnR2QSW9cH49K59wtZx.O");//test
           u.setEmail("admin");
-          u.setUpdatedData(cal.getTime());
+          u.setUpdatedDate(cal.getTime());
           u.setUserPersonalData(p);
 
           UserSystem u1 = userSystemService.register(u, AppUserRoles.ADMIN.toString());

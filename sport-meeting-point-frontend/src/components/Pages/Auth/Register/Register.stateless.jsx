@@ -10,7 +10,7 @@ function RegisterStateless(props) {
   const [regData, setRegData] = useState({
     firstName: '',
     lastName: '',
-    username: '',
+    // username: '',
     email: '',
     password: '',
     passwordRepeat: ''
@@ -50,14 +50,14 @@ function RegisterStateless(props) {
 
             </Row>
 
-            <BDiv mb="3">
+            {/* <BDiv mb="3">
               <label htmlFor="username">Username</label>
               <InputGroup>
                 <input onChange={e => setRegData({ ...regData, username: e.target.value })}
                   value={regData.username}
                   className={style.inputType1} type="text" name="username" id="username" />
               </InputGroup>
-            </BDiv>
+            </BDiv> */}
 
             <BDiv mb="3">
               <label htmlFor="email">Email</label>
