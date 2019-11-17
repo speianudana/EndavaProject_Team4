@@ -1,6 +1,6 @@
 package com.webapp.sportmeetingpoint.application.config;
 
-import com.webapp.sportmeetingpoint.application.security.jwt.JwtConfigurer;
+import com.webapp.sportmeetingpoint.application.security.jwt.JwtSecurityConfigurer;
 import com.webapp.sportmeetingpoint.application.security.jwt.JwtTokenProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -17,15 +17,13 @@ import javax.annotation.Resource;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
   private final JwtTokenProvider jwtTokenProvider;
-  private final UserDetailsService userDetailsService;
 
   private static final String ADMIN_ENDPOINT = "/api/v1/admin/**";
   private static final String LOGIN_ENDPOINT = "/api/v1/auth/login";
 
   @Autowired
-  public SecurityConfig(JwtTokenProvider jwtTokenProvider, UserDetailsService userDetailsService) {
+  public SecurityConfig(JwtTokenProvider jwtTokenProvider) {
     this.jwtTokenProvider = jwtTokenProvider;
-    this.userDetailsService = userDetailsService;
   }
 
   @Bean
@@ -43,10 +41,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .and()
             .authorizeRequests()
             .antMatchers(LOGIN_ENDPOINT).permitAll()
-            .antMatchers(ADMIN_ENDPOINT).permitAll()
+            .antMatchers(ADMIN_ENDPOINT).hasRole("ADMIN")
             .anyRequest().authenticated()
             .and()
-            .apply(new JwtConfigurer(jwtTokenProvider, userDetailsService));
+            .apply(new JwtSecurityConfigurer(jwtTokenProvider));
   }
 }
 

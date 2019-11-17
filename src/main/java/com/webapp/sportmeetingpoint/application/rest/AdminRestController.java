@@ -28,7 +28,7 @@ public class AdminRestController {
     this.userService = userService;
   }
 
-  @PreAuthorize("hasRole('ADMIN')")
+//  @PreAuthorize("hasRole('ADMIN')")
   @GetMapping(value = "users/{id}")
   public ResponseEntity getUserById(@PathVariable(name = "id") Long id) {
     Map<Object, Object> result = new HashMap<>();
