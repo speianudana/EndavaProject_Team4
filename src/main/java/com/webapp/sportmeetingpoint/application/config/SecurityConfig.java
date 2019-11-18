@@ -9,16 +9,13 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.userdetails.UserDetailsService;
 
-import javax.annotation.Resource;
 
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
   private final JwtTokenProvider jwtTokenProvider;
 
-  private static final String ADMIN_ENDPOINT = "/api/v1/admin/**";
   private static final String AUTH_ENDPOINT = "/api/auth/**";
 
   @Autowired
@@ -41,7 +38,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .and()
             .authorizeRequests()
             .antMatchers(AUTH_ENDPOINT).permitAll()
-            .antMatchers(ADMIN_ENDPOINT).hasRole("ADMIN")
+            .antMatchers("/api/test/user").hasRole("USER")
+            .antMatchers("/api/test/admin ").hasRole("ADMIN")
             .anyRequest().authenticated()
             .and()
             .apply(new JwtSecurityConfigurer(jwtTokenProvider));

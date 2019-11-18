@@ -12,13 +12,13 @@ import java.util.*;
 public class TestController {
 
 
-  @PostMapping("/user")
-  public ResponseEntity user(@RequestBody AuthenticationRequestDTO requestDTO){
+  @GetMapping("/user")
+  public ResponseEntity user(){
     return ResponseEntity.ok("message for users");
   }
 
-  @PostMapping("/admin")
-  public ResponseEntity admin(@RequestBody AuthenticationRequestDTO requestDTO){
+  @GetMapping("/admin")
+  public ResponseEntity admin(){
     return ResponseEntity.ok("message for admin");
   }
 

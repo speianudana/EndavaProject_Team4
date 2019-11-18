@@ -3,23 +3,18 @@ import {
   Container,
   Row,
   Col,
-  Display4,
-  Lead,
-  Button,
   List,
-  BNav,
   BA,
-  BDiv,
-  BSvg,
   BSmall
 } from 'bootstrap-4-react';
-
+import style1 from './style.scss'
+import { Link } from 'react-router-dom'
 
 const style = {
   siteHeader: {
     backgroundColor: 'rgba(0, 0, 0, .85)',
     a: {
-      color: '#999'
+      color: 'white'
     }
   },
   product: {
@@ -59,61 +54,112 @@ const Footer = props => (
   <Container as="footer" py="5">
     <Row>
       <Col col="12 md">
-        <BSmall display="block" mb="3" text="muted">&copy; 2017-2018</BSmall>
+        <BSmall style={{ color: 'rgb(221, 221, 221)' }} display="block" mb="3" >&copy; 2019 - ~~~~</BSmall>
       </Col>
       <Col col="6 md">
-        <h5>Features</h5>
+        <h3 className={style1.titleText}>Features</h3>
+        <br />
         <List unstyled>
-          <List.Item><BA text="muted" href="#">Cool stuff</BA></List.Item>
-          <List.Item><BA text="muted" href="#">Random feature</BA></List.Item>
-          <List.Item><BA text="muted" href="#">Team feature</BA></List.Item>
-          <List.Item><BA text="muted" href="#">Stuff for developers</BA></List.Item>
-          <List.Item><BA text="muted" href="#">Another one</BA></List.Item>
-          <List.Item><BA text="muted" href="#">Last time</BA></List.Item>
+          <List.Item>
+            <Link className={style1.linkStyle} to={""}>Example</Link>
+          </List.Item>
+          <List.Item>
+            <Link className={style1.linkStyle} to={""}>Example</Link>
+          </List.Item>
+          <List.Item>
+            <Link className={style1.linkStyle} to={""}>Example</Link>
+          </List.Item>
+          <List.Item>
+            <Link className={style1.linkStyle} to={""}>Example</Link>
+          </List.Item>
+          <List.Item>
+            <Link className={style1.linkStyle} to={""}>Example</Link>
+          </List.Item>
+          <List.Item>
+            <Link className={style1.linkStyle} to={""}>Example</Link>
+          </List.Item>
         </List>
       </Col>
       <Col col="6 md">
-        <h5>Resources</h5>
+        <h3 className={style1.titleText}>Resources</h3>
+        <br />
         <List unstyled>
-          <List.Item><BA text="muted" href="#">Resource</BA></List.Item>
-          <List.Item><BA text="muted" href="#">Resource name</BA></List.Item>
-          <List.Item><BA text="muted" href="#">Another resource</BA></List.Item>
-          <List.Item><BA text="muted" href="#">Final resource</BA></List.Item>
+          <List.Item>
+            <Link className={style1.linkStyle} to={""}>Example</Link>
+          </List.Item>
+          <List.Item>
+            <Link className={style1.linkStyle} to={""}>Example</Link>
+          </List.Item>
+          <List.Item>
+            <Link className={style1.linkStyle} to={""}>Example</Link>
+          </List.Item>
+          <List.Item>
+            <Link className={style1.linkStyle} to={""}>Example</Link>
+          </List.Item>
+          <List.Item>
+            <Link className={style1.linkStyle} to={""}>Example</Link>
+          </List.Item>
+          <List.Item>
+            <Link className={style1.linkStyle} to={""}>Example</Link>
+          </List.Item>
         </List>
       </Col>
       <Col col="6 md">
-        <h5>Resources</h5>
+        <h3 className={style1.titleText}>Resources</h3>
+        <br />
         <List unstyled>
-          <List.Item><BA text="muted" href="#">Business</BA></List.Item>
-          <List.Item><BA text="muted" href="#">Education</BA></List.Item>
-          <List.Item><BA text="muted" href="#">Government</BA></List.Item>
-          <List.Item><BA text="muted" href="#">Gaming</BA></List.Item>
+          <List.Item>
+            <Link className={style1.linkStyle} to={""}>Example</Link>
+          </List.Item>
+          <List.Item>
+            <Link className={style1.linkStyle} to={""}>Example</Link>
+          </List.Item>
+          <List.Item>
+            <Link className={style1.linkStyle} to={""}>Example</Link>
+          </List.Item>
+          <List.Item>
+            <Link className={style1.linkStyle} to={""}>Example</Link>
+          </List.Item>
+          <List.Item>
+            <Link className={style1.linkStyle} to={""}>Example</Link>
+          </List.Item>
+          <List.Item>
+            <Link className={style1.linkStyle} to={""}>Example</Link>
+          </List.Item>
         </List>
       </Col>
       <Col col="6 md">
-        <h5>About</h5>
+        <h3 className={style1.titleText}>About</h3>
+        <br />
         <List unstyled>
-          <List.Item><BA text="muted" href="#">Team</BA></List.Item>
-          <List.Item><BA text="muted" href="#">Locations</BA></List.Item>
-          <List.Item><BA text="muted" href="#">Privacy</BA></List.Item>
-          <List.Item><BA text="muted" href="#">Terms</BA></List.Item>
+          <List.Item>
+            <Link className={style1.linkStyle} to={""}>Example</Link>
+          </List.Item>
+          <List.Item>
+            <Link className={style1.linkStyle} to={""}>Example</Link>
+          </List.Item>
+          <List.Item>
+            <Link className={style1.linkStyle} to={""}>Example</Link>
+          </List.Item>
+          <List.Item>
+            <Link className={style1.linkStyle} to={""}>Example</Link>
+          </List.Item>
+          <List.Item>
+            <Link className={style1.linkStyle} to={""}>Example</Link>
+          </List.Item>
+          <List.Item>
+            <Link className={style1.linkStyle} to={""}>Example</Link>
+          </List.Item>
         </List>
       </Col>
     </Row>
   </Container>
 )
 
-style.product.device2 = Object.assign({}, style.product.device, {
-  top: '-25%',
-  right: 'auto',
-  bottom: '0',
-  left: '5%',
-  backgroundColor: '#e5e5e5'
-});
 
 export default function FooterStateless() {
   return (
-    <footer>
+    <footer id={style1.footerStyle} >
       <Footer />
     </footer>
   )
