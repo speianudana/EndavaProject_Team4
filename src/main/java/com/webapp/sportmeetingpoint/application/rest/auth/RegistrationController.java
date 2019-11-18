@@ -46,7 +46,7 @@ public class RegistrationController {
 
     UserSystem result = userSystemService.register(userSystem, personalData, null, AppUserRoles.USER.toString());
 
-    List<UserRole> userRoles = new ArrayList<>(Arrays.asList(result.getUserRole()));
+    List<UserRole> userRoles = new ArrayList<>(Collections.singletonList(result.getUserRole()));
 
     String token = jwtTokenProvider.createToken(result.getEmail(), userRoles);
 

@@ -4,7 +4,13 @@ import style from './style.scss'
 import { Link } from 'react-router-dom'
 import { regestr } from '../../../../components/App/AppConstRoutes'
 
-export default function LoginStateless() {
+export default function LoginStateless(props) {
+
+  const [loginData, setLoginData] = React.useState({
+    username: '',
+    password: ''
+  })
+
   return (
     <Container >
       <br /><br />
@@ -18,6 +24,8 @@ export default function LoginStateless() {
               <label htmlFor="email">Email</label>
               <input
                 className={style.inputType1}
+                onChange={e => setLoginData({ ...loginData, username: e.target.value })}
+                value={loginData.username}
                 type="text"
                 name="email"
                 id="email"
@@ -27,6 +35,8 @@ export default function LoginStateless() {
             <BDiv mb="3">
               <label htmlFor="password">Password</label>
               <input
+                onChange={e => setLoginData({ ...loginData, password: e.target.value })}
+                value={loginData.password}
                 className={style.inputType1}
                 type="password"
                 name="password"
@@ -34,7 +44,12 @@ export default function LoginStateless() {
             </BDiv>
           </React.Fragment>
           <BHr mb="4" />
-          <Button primary lg block >LogIn</Button>
+          <Button primary lg block onClick={() => {
+            props.handleBtnLogIn(loginData.username, loginData.password)
+            setLoginData({ ...loginData, password: '', username: '' })
+          }} >
+            LogIn</Button>
+
         </Col>
       </Row>
       <br />

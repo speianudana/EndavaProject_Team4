@@ -5,12 +5,11 @@ import { login } from '../../../App/AppConstRoutes.js'
 import style from './style.scss'
 
 
-function RegisterStateless(props) {
+function RegistrationStateless(props) {
 
   const [regData, setRegData] = useState({
     firstName: '',
     lastName: '',
-    // username: '',
     email: '',
     password: '',
     passwordRepeat: ''
@@ -50,15 +49,6 @@ function RegisterStateless(props) {
 
             </Row>
 
-            {/* <BDiv mb="3">
-              <label htmlFor="username">Username</label>
-              <InputGroup>
-                <input onChange={e => setRegData({ ...regData, username: e.target.value })}
-                  value={regData.username}
-                  className={style.inputType1} type="text" name="username" id="username" />
-              </InputGroup>
-            </BDiv> */}
-
             <BDiv mb="3">
               <label htmlFor="email">Email</label>
               <input onChange={e => setRegData({ ...regData, email: e.target.value })}
@@ -92,7 +82,17 @@ function RegisterStateless(props) {
 
           </React.Fragment>
           <BHr mb="4" />
-          <Button onClick={() => { props.handleBtnRegistr(regData) }} primary lg block >Register</Button>
+          <Button onClick={() => {
+            props.handleBtnRegistr(regData)
+            setRegData({
+              ...regData,
+              firstName: '',
+              lastName: '',
+              email: '',
+              password: '',
+              passwordRepeat: ''
+            })
+          }} primary lg block >Registration</Button>
         </Col>
       </Row>
       <br />
@@ -105,4 +105,4 @@ function RegisterStateless(props) {
 }
 
 
-export default React.memo(RegisterStateless)
+export default React.memo(RegistrationStateless)

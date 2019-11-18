@@ -1,5 +1,5 @@
-import RegisterLoadable from './Register.loadable.jsx'
+import RegistrationLoadable from './Registration.loadable.jsx'
 
-const Register = RegisterLoadable
+const Register = RegistrationLoadable
 
 export { Register }

@@ -13,10 +13,7 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
 
@@ -29,13 +26,15 @@ public class LogInController {
   private final UserSystemService userService;
 
   @Autowired
-  public LogInController(AuthenticationManager authenticationManager, JwtTokenProvider jwtTokenProvider, UserSystemService userService) {
+  public LogInController(AuthenticationManager authenticationManager, JwtTokenProvider jwtTokenProvider,
+                         UserSystemService userService) {
     this.authenticationManager = authenticationManager;
     this.jwtTokenProvider = jwtTokenProvider;
     this.userService = userService;
   }
 
   @PostMapping("/login")
+  @CrossOrigin
   public ResponseEntity login(@RequestBody AuthenticationRequestDTO requestDTO){
     try{
       String username = requestDTO.getUsername();
@@ -48,7 +47,7 @@ public class LogInController {
         throw new UsernameNotFoundException("User not found!");
       }
 
-      List<UserRole> userRoles = new ArrayList<>(Arrays.asList(user.getUserRole()));
+      List<UserRole> userRoles = new ArrayList<>(Collections.singletonList(user.getUserRole()));
 
       String token = jwtTokenProvider.createToken(username, userRoles);
 
