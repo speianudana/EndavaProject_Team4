@@ -3,6 +3,7 @@ import LoginStateless from './Login.stateless.jsx'
 import LogInData from './LogInData.class'
 import axios from 'axios'
 import { adress } from '../../../../utils/server-adress'
+import { tokenWorker } from '../../../../utils/token-worker.js'
 
 export default class LoginStatefull extends Component {
 
@@ -24,11 +25,15 @@ export default class LoginStatefull extends Component {
 
     axios.post(`${adress}/api/auth/login`, logInObj).then(res => {
       if (res.status === 200) {
-        alert(`LogIn success, look at the console!!`)
-        console.log(res.data)
+        tokenWorker.saveTokenInLocalStorage(res.data)
+
+
+        //tokenWorker.saveTokenInLocalStorage(res.data)
+        // console.log(tokenWorker.loadTokenFromLocalStorage())
+
       }
     }).catch(function (error) {
-      alert(`LogIn error!!!`)
+      console.log(error)
     });
 
   }

@@ -27,6 +27,7 @@ export default class RegistrationStatefull extends React.Component {
       if (res.status === 200) {
         alert(`Register success, look at the console!!`)
         console.log(res.data)
+
       }
     }).catch(function (error) {
       alert(`Register error!!!`)
