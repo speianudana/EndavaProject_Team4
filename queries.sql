@@ -11,6 +11,11 @@ drop table public."event", public."news", public."user_activity", public."user_p
 -- /delete all tables
 
 
+--insert news
+
+insert into public."news" ("context", "date", "title", "user_activity_fk_id")
+values ('Text1', NOW(), 'Title1', 19);
 
 
+--  /insert news
 

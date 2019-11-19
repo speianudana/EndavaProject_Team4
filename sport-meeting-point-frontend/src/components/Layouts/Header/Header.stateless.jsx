@@ -11,7 +11,6 @@ const Menu = props => (
     alignItems="center"
     p="3"
     px="md-4"
-    mb="3"
     border="bottom"
     shadow="sm"
   >

@@ -33,8 +33,8 @@ public class News {
   private Date date;
 
 
-  @OneToOne(fetch = FetchType.LAZY, optional = false)
-  @JoinColumn(name = "user_activity_fk_id", nullable = false)
+  @ManyToOne(fetch = FetchType.EAGER)
+  @JoinColumn(name = "user_activity_fk_id", nullable = true)
   private UserActivity userActivity;
 
 

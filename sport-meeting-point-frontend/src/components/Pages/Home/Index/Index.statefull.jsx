@@ -18,12 +18,11 @@ class IndexStatefull extends Component {
     return (
       <>
         <Header />
+        {/* <Article>Article example</Article> */}
         <NewsContainer />
 
-        {/* <Header />
-        <Article>Article example</Article> */}
 
-        {/* <App /> */}
+
 
       </>
     )
