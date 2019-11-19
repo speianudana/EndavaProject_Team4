@@ -55,7 +55,7 @@ public class LogInController {
       response.put("username", username);
       response.put("token", token);
 
-      return ResponseEntity.ok(response);
+      return ResponseEntity.ok(token);
 
     }catch(AuthenticationException e){
       throw new BadCredentialsException("Invalid username or password...");

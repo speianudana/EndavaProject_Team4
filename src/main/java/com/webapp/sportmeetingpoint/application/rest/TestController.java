@@ -14,12 +14,12 @@ public class TestController {
 
   @GetMapping("/user")
   public ResponseEntity user(){
-    return ResponseEntity.ok("message for users");
+    return ResponseEntity.ok("secret message for users");
   }
 
   @GetMapping("/admin")
   public ResponseEntity admin(){
-    return ResponseEntity.ok("message for admin");
+    return ResponseEntity.ok("secret message for admin");
   }
 
 
