@@ -18,7 +18,7 @@ export default class LoginStatefull extends Component {
     if (!logInObj.isValid()) {
 
       console.log(logInObj.error_msgs)
-      alert('error: look at the console!!')
+      // alert('error: look at the console!!')
       return;
     }
 
@@ -40,7 +40,7 @@ export default class LoginStatefull extends Component {
   render() {
     return (
       <div>
-        <LoginStateless handleBtnLogIn={this.handleBtnLogIn} />
+        <LoginStateless onHandleBtnLogIn={this.handleBtnLogIn} />
       </div>
     )
   }

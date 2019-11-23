@@ -1,0 +1,57 @@
+.containerMenu {
+  background: rgb(150, 184, 228);
+}
+
+.menu {
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  list-style-type: none;
+}
+
+.menuElm {
+  background-color: transparent;
+  color: rgb(3, 1, 20);
+  width: 100px;
+  text-align: center;
+  font-size: 30px;
+  align-self: center;
+}
+
+.logo {
+  color: rgb(3, 60, 107);
+  text-decoration: none;
+  filter: drop-shadow(1px 1px 1px rgb(69, 69, 94));
+  font-size: 30px;
+}
+
+.logo:hover {
+  text-decoration: none;
+  color: rgb(3, 60, 107);
+}
+
+
+.aClass {
+  font-size: 22px;
+  color: rgb(0, 6, 92);
+}
+
+.aClass:hover {
+  color: rgb(9, 17, 134);
+  text-decoration-line: none;
+}
+
+.btnMenu {
+  border: none;
+  outline: none;
+  background: transparent;
+  padding: 0 10px;
+  transition: background .2s linear;
+}
+
+.btnMenu:hover {
+  background: rgba(35, 66, 107, 0.22);
+  cursor: pointer;
+}

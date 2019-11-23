@@ -45,7 +45,7 @@ export default function LoginStateless(props) {
           </React.Fragment>
           <BHr mb="4" />
           <Button primary lg block onClick={() => {
-            props.handleBtnLogIn(loginData.username, loginData.password)
+            props.onHandleBtnLogIn(loginData.username, loginData.password)
             setLoginData({ ...loginData, password: '', username: '' })
           }} >
             LogIn</Button>

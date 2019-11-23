@@ -28,9 +28,12 @@ module.exports = (env, options) => {
         },
         devtool: isDev ? 'inline-source-map' : '',
         devServer: isDev ? {
-            contentBase: "/build/client",
-            overlay: true,
-            // host: '192.168.1.5',
+            // contentBase: "/build/client",
+            // overlay: true,
+            // port: 8085
+            // host: '192.168.1.3',
+            // port: 8085
+            // host: '127.0.0.1:8085'
         } : {},
         module: {
             rules: [
