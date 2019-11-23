@@ -9,7 +9,7 @@ import java.util.Date;
 
 public class JwtUser implements UserDetails {
 
-  private  Long id;
+  private  Integer id;
   private  String username;
   private  String firstName;
   private  String lastName;
@@ -19,7 +19,7 @@ public class JwtUser implements UserDetails {
   private  Date lastPasswordResetDate;
   private  Collection<? extends GrantedAuthority> authorities;
 
-  public JwtUser(Long id, String userName, String firstName, String lastName, String password, String email, Boolean enabled, Date lastPasswordResetDate, Collection<? extends GrantedAuthority> authorities) {
+  public JwtUser(Integer id, String userName, String firstName, String lastName, String password, String email, Boolean enabled, Date lastPasswordResetDate, Collection<? extends GrantedAuthority> authorities) {
     this.id = id;
     this.username = userName;
     this.firstName = firstName;
@@ -33,7 +33,7 @@ public class JwtUser implements UserDetails {
 
 
   @JsonIgnore
-  public Long getId() {
+  public Integer getId() {
     return id;
   }
 

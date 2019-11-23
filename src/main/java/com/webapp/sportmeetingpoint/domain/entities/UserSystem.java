@@ -3,22 +3,19 @@ package com.webapp.sportmeetingpoint.domain.entities;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.Date;
 
+@EqualsAndHashCode(callSuper = false)
 @Entity(name="UserSystem")
 @Table(name = "user_system")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserSystem {
-
-  @Id
-  @Column(name = "id", unique = true, nullable = false)
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long id;
+public class UserSystem extends BaseEntity {
 
   @Column(name = "email", columnDefinition = "varchar(64)", nullable = false)
   private String email;

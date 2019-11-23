@@ -3,24 +3,21 @@ package com.webapp.sportmeetingpoint.domain.entities;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 
+@EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
 @Entity(name = "News")
 @Table(name = "news")
-public class News {
+public class News extends BaseEntity {
 
-  @Id
-  @Column(name = "id", unique = true, nullable = false)
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @NotNull
-  private Long id;
 
   @NotNull(message="Title is required!")
   @Column(name = "title", columnDefinition = "varchar(64)", nullable = false)

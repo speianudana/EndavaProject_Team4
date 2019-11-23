@@ -15,7 +15,6 @@ export default class LoginStatefull extends Component {
 
   handleBtnLogIn(login, password) {
     let logInObj = new LogInData(login, password)
-
     if (!logInObj.isValid()) {
 
       console.log(logInObj.error_msgs)

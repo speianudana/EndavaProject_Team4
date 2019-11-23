@@ -35,7 +35,9 @@ src/main/resources/static
 
 #node_modules
 /sport-meeting-point-frontend/node_modules
+/node_modules
 
 #build
 /sport-meeting-point-frontend/build
+/build
 
