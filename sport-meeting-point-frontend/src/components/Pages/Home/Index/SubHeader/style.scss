@@ -1,0 +1,48 @@
+@import "../../../../../mixins/BoxShadow.mixin.scss";
+@import "../../../../../mixins/Transform.mixin.scss";
+@import "../../../../../mixins/Filter.scss";
+
+
+.mainContainer {
+  min-height: 190px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-flow: row wrap;
+  z-index: 10;
+  position: relative;
+  background: grey;
+
+}
+
+
+.itemContainer {
+  @include filter(grayscale(.9));
+  background-color: #333333;
+  display: flex;
+  justify-content: center;
+  width: 290px;
+  margin: 10px;
+  height: 190px;
+  @include box-shadow(0px, 2px, 13px, 2px, rgba(0, 0, 0, 0.45));
+}
+
+.itemContainer:hover {
+  @include transform(scale(1.05, 1.05));
+  @include filter(grayscale(.7));
+  cursor: pointer;
+}
+
+.img {
+  height: 190px;
+  position: relative;
+}
+
+
+@media screen and(max-width:931px) {
+
+  .itemContainer {
+    height: 140px;
+  }
+}

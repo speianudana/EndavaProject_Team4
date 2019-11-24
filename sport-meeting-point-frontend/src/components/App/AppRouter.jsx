@@ -24,11 +24,7 @@ export default class AppRouter extends React.Component {
                 <Route path={regestr} component={Register} />
                 <Route path={login} component={Login} />
 
-                <h1>
-                    <br />
-                    <br />
-                    <br />
-                </h1>
+
 
                 <Footer />
             </Router>)
