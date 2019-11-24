@@ -35,7 +35,7 @@
   display: block;
   position: relative;
   float: left;
-  left: 5px;
+  margin-left: 5px;
   width: 30%;
   height: 200px;
 }
@@ -49,7 +49,26 @@
   // background: green;
 }
 
+.link {
+  color: rgb(0, 140, 145);
+}
 
+.footer {
+  padding: 5px 5px;
+  font-size: 12px;
+  // background: red;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.btn {
+  margin: 10px;
+}
+
+.addedBy {
+  text-align: end;
+}
 
 @media screen and (max-width: 700px) {
   .imgProps {

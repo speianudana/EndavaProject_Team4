@@ -25,8 +25,8 @@ export default function HeaderStateless() {
             <p id={style.text}>
               IT'S NICE TO MEET YOU
           </p>
-            <Button title="News" />
-            <Button title="Events" />
+            <Button title="See news" />
+            <Button title="Participate in events" />
           </div>
 
         </div>
