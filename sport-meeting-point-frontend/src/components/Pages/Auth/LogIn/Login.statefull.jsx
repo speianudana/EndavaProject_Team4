@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import LoginStateless from './Login.stateless.jsx'
-import LogInData from './LogInData.class'
 import axios from 'axios'
 import { adress } from '../../../../utils/server-adress'
 import { tokenWorker } from '../../../../utils/token-worker.js'
@@ -14,15 +13,13 @@ export default class LoginStatefull extends Component {
 
 
   handleBtnLogIn(login, password) {
-    let logInObj = new LogInData(login, password)
-    if (!logInObj.isValid()) {
-
-      console.log(logInObj.error_msgs)
-      // alert('error: look at the console!!')
-      return;
+    const loginObject = {
+      login: login,
+      password: password
     }
 
-    axios.post(`${adress}/api/auth/login`, logInObj).then(res => {
+
+    axios.post(`${adress}/api/auth/login`, loginObject).then(res => {
       if (res.status === 200) {
         tokenWorker.saveTokenInLocalStorage(res.data)
 

@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { Container, Row, Col, Button, BDiv, BH4, BHr, InputGroup } from 'bootstrap-4-react';
+// import { Container, Row, Col, Button, BDiv, BH4, BHr, InputGroup } from 'bootstrap-4-react';
 import { Link } from 'react-router-dom'
 import { login } from '../../../App/AppConstRoutes.js'
-import style from './style.scss'
-
+import commonStyle from '../style.scss'
+import { Container } from '../../../Layouts/Container'
 
 function RegistrationStateless(props) {
 
@@ -17,72 +17,45 @@ function RegistrationStateless(props) {
 
 
   return (
-    <Container >
-      <br /><br />
-      <Row>
-        <Col col="md-2" order="md-1" mb="4"></Col>
-        <Col md="8" order="md-2">
-          <React.Fragment>
-            <BH4 mb="3">Registration / <Link to={login}>Log in</Link> </BH4>
-            <br />
-            <Row>
+    <React.Fragment>
+      <Container>
+        <div className={commonStyle.card}>
+          <div className={commonStyle.loginOrRegistrationBtn}>
+            <Link to={login}>Log In</Link> / Registration
+          </div >
 
-              <Col md="6" mb="3">
-                <label htmlFor="firstName">First name</label>
-                <input onChange={e => setRegData({ ...regData, firstName: e.target.value })}
-                  value={regData.firstName}
-                  className={style.inputType1}
-                  type="text"
-                  name="firstName"
-                  id="firstName" />
-              </Col>
+          <p>Firstname:</p>
+          <input className={commonStyle.inputType1} type="text"
+            onChange={e => setRegData({ ...regData, firstName: e.target.value })}
+            value={regData.firstName} />
+          <br />
+          <br />
+          <p>Lastname:</p>
+          <input className={commonStyle.inputType1} type="text"
+            onChange={e => setRegData({ ...regData, lastName: e.target.value })}
+            value={regData.lastName} />
+          <br />
+          <br />
+          <p>Email:</p>
+          <input className={commonStyle.inputType1} type="text"
+            onChange={e => setRegData({ ...regData, email: e.target.value })}
+            value={regData.email} />
+          <br />
+          <br />
+          <p>Password:</p>
+          <input className={commonStyle.inputType1} type="password"
+            onChange={e => setRegData({ ...regData, password: e.target.value })}
+            value={regData.password} />
+          <br />
+          <br />
+          <p>Password repeat:</p>
+          <input className={commonStyle.inputType1} type="password"
+            onChange={e => setRegData({ ...regData, passwordRepeat: e.target.value })}
+            value={regData.passwordRepeat} />
+          <br />
+          <br />
 
-              <Col md="6" mb="3">
-                <label htmlFor="lastName">Last name</label>
-                <input onChange={e => setRegData({ ...regData, lastName: e.target.value })}
-                  value={regData.lastName}
-                  className={style.inputType1}
-                  type="text"
-                  name="lastName"
-                  id="lastName" />
-              </Col>
-
-            </Row>
-
-            <BDiv mb="3">
-              <label htmlFor="email">Email</label>
-              <input onChange={e => setRegData({ ...regData, email: e.target.value })}
-                value={regData.email}
-                className={style.inputType1}
-                type="text"
-                name="email"
-                id="email"
-                placeholder="you@example.com" />
-            </BDiv>
-
-            <BDiv mb="3">
-              <label htmlFor="password">Password</label>
-              <input onChange={e => setRegData({ ...regData, password: e.target.value })}
-                value={regData.password}
-                className={style.inputType1}
-                type="password"
-                name="password"
-                id="password" />
-            </BDiv>
-
-            <BDiv mb="3">
-              <label htmlFor="passwordRepeat">Password Repeat</label>
-              <input onChange={e => setRegData({ ...regData, passwordRepeat: e.target.value })}
-                value={regData.passwordRepeat}
-                className={style.inputType1}
-                type="password"
-                name="passwordRepeat"
-                id="passwordRepeat" />
-            </BDiv>
-
-          </React.Fragment>
-          <BHr mb="4" />
-          <Button onClick={() => {
+          <button onClick={() => {
             props.handleBtnRegistr(regData)
             setRegData({
               ...regData,
@@ -92,14 +65,13 @@ function RegistrationStateless(props) {
               password: '',
               passwordRepeat: ''
             })
-          }} primary lg block >Registration</Button>
-        </Col>
-      </Row>
-      <br />
-      <br />
-      <br />
-      <br />
-    </Container>
+          }}>
+            Registration
+         </button>
+
+        </div>
+      </Container>
+    </React.Fragment>
 
   );
 }

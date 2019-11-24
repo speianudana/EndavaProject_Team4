@@ -1,9 +1,8 @@
 import React, { Component } from 'react'
 
-import { Container } from 'bootstrap-4-react'
 import { Header } from './Header'
 import TestRedux from './TestRedux/TestRedux.statefull.jsx'
-import { NewsContainer } from './NewsContainer'
+// import { NewsContainer } from './NewsContainer'
 
 class IndexStatefull extends Component {
   constructor(props) {
@@ -18,7 +17,7 @@ class IndexStatefull extends Component {
       <>
         <Header />
         {/* <Article>Article example</Article> */}
-        <NewsContainer />
+        {/* <NewsContainer /> */}
 
 
 

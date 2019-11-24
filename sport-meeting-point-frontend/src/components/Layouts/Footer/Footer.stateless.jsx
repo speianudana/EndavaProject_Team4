@@ -1,12 +1,12 @@
 import React from 'react'
-import {
-  Container,
-  Row,
-  Col,
-  List,
-  BA,
-  BSmall
-} from 'bootstrap-4-react';
+// import {
+//   Container,
+//   Row,
+//   Col,
+//   List,
+//   BA,
+//   BSmall
+// } from 'bootstrap-4-react';
 import style1 from './style.scss'
 import { Link } from 'react-router-dom'
 
@@ -50,117 +50,117 @@ const style = {
 }
 
 
-const Footer = props => (
-  <Container as="footer" py="5">
-    <Row>
-      <Col col="12 md">
-        <BSmall style={{ color: 'rgb(221, 221, 221)' }} display="block" mb="3" >&copy; 2019 - ~~~~</BSmall>
-      </Col>
-      <Col col="6 md">
-        <h3 className={style1.titleText}>Features</h3>
-        <br />
-        <List unstyled>
-          <List.Item>
-            <Link className={style1.linkStyle} to={""}>Example</Link>
-          </List.Item>
-          <List.Item>
-            <Link className={style1.linkStyle} to={""}>Example</Link>
-          </List.Item>
-          <List.Item>
-            <Link className={style1.linkStyle} to={""}>Example</Link>
-          </List.Item>
-          <List.Item>
-            <Link className={style1.linkStyle} to={""}>Example</Link>
-          </List.Item>
-          <List.Item>
-            <Link className={style1.linkStyle} to={""}>Example</Link>
-          </List.Item>
-          <List.Item>
-            <Link className={style1.linkStyle} to={""}>Example</Link>
-          </List.Item>
-        </List>
-      </Col>
-      <Col col="6 md">
-        <h3 className={style1.titleText}>Resources</h3>
-        <br />
-        <List unstyled>
-          <List.Item>
-            <Link className={style1.linkStyle} to={""}>Example</Link>
-          </List.Item>
-          <List.Item>
-            <Link className={style1.linkStyle} to={""}>Example</Link>
-          </List.Item>
-          <List.Item>
-            <Link className={style1.linkStyle} to={""}>Example</Link>
-          </List.Item>
-          <List.Item>
-            <Link className={style1.linkStyle} to={""}>Example</Link>
-          </List.Item>
-          <List.Item>
-            <Link className={style1.linkStyle} to={""}>Example</Link>
-          </List.Item>
-          <List.Item>
-            <Link className={style1.linkStyle} to={""}>Example</Link>
-          </List.Item>
-        </List>
-      </Col>
-      <Col col="6 md">
-        <h3 className={style1.titleText}>Resources</h3>
-        <br />
-        <List unstyled>
-          <List.Item>
-            <Link className={style1.linkStyle} to={""}>Example</Link>
-          </List.Item>
-          <List.Item>
-            <Link className={style1.linkStyle} to={""}>Example</Link>
-          </List.Item>
-          <List.Item>
-            <Link className={style1.linkStyle} to={""}>Example</Link>
-          </List.Item>
-          <List.Item>
-            <Link className={style1.linkStyle} to={""}>Example</Link>
-          </List.Item>
-          <List.Item>
-            <Link className={style1.linkStyle} to={""}>Example</Link>
-          </List.Item>
-          <List.Item>
-            <Link className={style1.linkStyle} to={""}>Example</Link>
-          </List.Item>
-        </List>
-      </Col>
-      <Col col="6 md">
-        <h3 className={style1.titleText}>About</h3>
-        <br />
-        <List unstyled>
-          <List.Item>
-            <Link className={style1.linkStyle} to={""}>Example</Link>
-          </List.Item>
-          <List.Item>
-            <Link className={style1.linkStyle} to={""}>Example</Link>
-          </List.Item>
-          <List.Item>
-            <Link className={style1.linkStyle} to={""}>Example</Link>
-          </List.Item>
-          <List.Item>
-            <Link className={style1.linkStyle} to={""}>Example</Link>
-          </List.Item>
-          <List.Item>
-            <Link className={style1.linkStyle} to={""}>Example</Link>
-          </List.Item>
-          <List.Item>
-            <Link className={style1.linkStyle} to={""}>Example</Link>
-          </List.Item>
-        </List>
-      </Col>
-    </Row>
-  </Container>
-)
+// const Footer = props => (
+//   <Container as="footer" py="5">
+//     <Row>
+//       <Col col="12 md">
+//         <BSmall style={{ color: 'rgb(221, 221, 221)' }} display="block" mb="3" >&copy; 2019 - ~~~~</BSmall>
+//       </Col>
+//       <Col col="6 md">
+//         <h3 className={style1.titleText}>Features</h3>
+//         <br />
+//         <List unstyled>
+//           <List.Item>
+//             <Link className={style1.linkStyle} to={""}>Example</Link>
+//           </List.Item>
+//           <List.Item>
+//             <Link className={style1.linkStyle} to={""}>Example</Link>
+//           </List.Item>
+//           <List.Item>
+//             <Link className={style1.linkStyle} to={""}>Example</Link>
+//           </List.Item>
+//           <List.Item>
+//             <Link className={style1.linkStyle} to={""}>Example</Link>
+//           </List.Item>
+//           <List.Item>
+//             <Link className={style1.linkStyle} to={""}>Example</Link>
+//           </List.Item>
+//           <List.Item>
+//             <Link className={style1.linkStyle} to={""}>Example</Link>
+//           </List.Item>
+//         </List>
+//       </Col>
+//       <Col col="6 md">
+//         <h3 className={style1.titleText}>Resources</h3>
+//         <br />
+//         <List unstyled>
+//           <List.Item>
+//             <Link className={style1.linkStyle} to={""}>Example</Link>
+//           </List.Item>
+//           <List.Item>
+//             <Link className={style1.linkStyle} to={""}>Example</Link>
+//           </List.Item>
+//           <List.Item>
+//             <Link className={style1.linkStyle} to={""}>Example</Link>
+//           </List.Item>
+//           <List.Item>
+//             <Link className={style1.linkStyle} to={""}>Example</Link>
+//           </List.Item>
+//           <List.Item>
+//             <Link className={style1.linkStyle} to={""}>Example</Link>
+//           </List.Item>
+//           <List.Item>
+//             <Link className={style1.linkStyle} to={""}>Example</Link>
+//           </List.Item>
+//         </List>
+//       </Col>
+//       <Col col="6 md">
+//         <h3 className={style1.titleText}>Resources</h3>
+//         <br />
+//         <List unstyled>
+//           <List.Item>
+//             <Link className={style1.linkStyle} to={""}>Example</Link>
+//           </List.Item>
+//           <List.Item>
+//             <Link className={style1.linkStyle} to={""}>Example</Link>
+//           </List.Item>
+//           <List.Item>
+//             <Link className={style1.linkStyle} to={""}>Example</Link>
+//           </List.Item>
+//           <List.Item>
+//             <Link className={style1.linkStyle} to={""}>Example</Link>
+//           </List.Item>
+//           <List.Item>
+//             <Link className={style1.linkStyle} to={""}>Example</Link>
+//           </List.Item>
+//           <List.Item>
+//             <Link className={style1.linkStyle} to={""}>Example</Link>
+//           </List.Item>
+//         </List>
+//       </Col>
+//       <Col col="6 md">
+//         <h3 className={style1.titleText}>About</h3>
+//         <br />
+//         <List unstyled>
+//           <List.Item>
+//             <Link className={style1.linkStyle} to={""}>Example</Link>
+//           </List.Item>
+//           <List.Item>
+//             <Link className={style1.linkStyle} to={""}>Example</Link>
+//           </List.Item>
+//           <List.Item>
+//             <Link className={style1.linkStyle} to={""}>Example</Link>
+//           </List.Item>
+//           <List.Item>
+//             <Link className={style1.linkStyle} to={""}>Example</Link>
+//           </List.Item>
+//           <List.Item>
+//             <Link className={style1.linkStyle} to={""}>Example</Link>
+//           </List.Item>
+//           <List.Item>
+//             <Link className={style1.linkStyle} to={""}>Example</Link>
+//           </List.Item>
+//         </List>
+//       </Col>
+//     </Row>
+//   </Container>
+// )
 
 
 export default function FooterStateless() {
   return (
     <footer id={style1.footerStyle} >
-      <Footer />
+      {/* <Footer /> */}
     </footer>
   )
 }
