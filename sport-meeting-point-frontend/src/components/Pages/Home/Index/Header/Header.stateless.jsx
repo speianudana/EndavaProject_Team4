@@ -1,50 +1,40 @@
 import React from 'react'
-import {
-  Container,
-  Jumbotron,
-  Button,
-  BH1,
-  Lead
-} from 'bootstrap-4-react';
+import { Container } from '../../../../Layouts/Container'
+import style from './style.scss'
+import img1 from '../../../../../../static/qq1.jpg'
+import img2 from '../../../../../../static/qq2.jpg'
 
 
-const MyJumbotron = (props) => {
-
-  const style = {
-    heading: {
-      fontWeight: '300'
-    },
-    bckr1: {
-      background: 'linear-gradient(rgb(213, 224, 224), rgb(213, 224, 224), rgba(255, 0, 0, 0))'
-    }
-  }
-
-  const btnIsSelected = '2px solid rgb(64, 64, 128)'
+const Button = ({ title }) => {
 
   return (
-    <Jumbotron text="center" style={style.bckr1}>
-      <Container>
-        <BH1 style={style.heading}>Sport meeting point</BH1>
-        <Lead text="muted">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Ab quidem facere eligendi atque voluptate similique doloribus ipsum possimus fugiat, dolorum, totam doloremque numquam ullam consequuntur.
-        </Lead>
-      </Container>
-      <p>
-        <Button style={{ border: btnIsSelected }} primary mx="1" my="2">
-          News
-        </Button>
-        <Button primary mx="1" my="2">
-          Events
-          </Button>
-      </p>
-    </Jumbotron>
+    <button className={style.btn}>
+      {title}
+    </button>
   )
+
 }
 
 export default function HeaderStateless() {
   return (
     <React.Fragment>
-      <MyJumbotron />
+      <div id={style.mainBlock}>
+        <div id={style.mainBlock1}>
+          <div className={style.centredContainer}>
+            <p id={style.title}>Wellcome <br /></p>
+            <p id={style.text}>
+              IT'S NICE TO MEET YOU
+          </p>
+            <Button title="News" />
+            <Button title="Events" />
+          </div>
+
+        </div>
+        {/* <img id={style.mainImg} src={img1} alt="error" width="100%" height="100%" /> */}
+        {/* <div id={style.mainImg}></div> */}
+
+      </div>
+
     </React.Fragment>
   )
 }

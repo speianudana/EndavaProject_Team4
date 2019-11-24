@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 
 import { Container } from 'bootstrap-4-react'
-import { ArticleType1 as Article } from '../../../Layouts/ArticleType1'
 import { Header } from './Header'
 import TestRedux from './TestRedux/TestRedux.statefull.jsx'
 import { NewsContainer } from './NewsContainer'
