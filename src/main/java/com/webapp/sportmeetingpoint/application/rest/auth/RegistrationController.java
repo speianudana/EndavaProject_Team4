@@ -29,6 +29,16 @@ public class RegistrationController {
   @PostMapping("/registration")
   public ResponseEntity registration(@RequestBody UserSystemDTO data){
 
+
+    if(userSystemService.findByEmail(data.getEmail())!=null){
+      Map<Object, Object> response = new HashMap<>();
+      List<String>  errorList = new ArrayList<>();
+      errorList.add("A user with the same name already exists");
+
+      response.put("error", errorList);
+      return ResponseEntity.ok(response);
+    }
+
     Date now = new Date();
     String password = data.getPassword();
     UserSystem userSystem = new UserSystem();
@@ -49,9 +59,7 @@ public class RegistrationController {
     List<UserRole> userRoles = new ArrayList<>(Collections.singletonList(result.getUserRole()));
 
     String token = jwtTokenProvider.createToken(result.getEmail(), userRoles);
-
     Map<Object, Object> response = new HashMap<>();
-    response.put("username", result.getEmail());
     response.put("token", token);
 
     return ResponseEntity.ok(response);

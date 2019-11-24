@@ -2,6 +2,7 @@ package com.webapp.sportmeetingpoint.application.rest.auth;
 
 
 import com.webapp.sportmeetingpoint.application.dto.AuthenticationRequestDTO;
+import com.webapp.sportmeetingpoint.application.security.jwt.JwtAuthenticationException;
 import com.webapp.sportmeetingpoint.application.security.jwt.JwtTokenProvider;
 import com.webapp.sportmeetingpoint.application.service.UserSystemService;
 import com.webapp.sportmeetingpoint.domain.entities.UserRole;
@@ -39,15 +40,21 @@ public class LogInController {
     try{
       String username = requestDTO.getUsername();
       String password = requestDTO.getPassword();
-
-      authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
       UserSystem user = userService.findByEmail(username);
 
       if (user == null) {
-        throw new UsernameNotFoundException("User not found!");
+        throw new UsernameNotFoundException("Wrong username");
       }
 
       List<UserRole> userRoles = new ArrayList<>(Collections.singletonList(user.getUserRole()));
+
+      try{
+        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
+      }catch(Exception e){
+        throw new JwtAuthenticationException("Wrong username or password");
+      }
+
+
 
       String token = jwtTokenProvider.createToken(username, userRoles);
 

@@ -2,28 +2,62 @@ import React from 'react'
 import RegistrationStateless from './Registration.stateless.jsx'
 import axios from 'axios'
 import { adress } from '../../../../utils/server-adress'
+import { tokenWorker } from '../../../../utils/token-worker'
+import { Redirect } from 'react-router-dom'
+import { index } from '../../../App/AppConstRoutes'
+import { tokenToPersonalData } from '../../../../utils/account-worker'
 
 export default class RegistrationStatefull extends React.Component {
 
   constructor(props) {
     super(props)
     this.handleBtnRegistr.bind(this)
+
+    this.state = {
+      errorMsgs: new Array(),
+      redirectToHome: false
+    }
   }
 
+  componentDidMount() {
+
+  }
 
 
   handleBtnRegistr(regStatelessAccData) {
 
+    const data = {
+      username: regStatelessAccData.email,
+      firstName: regStatelessAccData.firstName,
+      lastName: regStatelessAccData.lastName,
+      email: regStatelessAccData.email,
+      password: regStatelessAccData.password
+    }
 
-
-    axios.post(`${adress}/api/auth/registration`, registrationData).then(res => {
+    axios.post(`${adress}/api/auth/registration`, data).then(res => {
       if (res.status === 200) {
-        alert(`Register success, look at the console!!`)
-        console.log(res.data)
+        if (res.data.error) {
+          this.setState({ errorMsgs: res.data.error })
+        }
+        if (res.data.token) {
+          tokenWorker.saveTokenInLocalStorage(res.data.token)
+          // console.log(res.data.token)
+
+          tokenToPersonalData().then(item => {
+            console.log(item)
+            this.setState({ redirectToHome: true })
+          })
+
+          let a = 1;
+
+
+
+        }
+
 
       }
     }).catch(function (error) {
-      alert(`Register error!!!`)
+      console.log(error)
     });
 
 
@@ -31,9 +65,13 @@ export default class RegistrationStatefull extends React.Component {
   }
 
   render() {
+    if (this.state.redirectToHome) {
+      return <Redirect to={index} />
+    }
+
     return (
       <div>
-        <RegistrationStateless handleBtnRegistr={this.handleBtnRegistr} />
+        <RegistrationStateless handleBtnRegistr={(a) => { this.handleBtnRegistr(a) }} errorMsgs={this.state.errorMsgs} />
       </div>
     )
   }

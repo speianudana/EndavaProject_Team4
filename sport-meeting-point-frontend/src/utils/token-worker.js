@@ -21,7 +21,7 @@ const tokenWorker = {
 
     const data = window.localStorage.getItem(webSite)
 
-    if (data === null) throw 'token not found'
+    if (data === null) return null
 
     const result = cryptor(data, false)
 

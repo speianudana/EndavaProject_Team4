@@ -14,7 +14,7 @@ export default class LoginStatefull extends Component {
 
   handleBtnLogIn(login, password) {
     const loginObject = {
-      login: login,
+      username: login,
       password: password
     }
 
@@ -22,7 +22,7 @@ export default class LoginStatefull extends Component {
     axios.post(`${adress}/api/auth/login`, loginObject).then(res => {
       if (res.status === 200) {
         tokenWorker.saveTokenInLocalStorage(res.data)
-
+        console.log(res.data)
 
         //tokenWorker.saveTokenInLocalStorage(res.data)
         // console.log(tokenWorker.loadTokenFromLocalStorage())

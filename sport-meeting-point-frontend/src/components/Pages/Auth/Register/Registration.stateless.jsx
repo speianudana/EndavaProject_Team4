@@ -69,6 +69,16 @@ function RegistrationStateless(props) {
             Registration
          </button>
 
+          <br />
+          <br />
+          <br />
+
+          {
+            props.errorMsgs.map((item, index) => {
+              return <p style={{ color: 'red' }} key={index}>* {item}</p>
+            })
+          }
+
         </div>
       </Container>
     </React.Fragment>
