@@ -56,7 +56,12 @@ function HeaderStateless() {
           <div style={{ flexGrow: '1' }} className={style.menuElm}>
 
 
-            <button onClick={() => { setDropdownVisible(!dropdownIsVisible) }} id={style.btnDropdown} className={style.btnMenu}>☰</button>
+            <button onClick={() => {
+              setDropdownVisible(!dropdownIsVisible)
+            }} id={style.btnDropdown} className={style.btnMenu
+            }>
+              ☰
+            </button>
 
 
 

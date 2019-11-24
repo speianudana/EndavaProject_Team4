@@ -51,6 +51,8 @@
 }
 
 .btnMenu {
+  font-size: 25px;
+  color: white;
   border: none;
   outline: none;
   background: transparent;
@@ -59,7 +61,7 @@
 }
 
 .btnMenu:hover {
-  background: rgba(7, 101, 223, 0.384);
+  background: rgba(2, 28, 43, 0.75);
   cursor: pointer;
 }
 
