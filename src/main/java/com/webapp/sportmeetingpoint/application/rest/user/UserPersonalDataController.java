@@ -14,7 +14,6 @@ import java.util.HashMap;
 
 @RestController
 @RequestMapping(value = "/api/user_personal_data")
-@CrossOrigin
 public class UserPersonalDataController {
 
   private final JwtTokenProvider jwtTokenProvider;
@@ -45,7 +44,7 @@ public class UserPersonalDataController {
     response.put("q1","msg1");
     response.put("q2","msgmsafhuadgf2");
 
-    return ResponseEntity.ok(response);
+    return ResponseEntity.ok("response");
   }
 
 }
