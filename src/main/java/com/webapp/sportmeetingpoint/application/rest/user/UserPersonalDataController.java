@@ -29,19 +29,19 @@ public class UserPersonalDataController {
   @PostMapping("/get_data")
   @CrossOrigin
   public ResponseEntity tokenToPersonalData(@RequestBody String token ){
-    String username = jwtTokenProvider.getUsername(token);
-    UserSystem userSystem = userSystemService.findByEmail(username);
-    UserPersonalData personalData = userSystem.getUserPersonalData();
-
-    UserPersonalDataDTO personalDataDTO = new UserPersonalDataDTO();
-    personalDataDTO.setDOB(personalData.getBirthDate()!=null?personalData.getBirthDate().toString():null);
-    personalDataDTO.setFirstName(personalData.getFirstName());
-    personalDataDTO.setLastName(personalData.getLastName());
-    personalDataDTO.setTelNumber(personalData.getTelephoneNumber());
-
-    HashMap response = new HashMap();
-    response.put("personalData", personalDataDTO);
-    return ResponseEntity.ok(response);
+//    String username = jwtTokenProvider.getUsername(token);
+//    UserSystem userSystem = userSystemService.findByEmail(username);
+//    UserPersonalData personalData = userSystem.getUserPersonalData();
+//
+//    UserPersonalDataDTO personalDataDTO = new UserPersonalDataDTO();
+//    personalDataDTO.setDOB(personalData.getBirthDate()!=null?personalData.getBirthDate().toString():null);
+//    personalDataDTO.setFirstName(personalData.getFirstName());
+//    personalDataDTO.setLastName(personalData.getLastName());
+//    personalDataDTO.setTelNumber(personalData.getTelephoneNumber());
+//
+//    HashMap response = new HashMap();
+//    response.put("personalData", personalDataDTO);
+    return ResponseEntity.ok("response");
   }
 
 }

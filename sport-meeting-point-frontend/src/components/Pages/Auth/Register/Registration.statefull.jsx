@@ -43,18 +43,12 @@ export default class RegistrationStatefull extends React.Component {
           tokenWorker.saveTokenInLocalStorage(res.data.token)
           // console.log(res.data.token)
 
-          tokenToPersonalData().then(item => {
-            console.log(item)
-            this.setState({ redirectToHome: true })
-          })
-
-          let a = 1;
-
-
-
+          tokenToPersonalData();
+          // .then(item => {
+          //   console.log(item)
+          //   this.setState({ redirectToHome: true })
+          // }).catch(error => console.log(error))
         }
-
-
       }
     }).catch(function (error) {
       console.log(error)
