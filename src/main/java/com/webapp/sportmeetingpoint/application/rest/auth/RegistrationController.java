@@ -26,17 +26,26 @@ public class RegistrationController {
     this.userSystemService = userService;
   }
 
+  private Map<Object, Object> registrationDataValidation(UserSystemDTO data){
+    List<String>  errorList = new ArrayList<>();
+    if(userSystemService.findByEmail(data.getEmail())!=null){
+      errorList.add("A user with the same name already exists");
+    }
+
+    Map<Object, Object> errorListResult = new HashMap<>();
+    if(!errorList.isEmpty()) errorListResult.put("error", errorList);
+
+    return errorListResult;
+  }
+
   @PostMapping("/registration")
   public ResponseEntity registration(@RequestBody UserSystemDTO data){
 
 
-    if(userSystemService.findByEmail(data.getEmail())!=null){
-      Map<Object, Object> response = new HashMap<>();
-      List<String>  errorList = new ArrayList<>();
-      errorList.add("A user with the same name already exists");
-
-      response.put("error", errorList);
-      return ResponseEntity.ok(response);
+    Map<Object, Object> errors = registrationDataValidation(data);
+    boolean haveErrors = !errors.isEmpty();
+    if(haveErrors){
+      return ResponseEntity.ok(errors);
     }
 
     Date now = new Date();

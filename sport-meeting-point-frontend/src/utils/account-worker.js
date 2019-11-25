@@ -3,9 +3,8 @@ import { adress } from './server-adress'
 import { tokenWorker } from './token-worker'
 
 function tokenToPersonalData() {
-  // return new Promise((resolve, reject) => {
   const token = tokenWorker.loadTokenFromLocalStorage()
-  if (token === null) reject('token not found in local storage!!!');
+  if (token === null) console.log('token not found in local storage!!!');
 
   console.log(token)
 
@@ -13,15 +12,20 @@ function tokenToPersonalData() {
     method: 'POST',
     cache: 'no-cache',
     headers: {
+      'Content-Type': 'text/plain',
       'Authorization': 'Bearer_' + token
     },
     // body: token
+  }).then((response) => {
+    // return response.json();
+    console.log(response)
+  })
 
-  }).then(data => {
-    console.log(data)
-  });
-
-
+  // .then((data) => {
+  //   console.log(data)
+  // }).catch((ex) => {
+  //   console.log('error: ', ex)
+  // });
 
 
 }

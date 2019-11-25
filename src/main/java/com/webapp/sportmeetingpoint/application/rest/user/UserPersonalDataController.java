@@ -28,7 +28,7 @@ public class UserPersonalDataController {
 
   @PostMapping("/get_data")
   @CrossOrigin
-  public ResponseEntity tokenToPersonalData(@RequestBody String token ){
+  public ResponseEntity tokenToPersonalData( ){
 //    String username = jwtTokenProvider.getUsername(token);
 //    UserSystem userSystem = userSystemService.findByEmail(username);
 //    UserPersonalData personalData = userSystem.getUserPersonalData();
@@ -41,7 +41,11 @@ public class UserPersonalDataController {
 //
 //    HashMap response = new HashMap();
 //    response.put("personalData", personalDataDTO);
-    return ResponseEntity.ok("response");
+    HashMap response = new HashMap();
+    response.put("q1","msg1");
+    response.put("q2","msgmsafhuadgf2");
+
+    return ResponseEntity.ok(response);
   }
 
 }

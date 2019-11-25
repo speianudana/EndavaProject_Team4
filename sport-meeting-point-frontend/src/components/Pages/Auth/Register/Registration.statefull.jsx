@@ -31,7 +31,8 @@ export default class RegistrationStatefull extends React.Component {
       firstName: regStatelessAccData.firstName,
       lastName: regStatelessAccData.lastName,
       email: regStatelessAccData.email,
-      password: regStatelessAccData.password
+      password: regStatelessAccData.password,
+      passwordRepeat: regStatelessAccData.passwordRepeat
     }
 
     axios.post(`${adress}/api/auth/registration`, data).then(res => {
@@ -41,13 +42,7 @@ export default class RegistrationStatefull extends React.Component {
         }
         if (res.data.token) {
           tokenWorker.saveTokenInLocalStorage(res.data.token)
-          // console.log(res.data.token)
-
           tokenToPersonalData();
-          // .then(item => {
-          //   console.log(item)
-          //   this.setState({ redirectToHome: true })
-          // }).catch(error => console.log(error))
         }
       }
     }).catch(function (error) {
