@@ -12,6 +12,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.HashMap;
 
 
@@ -31,8 +32,14 @@ public class UserPersonalDataController {
   @PostMapping("/get_data")
   @CrossOrigin
   public ResponseEntity tokenToPersonalData( ){
-    char c ='a';
-    JwtUser jwtUser = (JwtUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+    if(!SecurityContextHolder.getContext().getAuthentication().isAuthenticated()){
+      throw new EntityNotFoundException("said something");
+    }
+
+    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+    JwtUser jwtUser = (JwtUser)authentication.getPrincipal();
     UserSystem userSystem = userSystemService.findById(jwtUser.getId());
     UserPersonalData personalData = userSystem.getUserPersonalData();
 

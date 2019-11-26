@@ -3,6 +3,7 @@ package com.webapp.sportmeetingpoint.application.security.jwt;
 import com.webapp.sportmeetingpoint.application.security.JwtUserDetailsService;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.SignatureException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -21,6 +22,7 @@ import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
 
+@Slf4j
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
 
@@ -34,19 +36,15 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
   protected void doFilterInternal(HttpServletRequest req, HttpServletResponse res, FilterChain chain)
           throws IOException, ServletException {
 
-    String header = req.getHeader("Authorization");
-
-
     String token = jwtTokenProvider.resolveToken(req);
-
     if(token!=null && jwtTokenProvider.validateToken(token)){
 
       UsernamePasswordAuthenticationToken authentication  = jwtTokenProvider.getAuthentication(token);
-
       if(authentication!=null){
         SecurityContextHolder.getContext().setAuthentication(authentication);
       }
     }
+
 
 
     chain.doFilter(req, res);

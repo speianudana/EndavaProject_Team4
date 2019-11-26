@@ -16,7 +16,6 @@
 
 	<properties>
 		<java.version>1.8</java.version>
-		<jsonwebtoken.version>0.8.0</jsonwebtoken.version>
 	</properties>
 
 
@@ -31,7 +30,7 @@
 		<dependency>
 			<groupId>io.jsonwebtoken</groupId>
 			<artifactId>jjwt</artifactId>
-			<version>${jsonwebtoken.version}</version>
+			<version>0.9.1</version>
 		</dependency>
 
 		<dependency>

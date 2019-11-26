@@ -3,6 +3,7 @@ import LoginStateless from './Login.stateless.jsx'
 import axios from 'axios'
 import { adress } from '../../../../utils/server-adress'
 import { tokenWorker } from '../../../../utils/token-worker.js'
+import { tokenToPersonalData } from '../../../../utils/account-worker'
 
 export default class LoginStatefull extends Component {
 
@@ -22,7 +23,9 @@ export default class LoginStatefull extends Component {
     axios.post(`${adress}/api/auth/login`, loginObject).then(res => {
       if (res.status === 200) {
         tokenWorker.saveTokenInLocalStorage(res.data)
-        console.log(res.data)
+        // console.log(res.data)
+
+        tokenToPersonalData();
 
         //tokenWorker.saveTokenInLocalStorage(res.data)
         // console.log(tokenWorker.loadTokenFromLocalStorage())
