@@ -31,7 +31,7 @@ public class UserPersonalDataController {
   @PostMapping("/get_data")
   @CrossOrigin
   public ResponseEntity tokenToPersonalData( ){
-
+    char c ='a';
     JwtUser jwtUser = (JwtUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     UserSystem userSystem = userSystemService.findById(jwtUser.getId());
     UserPersonalData personalData = userSystem.getUserPersonalData();
