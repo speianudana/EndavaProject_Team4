@@ -10,16 +10,15 @@ function tokenToPersonalData() {
 
   fetch(adress + '/api/user_personal_data/get_data', {
     method: 'POST',
-    // cache: 'no-cache',
     headers: {
-      // 'Content-Type': 'text/plain',
+      'Content-Type': 'text/plain',
       'Authorization': 'Bearer_' + token
     },
-    // body: token
   }).then((response) => {
-    // return response.json();
-    console.log(response)
-  })
+    return response.json();
+  }).then(data => {
+    console.log(data)
+  }).catch(err => console.log(err))
 
 
 }

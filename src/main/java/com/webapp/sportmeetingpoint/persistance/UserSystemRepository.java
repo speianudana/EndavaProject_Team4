@@ -16,7 +16,7 @@ public interface UserSystemRepository extends CrudRepository<UserSystem, Long> {
 
   List<UserSystem> findAll();
 
-
+  UserSystem findById(Integer id);
 
 
 }

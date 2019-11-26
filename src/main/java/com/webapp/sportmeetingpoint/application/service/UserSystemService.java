@@ -14,7 +14,7 @@ public interface UserSystemService {
 
   UserSystem findByEmail(final String email);
 
-  UserSystem findById(Long id);
+  UserSystem findById(Integer id);
 
 
 

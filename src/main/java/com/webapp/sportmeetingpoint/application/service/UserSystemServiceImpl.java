@@ -60,8 +60,8 @@ public class UserSystemServiceImpl implements UserSystemService {
   }
 
   @Override
-  public UserSystem findById(Long id) {
-    return userSystemRepository.findById(id).orElse(null);
+  public UserSystem findById(Integer id) {
+    return userSystemRepository.findById(id);
 
   }
 }
