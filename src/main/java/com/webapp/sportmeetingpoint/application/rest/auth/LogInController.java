@@ -15,6 +15,7 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -41,6 +42,8 @@ public class LogInController {
   @CrossOrigin
   public ResponseEntity<?> login(@RequestBody AuthenticationRequestDTO requestDTO){
     try{
+
+
       String username = requestDTO.getUsername();
       String password = requestDTO.getPassword();
       UserSystem user = userService.findByEmail(username);

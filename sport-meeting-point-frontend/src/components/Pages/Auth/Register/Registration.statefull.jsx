@@ -42,8 +42,6 @@ export default class RegistrationStatefull extends React.Component {
         }
         if (res.data.token) {
           tokenWorker.saveTokenInLocalStorage(res.data.token)
-          console.log((res.data.token))
-          tokenToPersonalData().then(a => console.log(a));
           this.setState({ errorMsgs: new Array() })
         }
       }

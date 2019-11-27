@@ -28,6 +28,12 @@ const tokenWorker = {
 
   deleteTokenFromLocalStorage() {
     window.localStorage.removeItem(webSite)
+  },
+
+  isAuth() {
+    if (window.localStorage.getItem(webSite)) return true
+
+    return false
   }
 
 }

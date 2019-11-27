@@ -50,7 +50,7 @@ public class UserPersonalDataController {
     personalDataDTO.setFirstName(personalData.getFirstName());
     personalDataDTO.setLastName(personalData.getLastName());
     personalDataDTO.setTelNumber(personalData.getTelephoneNumber());
-//    personalDataDTO.setTokenExpireDate(jwtTokenProvider.jwtTokenGetExpirationDate());
+    personalDataDTO.setEmail(userSystem.getEmail());
 
     HashMap response = new HashMap();
     response.put("personalData", personalDataDTO);

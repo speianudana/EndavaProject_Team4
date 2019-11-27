@@ -23,8 +23,8 @@ class TestRedux extends Component {
 
 function mapStateToProps(state) {
   return {
-    user: state.userInfo.user,
-    year: state.userInfo.year
+    isLogged: state.auth.isLogged,
+    username: state.auth.username
   }
 }
 
