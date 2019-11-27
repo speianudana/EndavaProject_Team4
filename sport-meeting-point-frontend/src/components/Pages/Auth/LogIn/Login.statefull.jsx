@@ -23,16 +23,13 @@ export default class LoginStatefull extends Component {
     axios.post(`${adress}/api/auth/login`, loginObject).then(res => {
       if (res.status === 200) {
         tokenWorker.saveTokenInLocalStorage(res.data)
-        // console.log(res.data)
 
-        tokenToPersonalData();
+        tokenToPersonalData().then(a => console.log(a));
 
-        //tokenWorker.saveTokenInLocalStorage(res.data)
-        // console.log(tokenWorker.loadTokenFromLocalStorage())
 
       }
     }).catch(function (error) {
-      console.log(error)
+      console.log('error: ', error)
     });
 
   }

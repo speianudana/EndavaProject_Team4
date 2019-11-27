@@ -64,12 +64,6 @@ public class JwtTokenProvider {
     return new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
   }
 
-  public UsernamePasswordAuthenticationToken getUsernamePasswordAuthentication(String token){
-    UserDetails userDetails = this.userDetailsService.loadUserByUsername(getUsername(token));
-
-    return new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
-  }
-
   public String getUsername(String token) {
     return Jwts.parser().setSigningKey(secret).parseClaimsJws(token).getBody().getSubject();
   }
@@ -95,6 +89,11 @@ public class JwtTokenProvider {
       throw new JwtAuthenticationException("JWT token is expired or invalid");
     }
   }
+
+//  public Date jwtTokenGetExpirationDate(String token){
+//    Jws<Claims> claims = Jwts.parser().setSigningKey(secret).parseClaimsJws(token);
+//    return claims.getBody().getExpiration();
+//  }
 
   private List<String> getRolenames(List<UserRole> userRoles){
     List<String> result = new ArrayList<>();

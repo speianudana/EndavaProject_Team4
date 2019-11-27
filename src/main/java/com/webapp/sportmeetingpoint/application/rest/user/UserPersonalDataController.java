@@ -8,6 +8,7 @@ import com.webapp.sportmeetingpoint.domain.entities.UserPersonalData;
 import com.webapp.sportmeetingpoint.domain.entities.UserSystem;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
@@ -33,11 +34,12 @@ public class UserPersonalDataController {
   @CrossOrigin
   public ResponseEntity tokenToPersonalData( ){
 
-    if(!SecurityContextHolder.getContext().getAuthentication().isAuthenticated()){
-      throw new EntityNotFoundException("said something");
+    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+    if(!authentication.isAuthenticated()){
+      throw new BadCredentialsException("Invalid operation...");
     }
 
-    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
     JwtUser jwtUser = (JwtUser)authentication.getPrincipal();
     UserSystem userSystem = userSystemService.findById(jwtUser.getId());
@@ -48,6 +50,7 @@ public class UserPersonalDataController {
     personalDataDTO.setFirstName(personalData.getFirstName());
     personalDataDTO.setLastName(personalData.getLastName());
     personalDataDTO.setTelNumber(personalData.getTelephoneNumber());
+//    personalDataDTO.setTokenExpireDate(jwtTokenProvider.jwtTokenGetExpirationDate());
 
     HashMap response = new HashMap();
     response.put("personalData", personalDataDTO);

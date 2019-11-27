@@ -8,6 +8,7 @@ import com.webapp.sportmeetingpoint.application.service.UserSystemService;
 import com.webapp.sportmeetingpoint.domain.entities.UserRole;
 import com.webapp.sportmeetingpoint.domain.entities.UserSystem;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -15,6 +16,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.*;
 
@@ -34,9 +36,10 @@ public class LogInController {
     this.userService = userService;
   }
 
+
   @PostMapping("/login")
   @CrossOrigin
-  public ResponseEntity login(@RequestBody AuthenticationRequestDTO requestDTO){
+  public ResponseEntity<?> login(@RequestBody AuthenticationRequestDTO requestDTO){
     try{
       String username = requestDTO.getUsername();
       String password = requestDTO.getPassword();
@@ -58,15 +61,13 @@ public class LogInController {
 
       String token = jwtTokenProvider.createToken(username, userRoles);
 
-      Map<Object, Object> response = new HashMap<>();
-      response.put("username", username);
-      response.put("token", token);
 
       return ResponseEntity.ok(token);
 
     }catch(AuthenticationException e){
       throw new BadCredentialsException("Invalid username or password...");
     }
+
 
   }
 

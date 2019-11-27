@@ -26,27 +26,35 @@ public class RegistrationController {
     this.userSystemService = userService;
   }
 
-//  private Map<Object, Object> registrationDataValidation(UserSystemDTO data){
-//    List<String>  errorList = new ArrayList<>();
-//    if(userSystemService.findByEmail(data.getEmail())!=null){
-//      errorList.add("A user with the same name already exists");
-//    }
-//
-//    Map<Object, Object> errorListResult = new HashMap<>();
-//    if(!errorList.isEmpty()) errorListResult.put("error", errorList);
-//
-//    return errorListResult;
-//  }
+  private Map<Object, Object> registrationDataValidation(UserSystemDTO data){
+    List<String>  errorList = new ArrayList<>();
+    if(userSystemService.findByEmail(data.getEmail())!=null){
+      errorList.add("A user with the same name already exists");
+    }
+
+    if(!data.getPasswordRepeat().equals(data.getPassword())){
+      errorList.add("Password and password repeat is not equal");
+    }
+
+    if(data.getPassword().length()<5){
+      errorList.add("Use at least 5 characters");
+    }
+
+    Map<Object, Object> errorListResult = new HashMap<>();
+    if(!errorList.isEmpty()) errorListResult.put("error", errorList);
+
+    return errorListResult;
+  }
 
   @PostMapping("/registration")
   public ResponseEntity registration(@RequestBody UserSystemDTO data){
 
 
-//    Map<Object, Object> errors = registrationDataValidation(data);
-//    boolean haveErrors = !errors.isEmpty();
-//    if(haveErrors){
-//      return ResponseEntity.ok(errors);
-//    }
+    Map<Object, Object> errors = registrationDataValidation(data);
+    boolean haveErrors = !errors.isEmpty();
+    if(haveErrors){
+      return ResponseEntity.ok(errors);
+    }
 
     Date now = new Date();
     String password = data.getPassword();
