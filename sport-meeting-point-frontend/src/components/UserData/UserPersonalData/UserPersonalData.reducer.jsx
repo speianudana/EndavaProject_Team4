@@ -1,12 +1,12 @@
-import { SET_DATA } from './UserPersonalData.constants.jsx'
+import { SET_DATA, SET_IS_AUTHENTICATED } from './UserPersonalData.constants.jsx'
 
 
 
 const initialState = {
-  email: 'email',
-  firstName: 'fn',
-  lastName: 'ln',
-
+  email: '',
+  firstName: '',
+  lastName: '',
+  isAuthenticated: false
 }
 
 
@@ -19,6 +19,11 @@ function userPersonalData(state = initialState, action) {
         email: action.payload.personalData.email,
         firstName: action.payload.personalData.firstName,
         lastName: action.payload.personalData.lastName,
+      }
+    case SET_IS_AUTHENTICATED:
+      return {
+        ...state,
+        isAuthenticated: action.payload
       }
     default:
       return state

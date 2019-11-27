@@ -25,7 +25,7 @@ class LoginStatefull extends Component {
 
   componentDidUpdate(prevProps, prevState, snapshot) {
     // console.log('prev props :', prevProps)
-    // console.log('current props :', this.props)
+    console.log('current props :', this.props)
   }
 
   handleBtnLogIn(login, password) {

@@ -1,18 +1,47 @@
 import React, { Component } from 'react'
+import { tokenWorker } from '../../../utils/token-worker'
+import { tokenToPersonalData } from '../../../utils/account-worker'
+import { connect } from 'react-redux'
+import { setIsAuthenticatedValue, setUserData } from './UserPersonalData.action.jsx'
 
-export default class UserPersonalDataComponent extends Component {
+class UserPersonalDataComponent extends Component {
   constructor(props) {
     super(props)
+    console.log(props)
   }
 
   componentDidMount() {
-    setInterval(() => {
-      console.log(Math.random() * 10)
+
+    if (tokenWorker.haveToken()) {
+      tokenToPersonalData().then(data => {
+        this.props.setUserData(data)
+
+        if (!this.props.isAuthenticated) this.props.setIsAuthenticatedValue(true)
+        // console.log(data)
+      }).catch(console.log('token is invalid'))
+    }
+
+    this.timer = setInterval(() => {
+      tokenWorker.sendTokenToServerAndCheckIfIsValid().then(a => {
+        // console.log(this.props).
+        // console.log(a)
+      }).catch((error) => {
+        if (this.props.isAuthenticated) this.props.setIsAuthenticatedValue(false)
+      })
     }, 3000)
   }
 
+  shouldComponentUpdate(nextProps, nextState) {
+    console.log(nextProps)
+    return false
+  }
+
   componentWillUnmount() {
-    console.log('componentWillUnmount')
+    this.timer = clearInterval(this.timer)//return undefined
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    //impossible  beacuse this hook is called after shouldComponentUpdate
   }
 
 
@@ -24,3 +53,27 @@ export default class UserPersonalDataComponent extends Component {
     )
   }
 }
+
+function mapStateToProps(state) {
+  return {
+    email: state.userPersonalData.email,
+    firstName: state.userPersonalData.firstName,
+    lastName: state.userPersonalData.lastName,
+    isAuthenticated: state.userPersonalData.isAuthenticated
+  }
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    setUserData: (email) => {
+      dispatch(setUserData(email))
+    },
+    setIsAuthenticatedValue: (boolValue) => {
+      dispatch(setIsAuthenticatedValue(boolValue))
+    }
+
+  }
+}
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(UserPersonalDataComponent)

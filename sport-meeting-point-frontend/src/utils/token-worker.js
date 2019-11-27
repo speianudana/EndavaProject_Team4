@@ -1,4 +1,6 @@
 import CryptoJS from 'crypto-js'
+import axios from 'axios'
+import { adress } from '../utils/server-adress'
 
 const webSite = 'sport-meeting-point'//key for token data
 
@@ -30,10 +32,27 @@ const tokenWorker = {
     window.localStorage.removeItem(webSite)
   },
 
-  isAuth() {
+  haveToken() {
     if (window.localStorage.getItem(webSite)) return true
 
     return false
+  },
+
+  sendTokenToServerAndCheckIfIsValid() {
+    return new Promise((resolve, reject) => {
+      let config = {
+        headers: { 'Authorization': 'Bearer_ ' + this.loadTokenFromLocalStorage() },
+      }
+
+      axios.get(`${adress}/api/token/is_valid`, config).then(res => {
+        if (res.status === 200) {
+          resolve(res.data)
+
+        }
+      }).catch(function (error) {
+        reject(error)
+      });
+    })
   }
 
 }

@@ -1,13 +1,20 @@
-import { SET_DATA } from './UserPersonalData.constants.jsx'
+import { SET_DATA, SET_IS_AUTHENTICATED } from './UserPersonalData.constants.jsx'
 
 
 
-function setUserData(email) {
+function setUserData(data) {
   return {
     type: SET_DATA,
-    payload: email
+    payload: data
+  }
+}
+
+function setIsAuthenticatedValue(isAuth) {
+  return {
+    type: SET_IS_AUTHENTICATED,
+    payload: isAuth
   }
 }
 
 
-export { setUserData }
+export { setUserData, setIsAuthenticatedValue }

@@ -25,7 +25,7 @@ module.exports = (env, options) => {
             chunkFilename: '[name]_[chunkhash].js',
             publicPath: '/'
         },
-        devtool: isDev ? 'inline-source-map' : '',
+        devtool: isDev ? 'source-map' : '',//'inline-source-map'
         module: {
             rules: [
                 {
