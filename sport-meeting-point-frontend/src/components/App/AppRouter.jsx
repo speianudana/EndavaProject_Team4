@@ -6,7 +6,9 @@ import { Footer } from '../Layouts/Footer'
 import { Index } from '../Pages/Home/Index'
 import { Register } from '../Pages/Auth/Register'
 import { Login } from '../Pages/Auth/LogIn'
-import { index, regestr, login } from './AppConstRoutes.js'
+// import  from '../Pages/UserPage/index'
+
+import { index, regestr, login, user_page } from './AppConstRoutes.js'
 import UserPersonalDataComponent from '../UserData/UserPersonalData/UserPersonalData.component.jsx'
 
 export default class AppRouter extends React.Component {

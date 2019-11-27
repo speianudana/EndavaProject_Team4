@@ -10,21 +10,36 @@ import { useSelector, connect } from 'react-redux'
 const AuthContainer = ({ isAuthenticated, email }) => {
 
   if (!isAuthenticated)
-    return (<button className={style.btnMenu}>
-      <Link to={login} className={style.aClass} >
-        Sign In
+    return (
+      <button className={style.btnMenu}>
+        <Link to={login} className={style.aClass} >
+          Sign In
               </Link>
-    </button>)
+      </button>
+    )
 
-  return <button className={style.btnMenu}>
+  return (
+    <button className={style.btnMenu}>
 
-    <Link to={login} id={style.accountBtn} >
-      {email}
-    </Link>
-  </button>
+      <Link to={login} id={style.accountBtn} >
+        {email}
+      </Link>
+    </button>
+  )
 
 }
 
+const ClickableItem = ({ to, title }) => (<button className={style.btnMenu}>
+  <Link to={to} className={style.aClass} >
+    {title}
+  </Link>
+</button>)
+
+const MenuBtn = ({ clickHandler }) => (
+  <button onClick={() => { clickHandler() }}
+    id={style.btnDropdown} className={style.btnMenu}>
+    ☰
+  </button>)
 
 function HeaderStateless(props) {
 
@@ -45,26 +60,10 @@ function HeaderStateless(props) {
           </div>
 
           <div style={{ flexGrow: '5' }} className={style.menuElm}>
-            <button className={style.btnMenu}>
-              <Link to={index} className={style.aClass} >
-                Home
-              </Link>
-            </button>
-            <button className={style.btnMenu}>
-              <Link to={index} className={style.aClass} >
-                About
-              </Link>
-            </button>
-            <button className={style.btnMenu}>
-              <Link to={index} className={style.aClass} >
-                Contact
-              </Link>
-            </button>
-            <button className={style.btnMenu}>
-              <Link to={index} className={style.aClass} >
-                Feedback
-              </Link>
-            </button>
+            <ClickableItem to={index} title='Home' />
+            <ClickableItem to={index} title='About' />
+            <ClickableItem to={index} title='Contact' />
+            <ClickableItem to={index} title='Feedback' />
 
           </div>
 
@@ -75,13 +74,13 @@ function HeaderStateless(props) {
           <div style={{ flexGrow: '1' }} className={style.menuElm}>
 
 
-            <button onClick={() => {
+            {/* <button onClick={() => {
               setDropdownVisible(!dropdownIsVisible)
             }} id={style.btnDropdown} className={style.btnMenu
             }>
               ☰
-            </button>
-
+            </button> */}
+            <MenuBtn clickHandler={() => { setDropdownVisible(!dropdownIsVisible) }} />
 
 
           </div>
@@ -91,26 +90,10 @@ function HeaderStateless(props) {
 
         <div className={style.sizeChecker}>
           <div style={{ display: dropdownIsVisible ? 'block' : 'none' }} className={style.dropDownMenu1}>
-            <button className={style.btnMenu}>
-              <Link to={index} className={style.aClass} >
-                Home
-              </Link>
-            </button>
-            <button className={style.btnMenu}>
-              <Link to={index} className={style.aClass} >
-                About
-              </Link>
-            </button>
-            <button className={style.btnMenu}>
-              <Link to={index} className={style.aClass} >
-                Contact
-              </Link>
-            </button>
-            <button className={style.btnMenu}>
-              <Link to={index} className={style.aClass} >
-                Feedback
-              </Link>
-            </button>
+            <ClickableItem to={index} title='Home' />
+            <ClickableItem to={index} title='About' />
+            <ClickableItem to={index} title='Contact' />
+            <ClickableItem to={index} title='Feedback' />
             <AuthContainer isAuthenticated={props.isAuthenticated} email={props.email} />
           </div>
         </div>
