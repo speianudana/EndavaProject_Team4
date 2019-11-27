@@ -11,21 +11,14 @@ class LoginStatefull extends Component {
 
   constructor(props) {
     super(props)
-    // console.log(props)
-
 
     this.handleBtnLogIn.bind(this)
   }
 
-  // componentDidMount() {
-  //   setInterval(() => {
-  //     console.log(this.props)
-  //   }, 1500)
-  // }
 
-  componentDidUpdate() {
-
-    console.log(this.props)
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    console.log('prev props :', prevProps)
+    console.log('current props :', this.props)
   }
 
   handleBtnLogIn(login, password) {

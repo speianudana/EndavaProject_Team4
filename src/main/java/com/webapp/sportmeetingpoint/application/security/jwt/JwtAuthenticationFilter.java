@@ -1,6 +1,5 @@
 package com.webapp.sportmeetingpoint.application.security.jwt;
 
-import com.webapp.sportmeetingpoint.application.security.JwtUserDetailsService;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.SignatureException;
 import lombok.extern.slf4j.Slf4j;

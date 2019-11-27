@@ -1,7 +1,7 @@
 import React from 'react';
 import style from './style.scss';
 import { Link } from 'react-router-dom'
-import { index, regestr } from '../../App/AppConstRoutes.js'
+import { index, login } from '../../App/AppConstRoutes.js'
 import { Container } from '../Container'
 
 
@@ -46,7 +46,7 @@ function HeaderStateless() {
 
           <div style={{ flexGrow: '1' }} className={style.menuElm}>
             <button className={style.btnMenu}>
-              <Link to={regestr} className={style.aClass} >
+              <Link to={login} className={style.aClass} >
                 Sign In
               </Link>
             </button>
@@ -93,7 +93,7 @@ function HeaderStateless() {
               </Link>
             </button>
             <button className={style.btnMenu}>
-              <Link to={regestr} className={style.aClass} >
+              <Link to={login} className={style.aClass} >
                 Sign In
               </Link>
             </button>
