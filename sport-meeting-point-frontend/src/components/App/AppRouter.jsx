@@ -7,7 +7,7 @@ import { Index } from '../Pages/Home/Index'
 import { Register } from '../Pages/Auth/Register'
 import { Login } from '../Pages/Auth/LogIn'
 import { index, regestr, login } from './AppConstRoutes.js'
-
+import UserPersonalDataComponent from '../UserData/UserPersonalData/UserPersonalData.component.jsx'
 
 export default class AppRouter extends React.Component {
     constructor(props) {
@@ -27,6 +27,7 @@ export default class AppRouter extends React.Component {
 
 
                 <Footer />
+                <UserPersonalDataComponent />
             </Router>)
 
     }

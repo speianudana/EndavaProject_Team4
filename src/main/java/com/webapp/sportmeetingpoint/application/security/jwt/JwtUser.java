@@ -10,6 +10,7 @@ import java.util.Date;
 public class JwtUser implements UserDetails {
 
   private  Integer id;
+  private String token;
   private  String username;
   private  String firstName;
   private  String lastName;
@@ -31,6 +32,13 @@ public class JwtUser implements UserDetails {
     this.authorities = authorities;
   }
 
+  public String getToken() {
+    return token;
+  }
+
+  public void setToken(String token) {
+    this.token = token;
+  }
 
   @JsonIgnore
   public Integer getId() {

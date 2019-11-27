@@ -6,19 +6,26 @@ import { tokenWorker } from '../../../../utils/token-worker.js'
 import { tokenToPersonalData } from '../../../../utils/account-worker'
 import { connect } from 'react-redux'
 import { setUserData } from '../../../UserData/UserPersonalData/UserPersonalData.action.jsx'
+import { Redirect } from 'react-router-dom'
+import { index } from '../../../App/AppConstRoutes'
 
 class LoginStatefull extends Component {
 
   constructor(props) {
     super(props)
 
+    this.state = {
+      redirectToHome: false
+    }
+
     this.handleBtnLogIn.bind(this)
   }
 
 
+
   componentDidUpdate(prevProps, prevState, snapshot) {
-    console.log('prev props :', prevProps)
-    console.log('current props :', this.props)
+    // console.log('prev props :', prevProps)
+    // console.log('current props :', this.props)
   }
 
   handleBtnLogIn(login, password) {
@@ -36,6 +43,7 @@ class LoginStatefull extends Component {
         tokenToPersonalData().then(
           result => {
             this.props.setUserData(result)
+            this.setState({ redirectToHome: true })
           }
         );
 
@@ -48,6 +56,10 @@ class LoginStatefull extends Component {
   }
 
   render() {
+    if (this.state.redirectToHome) {
+      return <Redirect to={index} />
+    }
+
     return (
       <div>
         <LoginStateless onHandleBtnLogIn={(login, password) => this.handleBtnLogIn(login, password)} />
