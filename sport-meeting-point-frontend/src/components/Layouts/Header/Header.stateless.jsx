@@ -3,11 +3,35 @@ import style from './style.scss';
 import { Link } from 'react-router-dom'
 import { index, login } from '../../App/AppConstRoutes.js'
 import { Container } from '../Container'
+import { useSelector, connect } from 'react-redux'
+// import {} from '../../UserData/UserPersonalData/UserPersonalData.action.jsx'
 
 
-function HeaderStateless() {
+const AuthContainer = ({ isAuthenticated, email }) => {
+
+  if (!isAuthenticated)
+    return (<button className={style.btnMenu}>
+      <Link to={login} className={style.aClass} >
+        Sign In
+              </Link>
+    </button>)
+
+  return <button className={style.btnMenu}>
+
+    <Link to={login} id={style.accountBtn} >
+      {email}
+    </Link>
+  </button>
+
+}
+
+
+function HeaderStateless(props) {
 
   const [dropdownIsVisible, setDropdownVisible] = React.useState(false)
+
+
+  console.log("aefdadf:", props)
 
   return (
     <React.Fragment>
@@ -45,12 +69,7 @@ function HeaderStateless() {
           </div>
 
           <div style={{ flexGrow: '1' }} className={style.menuElm}>
-            <button className={style.btnMenu}>
-              <Link to={login} className={style.aClass} >
-                Sign In
-              </Link>
-            </button>
-
+            <AuthContainer isAuthenticated={props.isAuthenticated} email={props.email} />
           </div>
 
           <div style={{ flexGrow: '1' }} className={style.menuElm}>
@@ -92,11 +111,7 @@ function HeaderStateless() {
                 Feedback
               </Link>
             </button>
-            <button className={style.btnMenu}>
-              <Link to={login} className={style.aClass} >
-                Sign In
-              </Link>
-            </button>
+            <AuthContainer isAuthenticated={props.isAuthenticated} email={props.email} />
           </div>
         </div>
 
@@ -107,5 +122,12 @@ function HeaderStateless() {
 }
 
 
+function mapStateToProps(state) {
+  return {
+    email: state.userPersonalData.email,
+    isAuthenticated: state.userPersonalData.isAuthenticated
+  }
+}
 
-export default React.memo(HeaderStateless)
+
+export default connect(mapStateToProps)(React.memo(HeaderStateless))

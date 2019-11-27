@@ -22,17 +22,20 @@ class UserPersonalDataComponent extends Component {
     }
 
     this.timer = setInterval(() => {
-      tokenWorker.sendTokenToServerAndCheckIfIsValid().then(a => {
-        // console.log(this.props).
-        // console.log(a)
-      }).catch((error) => {
-        if (this.props.isAuthenticated) this.props.setIsAuthenticatedValue(false)
-      })
+      if (tokenWorker.haveToken()) {
+        tokenWorker.sendTokenToServerAndCheckIfIsValid().then(a => {
+          //do
+        }).catch((error) => {
+          if (this.props.isAuthenticated) this.props.setIsAuthenticatedValue(false)
+          tokenWorker.deleteTokenFromLocalStorage()
+        })
+      }
+
     }, 3000)
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    console.log(nextProps)
+    // console.log(nextProps)
     return false
   }
 
