@@ -7,7 +7,7 @@ import { setIsAuthenticatedValue, setUserData } from './UserPersonalData.action.
 class UserPersonalDataComponent extends Component {
   constructor(props) {
     super(props)
-    console.log(props)
+    // console.log(props)
   }
 
   componentDidMount() {
@@ -18,7 +18,7 @@ class UserPersonalDataComponent extends Component {
 
         if (!this.props.isAuthenticated) this.props.setIsAuthenticatedValue(true)
         // console.log(data)
-      }).catch(console.log('token is invalid'))
+      }).catch(console.warn('token is invalid'))
     }
 
     this.timer = setInterval(() => {
@@ -35,6 +35,8 @@ class UserPersonalDataComponent extends Component {
   }
 
   shouldComponentUpdate(nextProps, nextState) {
+
+
     // console.log(nextProps)
     return false
   }

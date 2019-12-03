@@ -5,7 +5,7 @@ import { adress } from '../../../../utils/server-adress'
 import { tokenWorker } from '../../../../utils/token-worker.js'
 import { tokenToPersonalData } from '../../../../utils/account-worker'
 import { connect } from 'react-redux'
-import { setUserData } from '../../../UserData/UserPersonalData/UserPersonalData.action.jsx'
+import { setUserData, setIsAuthenticatedValue } from '../../../UserData/UserPersonalData/UserPersonalData.action.jsx'
 import { Redirect } from 'react-router-dom'
 import { index } from '../../../App/AppConstRoutes'
 
@@ -25,7 +25,7 @@ class LoginStatefull extends Component {
 
   componentDidUpdate(prevProps, prevState, snapshot) {
     // console.log('prev props :', prevProps)
-    console.log('current props :', this.props)
+    // console.log('current props :', this.props)
   }
 
   handleBtnLogIn(login, password) {
@@ -43,6 +43,7 @@ class LoginStatefull extends Component {
         tokenToPersonalData().then(
           result => {
             this.props.setUserData(result)
+            this.props.setIsAuthenticatedValue(true)
             this.setState({ redirectToHome: true })
           }
         );
@@ -81,8 +82,11 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    setUserData: (email) => {
-      dispatch(setUserData(email))
+    setUserData: (data) => {
+      dispatch(setUserData(data))
+    },
+    setIsAuthenticatedValue: (boolValue) => {
+      dispatch(setIsAuthenticatedValue(boolValue))
     }
 
   }

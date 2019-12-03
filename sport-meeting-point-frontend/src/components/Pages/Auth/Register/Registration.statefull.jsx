@@ -5,9 +5,9 @@ import { adress } from '../../../../utils/server-adress'
 import { tokenWorker } from '../../../../utils/token-worker'
 import { Redirect } from 'react-router-dom'
 import { index } from '../../../App/AppConstRoutes'
-import { tokenToPersonalData } from '../../../../utils/account-worker'
+// import { tokenToPersonalData } from '../../../../utils/account-worker'
 
-export default class RegistrationStatefull extends React.Component {
+class RegistrationStatefull extends React.Component {
 
   constructor(props) {
     super(props)
@@ -65,3 +65,7 @@ export default class RegistrationStatefull extends React.Component {
     )
   }
 }
+
+
+
+export default RegistrationStatefull

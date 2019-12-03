@@ -17,7 +17,7 @@ import { connect } from 'react-redux'
 
 const AppRouter = props => {
     const isAuth = props.isAuthenticated
-    console.log("qereqr: ", isAuth)
+    // console.log("qereqr: ", isAuth)
 
     return (
         <Router>

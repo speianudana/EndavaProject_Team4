@@ -26,4 +26,5 @@ function tokenToPersonalData() {
 }
 
 
+
 export { tokenToPersonalData }

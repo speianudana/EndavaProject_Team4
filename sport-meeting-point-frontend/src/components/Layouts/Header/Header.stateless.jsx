@@ -50,7 +50,7 @@ function HeaderStateless(props) {
   const [dropdownIsVisible, setDropdownVisible] = React.useState(false)
 
 
-  console.log("aefdadf:", props)
+  // console.log("aefdadf:", props)
 
   return (
     <React.Fragment>
