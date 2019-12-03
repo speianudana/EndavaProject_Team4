@@ -1,7 +1,8 @@
 import React from 'react';
 import style from './style.scss';
 import { Link } from 'react-router-dom'
-import { index, login } from '../../App/AppConstRoutes.js'
+
+import { index, login, user_page } from '../../App/AppConstRoutes.js'
 import { Container } from '../Container'
 import { useSelector, connect } from 'react-redux'
 // import {} from '../../UserData/UserPersonalData/UserPersonalData.action.jsx'
@@ -9,7 +10,7 @@ import { useSelector, connect } from 'react-redux'
 
 const AuthContainer = ({ isAuthenticated, email }) => {
 
-  if (!isAuthenticated)
+  if (!isAuthenticated) {
     return (
       <button className={style.btnMenu}>
         <Link to={login} className={style.aClass} >
@@ -17,15 +18,18 @@ const AuthContainer = ({ isAuthenticated, email }) => {
               </Link>
       </button>
     )
+  }
+  else {
+    return (
+      <button className={style.btnMenu}>
 
-  return (
-    <button className={style.btnMenu}>
+        <Link to={user_page} id={style.accountBtn} >
+          {email}
+        </Link>
+      </button>
+    )
+  }
 
-      <Link to={login} id={style.accountBtn} >
-        {email}
-      </Link>
-    </button>
-  )
 
 }
 
