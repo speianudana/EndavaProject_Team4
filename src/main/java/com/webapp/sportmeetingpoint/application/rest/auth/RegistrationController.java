@@ -1,7 +1,7 @@
 package com.webapp.sportmeetingpoint.application.rest.auth;
 
 
-import com.webapp.sportmeetingpoint.application.dto.UserSystemDTO;
+import com.webapp.sportmeetingpoint.domain.dto.UserSystemDTO;
 import com.webapp.sportmeetingpoint.application.security.jwt.JwtTokenProvider;
 import com.webapp.sportmeetingpoint.application.service.UserSystemService;
 import com.webapp.sportmeetingpoint.domain.entities.*;

@@ -42,7 +42,9 @@ class RegistrationStatefull extends React.Component {
         }
         if (res.data.token) {
           tokenWorker.saveTokenInLocalStorage(res.data.token)
+          setTimeout(() => location.reload(), 33)
           this.setState({ errorMsgs: new Array(), redirectToHome: true })
+
         }
       }
     }).catch(function (error) {

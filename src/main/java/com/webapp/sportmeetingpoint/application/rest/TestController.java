@@ -1,10 +1,7 @@
 package com.webapp.sportmeetingpoint.application.rest;
 
-import com.webapp.sportmeetingpoint.application.dto.AuthenticationRequestDTO;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.*;
 
 @RestController
 @CrossOrigin

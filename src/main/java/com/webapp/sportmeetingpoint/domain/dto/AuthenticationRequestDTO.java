@@ -1,4 +1,4 @@
-package com.webapp.sportmeetingpoint.application.dto;
+package com.webapp.sportmeetingpoint.domain.dto;
 
 import lombok.Data;
 

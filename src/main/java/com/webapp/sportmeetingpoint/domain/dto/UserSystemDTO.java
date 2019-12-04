@@ -1,4 +1,4 @@
-package com.webapp.sportmeetingpoint.application.dto;
+package com.webapp.sportmeetingpoint.domain.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
