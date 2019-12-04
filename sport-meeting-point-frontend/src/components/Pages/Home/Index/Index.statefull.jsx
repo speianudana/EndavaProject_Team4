@@ -34,22 +34,6 @@ class IndexStatefull extends Component {
 
 
         </Container>
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-
 
 
 

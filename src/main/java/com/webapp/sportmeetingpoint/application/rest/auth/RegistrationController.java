@@ -27,8 +27,13 @@ public class RegistrationController {
 
   private Map<Object, Object> registrationDataValidation(UserSystemDTO data){
     List<String>  errorList = new ArrayList<>();
+
+    if(data.getEmail().isEmpty()){
+      errorList.add("Please enter your email");
+    }
+
     if(userSystemService.findByEmail(data.getEmail())!=null){
-      errorList.add("A user with the same name already exists");
+      errorList.add("A user with the same email already exists");
     }
 
     if(!data.getPasswordRepeat().equals(data.getPassword())){
@@ -36,7 +41,7 @@ public class RegistrationController {
     }
 
     if(data.getPassword().length()<5){
-      errorList.add("Use at least 5 characters");
+      errorList.add("Password must not be less than 5 characters");
     }
 
     Map<Object, Object> errorListResult = new HashMap<>();

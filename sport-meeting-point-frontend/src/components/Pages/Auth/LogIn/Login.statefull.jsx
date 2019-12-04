@@ -15,7 +15,8 @@ class LoginStatefull extends Component {
     super(props)
 
     this.state = {
-      redirectToHome: false
+      redirectToHome: false,
+      errorMsg: ''
     }
 
     this.handleBtnLogIn.bind(this)
@@ -24,6 +25,7 @@ class LoginStatefull extends Component {
 
 
   componentDidUpdate(prevProps, prevState, snapshot) {
+    // console.log('z: ', this.state)
     // console.log('prev props :', prevProps)
     // console.log('current props :', this.props)
   }
@@ -39,14 +41,23 @@ class LoginStatefull extends Component {
 
     axios.post(`${adress}/api/auth/login`, loginObject).then(res => {
       if (res.status === 200) {
-        tokenWorker.saveTokenInLocalStorage(res.data)
-        tokenToPersonalData().then(
-          result => {
-            this.props.setUserData(result)
-            this.props.setIsAuthenticatedValue(true)
-            this.setState({ redirectToHome: true })
-          }
-        );
+
+        if (typeof res.data === 'string') {
+
+          this.setState({ errorMsg: `*${res.data}` })
+
+        } else {
+
+          tokenWorker.saveTokenInLocalStorage(res.data)
+          tokenToPersonalData().then(
+            result => {
+              this.props.setUserData(result)
+              this.props.setIsAuthenticatedValue(true)
+              this.setState({ redirectToHome: true })
+            }
+          );
+
+        }
 
 
       }
@@ -63,7 +74,9 @@ class LoginStatefull extends Component {
 
     return (
       <div>
-        <LoginStateless onHandleBtnLogIn={(login, password) => this.handleBtnLogIn(login, password)} />
+        <LoginStateless
+          onHandleBtnLogIn={(login, password) => this.handleBtnLogIn(login, password)}
+          errorMsg={this.state.errorMsg} />
 
       </div>
     )

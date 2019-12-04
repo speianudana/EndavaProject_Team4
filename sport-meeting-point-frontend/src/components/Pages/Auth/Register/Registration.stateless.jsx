@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 // import { Container, Row, Col, Button, BDiv, BH4, BHr, InputGroup } from 'bootstrap-4-react';
 import { Link } from 'react-router-dom'
 import { login } from '../../../App/AppConstRoutes.js'
-import commonStyle from '../style.scss'
+import style from '../style.scss'
 import { Container } from '../../../Layouts/Container'
 
 function RegistrationStateless(props) {
@@ -19,43 +19,43 @@ function RegistrationStateless(props) {
   return (
     <React.Fragment>
       <Container>
-        <div className={commonStyle.card}>
-          <div className={commonStyle.loginOrRegistrationBtn}>
+        <div className={style.card}>
+          <div className={style.loginOrRegistrationBtn}>
             <Link to={login}>Log In</Link> / Registration
           </div >
 
           <p>Firstname:</p>
-          <input className={commonStyle.inputType1} type="text"
+          <input className={style.inputType1} type="text"
             onChange={e => setRegData({ ...regData, firstName: e.target.value })}
             value={regData.firstName} />
           <br />
           <br />
           <p>Lastname:</p>
-          <input className={commonStyle.inputType1} type="text"
+          <input className={style.inputType1} type="text"
             onChange={e => setRegData({ ...regData, lastName: e.target.value })}
             value={regData.lastName} />
           <br />
           <br />
           <p>Email:</p>
-          <input className={commonStyle.inputType1} type="text"
+          <input className={style.inputType1} type="text"
             onChange={e => setRegData({ ...regData, email: e.target.value })}
             value={regData.email} />
           <br />
           <br />
           <p>Password:</p>
-          <input className={commonStyle.inputType1} type="password"
+          <input className={style.inputType1} type="password"
             onChange={e => setRegData({ ...regData, password: e.target.value })}
             value={regData.password} />
           <br />
           <br />
           <p>Password repeat:</p>
-          <input className={commonStyle.inputType1} type="password"
+          <input className={style.inputType1} type="password"
             onChange={e => setRegData({ ...regData, passwordRepeat: e.target.value })}
             value={regData.passwordRepeat} />
           <br />
           <br />
 
-          <button onClick={() => {
+          <button className={style.btn1} onClick={() => {
             props.handleBtnRegistr(regData)
             setRegData({
               ...regData,

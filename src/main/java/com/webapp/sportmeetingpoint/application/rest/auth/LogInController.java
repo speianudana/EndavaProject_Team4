@@ -46,7 +46,7 @@ public class LogInController {
       UserSystem user = userService.findByEmail(username);
 
       if (user == null) {
-        throw new UsernameNotFoundException("Wrong username");
+        return ResponseEntity.ok("Invalid username or password...");
       }
 
 
