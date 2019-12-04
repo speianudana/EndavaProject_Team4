@@ -16,5 +16,6 @@ public class UserPersonalDataDTO {
   private String lastName;
   private String telNumber;
   private String DOB;
+  private String role;
 
 }

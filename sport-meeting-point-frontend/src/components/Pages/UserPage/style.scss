@@ -2,7 +2,6 @@
 @import "../../../mixins/BoxShadow.mixin.scss";
 
 .main {
-
   padding: 5px 5px;
   @include gradient-horizontal(rgba(193, 193, 212, 0.2), rgba(205, 205, 224, 0.2));
   min-height: 120vh;
@@ -13,12 +12,16 @@
   flex-direction: row;
 }
 
+.txt {
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
 .item {
   // background-color: #1f08a3;
   color: rgb(0, 1, 51);
   width: 400px;
   margin: 5px;
-  border: 1px solid green;
+  // border: 1px solid green;
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -36,7 +39,7 @@
   display: flex;
   align-items: center;
   flex-direction: column;
-  border: 1px solid green;
+  // border: 1px solid green;
 
 }
 
@@ -82,6 +85,8 @@
 #exitBtn:hover {
   background-color: rgb(66, 0, 0);
 }
+
+
 
 
 @media screen and(max-width:800px) {

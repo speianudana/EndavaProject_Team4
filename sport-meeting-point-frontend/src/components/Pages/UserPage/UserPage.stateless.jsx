@@ -3,14 +3,22 @@ import PropTypes from 'prop-types'
 import { Container } from '../../Layouts/Container'
 import style from './style.scss'
 import unauthUserImg from '../../../../static/unauth_usr.png'
-// import { tokenWorker } from '../../../utils/token-worker'
 
-// const signOut = () => {
-//   tokenWorker.deleteTokenFromLocalStorage()
-//   console.log(1)
-// }
 
-const UserPageStateless = ({ signOut }) => {
+
+const PersonalDataLine = ({ title, text }) => (
+  <p className={style.txt}>
+    <span className={style.txt} style={{ fontWeight: 'bold' }}>
+      {title}
+    </span>
+    {text}
+  </p>
+)
+
+
+const UserPageStateless = ({ signOut, firstName, lastName, email, role }) => {
+
+
   return (
     <Container >
       <main className={style.main}>
@@ -28,8 +36,12 @@ const UserPageStateless = ({ signOut }) => {
         </div>
 
         <div className={style.item}>
-          <div className={style.miniItem}>
-            <h3>Personal data:</h3>
+          <div style={{ alignItems: 'flex-start' }} className={style.miniItem}>
+            <PersonalDataLine title='Email: ' text={email} />
+            <PersonalDataLine title='First Name: ' text={firstName} />
+            <PersonalDataLine title='Last Name: ' text={lastName} />
+            <PersonalDataLine title='Authority: ' text={role.toLowerCase()} />
+
           </div>
           <div className={style.miniItem}></div>
           <div className={style.miniItem}></div>
@@ -42,7 +54,7 @@ const UserPageStateless = ({ signOut }) => {
 }
 
 UserPageStateless.propTypes = {
-
+  signOut: PropTypes.func
 }
 
 export default UserPageStateless

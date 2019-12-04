@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import UserPageStateless from './UserPage.stateless.jsx'
 import { connect } from 'react-redux'
-import { setUserData, setIsAuthenticatedValue } from '../../UserData/UserPersonalData/UserPersonalData.action.jsx'
+import { setIsAuthenticatedValue } from '../../UserData/UserPersonalData/UserPersonalData.action.jsx'
 import { tokenWorker } from '../../../utils/token-worker'
 
 class UserPageStatefull extends Component {
@@ -19,14 +19,29 @@ class UserPageStatefull extends Component {
 
   render() {
     return (
-      <UserPageStateless signOut={() => this.signOut()} />
+      <UserPageStateless
+        signOut={() => this.signOut()}
+        email={this.props.email}
+        firstName={this.props.firstName}
+        lastName={this.props.lastName}
+        role={this.props.role}
+      />
     )
   }
 }
 
 
+const mapStateToProps = state => {
+  return {
+    email: state.userPersonalData.email,
+    firstName: state.userPersonalData.firstName,
+    lastName: state.userPersonalData.lastName,
+    role: state.userPersonalData.role,
+  }
+}
 
-function mapDispatchToProps(dispatch) {
+
+const mapDispatchToProps = dispatch => {
   return {
     setIsAuthenticatedValue: (boolValue) => {
       dispatch(setIsAuthenticatedValue(boolValue))
@@ -36,4 +51,4 @@ function mapDispatchToProps(dispatch) {
 
 
 
-export default connect(() => ({}), mapDispatchToProps)(UserPageStatefull)
+export default connect(mapStateToProps, mapDispatchToProps)(UserPageStatefull)

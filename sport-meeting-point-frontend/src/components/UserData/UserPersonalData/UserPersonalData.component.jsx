@@ -70,8 +70,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    setUserData: (email) => {
-      dispatch(setUserData(email))
+    setUserData: (data) => {
+      dispatch(setUserData(data))
     },
     setIsAuthenticatedValue: (boolValue) => {
       dispatch(setIsAuthenticatedValue(boolValue))

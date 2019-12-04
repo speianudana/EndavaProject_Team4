@@ -51,6 +51,7 @@ public class UserPersonalDataController {
     personalDataDTO.setLastName(personalData.getLastName());
     personalDataDTO.setTelNumber(personalData.getTelephoneNumber());
     personalDataDTO.setEmail(userSystem.getEmail());
+    personalDataDTO.setRole(userSystem.getUserRole().getName());
 
     HashMap response = new HashMap();
     response.put("personalData", personalDataDTO);
