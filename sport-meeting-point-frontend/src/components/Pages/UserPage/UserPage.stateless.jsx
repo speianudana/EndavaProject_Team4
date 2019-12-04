@@ -28,7 +28,9 @@ const UserPageStateless = ({ signOut }) => {
         </div>
 
         <div className={style.item}>
-          <div className={style.miniItem}></div>
+          <div className={style.miniItem}>
+            <h3>Personal data:</h3>
+          </div>
           <div className={style.miniItem}></div>
           <div className={style.miniItem}></div>
 

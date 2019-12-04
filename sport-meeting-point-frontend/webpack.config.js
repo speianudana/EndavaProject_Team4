@@ -6,7 +6,7 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const webpack = require('webpack')
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
-const showDiagram = false
+const showDiagram = true
 
 module.exports = (env, options) => {
     const isDev = options.mode === 'development'

@@ -16,19 +16,33 @@ export default function SubHeaderStateless() {
       <div className={style.mainContainer}>
         <div className={style.itemContainer}>
           <img className={style.img} src={img1} alt="" />
+          <p className={style.itemText}>
+            Fun
+          </p>
         </div>
+
         <div className={style.itemContainer}>
           <img className={style.img} src={img2} alt="" />
+          <p className={style.itemText}>
+            Discipline
+          </p>
         </div>
+
         <div className={style.itemContainer}>
           <img className={style.img} src={img3} alt="" />
         </div>
+
         <div className={style.itemContainer}>
           <img className={style.img} src={img4} alt="" />
         </div>
+
         <div className={style.itemContainer}>
           <img className={style.img} src={img5} alt="" />
+          <p className={style.itemText}>
+            Power
+          </p>
         </div>
+
         <div className={style.itemContainer}>
           <img className={style.img} src={img6} alt="" />
         </div>

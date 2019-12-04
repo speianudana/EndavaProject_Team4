@@ -37,8 +37,8 @@ public class LogInController {
 
   @PostMapping("/login")
   @CrossOrigin
-  public ResponseEntity<?> login(@RequestBody AuthenticationRequestDTO requestDTO){
-    try{
+  public ResponseEntity<?> login(@RequestBody AuthenticationRequestDTO requestDTO) {
+    try {
 
 
       String username = requestDTO.getUsername();
@@ -50,23 +50,25 @@ public class LogInController {
       }
 
 
-
       List<UserRole> userRoles = new ArrayList<>(Collections.singletonList(user.getUserRole()));
 
-      try{
+      try {
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
-      }catch(Exception e){
+      } catch (Exception e) {
         return ResponseEntity.ok("Invalid username or password..");
       }
-
 
 
       String token = jwtTokenProvider.createToken(username, userRoles);
 
 
-      return ResponseEntity.ok(token);
+      return ResponseEntity.ok(
+        new HashMap<Object, Object>() {{
+          put("token", token);
+        }}
+      );
 
-    }catch(AuthenticationException e){
+    } catch (AuthenticationException e) {
       return ResponseEntity.ok("Invalid username or password.");
     }
 
