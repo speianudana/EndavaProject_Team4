@@ -13,7 +13,7 @@ function movePageBotton() {
   window.scrollTo(0, height + 42);//42 top bar height
 }
 
-export default function HeaderStateless() {
+function HeaderStateless(props) {
   return (
     <div id={style.mainBlock}>
 
@@ -38,3 +38,6 @@ export default function HeaderStateless() {
     </div>
   )
 }
+
+
+export default HeaderStateless

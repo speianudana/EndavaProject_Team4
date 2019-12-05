@@ -3,7 +3,7 @@ import scss from './style.scss'
 
 const ButtonA = ({ title, className, onClick, style }) => {
   return (
-    <button onClick={onClick} style={style} className={scss.btnA}>
+    <button onClick={onClick} style={style} className={`${scss.btnA} ${className}`}>
       {title}
     </button>
   )

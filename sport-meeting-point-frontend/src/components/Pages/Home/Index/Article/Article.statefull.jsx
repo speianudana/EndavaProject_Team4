@@ -10,7 +10,8 @@ class ArticleStatefull extends Component {
 
   render() {
     return (
-      <ArticleStateless title={this.props.title} text={this.props.text} />
+      <ArticleStateless title={this.props.title} text={this.props.text} image={this.props.image} />
+
     )
   }
 }

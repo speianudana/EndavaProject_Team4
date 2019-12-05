@@ -20,17 +20,12 @@ values ('Text1', NOW(), 'Title1', 19);
 --  /insert news
 
 
---select all system_users , firstname and lastname
+--select all system_users , firstname and lastname and role
 
-select
-	"user_system"."email",
-	"user_personal_data"."first_name",
-	"user_personal_data"."last_name"
-from
-	"user_system"
-join "user_personal_data" on "user_system"."id"="user_personal_data"."id";
-
-
-
+SELECT "email", "first_name", "last_name", "user_role"."name"
+FROM public."user_system"
+JOIN public."user_personal_data" ON "user_personal_data"."id"="user_system"."user_personal_data_fk_id"
+JOIN public."user_role" ON "user_role"."id"="user_system"."user_role_fk_id"
+LIMIT 100;
 
 --select all system_users , firstname and lastname
