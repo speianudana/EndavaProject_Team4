@@ -19,8 +19,14 @@ import java.util.Date;
 public class Event extends BaseEntity {
 
   @NotNull(message = "Title is required!")
-  @Column(name = "title", columnDefinition = "varchar(128)", nullable = false)
+  @Column(name = "title", columnDefinition = "varchar(64)", nullable = false)
   private String title;
+
+  @Column(name="is_expired", columnDefinition = "boolean", nullable = false)
+  private Boolean isExpired;
+
+  @Column(name = "preview_message", columnDefinition = "varchar(200)", nullable = false)
+  private String previewMessage;
 
   @NotNull
   @Column(name = "address", columnDefinition = "varchar(128)", nullable = false)
@@ -29,12 +35,11 @@ public class Event extends BaseEntity {
   @Column(name = "description", columnDefinition = "varchar(1000)", nullable = false)
   private String description;
 
-  @NotNull
   @Column(name = "date")
   private Date date;
 
 
-  @OneToOne(fetch = FetchType.EAGER)
+  @ManyToOne(fetch = FetchType.EAGER)
   @JoinColumn(name = "user_activity_fk_id", nullable = false)
   private UserActivity userActivity;
 

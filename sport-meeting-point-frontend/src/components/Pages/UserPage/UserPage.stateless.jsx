@@ -3,7 +3,9 @@ import PropTypes from 'prop-types'
 import { Container } from '../../Layouts/Container'
 import style from './style.scss'
 import unauthUserImg from '../../../../static/unauth_usr.png'
-
+import { Redirect } from 'react-router-dom'
+import { user_page_create_event } from '../../App/AppConstRoutes'
+// import CreateEvent from './CreateEvent'
 
 
 const PersonalDataLine = ({ title, text }) => (
@@ -18,6 +20,9 @@ const PersonalDataLine = ({ title, text }) => (
 
 const UserPageStateless = ({ signOut, firstName, lastName, email, role }) => {
 
+  const [redirectToCreateEvent, setRedirectToCreateEvent] = React.useState(false)
+
+  if (redirectToCreateEvent) return <Redirect to={user_page_create_event} />
 
   return (
     <Container >
@@ -43,12 +48,19 @@ const UserPageStateless = ({ signOut, firstName, lastName, email, role }) => {
             <PersonalDataLine title='Authority: ' text={role.toLowerCase()} />
 
           </div>
-          <div className={style.miniItem}></div>
-          <div className={style.miniItem}></div>
+          <div className={style.miniItem}>
+            <button className={`${style.btn} ${style.simpleBtn}`}
+              onClick={e => setRedirectToCreateEvent(true)} >
+              Create event
+            </button>
+          </div>
 
         </div>
 
+
       </main>
+      {/* <CreateEvent /> */}
+
     </Container >
   )
 }

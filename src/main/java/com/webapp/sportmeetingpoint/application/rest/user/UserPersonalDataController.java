@@ -36,9 +36,7 @@ public class UserPersonalDataController {
 
     Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
-    if(!authentication.isAuthenticated()){
-      throw new BadCredentialsException("Invalid operation...");
-    }
+
 
 
     JwtUser jwtUser = (JwtUser)authentication.getPrincipal();

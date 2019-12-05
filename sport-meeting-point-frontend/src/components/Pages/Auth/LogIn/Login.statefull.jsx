@@ -49,6 +49,7 @@ class LoginStatefull extends Component {
         } else {
 
           tokenWorker.saveTokenInLocalStorage(res.data.token)
+          // console.log('afdafadfdafadf: ', res.data.token)
           tokenToPersonalData().then(
             result => {
               this.props.setUserData(result)
