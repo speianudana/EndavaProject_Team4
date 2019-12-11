@@ -13,9 +13,11 @@ export default class CreateEventStatefull extends Component {
 
   handleAllInputData(data) {
 
+    const token = tokenWorker.loadTokenFromLocalStorage()
+
     const headers = {
       'Content-Type': 'application/json',
-      'Authorization': 'Bearer_eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJxIiwicm9sZXMiOlsiVVNFUiJdLCJpYXQiOjE1NzU1Nzk4MTEsImV4cCI6MTU3NTU4MzQxMX0.GkFmH4Ul3MUJpdrhAW1vCKiqIXiDcdDJ02VSHTQiyeY'
+      'Authorization': `Bearer_${token}`
     }
 
     axios.post(adress + '/api/event/add', data, {
