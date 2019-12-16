@@ -1,72 +1,87 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Container } from '../../Layouts/Container'
+import {Container} from '../../Layouts/Container'
 import style from './style.scss'
 import unauthUserImg from '../../../../static/unauth_usr.png'
-import { Redirect } from 'react-router-dom'
-import { user_page_create_event } from '../../App/AppConstRoutes'
+import {Redirect} from 'react-router-dom'
+import {user_page_create_event,user_page_create_news} from '../../App/AppConstRoutes'
 // import CreateEvent from './CreateEvent'
 
 
-const PersonalDataLine = ({ title, text }) => (
-  <p className={style.txt}>
-    <span className={style.txt} style={{ fontWeight: 'bold' }}>
+const PersonalDataLine = ({title, text}) => (
+    <p className={style.txt}>
+    <span className={style.txt} style={{fontWeight: 'bold'}}>
       {title}
     </span>
-    {text}
-  </p>
+        {text}
+    </p>
+)
+
+const Button = ({title, onClickHandle}) => (
+    <button className={`${style.btn} ${style.simpleBtn}`}
+        onClick={e => onClickHandle()}
+    >
+        {title}
+    </button>
 )
 
 
-const UserPageStateless = ({ signOut, firstName, lastName, email, role }) => {
+const UserPageStateless = ({signOut, firstName, lastName, email, role}) => {
 
-  const [redirectToCreateEvent, setRedirectToCreateEvent] = React.useState(false)
+    const [redirectToCreateEvent, setRedirectToCreateEvent] = React.useState(false)
+    const [redirectToCreateNews, setRedirectToCreateNews] = React.useState(false)
 
-  if (redirectToCreateEvent) return <Redirect to={user_page_create_event} />
+    if (redirectToCreateEvent) return <Redirect to={user_page_create_event}/>
+    if (redirectToCreateNews) return <Redirect to={user_page_create_news}/>
 
-  return (
-    <Container >
-      <main className={style.main}>
-
-
-        <div className={style.item}>
-          <div className={style.miniItem}>
-            <img id={style.userImg} src={unauthUserImg} alt="" />
-          </div>
-          <div className={style.miniItem}>
-            <button className={`${style.btn} ${style.simpleBtn}`}>Load user image</button>
-            <button className={`${style.btn} ${style.simpleBtn}`}>Reset personal data</button>
-            <button onClick={() => signOut()} id={style.exitBtn} className={style.btn}>Exit</button>
-          </div>
-        </div>
-
-        <div className={style.item}>
-          <div style={{ alignItems: 'flex-start' }} className={style.miniItem}>
-            <PersonalDataLine title='Email: ' text={email} />
-            <PersonalDataLine title='First Name: ' text={firstName} />
-            <PersonalDataLine title='Last Name: ' text={lastName} />
-            <PersonalDataLine title='Authority: ' text={role.toLowerCase()} />
-
-          </div>
-          <div className={style.miniItem}>
-            <button className={`${style.btn} ${style.simpleBtn}`}
-              onClick={e => setRedirectToCreateEvent(true)} >
-              Create event
-            </button>
-          </div>
-
-        </div>
+    return (
+        <Container>
+            <main className={style.main}>
 
 
-      </main>
-      {/* <CreateEvent /> */}
+                <div className={style.item}>
+                    <div className={style.miniItem}>
+                        <img id={style.userImg} src={unauthUserImg} alt=""/>
+                    </div>
+                    <div className={style.miniItem}>
+                        <button className={`${style.btn} ${style.simpleBtn}`}>Load user image</button>
+                        <button className={`${style.btn} ${style.simpleBtn}`}>Reset personal data</button>
+                        <button onClick={() => signOut()} id={style.exitBtn} className={style.btn}>Exit</button>
+                    </div>
+                </div>
 
-    </Container >
-  )
+                <div className={style.item}>
+                    <div style={{alignItems: 'flex-start'}} className={style.miniItem}>
+                        <PersonalDataLine title='Email: ' text={email}/>
+                        <PersonalDataLine title='First Name: ' text={firstName}/>
+                        <PersonalDataLine title='Last Name: ' text={lastName}/>
+                        <PersonalDataLine title='Authority: ' text={role.toLowerCase()}/>
+
+                    </div>
+                    {/*<div className={style.miniItem}>*/}
+                    {/*  <button className={`${style.btn} ${style.simpleBtn}`}*/}
+                    {/*    onClick={e => setRedirectToCreateEvent(true)} >*/}
+                    {/*    Create event*/}
+                    {/*  </button>*/}
+                    {/*</div>*/}
+                  <div className={style.miniItem}>
+
+                    <Button title={"Create Event"} onClickHandle={e => setRedirectToCreateEvent(true)}/>
+                    <Button title={"Create News"} onClickHandle={e => setRedirectToCreateNews(true)}/>
+                  </div>
+
+                </div>
+
+
+            </main>
+            {/* <CreateEvent /> */}
+
+        </Container>
+    )
 }
 
 UserPageStateless.propTypes = {
-  signOut: PropTypes.func
+    signOut: PropTypes.func
 }
 
 export default UserPageStateless

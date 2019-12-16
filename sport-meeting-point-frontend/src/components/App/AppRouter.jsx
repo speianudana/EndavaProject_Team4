@@ -8,8 +8,9 @@ import { Register } from '../Pages/Auth/Register'
 import { Login } from '../Pages/Auth/LogIn'
 import UserPage from '../Pages/UserPage'
 import CreateEvent from '../Pages/CreateEvent'
+import CreateNews from '../Pages/CreateNews'
 
-import { index, regestr, login, user_page, user_page_create_event } from './AppConstRoutes.js'
+import { index, regestr, login, user_page, user_page_create_event, user_page_create_news } from './AppConstRoutes.js'
 import UserPersonalDataComponent from '../UserData/UserPersonalData/UserPersonalData.component.jsx'
 
 import { connect } from 'react-redux'
@@ -31,6 +32,7 @@ const AppRouter = props => {
 
             <Route exact path={user_page} component={isAuth ? UserPage : Index} />
             <Route exact path={user_page_create_event} component={isAuth ? CreateEvent : Index} />
+            <Route exact path={user_page_create_news} component={isAuth ? CreateNews : Index} />
 
             <Footer />
             <UserPersonalDataComponent />
