@@ -17,6 +17,7 @@ public interface UserRoleRepository extends CrudRepository<UserRole, Integer>,
   void deleteAll();
   UserRole save(UserRole u);
 
+  
   @Query("SELECT r FROM UserRole r WHERE r.name = :name1")
   Optional<UserRole > findByName(@Param("name1") final String name);
 

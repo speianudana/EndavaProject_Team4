@@ -8,5 +8,6 @@ public interface EventRepository extends CrudRepository<Event, Long> {
 
   Event save(Event event);
 
+  
 
 }
