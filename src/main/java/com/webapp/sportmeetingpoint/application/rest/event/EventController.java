@@ -14,6 +14,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
 
 
 @RestController
@@ -50,6 +52,25 @@ public class EventController {
 
     return ResponseEntity.ok("");
   }
+
+  @GetMapping("/allevents")
+  @CrossOrigin
+  public ResponseEntity<HashMap<Integer, Event>> getAllEvents() {
+
+    List<Event> allEvents=eventService.allEvents();
+    HashMap<Integer, Event> result = new HashMap<>();
+
+
+
+    allEvents.forEach(a -> {
+      result.put(a.getId(), a);
+    });
+
+  char c ='a';
+
+    return ResponseEntity.ok(result);
+  }
+
 
 
 }

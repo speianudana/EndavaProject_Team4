@@ -26,9 +26,9 @@ public class News extends BaseEntity {
   @Column(name = "context", columnDefinition = "varchar(1000)", nullable = false)
   private String context;
 
-  @Column(name = "date")
-  private Date date;
-
+//  @Column(name = "date")
+//  private String date;
+//
 
   @ManyToOne(fetch = FetchType.EAGER)
   @JoinColumn(name = "user_activity_fk_id", nullable = true)

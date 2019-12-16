@@ -5,7 +5,7 @@ import TestRedux from './TestRedux/TestRedux.statefull.jsx'
 import { SubHeader } from './SubHeader'
 import { Article } from './Article'
 import exampleImg from '../../../../../static/qqq.jpg'
-
+import axios from "axios";
 
 class IndexStatefull extends Component {
   constructor(props) {
@@ -13,9 +13,17 @@ class IndexStatefull extends Component {
 
 
 
+
   }
 
-  render() {
+    componentDidMount() {
+
+      // axios.get("http://localhost:8080/api/event/allevents", )
+
+    }
+
+
+    render() {
     return (
       <>
         <Header />
