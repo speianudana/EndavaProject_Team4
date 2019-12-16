@@ -17,10 +17,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
   private final JwtTokenProvider jwtTokenProvider;
 
   private static final String AUTH_ENDPOINT = "/api/auth/**";
-
+  private static final String EVENT_ENDPOINT = "/api/event/**";
+  
+  private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
+  
   @Autowired
-  public SecurityConfig(JwtTokenProvider jwtTokenProvider) {
+  public SecurityConfig(JwtTokenProvider jwtTokenProvider, JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint) {
     this.jwtTokenProvider = jwtTokenProvider;
+    this.jwtAuthenticationEntryPoint = jwtAuthenticationEntryPoint;
   }
 
   @Bean
@@ -38,8 +42,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .and()
             .authorizeRequests()
             .antMatchers(AUTH_ENDPOINT).permitAll()
-            .antMatchers("/api/**").permitAll()
+//            .antMatchers("/api/**").permitAll()
+            .antMatchers(EVENT_ENDPOINT).hasRole("USER")
             .anyRequest().authenticated()
+            .and()
+            .exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).and().sessionManagement()
             .and()
             .apply(new JwtSecurityConfigurer(jwtTokenProvider));
   }

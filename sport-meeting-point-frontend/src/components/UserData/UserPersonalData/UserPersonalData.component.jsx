@@ -21,17 +21,17 @@ class UserPersonalDataComponent extends Component {
       }).catch(console.warn('token is invalid'))
     }
 
-    this.timer = setInterval(() => {
-      if (tokenWorker.haveToken()) {
-        tokenWorker.sendTokenToServerAndCheckIfIsValid().then(a => {
-          //do
-        }).catch((error) => {
-          if (this.props.isAuthenticated) this.props.setIsAuthenticatedValue(false)
-          tokenWorker.deleteTokenFromLocalStorage()
-        })
-      }
+    // this.timer = setInterval(() => {
+    //   if (tokenWorker.haveToken()) {
+    //     tokenWorker.sendTokenToServerAndCheckIfIsValid().then(a => {
+    //       //do
+    //     }).catch((error) => {
+    //       if (this.props.isAuthenticated) this.props.setIsAuthenticatedValue(false)
+    //       tokenWorker.deleteTokenFromLocalStorage()
+    //     })
+    //   }
 
-    }, 3000)
+    // }, 3000)
   }
 
   shouldComponentUpdate(nextProps, nextState) {

@@ -36,10 +36,14 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
           throws IOException, ServletException {
 
     String token = jwtTokenProvider.resolveToken(req);
+    
     if(token!=null && jwtTokenProvider.validateToken(token)){
 
       UsernamePasswordAuthenticationToken authentication  = jwtTokenProvider.getAuthentication(token);
+      
+      
       if(authentication!=null){
+        authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(req));
         SecurityContextHolder.getContext().setAuthentication(authentication);
       }
     }
