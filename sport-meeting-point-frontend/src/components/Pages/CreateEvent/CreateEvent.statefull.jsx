@@ -14,13 +14,17 @@ export default class CreateEventStatefull extends Component {
   handleAllInputData(data) {
 
     const token = tokenWorker.loadTokenFromLocalStorage()
+    console.log(token)
+
+    var formData = new FormData();
+    formData.append("file", data.image)
 
     const headers = {
-      'Content-Type': 'application/json',
+      'Content-Type': 'multipart/form-data',
       'Authorization': `Bearer_${token}`
     }
 
-    axios.post(adress + '/api/event/add', data, {
+    axios.post(adress + '/api/event/add', formData, {
       headers: headers
     })
       .then((response) => {
