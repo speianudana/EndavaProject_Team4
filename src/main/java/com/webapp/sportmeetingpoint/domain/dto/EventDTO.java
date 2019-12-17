@@ -13,7 +13,7 @@ public class EventDTO {
   private String title;
   private String previewMessage;
   private String description;
-  
+  private Byte[] image;
   private String address;
 
 

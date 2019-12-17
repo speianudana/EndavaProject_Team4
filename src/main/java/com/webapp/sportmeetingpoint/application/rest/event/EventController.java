@@ -1,6 +1,7 @@
 package com.webapp.sportmeetingpoint.application.rest.event;
 
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.util.JSONPObject;
 import com.webapp.sportmeetingpoint.application.security.jwt.JwtUser;
 import com.webapp.sportmeetingpoint.application.service.EventService;
@@ -50,35 +51,44 @@ public class EventController {
     Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
     JwtUser jwtUser = (JwtUser)authentication.getPrincipal();
     UserSystem userSystem = userSystemService.findById(jwtUser.getId());
-
+    EventDTO eventDTO = null;
+  
+  
+    if(!data.isEmpty() && data != null){
+      eventDTO = new ObjectMapper().readValue(data, EventDTO.class);
+    }
+    
     if(!file.isEmpty()){
       try {
     
-        Byte[] byteObjects = new Byte[file.getBytes().length];
+        Byte[] byteImage = new Byte[file.getBytes().length];
     
         int i = 0;
     
         for (byte b : file.getBytes()){
-          byteObjects[i++] = b;
+          byteImage[i++] = b;
         }
+  
+        eventDTO.setImage(byteImage);
         
-        char c = 'a';
- 
       } catch (IOException e) {
         log.error("Error occurred", e);
         e.printStackTrace();
       }
     }
     
-//    Event e = new Event();
-//    e.setTitle(eventDTO.getTitle());
-//    e.setDate(new Date());
-//    e.setDescription(eventDTO.getDescription());
-//    e.setPreviewMessage(eventDTO.getPreviewMessage());
-//    e.setIsExpired(false);
-//    e.setAddress(eventDTO.getAddress());
-//
-//    Event result = eventService.saveEvent(e, userSystem);
+    
+    char c = 'a';
+    Event e = new Event();
+    e.setTitle(eventDTO.getTitle());
+    e.setDate(new Date());
+    e.setDescription(eventDTO.getDescription());
+    e.setPreviewMessage(eventDTO.getPreviewMessage());
+    e.setIsExpired(false);
+    e.setAddress(eventDTO.getAddress());
+    e.setImage(eventDTO.getImage());
+    
+    Event result = eventService.saveEvent(e, userSystem);
 
     return ResponseEntity.ok(HttpStatus.CREATED);
   }
