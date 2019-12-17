@@ -14,13 +14,13 @@ export default class CreateEventStatefull extends Component {
   handleAllInputData(data) {
 
     const token = tokenWorker.loadTokenFromLocalStorage()
-    console.log(token)
+    // console.log(token)
 
     var formData = new FormData();
     formData.append("file", data.image)
 
     const headers = {
-      'Content-Type': 'multipart/form-data',
+      'Content-Type': undefined,
       'Authorization': `Bearer_${token}`
     }
 

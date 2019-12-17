@@ -27,7 +27,11 @@ public class Event extends BaseEntity {
 
   @Column(name = "preview_message", columnDefinition = "varchar(200)", nullable = false)
   private String previewMessage;
-
+  
+  @Lob
+  @Column(name = "image",  nullable = true)
+  private Byte[] image;
+  
   @NotNull
   @Column(name = "address", columnDefinition = "varchar(128)", nullable = false)
   private String address;
