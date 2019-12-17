@@ -43,7 +43,8 @@ public class EventController {
           consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
   @CrossOrigin
   public ResponseEntity<?> addNewEvent(
-          @RequestParam("file")  MultipartFile file
+          @RequestParam("file")  MultipartFile file,
+          @RequestParam("data")  String data
   ) throws IOException {
 
     Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

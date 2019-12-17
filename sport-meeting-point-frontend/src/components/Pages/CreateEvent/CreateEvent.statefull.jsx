@@ -19,6 +19,19 @@ export default class CreateEventStatefull extends Component {
     var formData = new FormData();
     formData.append("file", data.image)
 
+    const newData = {
+      title: data.title,
+      address: data.address,
+      previewMessage: data.previewMessage,
+      description: data.previewMessage,
+    }
+
+    formData.append("data", JSON.stringify(newData))
+
+    // formData.append("data", new Blob([JSON.stringify(newData)], {
+    //   type: "application/json"
+    // }))
+
     const headers = {
       'Content-Type': undefined,
       'Authorization': `Bearer_${token}`
