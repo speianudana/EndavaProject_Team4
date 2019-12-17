@@ -21,9 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 import java.io.IOException;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 @Log4j2
 @RestController
@@ -42,7 +40,6 @@ public class EventController {
 
   @RequestMapping(value = "/add", method = RequestMethod.POST,
           consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-  @CrossOrigin
   public ResponseEntity<?> addNewEvent(
           @RequestParam("file")  MultipartFile file,
           @RequestParam("data")  String data
@@ -94,20 +91,25 @@ public class EventController {
   }
 
   @GetMapping("/all_events")
-  @CrossOrigin
-  public ResponseEntity<HashMap<Integer, Event>> getAllEvents() {
+  public ResponseEntity<Map<Integer, EventDTO>> getAllEventsWithoutImage() {
 
     List<Event> allEvents=eventService.allEvents();
-    HashMap<Integer, Event> result = new HashMap<>();
-
-
-
+    Map<Integer, EventDTO> result = new HashMap<>();
+    
     allEvents.forEach(a -> {
-      result.put(a.getId(), a);
+      a.setImage(null);
+      EventDTO e = new EventDTO();
+      
+      e.setAddress(a.getAddress());
+      e.setDescription(a.getDescription());
+      e.setPreviewMessage(a.getPreviewMessage());
+      e.setTitle(a.getTitle());
+      e.setImage(a.getImage());
+      result.put(a.getId(), e);
+      
     });
-
-  char c ='a';
-
+ 
+    
     return ResponseEntity.ok(result);
   }
 

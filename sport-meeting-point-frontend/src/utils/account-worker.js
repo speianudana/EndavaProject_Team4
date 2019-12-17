@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { adress } from './server-adress'
+import { url } from './server-url'
 import { tokenWorker } from './token-worker'
 
 
@@ -9,16 +9,16 @@ function tokenToPersonalData() {
     if (token === null) reject('token not found in local storage!!!');
 
 
-    fetch(adress + '/api/user_personal_data/get_data', {
+    fetch(url + '/api/user_personal_data/get_data', {
       method: 'POST',
       headers: {
         'Authorization': 'Bearer_' + token
       },
     }).then((response) => {
-      return response.json();
+      return response.json()
     }).then(data => {
       resolve(data)
-    }).catch(err => reject(err))
+    })
   })
 
 

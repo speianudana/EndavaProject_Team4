@@ -1,6 +1,6 @@
 import CryptoJS from 'crypto-js'
 import axios from 'axios'
-import { adress } from '../utils/server-adress'
+import { url } from '../utils/server-url'
 
 const webSite = 'sport-meeting-point'//key for token data
 
@@ -44,7 +44,7 @@ const tokenWorker = {
         headers: { 'Authorization': 'Bearer_ ' + this.loadTokenFromLocalStorage() },
       }
 
-      axios.get(`${adress}/api/token/is_valid`, config).then(res => {
+      axios.get(`${url}/api/token/is_valid`, config).then(res => {
         if (res.status === 200) {
           resolve(res.data)
 

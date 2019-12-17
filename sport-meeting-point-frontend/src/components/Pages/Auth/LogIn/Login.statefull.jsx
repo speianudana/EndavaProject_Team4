@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import LoginStateless from './Login.stateless.jsx'
 import axios from 'axios'
-import { adress } from '../../../../utils/server-adress'
+import { url } from '../../../../utils/server-url'
 import { tokenWorker } from '../../../../utils/token-worker.js'
 import { tokenToPersonalData } from '../../../../utils/account-worker'
 import { connect } from 'react-redux'
@@ -39,7 +39,7 @@ class LoginStatefull extends Component {
     }
 
 
-    axios.post(`${adress}/api/auth/login`, loginObject).then(res => {
+    axios.post(`${url}/api/auth/login`, loginObject).then(res => {
       if (res.status === 200) {
 
         if (typeof res.data === 'string') {

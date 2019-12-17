@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import CreateEventStateless from './CreateEvent.stateless.jsx'
 import { tokenWorker } from '../../../utils/token-worker'
-import { adress } from '../../../utils/server-adress'
+import { url } from '../../../utils/server-url'
 import axios from 'axios'
 
 export default class CreateEventStatefull extends Component {
@@ -17,7 +17,7 @@ export default class CreateEventStatefull extends Component {
     // console.log(token)
 
     var formData = new FormData();
-    formData.append("file", data.image)
+    formData.append("file", data.image != null ? data.image : new File([], "empty"))
 
     const newData = {
       title: data.title,
@@ -37,7 +37,7 @@ export default class CreateEventStatefull extends Component {
       'Authorization': `Bearer_${token}`
     }
 
-    axios.post(adress + '/api/event/add', formData, {
+    axios.post(url + '/api/event/add', formData, {
       headers: headers
     })
       .then((response) => {

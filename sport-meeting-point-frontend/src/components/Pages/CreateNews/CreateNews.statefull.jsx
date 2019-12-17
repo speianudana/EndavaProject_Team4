@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import CreateNewsStateless from './CreateNews.stateless.jsx'
 import { tokenWorker } from '../../../utils/token-worker'
-import { adress } from '../../../utils/server-adress'
+import { url } from '../../../utils/server-url'
 import axios from 'axios'
 
 export default class CreateNewsStatefull extends Component {
@@ -20,7 +20,7 @@ export default class CreateNewsStatefull extends Component {
             'Authorization': `Bearer_${token}`
         }
 
-        axios.post(adress + '/api/news/add', data, {
+        axios.post(url + '/api/news/add', data, {
             headers: headers
         })
             .then((response) => {

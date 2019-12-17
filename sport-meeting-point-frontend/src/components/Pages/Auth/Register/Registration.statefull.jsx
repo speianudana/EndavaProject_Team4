@@ -1,7 +1,7 @@
 import React from 'react'
 import RegistrationStateless from './Registration.stateless.jsx'
 import axios from 'axios'
-import { adress } from '../../../../utils/server-adress'
+import { url } from '../../../../utils/server-url'
 import { tokenWorker } from '../../../../utils/token-worker'
 import { Redirect } from 'react-router-dom'
 import { index } from '../../../App/AppConstRoutes'
@@ -35,7 +35,7 @@ class RegistrationStatefull extends React.Component {
       passwordRepeat: regStatelessAccData.passwordRepeat
     }
 
-    axios.post(`${adress}/api/auth/registration`, data).then(res => {
+    axios.post(`${url}/api/auth/registration`, data).then(res => {
       if (res.status === 200) {
         if (res.data.error) {
           this.setState({ errorMsgs: res.data.error })
