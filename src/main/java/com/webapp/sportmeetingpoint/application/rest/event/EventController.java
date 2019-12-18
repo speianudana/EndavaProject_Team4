@@ -22,6 +22,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.validation.Valid;
 import java.io.IOException;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Log4j2
 @RestController
@@ -75,7 +76,6 @@ public class EventController {
     }
     
     
-    char c = 'a';
     Event e = new Event();
     e.setTitle(eventDTO.getTitle());
     e.setDate(new Date());
@@ -91,24 +91,19 @@ public class EventController {
   }
 
   @GetMapping("/all_events")
-  public ResponseEntity<Map<Integer, EventDTO>> getAllEventsWithoutImage() {
+  public ResponseEntity<List<EventDTO>> getAllEventsWithoutImage() {
 
     List<Event> allEvents=eventService.allEvents();
-    Map<Integer, EventDTO> result = new HashMap<>();
     
-    allEvents.forEach(a -> {
-      a.setImage(null);
-      EventDTO e = new EventDTO();
-      
-      e.setAddress(a.getAddress());
-      e.setDescription(a.getDescription());
-      e.setPreviewMessage(a.getPreviewMessage());
-      e.setTitle(a.getTitle());
-      e.setImage(a.getImage());
-      result.put(a.getId(), e);
-      
-    });
- 
+    List<EventDTO> result = allEvents.stream().map( a -> new EventDTO(
+            a.getTitle(),
+            a.getPreviewMessage(),
+            a.getDescription(),
+            null,
+            a.getAddress()
+    )).collect(Collectors.toList());
+    
+    
     
     return ResponseEntity.ok(result);
   }

@@ -14,11 +14,17 @@ function tokenToPersonalData() {
       headers: {
         'Authorization': 'Bearer_' + token
       },
-    }).then((response) => {
-      return response.json()
-    }).then(data => {
-      resolve(data)
     })
+      .then((response) => {
+        return response.json()
+      })
+      .then(data => {
+        resolve(data)
+      })
+      .catch(e => console.warn(e))
+      .catch(e => console.warn(e))
+
+
   })
 
 

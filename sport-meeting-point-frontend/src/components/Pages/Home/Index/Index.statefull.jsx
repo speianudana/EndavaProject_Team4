@@ -23,19 +23,28 @@ class IndexStatefull extends Component {
   }
 
 
-  async loadAllArticles() {
-
-    const allArticles = await axios.get(`${url}/api/event/all_events`)
-    console.log(allArticles)
+  loadAllArticles() {
+    return new Promise((resolve, reject) => {
+      axios.get(`${url}/api/event/all_events`)
+        .then(e => resolve(e.data))
+        .catch(e => reject(e))
+    })
 
   }
 
   componentDidMount() {
 
-    this.loadAllArticles()
+    const self = this
 
+    this.loadAllArticles()
+      .then(allEvents => self.setState({ articles: allEvents })).catch(error => console.warn("er1", error))
 
   }
+
+  componentDidUpdate(prevProps, prevState) {
+
+  }
+
 
 
   render() {
@@ -51,6 +60,19 @@ class IndexStatefull extends Component {
             title={'Title title'}
             image={exampleImg}
           /> */}
+
+          {
+
+            this.state.articles.map(item => (
+              <Article
+                title={item.title}
+                text={item.previewMessage}
+                image={''}
+              />)
+            )
+
+
+          }
 
 
 
