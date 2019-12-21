@@ -2,6 +2,8 @@ import React from 'react'
 import style from './style.scss'
 import { Link } from 'react-router-dom'
 import { ButtonA } from '../../../../Layouts/Button'
+import load1 from '../../../../../../static/loading_31-r.gif'
+import load2 from '../../../../../../static/loading _aod0fa.gif'
 
 function textTrim(txt) {
   return txt.substring(0, 200)
@@ -11,7 +13,7 @@ function ArticleStateless({ title, text, image }) {
   return (
     <div className={style.mainContainer}>
       <div className={style.mainContainerChild}>
-        <img src={image} className={style.imgStyle} alt="" />
+        <img style={{ filter: 'grayscale(100%)' }} src={load2} className={style.imgStyle} alt="" />
       </div>
       <div style={{ flexDirection: 'column', }}
         className={style.mainContainerChild
