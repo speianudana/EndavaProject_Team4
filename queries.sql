@@ -5,12 +5,12 @@
 
 
 -- delete all tables
-drop table public."event", 
-  public."news", 
-  public."user_activity", 
-  public."user_personal_data", 
-  public."user_role", 
-  public."user_system";
+DROP TABLE PUBLIC."event",
+  PUBLIC."news",
+  PUBLIC."user_activity",
+  PUBLIC."user_personal_data",
+  PUBLIC."user_role",
+  PUBLIC."user_system";
 
 -- /delete all tables
 

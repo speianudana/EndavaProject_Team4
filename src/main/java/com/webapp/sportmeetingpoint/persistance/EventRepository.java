@@ -11,10 +11,12 @@ import javax.validation.constraints.Max;
 import java.util.List;
 import java.util.Optional;
 
-public interface EventRepository extends CrudRepository<Event, Long> {
+public interface EventRepository extends CrudRepository<Event, Integer> {
 
 
     Event save(Event event);
+    
+    
     @Modifying
     @Query(value = "SELECT * FROM Event u",nativeQuery = true)
     List<Event> findAll();

@@ -5,18 +5,12 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
-public class EventDTO {
-
+public class ImageDTO {
+  
   private Integer id;
-  private String title;
-  private String previewMessage;
-  private String description;
   private Byte[] image;
-  private String address;
-
-
-
+  
 }

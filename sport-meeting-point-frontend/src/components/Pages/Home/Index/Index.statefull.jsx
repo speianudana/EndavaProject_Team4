@@ -63,8 +63,9 @@ class IndexStatefull extends Component {
 
           {
 
-            this.state.articles.map(item => (
+            this.state.articles.map((item, index) => (
               <Article
+                key={index}
                 title={item.title}
                 text={item.previewMessage}
                 image={''}

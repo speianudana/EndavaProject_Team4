@@ -25,7 +25,12 @@ public class EventServiceImpl implements EventService {
     event.setUserActivity(author.getUserActivity());
     return eventRepository.save(event);
   }
-
+  
+  @Override
+  public Event findEventById(Integer id) {
+    return eventRepository.findById(id).orElse(null);
+  }
+  
   @Override
   public List<Event> allEvents() {
     return eventRepository.findAll();

@@ -20,9 +20,9 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-
+  
   private final JwtTokenProvider jwtTokenProvider;
-
+  
   private static final String AUTH_ENDPOINT = "/api/auth/**";
   private static final String EVENT_ENDPOINT = "/api/event/**";
   
@@ -33,32 +33,34 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     this.jwtTokenProvider = jwtTokenProvider;
     this.jwtAuthenticationEntryPoint = jwtAuthenticationEntryPoint;
   }
-
+  
   @Bean
   @Override
   public AuthenticationManager authenticationManagerBean() throws Exception {
     return super.authenticationManagerBean();
   }
-
+  
   @Override
   protected void configure(HttpSecurity http) throws Exception {
     http
-            .cors()
-            .and()
-            .csrf().disable()
-            .authorizeRequests()
-            .antMatchers(AUTH_ENDPOINT).permitAll()
-//            .antMatchers("/api/user_personal_data/get_data").permitAll()
-            .antMatchers("/api/event/add").hasRole("USER")
-            .antMatchers("/api/event/all_events").permitAll()
-            .anyRequest().authenticated()
-            .and()
-            .exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).and().sessionManagement()
-            .and()
-            .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-//            .antMatchers("/api/**").permitAll()
-            .and()
-            .apply(new JwtSecurityConfigurer(jwtTokenProvider));
+      .cors()
+      .and()
+      .csrf().disable()
+      .authorizeRequests()
+      .antMatchers(AUTH_ENDPOINT).permitAll()
+      .antMatchers("/api/event/add").hasRole("USER")
+      .antMatchers("/api/event/all_events").permitAll()
+      .antMatchers("/api/event/image_by_id").permitAll()
+      .anyRequest().authenticated()
+      .and()
+      .exceptionHandling()
+      .authenticationEntryPoint(jwtAuthenticationEntryPoint)
+      .and()
+      .sessionManagement()
+      .and()
+      .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+      .and()
+      .apply(new JwtSecurityConfigurer(jwtTokenProvider));
   }
   
   @Bean

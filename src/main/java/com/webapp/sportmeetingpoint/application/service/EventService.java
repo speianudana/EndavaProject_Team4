@@ -9,6 +9,8 @@ public interface EventService {
 
   Event saveEvent(Event event, UserSystem author);
 
+  Event findEventById(Integer id);
+  
   List<Event> allEvents();
 
 }

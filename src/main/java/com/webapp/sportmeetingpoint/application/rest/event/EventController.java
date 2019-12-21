@@ -7,6 +7,7 @@ import com.webapp.sportmeetingpoint.application.security.jwt.JwtUser;
 import com.webapp.sportmeetingpoint.application.service.EventService;
 import com.webapp.sportmeetingpoint.application.service.UserSystemService;
 import com.webapp.sportmeetingpoint.domain.dto.EventDTO;
+import com.webapp.sportmeetingpoint.domain.dto.ImageDTO;
 import com.webapp.sportmeetingpoint.domain.entities.Event;
 import com.webapp.sportmeetingpoint.domain.entities.UserSystem;
 import lombok.extern.log4j.Log4j2;
@@ -90,12 +91,13 @@ public class EventController {
     return ResponseEntity.ok(HttpStatus.CREATED);
   }
 
-  @GetMapping("/all_events")
+  @RequestMapping(value = "/all_events", method = RequestMethod.GET)
   public ResponseEntity<List<EventDTO>> getAllEventsWithoutImage() {
 
     List<Event> allEvents=eventService.allEvents();
     
     List<EventDTO> result = allEvents.stream().map( a -> new EventDTO(
+            a.getId(),
             a.getTitle(),
             a.getPreviewMessage(),
             a.getDescription(),
@@ -108,6 +110,24 @@ public class EventController {
     return ResponseEntity.ok(result);
   }
 
+  
+  @RequestMapping(value = "/image_by_id", method = RequestMethod.GET)
+  public ResponseEntity<?> getEventImageById(@RequestParam(value="id") final Integer eventId){
+    
+    Event event = eventService.findEventById(eventId);
+    
+    if(event == null || event.getImage()==null){
+      return ResponseEntity.ok(HttpStatus.NOT_FOUND);
+    }
+    
+    ImageDTO result = new ImageDTO();
+    
+    result.setId(eventId);
+    result.setImage(event.getImage());
+    
+    return ResponseEntity.ok(result);
+  }
+  
 
 
 }
