@@ -102,6 +102,11 @@ public class EventController {
     }
   
     Set<ConstraintViolation<CreateEventDTO>> validates = validator.validate(eventDTO);
+  
+    if(validates.size()>0){
+      List<String> errorMessages = validates.stream().map( a -> a.getMessageTemplate() ).collect(Collectors.toList());
+      return new ResponseEntity<>(errorMessages, HttpStatus.NOT_ACCEPTABLE);
+    }
     
     Event result = eventService.saveEvent(e, userSystem);
     

@@ -5,7 +5,6 @@ import { url } from '../../../../utils/server-url'
 import { tokenWorker } from '../../../../utils/token-worker'
 import { Redirect } from 'react-router-dom'
 import { index } from '../../../App/AppConstRoutes'
-// import { tokenToPersonalData } from '../../../../utils/account-worker'
 
 class RegistrationStatefull extends React.Component {
 

@@ -52,7 +52,8 @@ class LoginStatefull extends Component {
           // console.log('afdafadfdafadf: ', res.data.token)
           tokenToPersonalData().then(
             result => {
-              this.props.setUserData(result)
+              // console.log(result)
+              this.props.setUserData(result.data)
               this.props.setIsAuthenticatedValue(true)
               this.setState({ redirectToHome: true })
             }

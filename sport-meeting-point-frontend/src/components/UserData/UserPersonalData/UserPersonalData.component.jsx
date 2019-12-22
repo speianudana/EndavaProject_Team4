@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { tokenWorker } from '../../../utils/token-worker'
 import { tokenToPersonalData } from '../../../utils/account-worker'
 import { connect } from 'react-redux'
 import { setIsAuthenticatedValue, setUserData } from './UserPersonalData.action.jsx'
@@ -7,19 +6,23 @@ import { setIsAuthenticatedValue, setUserData } from './UserPersonalData.action.
 class UserPersonalDataComponent extends Component {
   constructor(props) {
     super(props)
-    // console.log(props)
   }
 
   componentDidMount() {
 
-    if (tokenWorker.haveToken()) {
-      tokenToPersonalData().then(data => {
-        this.props.setUserData(data)
+    const self = this
 
-        if (!this.props.isAuthenticated) this.props.setIsAuthenticatedValue(true)
-        // console.log(data)
-      }).catch(console.warn('token is invalid'))
-    }
+    tokenToPersonalData()
+      .then(result => {
+        if (result.status == 200) {
+          console.log(result.data.personalData)
+          self.props.setUserData(result.data)
+          if (!self.props.isAuthenticated) self.props.setIsAuthenticatedValue(true)
+        }
+      })
+      .catch(e => console.warn(e))
+
+
 
     // this.timer = setInterval(() => {
     //   if (tokenWorker.haveToken()) {

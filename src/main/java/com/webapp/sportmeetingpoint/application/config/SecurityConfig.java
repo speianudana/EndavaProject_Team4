@@ -15,6 +15,8 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
+import javax.servlet.http.HttpServletResponse;
+
 
 @Configuration
 @EnableWebSecurity
@@ -54,6 +56,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
       .anyRequest().authenticated()
       .and()
       .exceptionHandling()
+//      .authenticationEntryPoint((request, response, e) -> {
+//        String json = String.format("{\"message\": \"%s\"}", e.getMessage());
+//        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+//        response.setContentType("application/json");
+//        response.setCharacterEncoding("UTF-8");
+//        response.getWriter().write(json);
+//      })
       .authenticationEntryPoint(jwtAuthenticationEntryPoint)
       .and()
       .sessionManagement()
