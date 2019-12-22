@@ -12,6 +12,8 @@ export default function LoginStateless({ onHandleBtnLogIn, errorMsg }) {
     password: ''
   })
 
+
+
   // console.log(errorMsg)
 
   return (
@@ -22,7 +24,9 @@ export default function LoginStateless({ onHandleBtnLogIn, errorMsg }) {
             Log In /
             <Link to={regestr}> Registration</Link>
           </div >
-          <p>Username:</p>
+          <p>
+            Email:
+          </p>
           <input className={style.inputType1} type="text"
             onChange={e => setLoginData({ ...loginData, username: e.target.value })}
             value={loginData.username} />

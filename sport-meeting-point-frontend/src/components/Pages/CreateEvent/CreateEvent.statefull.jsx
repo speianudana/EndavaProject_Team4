@@ -17,13 +17,13 @@ export default class CreateEventStatefull extends Component {
     // console.log(token)
 
     var formData = new FormData();
-    formData.append("file", data.image != null ? data.image : new File([], "empty"))
+    formData.append("file", data.image != null ? data.image : new File([], ""))
 
     const newData = {
-      title: data.title,
-      address: data.address,
-      previewMessage: data.previewMessage,
-      description: data.previewMessage,
+      title: data.title.length > 0 ? data.title : null,
+      address: data.address.length > 0 ? data.address : null,
+      previewMessage: data.previewMessage.length > 0 ? data.previewMessage : null,
+      description: data.description.length > 0 ? data.description : null,
     }
 
     formData.append("data", JSON.stringify(newData))

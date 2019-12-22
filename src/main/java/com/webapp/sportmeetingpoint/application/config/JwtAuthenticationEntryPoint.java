@@ -21,5 +21,6 @@ public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint, Se
                        AuthenticationException authException) throws IOException {
     
     response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Please enter valid credentials");
+//    response.getOutputStream().println("{ \"error\": \"" + authException.getMessage() + "\" }");
   }
 }

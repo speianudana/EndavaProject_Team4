@@ -2,10 +2,10 @@ package com.webapp.sportmeetingpoint.application.rest.event;
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.util.JSONPObject;
 import com.webapp.sportmeetingpoint.application.security.jwt.JwtUser;
 import com.webapp.sportmeetingpoint.application.service.EventService;
 import com.webapp.sportmeetingpoint.application.service.UserSystemService;
+import com.webapp.sportmeetingpoint.domain.dto.CreateEventDTO;
 import com.webapp.sportmeetingpoint.domain.dto.EventDTO;
 import com.webapp.sportmeetingpoint.domain.dto.ImageDTO;
 import com.webapp.sportmeetingpoint.domain.entities.Event;
@@ -20,44 +20,52 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.validation.Valid;
+import javax.validation.*;
 import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
 
 @Log4j2
 @RestController
-@CrossOrigin
 @RequestMapping(value = "/api/event")
 public class EventController {
 
   private final UserSystemService userSystemService;
   private final EventService eventService;
-
+  private final Validator validator;
+  
   @Autowired
-  public EventController(UserSystemService userSystemService, EventService eventService) {
+  public EventController(UserSystemService userSystemService, EventService eventService,
+    Validator validator) {
     this.userSystemService = userSystemService;
     this.eventService = eventService;
+    this.validator = Validation.buildDefaultValidatorFactory().usingContext().getValidator();
   }
 
+  
+  
   @RequestMapping(value = "/add", method = RequestMethod.POST,
           consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
   public ResponseEntity<?> addNewEvent(
           @RequestParam("file")  MultipartFile file,
           @RequestParam("data")  String data
   ) throws IOException {
-
+  
+//    Validator validator;
+//    ValidatorFactory validatorFactory = Validation.buildDefaultValidatorFactory();
+//    validator = validatorFactory.usingContext().getValidator();
+    
     Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
     JwtUser jwtUser = (JwtUser)authentication.getPrincipal();
     UserSystem userSystem = userSystemService.findById(jwtUser.getId());
-    EventDTO eventDTO = null;
   
+    CreateEventDTO eventDTO = null;
   
     if(!data.isEmpty() && data != null){
-      eventDTO = new ObjectMapper().readValue(data, EventDTO.class);
+       eventDTO = new ObjectMapper().readValue(data, CreateEventDTO.class);
     }
     
-    if(!file.isEmpty()){
+    if(!file.isEmpty() && eventDTO!=null){
       try {
     
         Byte[] byteImage = new Byte[file.getBytes().length];
@@ -71,24 +79,33 @@ public class EventController {
         eventDTO.setImage(byteImage);
         
       } catch (IOException e) {
-        log.error("Error occurred", e);
+        log.error("Error ", e);
         e.printStackTrace();
       }
     }
     
-    
     Event e = new Event();
-    e.setTitle(eventDTO.getTitle());
-    e.setDate(new Date());
-    e.setDescription(eventDTO.getDescription());
-    e.setPreviewMessage(eventDTO.getPreviewMessage());
-    e.setIsExpired(false);
-    e.setAddress(eventDTO.getAddress());
-    e.setImage(eventDTO.getImage());
+    
+    try{
+      
+      e.setTitle(eventDTO.getTitle());
+      e.setDate(new Date());
+      e.setDescription(eventDTO.getDescription());
+      e.setPreviewMessage(eventDTO.getPreviewMessage());
+      e.setIsExpired(false);
+      e.setAddress(eventDTO.getAddress());
+      e.setImage(eventDTO.getImage());
+      
+    }catch(Exception ex){
+      log.debug(ex.getMessage());
+      return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    }
+  
+    Set<ConstraintViolation<CreateEventDTO>> validates = validator.validate(eventDTO);
     
     Event result = eventService.saveEvent(e, userSystem);
-
-    return ResponseEntity.ok(HttpStatus.CREATED);
+    
+    return new ResponseEntity<>(HttpStatus.CREATED, HttpStatus.OK);
   }
 
   @RequestMapping(value = "/all_events", method = RequestMethod.GET)
@@ -96,18 +113,23 @@ public class EventController {
 
     List<Event> allEvents=eventService.allEvents();
     
-    List<EventDTO> result = allEvents.stream().map( a -> new EventDTO(
-            a.getId(),
-            a.getTitle(),
-            a.getPreviewMessage(),
-            a.getDescription(),
-            null,
-            a.getAddress()
-    )).collect(Collectors.toList());
-    
-    
-    
-    return ResponseEntity.ok(result);
+    List<EventDTO> result = allEvents.stream().map( a -> {
+        final EventDTO e = new EventDTO();
+        
+        e.setId(a.getId());
+        e.setTitle(a.getTitle());
+        e.setPreviewMessage(a.getPreviewMessage());
+        e.setDescription(a.getDescription());
+        e.setImage(null);
+        e.setAddress(a.getAddress());
+        
+        return e;
+      }
+
+    ).collect(Collectors.toList());
+  
+  
+    return new ResponseEntity<>(result, HttpStatus.OK);
   }
 
   
@@ -125,7 +147,7 @@ public class EventController {
     result.setId(eventId);
     result.setImage(event.getImage());
     
-    return ResponseEntity.ok(result);
+    return new ResponseEntity<>(result, HttpStatus.OK);
   }
   
 
