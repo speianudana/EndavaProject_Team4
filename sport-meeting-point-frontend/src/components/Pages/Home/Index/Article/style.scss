@@ -93,7 +93,7 @@
 
 .title {
   position: relative;
-  font-size: 26px;
+  font-size: 24px;
   font-weight: bold;
   font-family: serif;
   color: rgb(54, 54, 54);
@@ -102,7 +102,7 @@
 }
 
 .text {
-  font-size: 18px;
+  font-size: 17px;
   font-family: serif;
   color: rgb(124, 124, 124);
   max-width: 90%;
@@ -156,11 +156,11 @@
 
 @media screen and(max-width:800px) {
   .title {
-    font-size: 22px;
+    font-size: 16px;
   }
 
   .text {
-    font-size: 16px;
+    font-size: 12px;
     margin-top: 5px;
   }
 }

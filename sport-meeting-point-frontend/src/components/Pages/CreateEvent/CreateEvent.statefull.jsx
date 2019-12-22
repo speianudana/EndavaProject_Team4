@@ -69,6 +69,12 @@ export default class CreateEventStatefull extends PureComponent {
         }
       })
       .catch((error) => {
+
+        if (error.response == 401) {
+          tokenWorker.deleteTokenFromLocalStorage()
+          location.reload()
+
+        }
         console.error(error)
       })
       .then(() => {

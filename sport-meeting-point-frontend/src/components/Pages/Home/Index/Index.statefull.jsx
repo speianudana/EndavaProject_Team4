@@ -7,7 +7,6 @@ import { Article } from './Article'
 import exampleImg from '../../../../../static/qqq.jpg'
 import axios from 'axios';
 import { url } from '../../../../utils/server-url'
-// import {get_all_events} from '../../../App/AppConstRoutes'
 
 class IndexStatefull extends Component {
   constructor(props) {
@@ -52,7 +51,8 @@ class IndexStatefull extends Component {
 
             this.state.articles.map((item, index) => (
               <Article
-                key={index}
+                key={item.id}
+                id={item.id}
                 title={item.title}
                 text={item.previewMessage}
                 image={''}
@@ -62,6 +62,9 @@ class IndexStatefull extends Component {
 
           }
 
+          {/* <LoadingType1 /> */}
+          <br />
+          <br />
         </Container>
       </>
     )
