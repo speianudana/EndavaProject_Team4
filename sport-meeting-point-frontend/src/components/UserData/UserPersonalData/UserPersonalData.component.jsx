@@ -15,7 +15,7 @@ class UserPersonalDataComponent extends Component {
     tokenToPersonalData()
       .then(result => {
         if (result.status == 200) {
-          console.log(result.data.personalData)
+          // console.log(result.data.personalData)
           self.props.setUserData(result.data)
           if (!self.props.isAuthenticated) self.props.setIsAuthenticatedValue(true)
         }

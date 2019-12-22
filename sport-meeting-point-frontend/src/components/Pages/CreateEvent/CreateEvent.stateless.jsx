@@ -8,7 +8,7 @@ const thumbnailSrc = "data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22508%2
 
 
 
-export default function CreateEventStateless({ handleAllInputData }) {
+export default function CreateEventStateless({ handleAllInputData, validationMessage }) {
 
   const [data, setData] = useState(
     {
@@ -75,9 +75,18 @@ export default function CreateEventStateless({ handleAllInputData }) {
 
         <ButtonA
           onClick={e => handleAllInputData(data)}
-          style={{ marginTop: '20px' }}
+          style={{ margin: '20px' }}
           title='Save post'
         />
+
+        {
+          validationMessage.map((a, i) => (
+            <p key={i} style={{ color: 'red', margin: '7px' }}>
+              *{a}
+            </p>)
+          )
+        }
+
 
       </div>
     </Container>

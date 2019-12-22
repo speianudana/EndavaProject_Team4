@@ -9,16 +9,16 @@ export default class CreateEventStatefull extends Component {
   constructor(props) {
     super(props)
     this.handleAllInputData.bind(this)
+
+    this.state = {
+      validationMessage: []
+    }
   }
 
   handleAllInputData(data) {
-
+    const self = this
     const token = tokenWorker.loadTokenFromLocalStorage()
-    // console.log(token)
-
-    var formData = new FormData();
-    formData.append("file", data.image != null ? data.image : new File([], ""))
-
+    const formData = new FormData();
     const newData = {
       title: data.title.length > 0 ? data.title : null,
       address: data.address.length > 0 ? data.address : null,
@@ -26,11 +26,8 @@ export default class CreateEventStatefull extends Component {
       description: data.description.length > 0 ? data.description : null,
     }
 
+    formData.append("file", data.image != null ? data.image : new File([], ""))
     formData.append("data", JSON.stringify(newData))
-
-    // formData.append("data", new Blob([JSON.stringify(newData)], {
-    //   type: "application/json"
-    // }))
 
     const headers = {
       'Content-Type': undefined,
@@ -41,7 +38,8 @@ export default class CreateEventStatefull extends Component {
       headers: headers
     })
       .then((response) => {
-        console.log(response)
+        if (response.data.validationMessage)
+          self.setState({ validationMessage: response.data.validationMessage })
       })
       .catch((error) => {
         console.error(error)
@@ -53,7 +51,8 @@ export default class CreateEventStatefull extends Component {
 
   render() {
     return <CreateEventStateless
-      handleAllInputData={this.handleAllInputData}
+      handleAllInputData={e => this.handleAllInputData(e)}
+      validationMessage={this.state.validationMessage}
     />
   }
 }

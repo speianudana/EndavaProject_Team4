@@ -38,8 +38,7 @@ public class JwtTokenProvider {
 
   @Bean
   public BCryptPasswordEncoder passwordEncoder(){
-    BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
-    return bCryptPasswordEncoder;
+    return new BCryptPasswordEncoder();
   }
 
   public String createToken(String userName, List<UserRole> userRoles){
