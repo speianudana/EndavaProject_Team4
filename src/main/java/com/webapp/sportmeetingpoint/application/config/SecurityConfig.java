@@ -56,13 +56,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
       .anyRequest().authenticated()
       .and()
       .exceptionHandling()
-//      .authenticationEntryPoint((request, response, e) -> {
-//        String json = String.format("{\"message\": \"%s\"}", e.getMessage());
-//        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-//        response.setContentType("application/json");
-//        response.setCharacterEncoding("UTF-8");
-//        response.getWriter().write(json);
-//      })
       .authenticationEntryPoint(jwtAuthenticationEntryPoint)
       .and()
       .sessionManagement()

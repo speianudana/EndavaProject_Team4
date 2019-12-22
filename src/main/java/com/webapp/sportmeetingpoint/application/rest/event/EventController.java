@@ -143,8 +143,8 @@ public class EventController {
   }
 
   
-  @RequestMapping(value = "/image_by_id", method = RequestMethod.GET)
-  public ResponseEntity<?> getEventImageById(@RequestParam(value="id") final Integer eventId){
+  @RequestMapping(value = "/image_by_id", method = RequestMethod.POST)
+  public ResponseEntity<?> getEventImageById(@RequestBody final Integer eventId){
     
     Event event = eventService.findEventById(eventId);
     

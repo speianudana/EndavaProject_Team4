@@ -17,14 +17,14 @@ public class CreateEventDTO {
   @NotNull(message = "Title is required")
   private String title;
   
-  @Size(min=1, max=200, message = "Maximum preview message length {max} characters")
-  @NotNull(message = "Preview message is required!!!!")
+  @Size(min=1, max=200, message = "Maximum preview message length 200 characters")
+  @NotNull(message = "Preview message is required")
   private String previewMessage;
   
-  @NotNull(message = "Description is required!!!!")
+  @NotNull(message = "Description is required")
   private String description;
   
-  @NotNull(message = "Address is required!!!!")
+  @NotNull(message = "Address is required")
   private String address;
   
   

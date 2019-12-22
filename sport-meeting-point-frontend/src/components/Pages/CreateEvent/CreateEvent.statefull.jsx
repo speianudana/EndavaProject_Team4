@@ -1,21 +1,38 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import CreateEventStateless from './CreateEvent.stateless.jsx'
 import { tokenWorker } from '../../../utils/token-worker'
 import { url } from '../../../utils/server-url'
 import axios from 'axios'
+import { FullPageLoading1 } from '../../Layouts/Loading'
 
-export default class CreateEventStatefull extends Component {
+
+export default class CreateEventStatefull extends PureComponent {
 
   constructor(props) {
     super(props)
     this.handleAllInputData.bind(this)
 
+    // _isMounted = false;
+
     this.state = {
-      validationMessage: []
+      validationMessage: [],
+      loadPage: false
     }
   }
 
+  componentDidMount() {
+    this._isMounted = true
+  }
+
+  componentWillUnmount() {
+    this._isMounted = false
+  }
+
+
+
   handleAllInputData(data) {
+    this.setState({ loadPage: true })
+
     const self = this
     const token = tokenWorker.loadTokenFromLocalStorage()
     const formData = new FormData();
@@ -38,21 +55,43 @@ export default class CreateEventStatefull extends Component {
       headers: headers
     })
       .then((response) => {
-        if (response.data.validationMessage)
+        if (!self._isMounted) return
+
+        if (response.data.validationMessage) {
           self.setState({ validationMessage: response.data.validationMessage })
+          setTimeout(() => {
+            if (self._isMounted) self.setState({ validationMessage: [] })
+          }, 5000)
+
+        }
+        else {
+          console.log(response.data)
+        }
       })
       .catch((error) => {
         console.error(error)
       })
+      .then(() => {
+        if (self._isMounted) self.setState({ loadPage: false })
+      })
+
 
   }
 
 
 
   render() {
-    return <CreateEventStateless
-      handleAllInputData={e => this.handleAllInputData(e)}
-      validationMessage={this.state.validationMessage}
-    />
+    return <React.Fragment>
+
+      {this.state.loadPage && <FullPageLoading1 />}
+
+      <CreateEventStateless
+        handleAllInputData={e => this.handleAllInputData(e)}
+        validationMessage={this.state.validationMessage}
+      />
+
+    </React.Fragment>
+
+
   }
 }

@@ -13,7 +13,7 @@ function ArticleStateless({ title, text, image }) {
   return (
     <div className={style.mainContainer}>
       <div className={style.mainContainerChild}>
-        <img style={{ filter: 'grayscale(100%)' }} src={load2} className={style.imgStyle} alt="" />
+        <img style={{ filter: 'grayscale(100%)' }} src={image == '' ? load2 : image} className={style.imgStyle} alt="" />
       </div>
       <div style={{ flexDirection: 'column', }}
         className={style.mainContainerChild

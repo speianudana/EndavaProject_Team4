@@ -23,17 +23,21 @@ class IndexStatefull extends Component {
 
 
   componentDidMount() {
-
+    this._isMounted = true
     const self = this
 
     axios.get(`${url}/api/event/all_events`)
       .then(e => {
-        self.setState({ articles: e.data })
+        if (self._isMounted)
+          self.setState({ articles: e.data })
       })
       .catch(err => console.warn(err))
 
   }
 
+  componentWillUnmount() {
+    this._isMounted = false
+  }
 
 
 
