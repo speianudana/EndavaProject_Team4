@@ -1,8 +1,9 @@
 import React, { Suspense } from 'react'
+import { FullPageLoading1 as Loading } from '../../../Layouts/Loading'
 
 const IndexStatefull = React.lazy(() => import('./Index.statefull.jsx'));
 
-const LoadingComponent = () => (<div>Loading...</div>)
+const LoadingComponent = () => (<Loading />)
 
 export default function IndexLoadable() {
 

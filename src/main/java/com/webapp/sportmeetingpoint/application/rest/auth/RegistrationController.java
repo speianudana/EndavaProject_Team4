@@ -1,9 +1,7 @@
 package com.webapp.sportmeetingpoint.application.rest.auth;
 
 
-import com.webapp.sportmeetingpoint.domain.dto.CreateEventDTO;
 import com.webapp.sportmeetingpoint.domain.dto.UserRegistrationDTO;
-import com.webapp.sportmeetingpoint.domain.dto.UserSystemDTO;
 import com.webapp.sportmeetingpoint.application.security.jwt.JwtTokenProvider;
 import com.webapp.sportmeetingpoint.application.service.UserSystemService;
 import com.webapp.sportmeetingpoint.domain.entities.*;
@@ -34,30 +32,6 @@ public class RegistrationController {
     this.validator = Validation.buildDefaultValidatorFactory().usingContext().getValidator();
   }
 
-//  private Map<Object, Object> registrationDataValidation(UserSystemDTO data){
-//    List<String>  errorList = new ArrayList<>();
-//
-//    if(data.getEmail().isEmpty()){
-//      errorList.add("Please enter your email");
-//    }
-//
-//    if(userSystemService.findByEmail(data.getEmail())!=null){
-//      errorList.add("A user with the same email already exists");
-//    }
-//
-//    if(!data.getPasswordRepeat().equals(data.getPassword())){
-//      errorList.add("Password and password repeat is not equal");
-//    }
-//
-//    if(data.getPassword().length()<5){
-//      errorList.add("Password must not be less than 5 characters");
-//    }
-//
-//    Map<Object, Object> errorListResult = new HashMap<>();
-//    if(!errorList.isEmpty()) errorListResult.put("error", errorList);
-//
-//    return errorListResult;
-//  }
 
   @PostMapping("/registration")
   public ResponseEntity registration(@RequestBody UserRegistrationDTO data) {
@@ -72,7 +46,7 @@ public class RegistrationController {
     }
 
     if (errorMessages.size() > 0) {
-      HashMap result = new HashMap();
+      HashMap<Object, Object> result = new HashMap<>();
       result.put("validationMessage", errorMessages);
       return new ResponseEntity<>(result, HttpStatus.OK);
     }

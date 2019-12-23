@@ -5,6 +5,7 @@ import { url } from '../../../../utils/server-url'
 import { tokenWorker } from '../../../../utils/token-worker'
 import { Redirect } from 'react-router-dom'
 import { index } from '../../../App/AppConstRoutes'
+import { FullPageLoading1 as FullPageLoading, FullPageLoading1 } from '../../../Layouts/Loading'
 
 class RegistrationStatefull extends React.Component {
 
@@ -14,7 +15,8 @@ class RegistrationStatefull extends React.Component {
 
     this.state = {
       errorMsgs: new Array(),
-      redirectToHome: false
+      redirectToHome: false,
+      showLoadPage: false
     }
   }
 
@@ -38,8 +40,10 @@ class RegistrationStatefull extends React.Component {
       passwordRepeat: regStatelessAccData.passwordRepeat
     }
 
+    this.setState({ showLoadPage: true })
+
     axios.post(`${url}/api/auth/registration`, data).then(res => {
-      if (res.status === 200) {
+      if (res.status === 200 && this._isMounted) {
         if (res.data.validationMessage) {
           this.setState({ errorMsgs: res.data.validationMessage })
           setTimeout(() => {
@@ -53,9 +57,15 @@ class RegistrationStatefull extends React.Component {
 
         }
       }
-    }).catch(function (error) {
-      console.log(error)
-    });
+    })
+      .catch(function (error) {
+        console.warn('Reg', error)
+      })
+      .then(() => {
+        if (this._isMounted) {
+          this.setState({ showLoadPage: false })
+        }
+      })
 
 
 
@@ -68,6 +78,7 @@ class RegistrationStatefull extends React.Component {
 
     return (
       <div>
+        {this.state.showLoadPage && <FullPageLoading />}
         <RegistrationStateless handleBtnRegistr={(a) => { this.handleBtnRegistr(a) }} errorMsgs={this.state.errorMsgs} />
       </div>
     )

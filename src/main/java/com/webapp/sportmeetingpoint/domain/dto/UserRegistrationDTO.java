@@ -19,11 +19,12 @@ public class UserRegistrationDTO {
   private String lastName;
 
   @Email(message = "Please, enter valid email")
-  @NotNull
+  @NotNull(message = "Email must not be empty")
   private String email;
 
 
   @Size(min=6, max=30, message = "Min. password length 6, maximum: 30 characters")
+  @NotNull(message = "Password must not be empty")
   private String password;
 
 }
