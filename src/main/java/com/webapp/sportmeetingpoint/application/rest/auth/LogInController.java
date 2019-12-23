@@ -33,7 +33,6 @@ public class LogInController {
 
 
   @PostMapping("/login")
-  @CrossOrigin
   public ResponseEntity<?> login(@RequestBody AuthenticationRequestDTO requestDTO) {
     try {
 

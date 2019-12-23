@@ -7,6 +7,7 @@ import com.webapp.sportmeetingpoint.persistance.EventRepository;
 import com.webapp.sportmeetingpoint.persistance.UserActivityRepository;
 import com.webapp.sportmeetingpoint.persistance.UserRoleRepository;
 import com.webapp.sportmeetingpoint.persistance.UserSystemRepository;
+import com.webapp.sportmeetingpoint.util.mail.MailUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -42,7 +43,9 @@ public class DataInitializerForDevelopment implements CommandLineRunner {
 //    event.setUserActivity(u.getUserActivity());
 //
 //    Event t = eventRepository.save(event);
-
+  
+//    log.debug("checkpoin");
+//    MailUtil.sendMail("ipostu20000127@gmail.com");
     char c = 'a';
 
 //    if(userSystemService.findByEmail("email")==null){

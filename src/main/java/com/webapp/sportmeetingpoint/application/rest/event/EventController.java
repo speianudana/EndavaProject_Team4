@@ -10,6 +10,7 @@ import com.webapp.sportmeetingpoint.domain.dto.EventDTO;
 import com.webapp.sportmeetingpoint.domain.dto.ImageDTO;
 import com.webapp.sportmeetingpoint.domain.entities.Event;
 import com.webapp.sportmeetingpoint.domain.entities.UserSystem;
+import com.webapp.sportmeetingpoint.util.mail.MailUtil;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,6 +21,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.mail.MessagingException;
 import javax.validation.*;
 import java.io.IOException;
 import java.util.*;
@@ -119,9 +121,13 @@ public class EventController {
   }
 
   @RequestMapping(value = "/all_events", method = RequestMethod.GET)
-  public ResponseEntity<List<EventDTO>> getAllEventsWithoutImage() {
+  public ResponseEntity<List<EventDTO>> getAllEventsWithoutImage() throws MessagingException {
 
     List<Event> allEvents=eventService.allEvents();
+  
+//    MailUtil.getMailUtilObject().sendMailAsync("ipostu20000127@gmail.com",
+//      "<h2>Hello world</h2>");
+
     
     List<EventDTO> result = allEvents.stream().map( a -> {
         final EventDTO e = new EventDTO();

@@ -19,14 +19,18 @@ class RegistrationStatefull extends React.Component {
   }
 
   componentDidMount() {
-
+    this._isMounted = true
   }
+
+  componentWillUnmount() {
+    this._isMounted = false
+  }
+
 
 
   handleBtnRegistr(regStatelessAccData) {
 
     const data = {
-      username: regStatelessAccData.email,
       firstName: regStatelessAccData.firstName,
       lastName: regStatelessAccData.lastName,
       email: regStatelessAccData.email,
@@ -36,8 +40,11 @@ class RegistrationStatefull extends React.Component {
 
     axios.post(`${url}/api/auth/registration`, data).then(res => {
       if (res.status === 200) {
-        if (res.data.error) {
-          this.setState({ errorMsgs: res.data.error })
+        if (res.data.validationMessage) {
+          this.setState({ errorMsgs: res.data.validationMessage })
+          setTimeout(() => {
+            if (this._isMounted) this.setState({ errorMsgs: [] })
+          }, 6000)
         }
         if (res.data.token) {
           tokenWorker.saveTokenInLocalStorage(res.data.token)
