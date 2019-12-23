@@ -1,14 +1,14 @@
 package com.webapp.sportmeetingpoint.application.service;
 
 import com.webapp.sportmeetingpoint.domain.entities.*;
-import com.webapp.sportmeetingpoint.persistance.UserActivityRepository;
-import com.webapp.sportmeetingpoint.persistance.UserPersonalDataRepository;
-import com.webapp.sportmeetingpoint.persistance.UserRoleRepository;
-import com.webapp.sportmeetingpoint.persistance.UserSystemRepository;
+import com.webapp.sportmeetingpoint.persistance.*;
+import com.webapp.sportmeetingpoint.util.RandomString;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.security.SecureRandom;
 import java.util.List;
+import java.util.Random;
 
 @Service
 public class UserSystemServiceImpl implements UserSystemService {
@@ -18,32 +18,46 @@ public class UserSystemServiceImpl implements UserSystemService {
   private final UserRoleRepository userRoleRepository;
   private final UserPersonalDataRepository userPersonalDataRepository;
   private final UserActivityRepository userActivityRepository;
+  private final UserSystemValidationHashRepository userSystemValidationHashRepository;
 
   @Autowired
   public UserSystemServiceImpl(UserSystemRepository userSystemRepository, UserRoleRepository userRoleRepository,
                                UserActivityRepository userActivityRepository,
-                               UserPersonalDataRepository userPersonalDataRepository) {
+                               UserPersonalDataRepository userPersonalDataRepository,
+                               UserSystemValidationHashRepository userSystemValidationHashRepository) {
     this.userSystemRepository = userSystemRepository;
     this.userRoleRepository = userRoleRepository;
     this.userPersonalDataRepository = userPersonalDataRepository;
     this.userActivityRepository = userActivityRepository;
+    this.userSystemValidationHashRepository = userSystemValidationHashRepository;
   }
 
 
 
   @Override
-  public UserSystem register(UserSystem userSystem, UserPersonalData userPersonalData, UserActivity activity, String userRole) {
+  public UserSystem register(UserSystem userSystem, UserPersonalData userPersonalData  ) {
 
-    if(activity==null ) activity = new UserActivity();
-    if(userPersonalData == null) userPersonalData = new UserPersonalData();
+    UserActivity activity = new UserActivity();
 
-    UserRole role = userRoleRepository.findByName(userRole).get();
+    UserRole role = userRoleRepository.findByName(AppUserRoles.USER.toString()).get();
     UserActivity defaultUserActivity = userActivityRepository.save(activity);
     UserPersonalData defaultPersonalData =  userPersonalDataRepository.save(userPersonalData);
+
+    String alphabet = RandomString.digits + "ACEFGHJKLMNPQRUVWXY"+"abcdefhijkprstuvwx";
+
+    Random rand = new Random();
+    int randomNum = 64 + rand.nextInt(64);
+
+    RandomString tickets = new RandomString(randomNum, new SecureRandom(), alphabet);
+    String hash = tickets.nextString();
+    UserSystemValidationHash userSystemValidationHash = new UserSystemValidationHash();
+    userSystemValidationHash.setHash(hash);
+    userSystemValidationHash = userSystemValidationHashRepository.save(userSystemValidationHash);
 
     userSystem.setUserActivity(activity);
     userSystem.setUserRole(role);
     userSystem.setUserPersonalData(userPersonalData);
+    userSystem.setUserSystemValidationHash(userSystemValidationHash);
 
     return userSystemRepository.save(userSystem);
   }

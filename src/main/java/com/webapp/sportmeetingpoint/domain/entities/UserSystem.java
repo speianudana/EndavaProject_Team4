@@ -41,5 +41,8 @@ public class UserSystem extends BaseEntity {
   @JoinColumn(name = "user_activity_fk_id", nullable = false)
   private UserActivity userActivity;
 
+  @OneToOne(fetch = FetchType.EAGER, optional = false)
+  @JoinColumn(name="user_system_validation_hash_fk_id", nullable = false)
+  private UserSystemValidationHash userSystemValidationHash;
 
 }

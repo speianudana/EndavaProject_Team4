@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface UserSystemService {
 
-  UserSystem register(UserSystem userSystem, UserPersonalData userPersonalData, UserActivity activity, String userRole);
+  UserSystem register(UserSystem userSystem, UserPersonalData userPersonalData);
 
   List<UserSystem> findAll();
 

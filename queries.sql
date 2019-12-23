@@ -10,7 +10,8 @@ DROP TABLE PUBLIC."event",
   PUBLIC."user_activity",
   PUBLIC."user_personal_data",
   PUBLIC."user_role",
-  PUBLIC."user_system";
+  PUBLIC."user_system",
+  PUBLIC."user_system_validation_hash";
 
 -- /delete all tables
 

@@ -66,7 +66,7 @@ public class RegistrationController {
     userSystem.setUpdatedDate(now);
     userSystem.setIsActivated(true);
 
-    UserSystem result = userSystemService.register(userSystem, personalData, null, AppUserRoles.USER.toString());
+    UserSystem result = userSystemService.register(userSystem, personalData );
 
     List<UserRole> userRoles = new ArrayList<>(Collections.singletonList(result.getUserRole()));
 

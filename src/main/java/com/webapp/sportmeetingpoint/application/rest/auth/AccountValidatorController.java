@@ -20,10 +20,7 @@ public class AccountValidatorController {
   @RequestMapping(value = "/validate", method = RequestMethod.GET)
   public ResponseEntity<?> getAllEventsWithoutImage(@RequestParam(name = "data") final String data) {
 
-    String easy = RandomString.digits + "ACEFGHJKLMNPQRUVWXYabcdefhijkprstuvwx";
-    RandomString tickets = new RandomString(23, new SecureRandom(), easy);
 
-    String s = tickets.nextString();
 
     char a = 'a';
 
