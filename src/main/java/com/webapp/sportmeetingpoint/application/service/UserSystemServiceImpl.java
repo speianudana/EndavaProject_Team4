@@ -37,10 +37,9 @@ public class UserSystemServiceImpl implements UserSystemService {
   @Override
   public UserSystem register(UserSystem userSystem, UserPersonalData userPersonalData  ) {
 
-    UserActivity activity = new UserActivity();
 
     UserRole role = userRoleRepository.findByName(AppUserRoles.USER.toString()).get();
-    UserActivity defaultUserActivity = userActivityRepository.save(activity);
+    UserActivity defaultUserActivity = userActivityRepository.save(new UserActivity());
     UserPersonalData defaultPersonalData =  userPersonalDataRepository.save(userPersonalData);
 
     String alphabet = RandomString.digits + "ACEFGHJKLMNPQRUVWXY"+"abcdefhijkprstuvwx";
@@ -54,7 +53,7 @@ public class UserSystemServiceImpl implements UserSystemService {
     userSystemValidationHash.setHash(hash);
     userSystemValidationHash = userSystemValidationHashRepository.save(userSystemValidationHash);
 
-    userSystem.setUserActivity(activity);
+    userSystem.setUserActivity(defaultUserActivity);
     userSystem.setUserRole(role);
     userSystem.setUserPersonalData(userPersonalData);
     userSystem.setUserSystemValidationHash(userSystemValidationHash);

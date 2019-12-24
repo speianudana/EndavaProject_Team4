@@ -30,17 +30,17 @@ public class MailUtil {
 
   }
 
-  public void sendMailAsync(String recipient,final String htmlText){
+  public void sendMailAsync(String recipient,final String title, final String htmlText){
     new Thread(()->{
       try {
-        sendMail(recipient, htmlText);
+        sendMail(recipient, title, htmlText);
       } catch (MessagingException e) {
         log.debug(e);
       }
     }).start();
   }
 
-  private void sendMail(String recipient,final String htmlText) throws MessagingException {
+  private void sendMail(String recipient,final String title,final String htmlText) throws MessagingException {
 
 
     Properties properties = new Properties();
@@ -60,16 +60,15 @@ public class MailUtil {
       }
     });
 
-    Message message = prepareMessage(session, myAccountEmail, recipient, htmlText);
+    Message message = prepareMessage(session, myAccountEmail, recipient, title, htmlText);
 
     Transport.send(message);
-    log.debug("Message send successfully");
 
   }
   
   
   private Message prepareMessage(Session session, String myAccountEmail,
-    String recipient, final String htmlText){
+    String recipient, final String title, final String htmlText){
 
     Message message = new MimeMessage(session);
 
@@ -77,7 +76,7 @@ public class MailUtil {
     try{
       message.setFrom(new InternetAddress(myAccountEmail));
       message.setRecipient(Message.RecipientType.TO, new InternetAddress(recipient));
-      message.setSubject("My first mail app");
+      message.setSubject(title);
 
       message.setContent(htmlText, "text/html");
 

@@ -14,8 +14,7 @@ import java.security.SecureRandom;
 @RequestMapping(value = "/api/auth")
 public class AccountValidatorController {
 
-//  @Value("${jwt.token.secret}")
-//  private String secret;
+
 
   @RequestMapping(value = "/validate", method = RequestMethod.GET)
   public ResponseEntity<?> getAllEventsWithoutImage(@RequestParam(name = "data") final String data) {
