@@ -5,6 +5,7 @@ import com.webapp.sportmeetingpoint.domain.dto.UserRegistrationDTO;
 import com.webapp.sportmeetingpoint.application.security.jwt.JwtTokenProvider;
 import com.webapp.sportmeetingpoint.application.service.UserSystemService;
 import com.webapp.sportmeetingpoint.domain.entities.*;
+import com.webapp.sportmeetingpoint.util.UtilMethods;
 import com.webapp.sportmeetingpoint.util.mail.MailUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -29,6 +30,7 @@ public class RegistrationController {
 
   @Value("${frontend.url}")
   private String url;
+
 
   @Autowired
   public RegistrationController(JwtTokenProvider jwtTokenProvider, UserSystemService userService) {
@@ -73,16 +75,15 @@ public class RegistrationController {
 
     UserSystem result = userSystemService.register(userSystem, personalData );
 
-    List<UserRole> userRoles = new ArrayList<>(Collections.singletonList(result.getUserRole()));
+    String readyHash = result.getUserSystemValidationHash().getHash()+"_"+
+      UtilMethods.numberToAlphabetCharacters(userSystem.getId());
 
-    MailUtil.getMailUtilObject().sendMailAsync(result.getEmail(),
+    new MailUtil().sendMailAsync(result.getEmail(),
       "Account activation - Sport Meeting Point",
-      "<h2><a href="+url+"/>To activate your account, click here.</a></h2>"
+      "<h2><a href="+url+"/auth/activation?"+ readyHash
+        +">To activate your account, click here.</a></h2>"
     );
 
-//    String token = jwtTokenProvider.createToken(result.getEmail(), userRoles);
-//    Map<Object, Object> response = new HashMap<>();
-//    response.put("token", token);
 
     return new ResponseEntity<>(HttpStatus.OK);
   }

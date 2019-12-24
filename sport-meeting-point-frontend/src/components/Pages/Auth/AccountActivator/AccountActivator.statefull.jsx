@@ -21,11 +21,12 @@ export default class AccountActivatorStatefull extends Component {
 
     axios.get(`${url}/api/auth/validate?data=${data[1]}`).then(result => {
       if (this._isMounted) {
-        alert('Account has been activated')
+        console.log(result)
+        // alert('Account has been activated')
       }
     })
       .catch(error => {
-
+        console.warn(error)
       })
 
   }

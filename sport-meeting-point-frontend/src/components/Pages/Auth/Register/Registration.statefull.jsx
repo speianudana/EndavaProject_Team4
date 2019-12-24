@@ -16,7 +16,8 @@ class RegistrationStatefull extends React.Component {
     this.state = {
       errorMsgs: new Array(),
       redirectToHome: false,
-      showLoadPage: false
+      showLoadPage: false,
+      expectConfirmationEmail: false
     }
   }
 
@@ -50,12 +51,13 @@ class RegistrationStatefull extends React.Component {
             if (this._isMounted) this.setState({ errorMsgs: [] })
           }, 6000)
         }
-        if (res.data.token) {
-          tokenWorker.saveTokenInLocalStorage(res.data.token)
-          setTimeout(() => location.reload(), 33)
-          this.setState({ errorMsgs: new Array(), redirectToHome: true })
+        // if (res.data.token) {
+        //   tokenWorker.saveTokenInLocalStorage(res.data.token)
+        //   setTimeout(() => location.reload(), 33)
+        //   this.setState({ errorMsgs: new Array(), redirectToHome: true })
 
-        }
+        // }
+        this.setState({ expectConfirmationEmail: true })
       }
     })
       .catch(function (error) {
@@ -79,7 +81,11 @@ class RegistrationStatefull extends React.Component {
     return (
       <div>
         {this.state.showLoadPage && <FullPageLoading />}
-        <RegistrationStateless handleBtnRegistr={(a) => { this.handleBtnRegistr(a) }} errorMsgs={this.state.errorMsgs} />
+        <RegistrationStateless
+          handleBtnRegistr={(a) => { this.handleBtnRegistr(a) }}
+          errorMsgs={this.state.errorMsgs}
+          expectConfirmationEmail={this.state.expectConfirmationEmail}
+        />
       </div>
     )
   }

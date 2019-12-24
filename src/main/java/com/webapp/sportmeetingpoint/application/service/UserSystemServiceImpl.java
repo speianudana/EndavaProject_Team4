@@ -45,7 +45,7 @@ public class UserSystemServiceImpl implements UserSystemService {
     String alphabet = RandomString.digits + "ACEFGHJKLMNPQRUVWXY"+"abcdefhijkprstuvwx";
 
     Random rand = new Random();
-    int randomNum = 64 + rand.nextInt(64);
+    int randomNum =  32 + rand.nextInt(64);
 
     RandomString tickets = new RandomString(randomNum, new SecureRandom(), alphabet);
     String hash = tickets.nextString();

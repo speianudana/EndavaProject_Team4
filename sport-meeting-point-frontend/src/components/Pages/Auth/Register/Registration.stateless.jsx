@@ -4,7 +4,7 @@ import { login } from '../../../App/AppConstRoutes.js'
 import style from '../style.scss'
 import { Container } from '../../../Layouts/Container'
 
-function RegistrationStateless({ handleBtnRegistr, errorMsgs }) {
+function RegistrationStateless({ handleBtnRegistr, errorMsgs, expectConfirmationEmail }) {
 
 
   return (
@@ -12,8 +12,8 @@ function RegistrationStateless({ handleBtnRegistr, errorMsgs }) {
       <Container>
         <div className={style.card}>
 
-          <RegistrationDataForm handleBtnRegistr={handleBtnRegistr} errorMsgs={errorMsgs} />
-
+          {!expectConfirmationEmail && <RegistrationDataForm handleBtnRegistr={handleBtnRegistr} errorMsgs={errorMsgs} />}
+          {expectConfirmationEmail && <ExpectConfirmationEmail />}
 
 
         </div>
@@ -23,6 +23,14 @@ function RegistrationStateless({ handleBtnRegistr, errorMsgs }) {
   );
 }
 
+const ExpectConfirmationEmail = p => {
+
+  return (
+    <h2 style={{ color: 'green', marginTop: '20px' }}>
+      To complete the registration, follow the link sent in the letter by mail
+      </h2>
+  )
+}
 
 const RegistrationDataForm = React.memo(({ handleBtnRegistr, errorMsgs }) => {
 

@@ -1,14 +1,17 @@
 package com.webapp.sportmeetingpoint.persistance;
 
 import com.webapp.sportmeetingpoint.domain.entities.UserSystem;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
 
-public interface UserSystemRepository extends CrudRepository<UserSystem, Long> {
+public interface UserSystemRepository extends CrudRepository<UserSystem, Long>, JpaRepository<UserSystem, Long> {
 
 
   @Query("SELECT u FROM UserSystem u WHERE u.email = :email1")
@@ -20,6 +23,21 @@ public interface UserSystemRepository extends CrudRepository<UserSystem, Long> {
   List<UserSystem> findAll();
 
   UserSystem findById(Integer id);
+
+//  @Modifying(clearAutomatically = true)
+//  @Query(
+//    value = " UPDATE UserSystem u " +
+//    " SET u.is_activated=:activated1 " +
+//    " WHERE u.id=:id1 ", nativeQuery = true )
+//  void setActivatedValue(@Param("activated1") boolean isActivated,@Param("id1") final Integer Id);
+
+  @Modifying
+  @Transactional
+  @Query(value = "UPDATE user_system SET is_activated=:activated1 WHERE id=:id1", nativeQuery = true)
+  public void updateSetSystemUserActivatedValue(@Param("activated1") boolean isActivated,
+    @Param("id1") final Integer Id);
+
+
 
 
 }

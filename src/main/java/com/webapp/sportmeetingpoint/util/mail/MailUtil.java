@@ -1,8 +1,6 @@
 package com.webapp.sportmeetingpoint.util.mail;
 
 import lombok.extern.log4j.Log4j2;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
 import java.util.Properties;
@@ -16,21 +14,20 @@ public class MailUtil {
 
   private static MailUtil singletonMailUtilObject;
 
-  private static String PORT = "587";
+  private final String accountEmail ;
 
+  private final String accountPassword ;
 
-  public static MailUtil getMailUtilObject(){
+  public MailUtil() {
+    this.accountEmail = System.getenv("MAIL_LOGIN");
+    this.accountPassword = System.getenv("MAIL_PASSWORD");
 
-    if(singletonMailUtilObject==null){
-      singletonMailUtilObject = new MailUtil();
-      return singletonMailUtilObject;
-    }
-
-    return singletonMailUtilObject;
+//    if(accountEmail==null || accountPassword==null)
+//      throw new RuntimeException("accountEmail and accountPassword is required!!!");
 
   }
 
-  public void sendMailAsync(String recipient,final String title, final String htmlText){
+  public void sendMailAsync(String recipient, final String title, final String htmlText){
     new Thread(()->{
       try {
         sendMail(recipient, title, htmlText);
@@ -42,25 +39,22 @@ public class MailUtil {
 
   private void sendMail(String recipient,final String title,final String htmlText) throws MessagingException {
 
-
     Properties properties = new Properties();
 
     properties.put("mail.smtp.auth","true");
     properties.put("mail.smtp.starttls.enable","true");
     properties.put("mail.smtp.host","smtp.gmail.com");
-    properties.put("mail.smtp.port", PORT);
+    properties.put("mail.smtp.port",  "587");
 
-    String myAccountEmail = "sportmeetingpoint223@gmail.com";
-    String password = "GhTT635__0poOqZ410OOiq__0";
 
     Session session = Session.getDefaultInstance(properties, new Authenticator() {
       @Override
       protected PasswordAuthentication getPasswordAuthentication() {
-        return new PasswordAuthentication(myAccountEmail, password);
+        return new PasswordAuthentication(accountEmail, accountPassword);
       }
     });
 
-    Message message = prepareMessage(session, myAccountEmail, recipient, title, htmlText);
+    Message message = prepareMessage(session, accountEmail, recipient, title, htmlText);
 
     Transport.send(message);
 
