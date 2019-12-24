@@ -22,9 +22,6 @@ public class MailUtil {
     this.accountEmail = System.getenv("MAIL_LOGIN");
     this.accountPassword = System.getenv("MAIL_PASSWORD");
 
-//    if(accountEmail==null || accountPassword==null)
-//      throw new RuntimeException("accountEmail and accountPassword is required!!!");
-
   }
 
   public void sendMailAsync(String recipient, final String title, final String htmlText){
