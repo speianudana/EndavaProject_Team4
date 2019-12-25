@@ -2,10 +2,9 @@ import React from 'react'
 import RegistrationStateless from './Registration.stateless.jsx'
 import axios from 'axios'
 import { url } from '../../../../utils/server-url'
-import { tokenWorker } from '../../../../utils/token-worker'
 import { Redirect } from 'react-router-dom'
 import { index } from '../../../App/AppConstRoutes'
-import { FullPageLoading1 as FullPageLoading, FullPageLoading1 } from '../../../Layouts/Loading'
+import { FullPageLoading1 as FullPageLoading } from '../../../Layouts/Loading'
 
 class RegistrationStatefull extends React.Component {
 
@@ -50,14 +49,10 @@ class RegistrationStatefull extends React.Component {
           setTimeout(() => {
             if (this._isMounted) this.setState({ errorMsgs: [] })
           }, 6000)
-        }
-        // if (res.data.token) {
-        //   tokenWorker.saveTokenInLocalStorage(res.data.token)
-        //   setTimeout(() => location.reload(), 33)
-        //   this.setState({ errorMsgs: new Array(), redirectToHome: true })
+        } else {
+          this.setState({ expectConfirmationEmail: true })
 
-        // }
-        this.setState({ expectConfirmationEmail: true })
+        }
       }
     })
       .catch(function (error) {

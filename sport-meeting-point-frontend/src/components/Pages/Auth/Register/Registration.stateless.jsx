@@ -26,9 +26,9 @@ function RegistrationStateless({ handleBtnRegistr, errorMsgs, expectConfirmation
 const ExpectConfirmationEmail = p => {
 
   return (
-    <h2 style={{ color: 'green', marginTop: '20px' }}>
+    <p className={style.msg01}>
       To complete the registration, follow the link sent in the letter by mail
-      </h2>
+    </p>
   )
 }
 

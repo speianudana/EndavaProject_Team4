@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { tokenToPersonalData } from '../../../utils/account-worker'
 import { connect } from 'react-redux'
 import { setIsAuthenticatedValue, setUserData } from './UserPersonalData.action.jsx'
+import { tokenWorker } from '../../../utils/token-worker'
 
 class UserPersonalDataComponent extends Component {
   constructor(props) {
@@ -12,15 +13,16 @@ class UserPersonalDataComponent extends Component {
 
     const self = this
 
-    tokenToPersonalData()
-      .then(result => {
-        if (result.status == 200) {
-          // console.log(result.data.personalData)
-          self.props.setUserData(result.data)
-          if (!self.props.isAuthenticated) self.props.setIsAuthenticatedValue(true)
-        }
-      })
-      .catch(e => console.warn(e))
+    if (tokenWorker.haveToken())
+      tokenToPersonalData()
+        .then(result => {
+          if (result.status == 200) {
+            // console.log(result.data.personalData)
+            self.props.setUserData(result.data)
+            if (!self.props.isAuthenticated) self.props.setIsAuthenticatedValue(true)
+          }
+        })
+    // .catch(e => console.warn(e))
 
 
 
