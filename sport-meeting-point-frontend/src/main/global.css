@@ -12,6 +12,9 @@ html {
 
 a {
   text-decoration-line: none;
+  outline: none;
+  text-decoration: none;
+  cursor: pointer;
 }
 
 a:hover {
@@ -23,7 +26,13 @@ body {
 }
 
 button {
+  position: relative;
+  display: inline-block;
   cursor: pointer;
-  border: none;
   outline: none;
+  border: 0;
+  vertical-align: middle;
+  text-decoration: none;
+  font-size: inherit;
+  font-family: inherit;
 }

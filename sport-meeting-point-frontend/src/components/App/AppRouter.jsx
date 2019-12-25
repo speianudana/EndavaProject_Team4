@@ -7,15 +7,21 @@ import { Index } from '../Pages/Home/Index'
 import { Register } from '../Pages/Auth/Register'
 import { Login } from '../Pages/Auth/LogIn'
 import AccountActivator from '../Pages/Auth/AccountActivator'
+import EventInfo from '../Pages/EventInfo'
 
 import UserPage from '../Pages/UserPage'
 import CreateEvent from '../Pages/CreateEvent'
 import CreateNews from '../Pages/CreateNews'
 
 import {
-    index, regestr, login, user_page, user_page_create_event, user_page_create_news,
-    user_activation
+    index, regestr,
+    login, user_page,
+    user_page_create_event,
+    user_page_create_news,
+    user_activation,
+    event_info
 } from './AppConstRoutes.js'
+
 import UserPersonalDataComponent from '../UserData/UserPersonalData/UserPersonalData.component.jsx'
 
 import { connect } from 'react-redux'
@@ -31,10 +37,14 @@ const AppRouter = props => {
             <Header />
 
             <Route exact path="/" render={() => (<Redirect to={index} />)} />
-            <Route path={index} component={Index} />
-            <Route path={regestr} component={Register} />
-            <Route path={login} component={Login} />
+            <Route exact path={index} component={Index} />
+            <Route exact path={regestr} component={Register} />
+            <Route exact path={login} component={Login} />
+
+            {/* This use get request, and data from url */}
             <Route path={user_activation} component={AccountActivator} />
+            <Route path={event_info} component={EventInfo} />
+            {/* This use get request, and data from url */}
 
             <Route exact path={user_page} component={isAuth ? UserPage : Index} />
             <Route exact path={user_page_create_event} component={isAuth ? CreateEvent : Index} />

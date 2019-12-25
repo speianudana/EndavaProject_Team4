@@ -1,10 +1,18 @@
 import React from 'react'
 import style from './style.scss'
-import { ButtonA } from '../../../../Layouts/Button'
+import { Link } from 'react-router-dom'
 import { LoadingType1 } from '../../../../Layouts/Loading'
+import { FaUser, FaCalendarCheck, FaMapMarkedAlt } from 'react-icons/fa';
+import { IconContext } from 'react-icons';
+import { event_info } from '../../../../App/AppConstRoutes'
 
-
-
+const Element = ({ children, color = '#818181', size = '13px' }) => (
+  <IconContext.Provider value={{ color: color, size: size }} >
+    <span style={{ margin: '5px' }}>
+      {children}
+    </span>
+  </IconContext.Provider>
+)
 
 function imgShower(img) {
   switch (img) {
@@ -21,14 +29,48 @@ function ArticleStateless({ title, text, image }) {
       <div className={style.mainContainerChild}>
         {imgShower(image)}
       </div>
-      <div style={{ flexDirection: 'column', }}
+      <div
         className={style.mainContainerChild
         }>
-        <p className={style.title}>{title}</p>
-        <p className={style.text}>{text}</p>
+        <div className={style.mainContainerChildBox}>
+          <p className={style.title}>{title}</p>
+          <p className={style.textInfo}>
 
-        <ButtonA title='More details...' className={style.btn} onClick={() => { console.log('test3291') }} />
 
+            <Element>
+              <FaUser />
+            </Element>
+
+            Username
+
+            <Element>
+              <FaCalendarCheck />
+            </Element>
+
+            12.12.2011
+
+            <Element>
+              <FaMapMarkedAlt />
+            </Element>
+
+            St. Florilor 98 A
+
+          </p>
+
+          <hr className={style.hrProp} />
+
+          <p className={style.text}>
+            {text}
+          </p>
+
+          <div className={style.linkProp}>
+            <Link to={event_info} style={{ color: '#15AD72' }}>
+              Read More »
+            </Link>
+          </div>
+
+
+        </div>
       </div>
     </div>
   )

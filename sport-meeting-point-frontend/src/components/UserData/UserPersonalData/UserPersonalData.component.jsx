@@ -22,6 +22,9 @@ class UserPersonalDataComponent extends Component {
             if (!self.props.isAuthenticated) self.props.setIsAuthenticatedValue(true)
           }
         })
+        .catch(error => {
+          tokenWorker.deleteTokenFromLocalStorage()
+        })
     // .catch(e => console.warn(e))
 
 

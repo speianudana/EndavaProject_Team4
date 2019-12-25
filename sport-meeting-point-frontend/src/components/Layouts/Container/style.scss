@@ -32,7 +32,7 @@
   display: block;
   left: 50%;
   transform: translateX(-50%);
-  
+
   // padding-right: 15px;
   // padding-left: 15px;
   // margin-right: auto;
@@ -41,6 +41,6 @@
 
 @media screen and(max-width:1200px) {
   .container {
-    width: 100vw;
+    width: 100%;
   }
 }
