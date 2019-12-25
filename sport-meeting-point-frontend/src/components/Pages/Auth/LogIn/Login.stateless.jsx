@@ -48,7 +48,7 @@ export default function LoginStateless({ onHandleBtnLogIn, errorMsg }) {
           <br />
           <br />
 
-          <p style={{ color: 'red' }}>{errorMsg}</p>
+          <p className={style.errorMsg}>{errorMsg}</p>
 
         </div>
 

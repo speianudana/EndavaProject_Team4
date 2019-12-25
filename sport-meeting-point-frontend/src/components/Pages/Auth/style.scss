@@ -7,7 +7,9 @@ $cardWidth: 600px;
 }
 
 .card {
+  background-color: white;
   margin-top: 30px;
+  margin-bottom: 20px;
   width: $cardWidth;
   min-height: 600px;
   text-align: center;
@@ -15,6 +17,7 @@ $cardWidth: 600px;
   transform: translateX(-50%);
   position: relative;
   border: 1px solid rgb(1, 1, 54);
+  border-radius: 7px;
 }
 
 @media screen and (max-width: $cardWidth) {
@@ -51,4 +54,11 @@ $cardWidth: 600px;
   margin: 20px;
   font-size: 24px;
   font-weight: bold;
+}
+
+
+.errorMsg {
+  color: red;
+  margin: 5px;
+  ;
 }

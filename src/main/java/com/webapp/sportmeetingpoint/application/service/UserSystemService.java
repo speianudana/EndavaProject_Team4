@@ -16,7 +16,7 @@ public interface UserSystemService {
 
   UserSystem findById(Integer id);
 
-
+  void deleteById(final Integer id);
 
 
 }

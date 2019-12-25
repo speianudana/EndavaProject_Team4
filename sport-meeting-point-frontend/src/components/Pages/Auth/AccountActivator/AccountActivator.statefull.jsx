@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
-import { FullPageLoading1 as Loading } from '../../../Layouts/Loading'
 import axios from 'axios'
 import { url } from '../../../../utils/server-url'
+import AccountActivatorStateless from '../AccountActivator/AccountActivator.stateless.jsx'
+import { Redirect } from 'react-router-dom'
+import { login, index } from '../../../App/AppConstRoutes'
 
 export default class AccountActivatorStatefull extends Component {
 
@@ -10,8 +12,12 @@ export default class AccountActivatorStatefull extends Component {
 
     this.state = {
       redirectToLogin: false,
-      redirectToHome: false
+      redirectToHome: false,
+      loadAnimation: true
     }
+
+
+    this.redirectToLogin.bind(this)
   }
 
   componentDidMount() {
@@ -21,12 +27,13 @@ export default class AccountActivatorStatefull extends Component {
 
     axios.get(`${url}/api/auth/validate?data=${data[1]}`).then(result => {
       if (this._isMounted) {
-        console.log(result)
-        // alert('Account has been activated')
+        // console.warn(result)
+        this.setState({ loadAnimation: false })
       }
     })
       .catch(error => {
-        console.warn(error)
+        console.warn("Account activation error: ", error)
+        this.setState({ redirectToHome: true })
       })
 
   }
@@ -35,9 +42,17 @@ export default class AccountActivatorStatefull extends Component {
     this._isMounted = false
   }
 
+  redirectToLogin() {
+    this.setState({ redirectToLogin: true })
+  }
 
 
   render() {
-    return <Loading />
+    if (this.state.redirectToLogin) return <Redirect to={login} />
+    if (this.state.redirectToHome) return <Redirect to={index} />
+
+    return <AccountActivatorStateless
+      showLoadingFullpage={this.state.loadAnimation}
+      loginClickHandle={e => this.redirectToLogin()} />
   }
 }

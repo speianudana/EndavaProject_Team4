@@ -98,12 +98,12 @@ const RegistrationDataForm = React.memo(({ handleBtnRegistr, errorMsgs }) => {
 
     {
       regData.password != regData.passwordRepeat
-      && <p style={{ color: 'red' }} >*Password and password repeat is not equal.</p>
+      && <p className={style.errorMsg} >*Password and password repeat is not equal.</p>
     }
 
     {
       errorMsgs.map((item, index) => {
-        return <p style={{ color: 'red' }} key={index}>* {item}</p>
+        return <p className={style.errorMsg} key={index}>* {item}</p>
       })
     }
   </React.Fragment>

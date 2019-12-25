@@ -24,17 +24,16 @@ public interface UserSystemRepository extends CrudRepository<UserSystem, Long>, 
 
   UserSystem findById(Integer id);
 
-//  @Modifying(clearAutomatically = true)
-//  @Query(
-//    value = " UPDATE UserSystem u " +
-//    " SET u.is_activated=:activated1 " +
-//    " WHERE u.id=:id1 ", nativeQuery = true )
-//  void setActivatedValue(@Param("activated1") boolean isActivated,@Param("id1") final Integer Id);
+
+  @Transactional
+  void deleteById(Integer id);
+
+
 
   @Modifying
   @Transactional
   @Query(value = "UPDATE user_system SET is_activated=:activated1 WHERE id=:id1", nativeQuery = true)
-  public void updateSetSystemUserActivatedValue(@Param("activated1") boolean isActivated,
+  void updateSetSystemUserActivatedValue(@Param("activated1") boolean isActivated,
     @Param("id1") final Integer Id);
 
 

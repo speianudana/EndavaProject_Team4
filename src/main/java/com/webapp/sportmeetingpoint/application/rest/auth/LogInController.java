@@ -9,6 +9,7 @@ import com.webapp.sportmeetingpoint.domain.entities.UserSystem;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.annotation.*;
@@ -50,7 +51,12 @@ public class LogInController {
 
       try {
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
-      } catch (Exception e) {
+      }
+      catch(DisabledException e){
+        return ResponseEntity.ok("This account is disabled or not activated, " +
+          "please go through the registration process again or check email. ");
+      }
+      catch (Exception e) {
         return ResponseEntity.ok("Invalid username or password..");
       }
 

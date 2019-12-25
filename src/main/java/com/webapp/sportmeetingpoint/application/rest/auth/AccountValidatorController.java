@@ -35,7 +35,8 @@ public class AccountValidatorController {
   }
 
   @RequestMapping(value = "/validate", method = RequestMethod.GET)
-  public ResponseEntity<?> getAllEventsWithoutImage(@RequestParam(name = "data") final String data) throws MessagingException {
+  public ResponseEntity<?> getAllEventsWithoutImage(@RequestParam(name = "data") final String data)
+    throws MessagingException {
     Boolean result = false;
 
     String[] hashAndUserId = data.split("_");
@@ -44,7 +45,7 @@ public class AccountValidatorController {
       UserSystem user = userSystemService.findById(UtilMethods.alphabetCharactersToNumber(hashAndUserId[1]));
       if(user.getIsActivated()) throw new Exception();
 
-      user.setIsActivated(true);
+//      user.setIsActivated(true);
 
       userSystemRepository.updateSetSystemUserActivatedValue(true, user.getId());
 

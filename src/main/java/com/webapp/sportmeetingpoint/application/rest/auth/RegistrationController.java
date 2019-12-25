@@ -48,8 +48,15 @@ public class RegistrationController {
     List<String> errorMessages = validates.stream().map(ConstraintViolation::getMessageTemplate)
       .collect(Collectors.toList());
 
-    if (userSystemService.findByEmail(data.getEmail()) != null) {
-      errorMessages.add("A user with the same email already exists");
+    UserSystem dbUser = userSystemService.findByEmail(data.getEmail());
+
+    if (dbUser != null ) {
+      if(dbUser.getIsActivated()){
+        errorMessages.add("A user with the same email already exists");
+      }else{
+        userSystemService.deleteById(dbUser.getId());
+        char a = 'a';
+      }
     }
 
     if (errorMessages.size() > 0) {
