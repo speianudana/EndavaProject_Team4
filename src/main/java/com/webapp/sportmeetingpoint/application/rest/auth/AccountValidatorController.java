@@ -43,9 +43,11 @@ public class AccountValidatorController {
 
     try{
       UserSystem user = userSystemService.findById(UtilMethods.alphabetCharactersToNumber(hashAndUserId[1]));
-      if(user.getIsActivated()) throw new Exception();
+      if(user.getIsActivated()) throw new Exception("This user is already activated");
 
-//      user.setIsActivated(true);
+      final String userSystemHash = user.getUserSystemValidationHash().getHash();
+      if(!userSystemHash.equals(hashAndUserId[0]))
+        throw new Exception("User system activation hash from db is not equal with request hash.");
 
       userSystemRepository.updateSetSystemUserActivatedValue(true, user.getId());
 

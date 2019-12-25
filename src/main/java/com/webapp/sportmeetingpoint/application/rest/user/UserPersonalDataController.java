@@ -31,7 +31,6 @@ public class UserPersonalDataController {
   }
 
   @PostMapping("/get_data")
-  @CrossOrigin
   public ResponseEntity tokenToPersonalData( ){
 
     Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
