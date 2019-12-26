@@ -42,3 +42,7 @@ src/main/resources/static
 /sport-meeting-point-frontend/build
 /build
 
+*~
+*.orig
+.vscode
+.eslintcache

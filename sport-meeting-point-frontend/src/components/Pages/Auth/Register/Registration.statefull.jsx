@@ -6,11 +6,15 @@ import { Redirect } from 'react-router-dom'
 import { index } from '../../../App/AppConstRoutes'
 import { FullPageLoading1 as FullPageLoading } from '../../../Layouts/Loading'
 
+
+
 class RegistrationStatefull extends React.Component {
 
   constructor(props) {
     super(props)
+
     this.handleBtnRegistr.bind(this)
+    this.setNullForEmptyString.bind(this)
 
     this.state = {
       errorMsgs: new Array(),
@@ -28,16 +32,21 @@ class RegistrationStatefull extends React.Component {
     this._isMounted = false
   }
 
-
+  /* TO DO: needed for correct backend validation
+   
+  */
+  setNullForEmptyString(str) {
+    return str == '' ? null : str
+  }
 
   handleBtnRegistr(regStatelessAccData) {
 
     const data = {
-      firstName: regStatelessAccData.firstName,
-      lastName: regStatelessAccData.lastName,
-      email: regStatelessAccData.email,
-      password: regStatelessAccData.password,
-      passwordRepeat: regStatelessAccData.passwordRepeat
+      firstName: this.setNullForEmptyString(regStatelessAccData.firstName),
+      lastName: this.setNullForEmptyString(regStatelessAccData.lastName),
+      email: this.setNullForEmptyString(regStatelessAccData.email),
+      password: this.setNullForEmptyString(regStatelessAccData.password),
+      // passwordRepeat: regStatelessAccData.passwordRepeat
     }
 
     this.setState({ showLoadPage: true })

@@ -2,6 +2,7 @@ package com.webapp.sportmeetingpoint.util.mail;
 
 
 import com.webapp.sportmeetingpoint.util.RandomString;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import javax.mail.*;
@@ -33,11 +34,16 @@ public class MailUtilTests {
     String headerName = lastMessage.getSubject();
     String bodyText = (String) lastMessage.getContent();
 
-    if(!bodyText.contains(hashToCheckSendAndReceiveMail))
-      throw new Exception("Body text is not equal.");
+    final boolean condition1 = bodyText.contains(hashToCheckSendAndReceiveMail);
+    final boolean condition2 = headerName.equals(title);
 
-    if(!headerName.equals(title))
-      throw new Exception("Header is not equal.");
+//    if(!condition1)
+//      throw new Exception("Body text is not equal.");
+//
+//    if(!condition2)
+//      throw new Exception("Header is not equal.");
+
+    Assertions.assertThat(condition1 && condition2).isTrue();
 
   }
 

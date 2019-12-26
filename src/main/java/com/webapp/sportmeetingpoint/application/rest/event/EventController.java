@@ -7,8 +7,10 @@ import com.webapp.sportmeetingpoint.application.service.EventService;
 import com.webapp.sportmeetingpoint.application.service.UserSystemService;
 import com.webapp.sportmeetingpoint.domain.dto.CreateEventDTO;
 import com.webapp.sportmeetingpoint.domain.dto.EventDTO;
+import com.webapp.sportmeetingpoint.domain.dto.EventInfoResponseDTO;
 import com.webapp.sportmeetingpoint.domain.dto.ImageDTO;
 import com.webapp.sportmeetingpoint.domain.entities.Event;
+import com.webapp.sportmeetingpoint.domain.entities.UserPersonalData;
 import com.webapp.sportmeetingpoint.domain.entities.UserSystem;
 import com.webapp.sportmeetingpoint.util.mail.MailUtil;
 import lombok.extern.log4j.Log4j2;
@@ -24,6 +26,8 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.mail.MessagingException;
 import javax.validation.*;
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -94,7 +98,6 @@ public class EventController {
       e.setDate(new Date());
       e.setDescription(eventDTO.getDescription());
       e.setPreviewMessage(eventDTO.getPreviewMessage());
-      e.setIsExpired(false);
       e.setAddress(eventDTO.getAddress());
       e.setImage(eventDTO.getImage());
       
@@ -153,7 +156,8 @@ public class EventController {
   public ResponseEntity<?> getEventImageById(@RequestBody final Integer eventId){
     
     Event event = eventService.findEventById(eventId);
-    
+
+
     if(event == null || event.getImage()==null){
       return ResponseEntity.ok(HttpStatus.NOT_FOUND);
     }
@@ -165,7 +169,40 @@ public class EventController {
     
     return new ResponseEntity<>(result, HttpStatus.OK);
   }
-  
+
+
+  @RequestMapping(value="/event_by_id", method=RequestMethod.GET)
+  public ResponseEntity<EventInfoResponseDTO> getEventInfo(@RequestParam(name="id") final Integer paramId){
+
+    EventInfoResponseDTO result;
+
+    try{
+
+      final Event dbEvent = eventService.findEventById(paramId);
+      final UserSystem getAuthor = dbEvent.getUserActivity().getUserSystem();
+      final UserPersonalData getAuthorPersonalData = getAuthor.getUserPersonalData();
+      final String authorFullName = getAuthorPersonalData.getFirstName()+" "+getAuthorPersonalData.getLastName();
+
+
+      result = EventInfoResponseDTO.eventInfoBuilder()
+        .id(paramId)
+        .title(dbEvent.getTitle())
+        .authorName(authorFullName)
+        .eventDate(new SimpleDateFormat("MM.dd.yyyy HH:mm:ss").format(dbEvent.getDate()))
+        .address(dbEvent.getAddress())
+        .previewMessage(dbEvent.getPreviewMessage())
+        .description(dbEvent.getDescription())
+        .build();
+
+
+
+    }catch(Exception e){
+      return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    }
+
+
+    return new ResponseEntity<>(result, HttpStatus.OK);
+  }
 
 
 }

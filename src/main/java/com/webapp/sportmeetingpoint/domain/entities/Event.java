@@ -22,9 +22,6 @@ public class Event extends BaseEntity {
   @Column(name = "title", columnDefinition = "varchar(64)", nullable = false)
   private String title;
 
-  @Column(name="is_expired", columnDefinition = "boolean", nullable = false)
-  private Boolean isExpired;
-
   @Column(name = "preview_message", columnDefinition = "varchar(200)", nullable = false)
   private String previewMessage;
   
@@ -43,7 +40,7 @@ public class Event extends BaseEntity {
   private Date date;
 
 
-  @ManyToOne(fetch = FetchType.EAGER)
+  @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "user_activity_fk_id", nullable = false)
   private UserActivity userActivity;
 

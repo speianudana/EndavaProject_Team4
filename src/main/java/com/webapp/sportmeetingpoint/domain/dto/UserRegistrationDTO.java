@@ -14,8 +14,12 @@ public class UserRegistrationDTO {
 
   private Long id;
 
+  @Size(max=64, message = "Max. first name length 64 characters")
+  @NotNull(message = "First name must not be empty")
   private String firstName;
 
+  @Size(max=64, message = "Max. last name length 64 characters")
+  @NotNull(message = "Last name must not be empty")
   private String lastName;
 
   @Email(message = "Please, enter valid email")

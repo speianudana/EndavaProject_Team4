@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.validation.constraints.Max;
 import java.util.List;
@@ -14,12 +15,21 @@ import java.util.Optional;
 public interface EventRepository extends CrudRepository<Event, Integer> {
 
 
-    Event save(Event event);
+    @Transactional
+    Optional<Event> findById(Integer id);
+
+    @Transactional
+    @Modifying
+    @Query(value = "SELECT \"image\" FROM Event u WHERE u.id=:id1", nativeQuery = true)
+    Optional<Byte[]> findByIdEventImage(@Param("id1")Integer id);
     
     
     @Modifying
-    @Query(value = "SELECT * FROM Event u",nativeQuery = true)
+    @Query(value = "SELECT * FROM Event u", nativeQuery = true)
+    @Transactional
     List<Event> findAll();
+
+
 
   
 
