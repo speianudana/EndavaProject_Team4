@@ -1,19 +1,43 @@
-
-
-
-#footerStyle{
-  background: rgb(52, 73, 94);
+#mainHead {
+  min-height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
 }
 
-.linkStyle{
-  color: rgb(184, 184, 184);
+#mainTail {
+  min-height: 40px;
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 17px;
+  color: #acacac;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.linkStyle:hover{
-  color: rgb(255, 255, 255);
+.miniContainer {
+  // background-color: #f1f1f1;
+  color: #acacac;
+  width: 300px;
+  min-height: 200px;
+  margin: 10px;
+  // border: 1px solid rgb(0, 204, 255);
 }
 
-.titleText{
-  color: rgb(221, 221, 221);
+.title {
+  font-size: 25px;
+  margin: 0 0 20px 0;
+}
+
+
+@media screen and (max-width: 800px) {
+  #mainHead {
+    flex-direction: column;
+
+  }
+
+  .miniContainer {
+    margin: 0 !important;
+  }
 }
