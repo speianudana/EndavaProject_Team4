@@ -2,15 +2,14 @@ const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin')
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const webpack = require('webpack')
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 
 const showDiagram = false
 
 module.exports = (env, options) => {
     const isDev = options.mode === 'development'
-    console.log('mode: ' + options.mode)
     console.log()
 
     return {
@@ -19,13 +18,13 @@ module.exports = (env, options) => {
             './src/main/index.js'
         ] : ['./src/main/index.js'],
         output: {
-            //'./build'
+            // './build'
             path: path.join(__dirname, '../src/main/resources/static'),
             filename: isDev ? '[name].dev.js' : '[name].[contenthash].js',
             chunkFilename: '[name]_[chunkhash].js',
             publicPath: '/'
         },
-        devtool: isDev ? 'source-map' : '',//'inline-source-map'
+        devtool: isDev ? 'source-map' : '', // 'inline-source-map'
         module: {
             rules: [
                 {
@@ -53,7 +52,7 @@ module.exports = (env, options) => {
                         },
                         {
                             loader: 'sass-loader'
-                        },
+                        }
                     ]
                 },
                 {
@@ -64,35 +63,35 @@ module.exports = (env, options) => {
                         outputPath: 'images',
                         name(file) {
                             if (isDev) {
-                                return '[path][name].[ext]';
+                                return '[path][name].[ext]'
                             }
 
-                            return '[contenthash].[ext]';
-                        },
-                    },
-                },
+                            return '[contenthash].[ext]'
+                        }
+                    }
+                }
             ]
         },
         devServer: {
-            historyApiFallback: true,
+            historyApiFallback: true
         },
         plugins: [
             new HtmlWebpackPlugin({
                 template: './src/main/index.html',
                 filename: 'index.html',
-                // favicon: './favicon.ico'
+                favicon: './src/main/favicon.ico'
             }),
-            ...(showDiagram ? [new BundleAnalyzerPlugin(),] : []),
+            ...(showDiagram ? [new BundleAnalyzerPlugin()] : []),
             ...(isDev ? [] : [
                 new OptimizeCssAssetsPlugin({}),
                 new MiniCssExtractPlugin({
                     filename: isDev ? '[name].css' : '[name].[contenthash].css',
-                    chunkFilename: isDev ? '[id].css' : '[id].[contenthash].css',
+                    chunkFilename: isDev ? '[id].css' : '[id].[contenthash].css'
                 }),
                 new CleanWebpackPlugin(),
-                new webpack.HashedModuleIdsPlugin(),
+                new webpack.HashedModuleIdsPlugin()
 
-            ]),
+            ])
         ],
         optimization: {
             runtimeChunk: 'single',
@@ -108,7 +107,5 @@ module.exports = (env, options) => {
 
         }
 
-
     }
-
 }

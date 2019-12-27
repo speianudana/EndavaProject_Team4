@@ -53,14 +53,14 @@ class ArticleStatefull extends Component {
 
   render() {
     return (
-      <ArticleStateless title={this.props.title} text={this.props.text} image={this.state.image} />
+      <ArticleStateless id={this.props.id} title={this.props.title} text={this.props.text} image={this.state.image} />
 
     )
   }
 }
 
 ArticleStatefull.propTypes = {
-  id: PropTypes.number,
+  id: PropTypes.number.isRequired,
   title: PropTypes.string,
   text: PropTypes.string,
   image: PropTypes.string

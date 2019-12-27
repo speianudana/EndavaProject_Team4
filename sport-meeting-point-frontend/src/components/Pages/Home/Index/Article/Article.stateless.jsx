@@ -30,7 +30,7 @@ function imgShower(img) {
   }
 }
 
-export default function ArticleStateless({ title, text, image }) {
+export default function ArticleStateless({ id, title, text, image }) {
   return (
     <div className={style.mainContainer}>
       <div className={style.mainContainerChild}>
@@ -70,7 +70,7 @@ export default function ArticleStateless({ title, text, image }) {
           </p>
 
           <div className={style.linkProp}>
-            <Link to={eventInfoUrl} style={{ color: '#15AD72' }}>
+            <Link to={`${eventInfoUrl}?id=${id}`} style={{ color: '#15AD72' }}>
               Read More »
             </Link>
           </div>
@@ -82,6 +82,7 @@ export default function ArticleStateless({ title, text, image }) {
 }
 
 ArticleStateless.propTypes = {
+  id: PropTypes.number.isRequired,
   title: PropTypes.string,
   text: PropTypes.string,
   image: PropTypes.string

@@ -1,14 +1,73 @@
 import React, { Component } from 'react'
 import EventInfoStateless from './EventInfo.stateless.jsx'
+// import PropTypes from 'prop-types'
+import { get } from 'axios'
+import { url } from '../../../utils/server-url'
+import { FullPageLoading1 as Loading } from '../../Layouts/Loading'
 
 export default class EventInfoStatefull extends Component {
+  constructor(props) {
+    super(props)
+
+    this.loadEventInfoById.bind(this)
+
+    this.state = {
+      title: '',
+      previewMsg: '',
+      description: '',
+      address: '',
+      authorName: '',
+      eventDate: '',
+
+      isLoadAnimation: true
+    }
+  }
+
+  async loadEventInfoById(getEventId) {
+    try {
+      const result = await get(`${url}/api/event/event_by_id?id=${getEventId}`)
+      this.setState({
+        title: result.data.title,
+        previewMessage: result.data.previewMessage,
+        description: result.data.description,
+        address: result.data.address,
+        authorName: result.data.authorName,
+        eventDate: result.data.eventDate,
+        participantsName: result.data.participantsName,
+
+        isLoadAnimation: false
+      })
+
+      // console.log(result.data)
+    } catch (e) {
+      console.warn(e)
+    }
+  }
+
+  componentDidMount() {
+    this._isMounted = true
+
+    const getEventIdFromUrl = Number(window.location.href.split('?id=')[1])
+    this.loadEventInfoById(getEventIdFromUrl)
+  }
+
+  componentWillUnmount() {
+    this._isMounted = false
+  }
+
   render() {
     return (
-      <EventInfoStateless
-        title='Test title'
-        previewMsg='Lorem ipsum dolor sit amet consectetur adipisicing elit.Saepe dolore aliquid voluptate qui accusantium quam, non distinctio laboriosam, nulla possimus voluptatibus adipisci odit.Natus eveniet perspiciatis eos, sapiente maiores rem.'
-        description='Lorem ipsum dolor, sit amet consectetur adipisicing elit. Officiis dignissimos non numquam corrupti temporibus commodi quam aliquid voluptatum ullam earum corporis quidem facere provident ipsa laudantium aperiam libero, cum magni. Sequi enim quibusdam, consectetur corporis non ullam temporibus eveniet culpa dolor dignissimos, autem sint deleniti ducimus voluptatibus perferendis pariatur. Id, obcaecati velit dolore ducimus est iste veniam voluptates. Nobis eligendi praesentium perferendis aperiam quod saepe aliquid odit quas quidem distinctio magnam et doloribus qui quisquam porro, dolorum totam laboriosam fugit veniam ratione quam eos! Quis dignissimos vel quia nam doloribus voluptatem at dolores consequuntur a, amet sint eius perferendis veritatis incidunt architecto earum maiores facere corrupti suscipit, non repellendus recusandae, libero nesciunt molestiae. Eius error aperiam quod perspiciatis temporibus eos modi reiciendis animi repellendus porro, ea mollitia veniam, veritatis excepturi laborum vero officia commodi saepe fugiat blanditiis ex maxime suscipit?'
-      />
+      <>
+        {this.state.isLoadAnimation && <Loading />}
+        <EventInfoStateless
+          title={this.state.title}
+          authorFullName={this.state.authorName}
+          eventDate={this.state.eventDate}
+          address={this.state.address}
+          previewMessage={this.state.previewMessage}
+          description={this.state.description}
+        />
+      </>
     )
   }
 }
