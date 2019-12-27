@@ -1,52 +1,43 @@
 import React, { Component } from 'react'
 import { Container } from '../../../Layouts/Container'
 import { Header } from './Header'
-import TestRedux from './TestRedux/TestRedux.statefull.jsx'
+// import TestRedux from './TestRedux/TestRedux.statefull.jsx'
 import { SubHeader } from './SubHeader'
 import { Article } from './Article'
-import exampleImg from '../../../../../static/qqq.jpg'
-import axios from 'axios';
+// import exampleImg from '../../../../../static/qqq.jpg'
+import axios from 'axios'
 import { url } from '../../../../utils/server-url'
 
 class IndexStatefull extends Component {
-  constructor(props) {
+  constructor (props) {
     super(props)
 
     this.state = {
       articles: []
     }
-
-
   }
 
-
-
-  componentDidMount() {
+  componentDidMount () {
     this._isMounted = true
     const self = this
 
     axios.get(`${url}/api/event/all_events`)
       .then(e => {
-        if (self._isMounted)
-          self.setState({ articles: e.data })
+        if (self._isMounted) { self.setState({ articles: e.data }) }
       })
       .catch(err => console.warn(err))
-
   }
 
-  componentWillUnmount() {
+  componentWillUnmount () {
     this._isMounted = false
   }
 
-
-
-  render() {
+  render () {
     return (
       <>
 
         <Header />
         <SubHeader />
-
 
         <Container>
 
@@ -58,10 +49,9 @@ class IndexStatefull extends Component {
                 id={item.id}
                 title={item.title}
                 text={item.previewMessage}
-                image={''}
+                image=''
               />)
             )
-
 
           }
 
