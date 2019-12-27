@@ -6,10 +6,7 @@ import { Redirect } from 'react-router-dom'
 import { index } from '../../../App/AppConstRoutes'
 import { FullPageLoading1 as FullPageLoading } from '../../../Layouts/Loading'
 
-
-
 class RegistrationStatefull extends React.Component {
-
   constructor(props) {
     super(props)
 
@@ -17,7 +14,7 @@ class RegistrationStatefull extends React.Component {
     this.setNullForEmptyString.bind(this)
 
     this.state = {
-      errorMsgs: new Array(),
+      errorMsgs: [],
       redirectToHome: false,
       showLoadPage: false,
       expectConfirmationEmail: false
@@ -33,19 +30,18 @@ class RegistrationStatefull extends React.Component {
   }
 
   /* TO DO: needed for correct backend validation
-   
+
   */
   setNullForEmptyString(str) {
-    return str == '' ? null : str
+    return str === '' ? null : str
   }
 
   handleBtnRegistr(regStatelessAccData) {
-
     const data = {
       firstName: this.setNullForEmptyString(regStatelessAccData.firstName),
       lastName: this.setNullForEmptyString(regStatelessAccData.lastName),
       email: this.setNullForEmptyString(regStatelessAccData.email),
-      password: this.setNullForEmptyString(regStatelessAccData.password),
+      password: this.setNullForEmptyString(regStatelessAccData.password)
       // passwordRepeat: regStatelessAccData.passwordRepeat
     }
 
@@ -60,7 +56,6 @@ class RegistrationStatefull extends React.Component {
           }, 6000)
         } else {
           this.setState({ expectConfirmationEmail: true })
-
         }
       }
     })
@@ -72,9 +67,6 @@ class RegistrationStatefull extends React.Component {
           this.setState({ showLoadPage: false })
         }
       })
-
-
-
   }
 
   render() {
@@ -94,7 +86,5 @@ class RegistrationStatefull extends React.Component {
     )
   }
 }
-
-
 
 export default RegistrationStatefull

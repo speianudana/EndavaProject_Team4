@@ -2,17 +2,15 @@ import CryptoJS from 'crypto-js'
 import axios from 'axios'
 import { url } from '../utils/server-url'
 
-const webSite = 'sport-meeting-point'//key for token data
+const webSite = 'sport-meeting-point'// key for token data
 
-//value - data, encrypt [true, false]
+// value - data, encrypt [true, false]
 function cryptor(value, encrypt) {
   const secretKey = 'cyber_security_forever'
 
-  return encrypt ?
-    CryptoJS.TripleDES.encrypt(value, secretKey) :
-    CryptoJS.TripleDES.decrypt(value, secretKey).toString(CryptoJS.enc.Utf8)
-
-
+  return encrypt
+    ? CryptoJS.TripleDES.encrypt(value, secretKey)
+    : CryptoJS.TripleDES.decrypt(value, secretKey).toString(CryptoJS.enc.Utf8)
 }
 
 const tokenWorker = {
@@ -24,7 +22,7 @@ const tokenWorker = {
     const data = window.localStorage.getItem(webSite)
     if (data === null) return null
     const result = cryptor(data, false)
-    if (typeof result == 'string' && result.length === 0) throw 'invalid'
+    if (typeof result === 'string' && result.length === 0) return null
     return result
   },
 
@@ -40,23 +38,27 @@ const tokenWorker = {
 
   sendTokenToServerAndCheckIfIsValid() {
     return new Promise((resolve, reject) => {
-      let config = {
-        headers: { 'Authorization': 'Bearer_ ' + this.loadTokenFromLocalStorage() },
+      const config = {
+        headers: { Authorization: 'Bearer_ ' + this.loadTokenFromLocalStorage() }
       }
 
       axios.get(`${url}/api/token/is_valid`, config).then(res => {
         if (res.status === 200) {
           resolve(res.data)
-
         }
-      }).catch(function (error) {
-        reject(error)
-      });
+      })
+        .catch((error) => {
+          if (error.response === 401) {
+            tokenWorker.deleteTokenFromLocalStorage()
+            // eslint-disable-next-line no-undef
+            location.reload()
+          }
+          console.error(error)
+          reject(error)
+        })
     })
   }
 
 }
 
-
 export { tokenWorker }
-

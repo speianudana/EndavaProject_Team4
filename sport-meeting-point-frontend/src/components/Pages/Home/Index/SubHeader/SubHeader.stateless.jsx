@@ -1,5 +1,5 @@
 import React from 'react'
-import { Container } from '../../../../Layouts/Container'
+// import { Container } from '../../../../Layouts/Container'
 import style from './style.scss'
 
 import img1 from '../../../../../../static/e1.jpg'
@@ -14,45 +14,45 @@ export default function SubHeaderStateless() {
     <div className={style.mainContainer}>
 
       <div className={style.itemContainer}>
-        <img className={style.img} src={img1} alt="" />
+        <img className={style.img} src={img1} alt='' />
         <p className={style.itemText}>
           Fun
-          </p>
+        </p>
       </div>
 
       <div className={style.itemContainer}>
-        <img className={style.img} src={img2} alt="" />
+        <img className={style.img} src={img2} alt='' />
         <p className={style.itemText}>
           Discipline
-          </p>
+        </p>
       </div>
 
       <div className={style.itemContainer}>
-        <img className={style.img} src={img3} alt="" />
+        <img className={style.img} src={img3} alt='' />
         <p className={style.itemText}>
           Community
-          </p>
+        </p>
       </div>
 
       <div className={style.itemContainer}>
-        <img className={style.img} src={img4} alt="" />
+        <img className={style.img} src={img4} alt='' />
         <p className={style.itemText}>
           Health
-          </p>
+        </p>
       </div>
 
       <div className={style.itemContainer}>
-        <img className={style.img} src={img5} alt="" />
+        <img className={style.img} src={img5} alt='' />
         <p className={style.itemText}>
           Motivation
-          </p>
+        </p>
       </div>
 
       <div className={style.itemContainer}>
-        <img className={style.img} src={img6} alt="" />
+        <img className={style.img} src={img6} alt='' />
         <p className={style.itemText}>
           Willpower
-          </p>
+        </p>
       </div>
 
     </div>

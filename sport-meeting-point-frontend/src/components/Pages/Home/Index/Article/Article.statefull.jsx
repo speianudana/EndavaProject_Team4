@@ -1,13 +1,11 @@
 import React, { Component } from 'react'
 import ArticleStateless from './Article.stateless.jsx'
-import PropTypes from 'prop-types'
 import { post } from 'axios'
 import { url } from '../../../../../utils/server-url'
 import noImage from '../../../../../../static/No-Image-Basic.png'
-
+import PropTypes from 'prop-types'
 
 class ArticleStatefull extends Component {
-
   constructor(props) {
     super(props)
 
@@ -17,46 +15,41 @@ class ArticleStatefull extends Component {
   }
 
   componentDidMount() {
-
     this._isMounted = true
 
     const self = this
 
     post(`${url}/api/event/image_by_id`, this.props.id, {
       headers: {
-        'Content-Type': 'application/json',
+        'Content-Type': 'application/json'
       }
     })
       .then(result => {
-
-
         if (self._isMounted) {
-
-          if (result.data == 'NOT_FOUND') {
+          if (result.data === 'NOT_FOUND') {
             self.setState({
               image: noImage
             })
             return
           }
 
-          let TYPED_ARRAY = new Uint8Array(result.data.image);
+          const TYPED_ARRAY = new Uint8Array(result.data.image)
 
-          let str = TYPED_ARRAY.reduce((acc, cur) => acc + String.fromCharCode(cur), '')
-          let base64String = btoa(str);
-          let imgData = 'data:image/jpg;base64,' + base64String
+          const str = TYPED_ARRAY.reduce((acc, cur) => acc + String.fromCharCode(cur), '')
+          // eslint-disable-next-line no-undef
+          const base64String = btoa(str)
+          const imgData = 'data:image/jpg;base64,' + base64String
 
           self.setState({
             image: imgData
           })
         }
       })
-
   }
 
   componentWillUnmount() {
     this._isMounted = false
   }
-
 
   render() {
     return (
@@ -66,11 +59,15 @@ class ArticleStatefull extends Component {
   }
 }
 
-
 ArticleStatefull.propTypes = {
+  id: PropTypes.number,
   title: PropTypes.string,
-  text: PropTypes.string
-};
-
+  text: PropTypes.string,
+  image: PropTypes.string
+}
 
 export default ArticleStatefull
+
+ArticleStatefull.propType = {
+
+}

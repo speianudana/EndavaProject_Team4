@@ -5,29 +5,23 @@ import { setIsAuthenticatedValue, setUserData } from './UserPersonalData.action.
 import { tokenWorker } from '../../../utils/token-worker'
 
 class UserPersonalDataComponent extends Component {
-  constructor(props) {
-    super(props)
-  }
-
   componentDidMount() {
-
     const self = this
 
-    if (tokenWorker.haveToken())
+    if (tokenWorker.haveToken()) {
       tokenToPersonalData()
         .then(result => {
-          if (result.status == 200) {
+          if (result.status === 200) {
             // console.log(result.data.personalData)
             self.props.setUserData(result.data)
             if (!self.props.isAuthenticated) self.props.setIsAuthenticatedValue(true)
           }
         })
-        .catch(error => {
+        .catch(() => {
           tokenWorker.deleteTokenFromLocalStorage()
         })
+    }
     // .catch(e => console.warn(e))
-
-
 
     // this.timer = setInterval(() => {
     //   if (tokenWorker.haveToken()) {
@@ -43,21 +37,17 @@ class UserPersonalDataComponent extends Component {
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-
-
     // console.log(nextProps)
     return false
   }
 
   componentWillUnmount() {
-    this.timer = clearInterval(this.timer)//return undefined
+    this.timer = clearInterval(this.timer)// return undefined
   }
 
   componentDidUpdate(prevProps, prevState) {
-    //impossible  beacuse this hook is called after shouldComponentUpdate
+    // impossible  beacuse this hook is called after shouldComponentUpdate
   }
-
-
 
   render() {
     return (
@@ -87,6 +77,5 @@ function mapDispatchToProps(dispatch) {
 
   }
 }
-
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserPersonalDataComponent)

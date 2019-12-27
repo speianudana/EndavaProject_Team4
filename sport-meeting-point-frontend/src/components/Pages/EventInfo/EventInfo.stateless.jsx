@@ -7,10 +7,7 @@ import noImage from '../../../../static/No-Image-Basic.png'
 
 import { ButtonA } from '../../Layouts/Button'
 
-export default function EventInfoStateless({
-  title, previewMsg, description, authorFullName, eventDate, address, image, participants }) {
-
-
+export default function EventInfoStateless ({ title, previewMsg, description, authorFullName, eventDate, address, image, participants }) {
   return (
     <Container>
 
@@ -24,15 +21,13 @@ export default function EventInfoStateless({
         <p> Address: {address}</p>
         <br />
 
-
         <h4>Preview message:</h4>
-        <p >{previewMsg}</p>
+        <p>{previewMsg}</p>
         <br />
         <br />
-
 
         <div>
-          <img src={image} className={`${style.imgProp} ${style.leftimg}`} alt="" />
+          <img src={image} className={`${style.imgProp} ${style.leftimg}`} alt='' />
           <h4>Description:</h4>
           {description}
         </div>
@@ -45,11 +40,10 @@ export default function EventInfoStateless({
         <br />
 
         <div id={style.rectForButtonParticipate}>
-          <ButtonA className={style.participateBtn} title="Participate" />
+          <ButtonA className={style.participateBtn} title='Participate' />
         </div>
 
       </div>
-
 
     </Container>
 
@@ -64,7 +58,7 @@ EventInfoStateless.propTypes = {
   eventDate: PropTypes.string,
   address: PropTypes.string,
   image: PropTypes.string,
-  participants: PropTypes.array,
+  participants: PropTypes.array
 }
 
 EventInfoStateless.defaultProps = {

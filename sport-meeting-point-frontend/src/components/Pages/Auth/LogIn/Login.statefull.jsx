@@ -8,9 +8,9 @@ import { connect } from 'react-redux'
 import { setUserData, setIsAuthenticatedValue } from '../../../UserData/UserPersonalData/UserPersonalData.action.jsx'
 import { Redirect } from 'react-router-dom'
 import { index } from '../../../App/AppConstRoutes'
+import PropTypes from 'prop-types'
 
 class LoginStatefull extends Component {
-
   constructor(props) {
     super(props)
 
@@ -22,8 +22,6 @@ class LoginStatefull extends Component {
     this.handleBtnLogIn.bind(this)
   }
 
-
-
   componentDidUpdate(prevProps, prevState, snapshot) {
     // console.log('z: ', this.state)
     // console.log('prev props :', prevProps)
@@ -31,23 +29,16 @@ class LoginStatefull extends Component {
   }
 
   handleBtnLogIn(login, password) {
-
-
     const loginObject = {
       username: login,
       password: password
     }
 
-
     axios.post(`${url}/api/auth/login`, loginObject).then(res => {
       if (res.status === 200) {
-
         if (typeof res.data === 'string') {
-
           this.setState({ errorMsg: `*${res.data}` })
-
         } else {
-
           tokenWorker.saveTokenInLocalStorage(res.data.token)
           // console.log('afdafadfdafadf: ', res.data.token)
           tokenToPersonalData().then(
@@ -57,16 +48,12 @@ class LoginStatefull extends Component {
               this.props.setIsAuthenticatedValue(true)
               this.setState({ redirectToHome: true })
             }
-          );
-
+          )
         }
-
-
       }
     }).catch(function (error) {
       console.log('error: ', error)
-    });
-
+    })
   }
 
   render() {
@@ -78,14 +65,13 @@ class LoginStatefull extends Component {
       <div>
         <LoginStateless
           onHandleBtnLogIn={(login, password) => this.handleBtnLogIn(login, password)}
-          errorMsg={this.state.errorMsg} />
+          errorMsg={this.state.errorMsg}
+        />
 
       </div>
     )
   }
 }
-
-
 
 function mapStateToProps(state) {
   return {
@@ -107,5 +93,9 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
+LoginStatefull.propTypes = {
+  setUserData: PropTypes.func,
+  setIsAuthenticatedValue: PropTypes.func
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(LoginStatefull)

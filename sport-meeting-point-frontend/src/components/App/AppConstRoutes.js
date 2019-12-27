@@ -1,11 +1,11 @@
 
-export const index = "/home/index"
+export const index = '/home/index'
 
-export const regestr = "/auth/register"
-export const login = "/auth/login"
-export const user_activation = "/auth/activation"  /* DO NOT CHANGE */
-export const user_page = "/user/page"
-export const user_page_create_event = "/user/page/add/event"
-export const user_page_create_news = "/user/page/add/news"
+export const registrationUrl = '/auth/register'
+export const loginUrl = '/auth/login'
+export const userActivationUrl = '/auth/activation' /* DO NOT CHANGE */
+export const userPageUrl = '/user/page'
+export const userPageCreateEventUrl = '/user/page/add/event'
+export const userPageCreateNewsURL = '/user/page/add/news'
 
-export const event_info = "/event/info"
+export const eventInfoUrl = '/event/info'

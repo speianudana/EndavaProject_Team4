@@ -3,10 +3,9 @@ import axios from 'axios'
 import { url } from '../../../../utils/server-url'
 import AccountActivatorStateless from '../AccountActivator/AccountActivator.stateless.jsx'
 import { Redirect } from 'react-router-dom'
-import { login, index } from '../../../App/AppConstRoutes'
+import { loginUrl, index } from '../../../App/AppConstRoutes'
 
 export default class AccountActivatorStatefull extends Component {
-
   constructor(props) {
     super(props)
 
@@ -15,7 +14,6 @@ export default class AccountActivatorStatefull extends Component {
       redirectToHome: false,
       loadAnimation: true
     }
-
 
     this.redirectToLogin.bind(this)
   }
@@ -32,10 +30,9 @@ export default class AccountActivatorStatefull extends Component {
       }
     })
       .catch(error => {
-        console.warn("Account activation error: ", error)
+        console.warn('Account activation error: ', error)
         this.setState({ redirectToHome: true })
       })
-
   }
 
   componentWillUnmount() {
@@ -46,13 +43,15 @@ export default class AccountActivatorStatefull extends Component {
     this.setState({ redirectToLogin: true })
   }
 
-
   render() {
-    if (this.state.redirectToLogin) return <Redirect to={login} />
+    if (this.state.redirectToLogin) return <Redirect to={loginUrl} />
     if (this.state.redirectToHome) return <Redirect to={index} />
 
-    return <AccountActivatorStateless
-      showLoadingFullpage={this.state.loadAnimation}
-      loginClickHandle={e => this.redirectToLogin()} />
+    return (
+      <AccountActivatorStateless
+        showLoadingFullpage={this.state.loadAnimation}
+        loginClickHandle={e => this.redirectToLogin()}
+      />
+    )
   }
 }

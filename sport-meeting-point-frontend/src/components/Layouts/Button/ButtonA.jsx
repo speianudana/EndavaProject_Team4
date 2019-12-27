@@ -1,5 +1,6 @@
 import React from 'react'
 import scss from './style.scss'
+import PropTypes from 'prop-types'
 
 const ButtonA = ({ title, className, onClick, style }) => {
   return (
@@ -9,5 +10,11 @@ const ButtonA = ({ title, className, onClick, style }) => {
   )
 }
 
+ButtonA.propTypes = {
+  title: PropTypes.string,
+  className: PropTypes.string,
+  onClick: PropTypes.func,
+  style: PropTypes.object
+}
 
 export default ButtonA

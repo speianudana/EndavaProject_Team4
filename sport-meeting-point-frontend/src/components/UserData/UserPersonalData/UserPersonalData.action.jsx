@@ -1,15 +1,14 @@
 import { SET_DATA, SET_IS_AUTHENTICATED } from './UserPersonalData.constants.jsx'
 import { tokenWorker } from '../../../utils/token-worker'
 
-
-function setUserData(data) {
+function setUserData (data) {
   return {
     type: SET_DATA,
     payload: data
   }
 }
 
-function setIsAuthenticatedValue(isAuth) {
+function setIsAuthenticatedValue (isAuth) {
   if (!isAuth && tokenWorker.haveToken()) tokenWorker.deleteTokenFromLocalStorage()
 
   return {
@@ -17,6 +16,5 @@ function setIsAuthenticatedValue(isAuth) {
     payload: isAuth
   }
 }
-
 
 export { setUserData, setIsAuthenticatedValue }

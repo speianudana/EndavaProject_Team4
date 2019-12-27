@@ -5,38 +5,36 @@ import { url } from '../../../utils/server-url'
 import axios from 'axios'
 
 export default class CreateNewsStatefull extends Component {
+  constructor(props) {
+    super(props)
+    this.handleAllInputData.bind(this)
+  }
 
-    constructor(props) {
-        super(props)
-        this.handleAllInputData.bind(this)
+  handleAllInputData(data) {
+    const token = tokenWorker.loadTokenFromLocalStorage()
+
+    const headers = {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer_${token}`
     }
 
-    handleAllInputData(data) {
-
-        const token = tokenWorker.loadTokenFromLocalStorage()
-
-        const headers = {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer_${token}`
+    axios.post(url + '/api/news/add', data, {
+      headers: headers
+    })
+      .then((response) => {
+        console.log(response)
+      })
+      .catch((error) => {
+        if (error.response === 401) {
+          tokenWorker.deleteTokenFromLocalStorage()
+          // eslint-disable-next-line no-undef
+          location.reload()
         }
+        console.error(error)
+      })
+  }
 
-        axios.post(url + '/api/news/add', data, {
-            headers: headers
-        })
-            .then((response) => {
-                console.log(response)
-            })
-            .catch((error) => {
-                console.log(error)
-            })
-
-    }
-
-
-
-    render() {
-        return <CreateNewsStateless
-            handleAllInputData={this.handleAllInputData}
-        />
-    }
+  render() {
+    return <CreateNewsStateless onHandleAllInputData={this.handleAllInputData} />
+  }
 }

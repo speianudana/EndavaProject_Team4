@@ -1,7 +1,5 @@
 import { SET_DATA, SET_IS_AUTHENTICATED } from './UserPersonalData.constants.jsx'
 
-
-
 const initialState = {
   email: '',
   firstName: '',
@@ -10,9 +8,7 @@ const initialState = {
   role: ''
 }
 
-
-function userPersonalData(state = initialState, action) {
-
+function userPersonalData (state = initialState, action) {
   switch (action.type) {
     case SET_DATA:
       return {
@@ -20,7 +16,7 @@ function userPersonalData(state = initialState, action) {
         email: action.payload.personalData.email,
         firstName: action.payload.personalData.firstName,
         lastName: action.payload.personalData.lastName,
-        role: action.payload.personalData.role,
+        role: action.payload.personalData.role
       }
     case SET_IS_AUTHENTICATED:
       return {
@@ -30,9 +26,6 @@ function userPersonalData(state = initialState, action) {
     default:
       return state
   }
-
 }
-
-
 
 export { userPersonalData }

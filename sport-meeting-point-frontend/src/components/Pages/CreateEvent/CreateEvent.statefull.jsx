@@ -5,9 +5,7 @@ import { url } from '../../../utils/server-url'
 import axios from 'axios'
 import { FullPageLoading1 } from '../../Layouts/Loading'
 
-
 export default class CreateEventStatefull extends PureComponent {
-
   constructor(props) {
     super(props)
     this.handleAllInputData.bind(this)
@@ -28,27 +26,27 @@ export default class CreateEventStatefull extends PureComponent {
     this._isMounted = false
   }
 
-
-
   handleAllInputData(data) {
     this.setState({ loadPage: true })
 
     const self = this
     const token = tokenWorker.loadTokenFromLocalStorage()
-    const formData = new FormData();
+    // eslint-disable-next-line no-undef
+    const formData = new FormData()
     const newData = {
       title: data.title.length > 0 ? data.title : null,
       address: data.address.length > 0 ? data.address : null,
       previewMessage: data.previewMessage.length > 0 ? data.previewMessage : null,
-      description: data.description.length > 0 ? data.description : null,
+      description: data.description.length > 0 ? data.description : null
     }
 
-    formData.append("file", data.image != null ? data.image : new File([], ""))
-    formData.append("data", JSON.stringify(newData))
+    // eslint-disable-next-line no-undef
+    formData.append('file', data.image != null ? data.image : new File([], ''))
+    formData.append('data', JSON.stringify(newData))
 
     const headers = {
       'Content-Type': undefined,
-      'Authorization': `Bearer_${token}`
+      Authorization: `Bearer_${token}`
     }
 
     axios.post(url + '/api/event/add', formData, {
@@ -62,42 +60,34 @@ export default class CreateEventStatefull extends PureComponent {
           setTimeout(() => {
             if (self._isMounted) self.setState({ validationMessage: [] })
           }, 5000)
-
-        }
-        else {
+        } else {
           console.log(response.data)
         }
       })
       .catch((error) => {
-
-        if (error.response == 401) {
+        if (error.response === 401) {
           tokenWorker.deleteTokenFromLocalStorage()
+          // eslint-disable-next-line no-undef
           location.reload()
-
         }
         console.error(error)
       })
       .then(() => {
         if (self._isMounted) self.setState({ loadPage: false })
       })
-
-
   }
 
-
-
   render() {
-    return <React.Fragment>
+    return (
+      <>
 
-      {this.state.loadPage && <FullPageLoading1 />}
+        {this.state.loadPage && <FullPageLoading1 />}
 
-      <CreateEventStateless
-        handleAllInputData={e => this.handleAllInputData(e)}
-        validationMessage={this.state.validationMessage}
-      />
+        <CreateEventStateless
+          handleAllInputData={e => this.handleAllInputData(e)}
+          validationMessage={this.state.validationMessage}
+        />
 
-    </React.Fragment>
-
-
+      </>)
   }
 }

@@ -1,61 +1,73 @@
-import React from 'react';
-import style from './style.scss';
+import React from 'react'
+import style from './style.scss'
 import { Link } from 'react-router-dom'
-
-import { index, login, user_page } from '../../App/AppConstRoutes.js'
+import PropTypes from 'prop-types'
+import { index, loginUrl, userPageUrl } from '../../App/AppConstRoutes.js'
 import { Container } from '../Container'
-import { useSelector, connect } from 'react-redux'
+import { connect } from 'react-redux'
 // import {} from '../../UserData/UserPersonalData/UserPersonalData.action.jsx'
 
-
 const AuthContainer = ({ isAuthenticated, email }) => {
-
   if (!isAuthenticated) {
     return (
       <button className={style.btnMenu}>
-        <Link to={login} className={style.aClass} >
+        <Link to={loginUrl} className={style.aClass}>
           Sign In
-              </Link>
+        </Link>
       </button>
     )
-  }
-  else {
+  } else {
     return (
       <button className={style.btnMenu}>
 
-        <Link to={user_page} id={style.accountBtn} >
+        <Link to={userPageUrl} id={style.accountBtn}>
           {email}
         </Link>
       </button>
     )
   }
-
-
 }
 
-const ClickableItem = ({ to, title }) => (<button className={style.btnMenu}>
-  <Link to={to} className={style.aClass} >
-    {title}
-  </Link>
-</button>)
+AuthContainer.propTypes = {
+  isAuthenticated: PropTypes.bool,
+  email: PropTypes.string
+}
+
+const ClickableItem = ({ to, title }) => (
+  <button className={style.btnMenu}>
+    <Link to={to} className={style.aClass}>
+      {title}
+    </Link>
+  </button>
+)
+
+ClickableItem.propTypes = {
+  to: PropTypes.string,
+  title: PropTypes.string
+}
 
 const MenuBtn = ({ clickHandler }) => (
-  <button onClick={() => { clickHandler() }}
-    id={style.btnDropdown} className={style.btnMenu}>
+  <button
+    onClick={() => { clickHandler() }}
+    id={style.btnDropdown} className={style.btnMenu}
+  >
     ☰
-  </button>)
+  </button>
+)
+
+MenuBtn.propTypes = {
+  clickHandler: PropTypes.func
+}
 
 function HeaderStateless(props) {
-
   const [dropdownIsVisible, setDropdownVisible] = React.useState(false)
-
 
   // console.log("aefdadf:", props)
 
   return (
-    <React.Fragment>
-      <Container className={style.containerMenu} >
-        <div className={style.menu} >
+    <>
+      <Container className={style.containerMenu}>
+        <div className={style.menu}>
 
           <div style={{ flexGrow: '4' }} className={style.menuElm}>
             <Link to={index} className={[style.logo].join(' ')}>
@@ -77,7 +89,6 @@ function HeaderStateless(props) {
 
           <div style={{ flexGrow: '1' }} className={style.menuElm}>
 
-
             {/* <button onClick={() => {
               setDropdownVisible(!dropdownIsVisible)
             }} id={style.btnDropdown} className={style.btnMenu
@@ -86,9 +97,7 @@ function HeaderStateless(props) {
             </button> */}
             <MenuBtn clickHandler={() => { setDropdownVisible(!dropdownIsVisible) }} />
 
-
           </div>
-
 
         </div>
 
@@ -104,10 +113,9 @@ function HeaderStateless(props) {
 
       </Container>
 
-    </React.Fragment>
-  );
+    </>
+  )
 }
-
 
 function mapStateToProps(state) {
   return {
@@ -116,5 +124,9 @@ function mapStateToProps(state) {
   }
 }
 
+HeaderStateless.propTypes = {
+  isAuthenticated: PropTypes.bool,
+  email: PropTypes.string
+}
 
 export default connect(mapStateToProps)(React.memo(HeaderStateless))

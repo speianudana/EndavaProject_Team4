@@ -2,40 +2,46 @@ import React from 'react'
 import style from './style.scss'
 import { Link } from 'react-router-dom'
 import { LoadingType1 } from '../../../../Layouts/Loading'
-import { FaUser, FaCalendarCheck, FaMapMarkedAlt } from 'react-icons/fa';
-import { IconContext } from 'react-icons';
-import { event_info } from '../../../../App/AppConstRoutes'
+import { FaUser, FaCalendarCheck, FaMapMarkedAlt } from 'react-icons/fa'
+import { IconContext } from 'react-icons'
+import { eventInfoUrl } from '../../../../App/AppConstRoutes'
+import PropTypes from 'prop-types'
 
 const Element = ({ children, color = '#818181', size = '13px' }) => (
-  <IconContext.Provider value={{ color: color, size: size }} >
+  <IconContext.Provider value={{ color: color, size: size }}>
     <span style={{ margin: '5px' }}>
       {children}
     </span>
   </IconContext.Provider>
 )
 
+Element.propTypes = {
+  children: PropTypes.element,
+  color: PropTypes.string,
+  size: PropTypes.element
+}
+
 function imgShower(img) {
   switch (img) {
     case '':
       return <LoadingType1 />
     default:
-      return <img src={img} className={style.imgStyle} alt="" />
+      return <img src={img} className={style.imgStyle} alt='' />
   }
 }
 
-function ArticleStateless({ title, text, image }) {
+export default function ArticleStateless({ title, text, image }) {
   return (
     <div className={style.mainContainer}>
       <div className={style.mainContainerChild}>
         {imgShower(image)}
       </div>
       <div
-        className={style.mainContainerChild
-        }>
+        className={style.mainContainerChild}
+      >
         <div className={style.mainContainerChildBox}>
           <p className={style.title}>{title}</p>
           <p className={style.textInfo}>
-
 
             <Element>
               <FaUser />
@@ -64,11 +70,10 @@ function ArticleStateless({ title, text, image }) {
           </p>
 
           <div className={style.linkProp}>
-            <Link to={event_info} style={{ color: '#15AD72' }}>
+            <Link to={eventInfoUrl} style={{ color: '#15AD72' }}>
               Read More »
             </Link>
           </div>
-
 
         </div>
       </div>
@@ -76,6 +81,8 @@ function ArticleStateless({ title, text, image }) {
   )
 }
 
-
-
-export default ArticleStateless
+ArticleStateless.propTypes = {
+  title: PropTypes.string,
+  text: PropTypes.string,
+  image: PropTypes.string
+}

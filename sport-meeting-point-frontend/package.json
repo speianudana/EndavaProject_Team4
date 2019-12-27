@@ -1,6 +1,6 @@
 {
   "name": "sportmeetingpoint",
-  "version": "0.0.3",
+  "version": "0.0.31",
   "description": "-",
   "main": "index.js",
   "scripts": {
@@ -9,9 +9,10 @@
     "dev": "webpack-dev-server --mode development --hot --port=8090",
     "build": "webpack --mode production",
     "start": "node scripts/start.js",
-    "lint": "eslint src/**/*.js src/**/*.jsx"
+    "lint": "eslint src/**/*.js src/**/*.jsx",
+    "lint:fix": "eslint src/**/*.js src/**/*.jsx --fix"
   },
-  "author": "Team-4 ENDAVA",
+  "author": "Team-4",
   "license": "MIT",
   "devDependencies": {
     "@babel/core": "^7.7.2",
@@ -27,6 +28,7 @@
     "eslint-config-standard-react": "^9.2.0",
     "eslint-plugin-import": "^2.18.2",
     "eslint-plugin-node": "^10.0.0",
+    "eslint-plugin-only-warn": "^1.0.2",
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-react": "^7.16.0",
     "eslint-plugin-standard": "^4.0.1",

@@ -6,7 +6,6 @@ import { setIsAuthenticatedValue } from '../../UserData/UserPersonalData/UserPer
 import { tokenWorker } from '../../../utils/token-worker'
 
 class UserPageStatefull extends Component {
-
   constructor(props) {
     super(props)
     this.signOut.bind(this)
@@ -30,16 +29,14 @@ class UserPageStatefull extends Component {
   }
 }
 
-
 const mapStateToProps = state => {
   return {
     email: state.userPersonalData.email,
     firstName: state.userPersonalData.firstName,
     lastName: state.userPersonalData.lastName,
-    role: state.userPersonalData.role,
+    role: state.userPersonalData.role
   }
 }
-
 
 const mapDispatchToProps = dispatch => {
   return {
@@ -49,6 +46,12 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-
+UserPageStatefull.propTypes = {
+  email: PropTypes.string,
+  firstName: PropTypes.string,
+  lastName: PropTypes.string,
+  role: PropTypes.string,
+  setIsAuthenticatedValue: PropTypes.func
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserPageStatefull)

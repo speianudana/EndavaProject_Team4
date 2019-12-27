@@ -14,55 +14,51 @@ import CreateEvent from '../Pages/CreateEvent'
 import CreateNews from '../Pages/CreateNews'
 
 import {
-    index, regestr,
-    login, user_page,
-    user_page_create_event,
-    user_page_create_news,
-    user_activation,
-    event_info
+  index, registrationUrl,
+  loginUrl, userPageUrl,
+  userPageCreateEventUrl,
+  userPageCreateNewsURL,
+  userActivationUrl,
+  eventInfoUrl
 } from './AppConstRoutes.js'
 
 import UserPersonalDataComponent from '../UserData/UserPersonalData/UserPersonalData.component.jsx'
-
+import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
-
-
 const AppRouter = props => {
-    const isAuth = props.isAuthenticated
-    // console.log("qereqr: ", isAuth)
+  const isAuth = props.isAuthenticated
+  // console.log("qereqr: ", isAuth)
 
-    return (
-        <Router>
-            <Header />
+  return (
+    <Router>
+      <Header />
 
-            <Route exact path="/" render={() => (<Redirect to={index} />)} />
-            <Route exact path={index} component={Index} />
-            <Route exact path={regestr} component={Register} />
-            <Route exact path={login} component={Login} />
+      <Route exact path='/' render={() => (<Redirect to={index} />)} />
+      <Route exact path={index} component={Index} />
+      <Route exact path={registrationUrl} component={Register} />
+      <Route exact path={loginUrl} component={Login} />
 
-            {/* This use get request, and data from url */}
-            <Route path={user_activation} component={AccountActivator} />
-            <Route path={event_info} component={EventInfo} />
-            {/* This use get request, and data from url */}
+      {/* This use get request, and data from url */}
+      <Route path={userActivationUrl} component={AccountActivator} />
+      <Route path={eventInfoUrl} component={EventInfo} />
+      {/* This use get request, and data from url */}
 
-            <Route exact path={user_page} component={isAuth ? UserPage : Index} />
-            <Route exact path={user_page_create_event} component={isAuth ? CreateEvent : Index} />
-            <Route exact path={user_page_create_news} component={isAuth ? CreateNews : Index} />
+      <Route exact path={userPageUrl} component={isAuth ? UserPage : Index} />
+      <Route exact path={userPageCreateEventUrl} component={isAuth ? CreateEvent : Index} />
+      <Route exact path={userPageCreateNewsURL} component={isAuth ? CreateNews : Index} />
 
-
-
-            <Footer />
-            <UserPersonalDataComponent />
-        </Router>)
-
+      <Footer />
+      <UserPersonalDataComponent />
+    </Router>)
 }
 
-
 const mapStateToProps = state => ({
-    isAuthenticated: state.userPersonalData.isAuthenticated,
+  isAuthenticated: state.userPersonalData.isAuthenticated
 })
 
-
+AppRouter.propTypes = {
+  isAuthenticated: PropTypes.bool
+}
 
 export default connect(mapStateToProps)(AppRouter)

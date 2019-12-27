@@ -3,31 +3,40 @@ import { Container } from '../../../Layouts/Container'
 import { FullPageLoading1 as Loading } from '../../../Layouts/Loading'
 import style from '../style.scss'
 import { ButtonA } from '../../../Layouts/Button'
-
+import PropTypes from 'prop-types'
 
 const Msg = ({ message, loginClickHandle }) => (
-  <React.Fragment>
-    <p className={style.msg01} >
+  <>
+    <p className={style.msg01}>
       {message}
     </p>
     <br />
 
-    <ButtonA onClick={loginClickHandle} title="Login" />
-  </React.Fragment>
+    <ButtonA onClick={loginClickHandle} title='Login' />
+  </>
 )
+
+Msg.propTypes = {
+  message: PropTypes.string,
+  loginClickHandle: PropTypes.func
+}
 
 export default function AccountActivatorStateless({ showLoadingFullpage, loginClickHandle }) {
   return (
-    <React.Fragment>
+    <>
       {showLoadingFullpage && <Loading />}
       <Container>
         <div className={style.card}>
-          {!showLoadingFullpage
-            && <Msg message={'Your account has been activated.'} loginClickHandle={loginClickHandle} />}
-
+          {!showLoadingFullpage &&
+            <Msg message='Your account has been activated.' loginClickHandle={loginClickHandle} />}
 
         </div>
       </Container>
-    </React.Fragment>
+    </>
   )
+}
+
+AccountActivatorStateless.propTypes = {
+  showLoadingFullpage: PropTypes.bool,
+  loginClickHandle: PropTypes.func
 }

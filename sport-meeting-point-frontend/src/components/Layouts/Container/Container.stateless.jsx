@@ -1,8 +1,9 @@
 import React from 'react'
 import style from './style.scss'
+import PropTypes from 'prop-types'
 
 export default function ContainerStateless(props) {
-  let className = props.className ? props.className : ' '
+  const className = props.className ? props.className : ' '
 
   return (
     <div className={className}>
@@ -11,4 +12,9 @@ export default function ContainerStateless(props) {
       </div>
     </div>
   )
+}
+
+ContainerStateless.propTypes = {
+  className: PropTypes.string,
+  children: PropTypes.node
 }
