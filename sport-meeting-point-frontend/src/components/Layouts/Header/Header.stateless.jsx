@@ -117,16 +117,16 @@ function HeaderStateless(props) {
   )
 }
 
-function mapStateToProps(state) {
-  return {
-    email: state.userPersonalData.email,
-    isAuthenticated: state.userPersonalData.isAuthenticated
-  }
-}
+// function mapStateToProps(state) {
+//   return {
+//     email: state.userPersonalData.email,
+//     isAuthenticated: state.userPersonalData.isAuthenticated
+//   }
+// }
 
 HeaderStateless.propTypes = {
   isAuthenticated: PropTypes.bool,
   email: PropTypes.string
 }
 
-export default connect(mapStateToProps)(React.memo(HeaderStateless))
+export default React.memo(HeaderStateless)

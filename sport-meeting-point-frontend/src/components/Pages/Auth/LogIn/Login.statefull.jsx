@@ -10,10 +10,14 @@ import { Redirect } from 'react-router-dom'
 import { index } from '../../../App/AppConstRoutes'
 import PropTypes from 'prop-types'
 
+import { bindActionCreators } from 'redux'
+import * as authActions from '../../../../redux/actions/Authentication.actions'
+
 class LoginStatefull extends Component {
-  constructor(props) {
+  constructor (props) {
     super(props)
 
+    console.log(this.props)
     this.state = {
       redirectToHome: false,
       errorMsg: ''
@@ -22,13 +26,15 @@ class LoginStatefull extends Component {
     this.handleBtnLogIn.bind(this)
   }
 
-  componentDidUpdate(prevProps, prevState, snapshot) {
+  componentDidUpdate (prevProps, prevState, snapshot) {
     // console.log('z: ', this.state)
     // console.log('prev props :', prevProps)
     // console.log('current props :', this.props)
+
+    console.log(this.props)
   }
 
-  handleBtnLogIn(login, password) {
+  handleBtnLogIn (login, password) {
     const loginObject = {
       username: login,
       password: password
@@ -56,7 +62,7 @@ class LoginStatefull extends Component {
     })
   }
 
-  render() {
+  render () {
     if (this.state.redirectToHome) {
       return <Redirect to={index} />
     }
@@ -64,7 +70,7 @@ class LoginStatefull extends Component {
     return (
       <div>
         <LoginStateless
-          onHandleBtnLogIn={(login, password) => this.handleBtnLogIn(login, password)}
+          onHandleBtnLogIn={(login, password) => { this.props.actions.loginUserRequest()}}
           errorMsg={this.state.errorMsg}
         />
 
@@ -73,24 +79,35 @@ class LoginStatefull extends Component {
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    email: state.userPersonalData.email,
-    firstName: state.userPersonalData.firstName,
-    lastName: state.userPersonalData.lastName
-  }
+function mapStateToProps (state) {
+  return { ...state }
 }
 
-function mapDispatchToProps(dispatch) {
-  return {
-    setUserData: (data) => {
-      dispatch(setUserData(data))
-    },
-    setIsAuthenticatedValue: (boolValue) => {
-      dispatch(setIsAuthenticatedValue(boolValue))
-    }
+// function mapStateToProps (state) {
+//   return {
+//     email: state.userPersonalData.email,
+//     firstName: state.userPersonalData.firstName,
+//     lastName: state.userPersonalData.lastName
+//   }
+// }
 
+const mapDispatchToProps = dispatch => {
+  return {
+    // loginUser: (login, password) => dispatch(loginUserRequest())
+    actions: bindActionCreators({ ...authActions }, dispatch)
+    // loginUser: (login, password) => {
+    //   dispatch(loginUser(login, password))
+    // }
   }
+  // return {
+  //   setUserData: (data) => {
+  //     dispatch(setUserData(data))
+  //   },
+  //   setIsAuthenticatedValue: (boolValue) => {
+  //     dispatch(setIsAuthenticatedValue(boolValue))
+  //   }
+
+  // }
 }
 
 LoginStatefull.propTypes = {

@@ -49,16 +49,16 @@ const AppRouter = props => {
       <Route exact path={userPageCreateNewsURL} component={isAuth ? CreateNews : Index} />
 
       <Footer />
-      <UserPersonalDataComponent />
+      {/* <UserPersonalDataComponent /> */}
     </Router>)
 }
 
-const mapStateToProps = state => ({
-  isAuthenticated: state.userPersonalData.isAuthenticated
-})
+// const mapStateToProps = state => ({
+//   isAuthenticated: state.userPersonalData.isAuthenticated
+// })
 
-AppRouter.propTypes = {
-  isAuthenticated: PropTypes.bool
-}
+// AppRouter.propTypes = {
+//   isAuthenticated: PropTypes.bool
+// }
 
-export default connect(mapStateToProps)(AppRouter)
+export default AppRouter

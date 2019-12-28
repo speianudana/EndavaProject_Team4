@@ -2,3 +2,4 @@ node_modules
 /.vscode
 /build
 /static
+webpack.config.js
