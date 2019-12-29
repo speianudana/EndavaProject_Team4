@@ -120,7 +120,7 @@ public class EventController {
     
     Event result = eventService.saveEvent(e, userSystem);
     
-    return new ResponseEntity<>(HttpStatus.CREATED, HttpStatus.OK);
+    return new ResponseEntity<>(result.getId(), HttpStatus.OK);
   }
 
   @RequestMapping(value = "/all_events", method = RequestMethod.GET)

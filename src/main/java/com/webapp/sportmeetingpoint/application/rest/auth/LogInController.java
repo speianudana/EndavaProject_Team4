@@ -43,7 +43,11 @@ public class LogInController {
       UserSystem user = userService.findByEmail(username);
 
       if (user == null) {
-        return ResponseEntity.ok("Invalid username or password...");
+        return ResponseEntity.ok(
+          new HashMap<Object, Object>() {{
+            put("errorMessage", "Invalid username or password...");
+          }}
+        );
       }
 
 
@@ -53,11 +57,20 @@ public class LogInController {
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
       }
       catch(DisabledException e){
-        return ResponseEntity.ok("This account is disabled or not activated, " +
-          "please go through the registration process again or check email. ");
+
+        return ResponseEntity.ok(
+          new HashMap<Object, Object>() {{
+            put("errorMessage", "This account is disabled or not activated, " +
+              "please go through the registration process again or check email. ");
+          }}
+        );
       }
       catch (Exception e) {
-        return ResponseEntity.ok("Invalid username or password..");
+        return ResponseEntity.ok(
+          new HashMap<Object, Object>() {{
+            put("errorMessage", "Invalid username or password..");
+          }}
+        );
       }
 
 
@@ -71,7 +84,11 @@ public class LogInController {
       );
 
     } catch (AuthenticationException e) {
-      return ResponseEntity.ok("Invalid username or password.");
+      return ResponseEntity.ok(
+        new HashMap<Object, Object>() {{
+          put("errorMessage", "Invalid username or password.");
+        }}
+      );
     }
 
 
