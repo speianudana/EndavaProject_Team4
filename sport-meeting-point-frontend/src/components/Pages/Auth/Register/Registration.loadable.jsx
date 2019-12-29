@@ -4,7 +4,7 @@ const RegistrationStatefull = React.lazy(() => import('./Registration.statefull.
 
 const LoadingComponent = () => (<div>Loading...</div>)
 
-export default function RegistrationLoadable() {
+export default function RegistrationLoadable () {
   return (
     <Suspense fallback={<LoadingComponent />}>
       <RegistrationStatefull />

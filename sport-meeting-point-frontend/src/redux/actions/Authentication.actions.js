@@ -1,6 +1,6 @@
 import { LOGIN_USER_REQUEST, LOGIN_USER_SUCCESS, LOGIN_USER_FAILURE, LOGOUT_USER } from '../constants/Authentication.constants'
 import { url } from '../../utils/server-url'
-import axios from 'axios'
+// import axios from 'axios'
 import * as authUtils from '../utils/Authentication'
 
 export function loginUserRequest () {
@@ -37,23 +37,43 @@ export function tokenToPersonalData () {
   return dispatch => {
     const token = authUtils.loadTokenFromLocalStorage()
 
-    const headers = {
-      'Content-Type': undefined,
-      Authorization: `Bearer_${token}`
-    }
-
-    if (token) {
-      axios.post(url + '/api/user_personal_data/get_data', null, {
-        headers: headers
+    fetch(`${url}/api/for_authenticated_user/get_data`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': undefined,
+        Authorization: `Bearer_${token}`
+      },
+      body: null
+    })
+      .then(response => {
+        if (response.status === 200 && response.ok) return response.json()
+        else throw Error()
       })
-        .then(res => {
-          // console.log(res.data)
-          dispatch(loginUserSuccess(res.data))
-        })
-        .catch(function () {
-          dispatch(loginUserFailure([]))
-        })
-    }
+      .then((data) => {
+        dispatch(loginUserSuccess(data))
+        // console.log(data)
+      })
+      .catch((error) => {
+        dispatch(loginUserFailure([]))
+        console.warn('Personal data load - Error:', error)
+      })
+    // const headers = {
+    //   'Content-Type': undefined,
+    //   Authorization: `Bearer_${token}`
+    // }
+
+    // if (token) {
+    //   axios.post(url + '/api/user_personal_data/get_data', null, {
+    //     headers: headers
+    //   })
+    //     .then(res => {
+    //       // console.log(res.data)
+    //       dispatch(loginUserSuccess(res.data))
+    //     })
+    //     .catch(function () {
+    //       dispatch(loginUserFailure([]))
+    //     })
+    // }
   }
 }
 
@@ -92,7 +112,7 @@ export function loginUser (email, password) {
         }
       })
       .catch((error) => {
-        console.error('Authentication Error:', error)
+        console.warn('Authentication Error:', error)
       })
 
     // axios.post(`${url}/api/for_all/login`, {

@@ -6,7 +6,7 @@ import noImage from '../../../../../../static/No-Image-Basic.png'
 import PropTypes from 'prop-types'
 
 class ArticleStatefull extends Component {
-  constructor(props) {
+  constructor (props) {
     super(props)
 
     this.state = {
@@ -14,12 +14,12 @@ class ArticleStatefull extends Component {
     }
   }
 
-  componentDidMount() {
+  componentDidMount () {
     this._isMounted = true
 
     const self = this
 
-    post(`${url}/api/event/image_by_id`, this.props.id, {
+    post(`${url}/api/for_all/event/image_by_id`, this.props.id, {
       headers: {
         'Content-Type': 'application/json'
       }
@@ -47,11 +47,11 @@ class ArticleStatefull extends Component {
       })
   }
 
-  componentWillUnmount() {
+  componentWillUnmount () {
     this._isMounted = false
   }
 
-  render() {
+  render () {
     return (
       <ArticleStateless id={this.props.id} title={this.props.title} text={this.props.text} image={this.state.image} />
 

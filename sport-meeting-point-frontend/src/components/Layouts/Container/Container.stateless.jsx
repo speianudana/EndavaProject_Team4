@@ -2,7 +2,7 @@ import React from 'react'
 import style from './style.scss'
 import PropTypes from 'prop-types'
 
-export default function ContainerStateless(props) {
+export default function ContainerStateless (props) {
   const className = props.className ? props.className : ' '
 
   return (

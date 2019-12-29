@@ -5,7 +5,7 @@ const IndexStatefull = React.lazy(() => import('./Index.statefull.jsx'))
 
 const LoadingComponent = () => (<Loading />)
 
-export default function IndexLoadable() {
+export default function IndexLoadable () {
   return (
     <Suspense fallback={<LoadingComponent />}>
       <IndexStatefull />

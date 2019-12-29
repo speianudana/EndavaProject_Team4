@@ -18,7 +18,7 @@ Element.propTypes = {
   size: PropTypes.string
 }
 
-function TellAboutUs() {
+function TellAboutUs () {
   return (
     <div id={style.container}>
       <span className={style.text}>Tell About Us: </span>

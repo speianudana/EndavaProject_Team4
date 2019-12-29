@@ -32,11 +32,11 @@ function authenticationData (state = initialState, action) {
         ...state,
         isAuthProccess: false,
         isAuthenticated: true,
-        email: action.payload.personalData.email,
-        firstName: action.payload.personalData.firstName,
-        lastName: action.payload.personalData.lastName,
-        dateOfBirth: action.payload.personalData.dob,
-        role: action.payload.personalData.role,
+        email: action.payload.email,
+        firstName: action.payload.firstName,
+        lastName: action.payload.lastName,
+        dateOfBirth: action.payload.dob,
+        role: action.payload.role,
         statusErrorMessages: []
 
       }

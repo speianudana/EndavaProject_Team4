@@ -7,7 +7,7 @@ import noImage from '../../../../static/No-Image-Basic.png'
 
 import { ButtonA } from '../../Layouts/Button'
 
-export default function EventInfoStateless({ title, previewMessage, description, authorFullName, eventDate, address, image, participants }) {
+export default function EventInfoStateless ({ title, previewMessage, description, authorFullName, eventDate, address, image, participants }) {
   return (
     <Container>
 

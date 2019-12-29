@@ -4,7 +4,7 @@ const CreateNewsStatefull = React.lazy(() => import('./CreateNews.statefull.jsx'
 
 const LoadingComponent = () => (<div>Loading...</div>)
 
-export default function CreateNewsLoadable() {
+export default function CreateNewsLoadable () {
   return (
     <Suspense fallback={<LoadingComponent />}>
       <CreateNewsStatefull />

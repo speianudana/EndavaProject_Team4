@@ -3,7 +3,7 @@ import style from './style.scss'
 // import { Link } from 'react-router-dom'
 import { Container } from '../Container'
 
-export default function FooterStateless() {
+export default function FooterStateless () {
   return (
     <footer style={{ backgroundColor: 'rgb(25, 32, 42)' }}>
       <Container>

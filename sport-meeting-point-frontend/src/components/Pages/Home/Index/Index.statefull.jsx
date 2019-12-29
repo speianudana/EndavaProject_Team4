@@ -21,7 +21,7 @@ class IndexStatefull extends Component {
     this._isMounted = true
     const self = this
 
-    axios.get(`${url}/api/event/all_events`)
+    axios.get(`${url}/api/for_all/event/all_events`)
       .then(e => {
         if (self._isMounted) { self.setState({ articles: e.data }) }
       })

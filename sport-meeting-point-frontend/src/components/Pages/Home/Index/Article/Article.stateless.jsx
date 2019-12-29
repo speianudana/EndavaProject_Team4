@@ -21,7 +21,7 @@ Element.propTypes = {
   size: PropTypes.element
 }
 
-function imgShower(img) {
+function imgShower (img) {
   switch (img) {
     case '':
       return <LoadingType1 />
@@ -30,7 +30,7 @@ function imgShower(img) {
   }
 }
 
-export default function ArticleStateless({ id, title, text, image }) {
+export default function ArticleStateless ({ id, title, text, image }) {
   return (
     <div className={style.mainContainer}>
       <div className={style.mainContainerChild}>

@@ -9,7 +9,7 @@ import img4 from '../../../../../../static/e4.jpg'
 import img5 from '../../../../../../static/e5.jpg'
 import img6 from '../../../../../../static/e6.jpg'
 
-export default function SubHeaderStateless() {
+export default function SubHeaderStateless () {
   return (
     <div className={style.mainContainer}>
 

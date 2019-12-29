@@ -4,7 +4,7 @@ const CreateEventStatefull = React.lazy(() => import('./CreateEvent.statefull.js
 
 const LoadingComponent = () => (<div>Loading...</div>)
 
-export default function CreateEventLoadable() {
+export default function CreateEventLoadable () {
   return (
     <Suspense fallback={<LoadingComponent />}>
       <CreateEventStatefull />

@@ -6,7 +6,7 @@ import { Redirect } from 'react-router-dom'
 import { loginUrl, index } from '../../../App/AppConstRoutes'
 
 export default class AccountActivatorStatefull extends Component {
-  constructor(props) {
+  constructor (props) {
     super(props)
 
     this.state = {
@@ -18,7 +18,7 @@ export default class AccountActivatorStatefull extends Component {
     this.redirectToLogin.bind(this)
   }
 
-  componentDidMount() {
+  componentDidMount () {
     this._isMounted = true
 
     const data = window.location.href.split('?')
@@ -35,15 +35,15 @@ export default class AccountActivatorStatefull extends Component {
       })
   }
 
-  componentWillUnmount() {
+  componentWillUnmount () {
     this._isMounted = false
   }
 
-  redirectToLogin() {
+  redirectToLogin () {
     this.setState({ redirectToLogin: true })
   }
 
-  render() {
+  render () {
     if (this.state.redirectToLogin) return <Redirect to={loginUrl} />
     if (this.state.redirectToHome) return <Redirect to={index} />
 

@@ -4,7 +4,7 @@ const EventInfoStatefull = React.lazy(() => import('./EventInfo.statefull.jsx'))
 
 const LoadingComponent = () => (<div>Loading...</div>)
 
-export default function EventInfoLoadable() {
+export default function EventInfoLoadable () {
   return (
     <Suspense fallback={<LoadingComponent />}>
       <EventInfoStatefull />

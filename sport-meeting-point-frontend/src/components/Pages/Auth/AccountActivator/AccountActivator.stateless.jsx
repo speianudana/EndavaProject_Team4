@@ -21,7 +21,7 @@ Msg.propTypes = {
   loginClickHandle: PropTypes.func
 }
 
-export default function AccountActivatorStateless({ showLoadingFullpage, loginClickHandle }) {
+export default function AccountActivatorStateless ({ showLoadingFullpage, loginClickHandle }) {
   return (
     <>
       {showLoadingFullpage && <Loading />}

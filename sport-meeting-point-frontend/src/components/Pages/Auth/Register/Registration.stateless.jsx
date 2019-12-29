@@ -5,7 +5,7 @@ import style from '../style.scss'
 import { Container } from '../../../Layouts/Container'
 import PropTypes from 'prop-types'
 
-function RegistrationStateless({ handleBtnRegistr, errorMsgs, expectConfirmationEmail }) {
+function RegistrationStateless ({ handleBtnRegistr, errorMsgs, expectConfirmationEmail }) {
   return (
     <>
       <Container>
