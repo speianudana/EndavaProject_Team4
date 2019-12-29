@@ -5,7 +5,7 @@ import { registrationUrl } from '../../../../components/App/AppConstRoutes'
 import { Container } from '../../../../components/Layouts/Container'
 import PropTypes from 'prop-types'
 
-export default function LoginStateless({ onHandleBtnLogIn, errorMsg }) {
+export default function LoginStateless ({ onHandleBtnLogIn, errorMsg }) {
   const [loginData, setLoginData] = React.useState({
     username: '',
     password: ''
@@ -51,7 +51,9 @@ export default function LoginStateless({ onHandleBtnLogIn, errorMsg }) {
           <br />
           <br />
 
-          <p className={style.errorMsg}>{errorMsg}</p>
+          {
+            errorMsg.map((item, index) => <p key={index} className={style.errorMsg}>{item}</p>)
+          }
 
         </div>
 
@@ -62,5 +64,5 @@ export default function LoginStateless({ onHandleBtnLogIn, errorMsg }) {
 
 LoginStateless.propTypes = {
   onHandleBtnLogIn: PropTypes.func,
-  errorMsg: PropTypes.string
+  errorMsg: PropTypes.array
 }

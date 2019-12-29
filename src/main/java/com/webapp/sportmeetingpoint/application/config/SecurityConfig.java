@@ -2,6 +2,7 @@ package com.webapp.sportmeetingpoint.application.config;
 
 import com.webapp.sportmeetingpoint.application.security.jwt.JwtSecurityConfigurer;
 import com.webapp.sportmeetingpoint.application.security.jwt.JwtTokenProvider;
+import com.webapp.sportmeetingpoint.domain.entities.AppUserRoles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
@@ -49,18 +50,26 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
       .cors()
       .and()
-      .csrf().disable()
+      .csrf()
+      .disable()
       .authorizeRequests()
-      .antMatchers(AUTH_ENDPOINT).permitAll()
-      .antMatchers("/api/event/add").hasRole("USER")
-      .antMatchers("/api/event/all_events").permitAll()
-      .antMatchers("/api/event/image_by_id").permitAll()
-      .antMatchers("/api/event//event_by_id").permitAll()
-      .antMatchers("/api/test/q").permitAll()
+      .antMatchers("/api/for_all/**").permitAll()
+      .antMatchers("/api/for_authenticated_user/**").authenticated()
+      .antMatchers("/api/for_user/**").hasRole(AppUserRoles.USER.toString())
+      .antMatchers("/api/for_moderator/**").hasRole(AppUserRoles.MODERATOR.toString())
+      .antMatchers("/api/for_admin/**").hasRole(AppUserRoles.ADMIN.toString())
+      .antMatchers("/api/for_super_admin/**").hasRole(AppUserRoles.SUPER_ADMIN.toString())
 
-      .antMatchers("/index.html", "/","/*.js","/*.css", "/images/**").permitAll()
-      .anyRequest()
-      .authenticated()
+//      .antMatchers(AUTH_ENDPOINT).permitAll()
+//      .antMatchers("/api/event/add").hasRole("USER")
+//      .antMatchers("/api/event/all_events").permitAll()
+//      .antMatchers("/api/event/image_by_id").permitAll()
+//      .antMatchers("/api/event//event_by_id").permitAll()
+//      .antMatchers("/api/test/q").permitAll()
+//
+//      .antMatchers("/index.html", "/","/*.js","/*.css", "/*.ico", "/images/**").permitAll()
+//      .anyRequest()
+//      .authenticated()
       .and()
       .exceptionHandling()
       .authenticationEntryPoint(jwtAuthenticationEntryPoint)

@@ -16,12 +16,12 @@ export function loginUserSuccess (personalData) {
   }
 }
 
-export function loginUserFailure (errorMessage) {
+export function loginUserFailure (errorMessages) {
   authUtils.deleteTokenFromLocalStorage()
   return {
     type: LOGIN_USER_FAILURE,
     payload: {
-      statusErrorMessage: errorMessage
+      statusErrorMessages: errorMessages
     }
   }
 }
@@ -51,7 +51,7 @@ export function tokenToPersonalData () {
           dispatch(loginUserSuccess(res.data))
         })
         .catch(function () {
-          dispatch(loginUserFailure(' '))
+          dispatch(loginUserFailure([]))
         })
     }
   }
@@ -65,21 +65,52 @@ TO DO:
 export function loginUser (email, password) {
   return dispatch => {
     dispatch(loginUserRequest())
-    axios.post(`${url}/api/auth/login`, {
-      username: email,
-      password: password
-    })
-      .then(res => {
-        if (res.data.errorMessage) {
-          dispatch(loginUserFailure(res.data.errorMessage))
-        }
-        if (res.data.token) {
-          authUtils.saveTokenInLocalStorage(res.data.token)
-          dispatch(tokenToPersonalData())
-        }
-      }).catch(function () {
-        dispatch(loginUserFailure('Authentication error!!!'))
+
+    fetch(`${url}/api/for_all/login`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        username: email === '' ? null : email,
+        password: password === '' ? null : password
       })
+    })
+      .then((response) => {
+        console.log(response)
+        if (response.status === 200 && response.ok) return response.json()
+        else throw Error()
+      })
+      .then((data) => {
+        if (data.token) {
+          authUtils.saveTokenInLocalStorage(data.token)
+          dispatch(tokenToPersonalData())
+          console.log('token:', data.token)
+        } else if (data.validationErrorMessages) {
+          console.warn(data.validationErrorMessages)
+          dispatch(loginUserFailure(data.validationErrorMessages))
+        }
+      })
+      .catch((error) => {
+        console.error('Authentication Error:', error)
+      })
+
+    // axios.post(`${url}/api/for_all/login`, {
+    //   username: email,
+    //   password: password
+    // })
+    //   .then(res => {
+    //     if (res.data.errorMessage) {
+    //       dispatch(loginUserFailure(res.data.errorMessage))
+    //     }
+    //     if (res.data.token) {
+    //       authUtils.saveTokenInLocalStorage(res.data.token)
+    //       dispatch(tokenToPersonalData())
+    //     }
+    //   })
+    //   .catch(function () {
+    //     dispatch(loginUserFailure('Authentication error!!!'))
+    //   })
   }
 }
 

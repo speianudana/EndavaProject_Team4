@@ -14,7 +14,7 @@ const initialState = {
   role: '',
   isAuthenticated: false,
   isAuthProccess: false,
-  statusErrorMessage: '',
+  statusErrorMessages: [],
   getToken: () => loadTokenFromLocalStorage()
 
 }
@@ -25,7 +25,7 @@ function authenticationData (state = initialState, action) {
       return {
         ...state,
         isAuthProccess: true,
-        statusErrorMessage: ''
+        statusErrorMessages: []
       }
     case LOGIN_USER_SUCCESS:
       return {
@@ -37,7 +37,7 @@ function authenticationData (state = initialState, action) {
         lastName: action.payload.personalData.lastName,
         dateOfBirth: action.payload.personalData.dob,
         role: action.payload.personalData.role,
-        statusErrorMessage: ''
+        statusErrorMessages: []
 
       }
     case LOGIN_USER_FAILURE:
@@ -45,7 +45,7 @@ function authenticationData (state = initialState, action) {
         ...state,
         isAuthProccess: false,
         isAuthenticated: false,
-        statusErrorMessage: action.payload.statusErrorMessage,
+        statusErrorMessages: action.payload.statusErrorMessages,
         email: '',
         firstName: '',
         lastName: '',
@@ -58,7 +58,7 @@ function authenticationData (state = initialState, action) {
         ...state,
         isAuthProccess: false,
         isAuthenticated: false,
-        statusErrorMessage: '',
+        statusErrorMessages: [],
         email: '',
         firstName: '',
         lastName: '',

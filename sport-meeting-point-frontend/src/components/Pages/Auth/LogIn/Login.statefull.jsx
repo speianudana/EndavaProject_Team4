@@ -10,6 +10,7 @@ import { loginUser } from '../../../../redux/actions/Authentication.actions'
 
 class LoginStatefull extends Component {
   componentDidUpdate (prevProps, prevState, snapshot) {
+    console.log(this.props)
     // console.log(this.props)
   }
 
@@ -22,7 +23,7 @@ class LoginStatefull extends Component {
 
         <LoginStateless
           onHandleBtnLogIn={(login, password) => { this.props.loginUser(login, password) }}
-          errorMsg={this.props.statusErrorMessage}
+          errorMsg={this.props.statusErrorMessages}
         />
 
       </div>
@@ -34,7 +35,7 @@ const mapStateToProps = state => {
   return {
     isAuthenticated: state.authenticationData.isAuthenticated,
     isAuthProccess: state.authenticationData.isAuthProccess,
-    statusErrorMessage: state.authenticationData.statusErrorMessage
+    statusErrorMessages: state.authenticationData.statusErrorMessages
   }
 }
 
@@ -46,7 +47,7 @@ const mapDispatchToProps = dispatch => {
 
 LoginStatefull.propTypes = {
   loginUser: PropTypes.func,
-  statusErrorMessage: PropTypes.string,
+  statusErrorMessages: PropTypes.array,
   isAuthProccess: PropTypes.bool,
   isAuthenticated: PropTypes.bool
 }
