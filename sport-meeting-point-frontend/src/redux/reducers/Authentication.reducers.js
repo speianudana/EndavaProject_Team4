@@ -4,6 +4,7 @@ import {
   LOGIN_USER_FAILURE,
   LOGOUT_USER
 } from '../constants/Authentication.constants'
+import { loadTokenFromLocalStorage } from '../utils/Authentication'
 
 const initialState = {
   email: '',
@@ -13,7 +14,9 @@ const initialState = {
   role: '',
   isAuthenticated: false,
   isAuthProccess: false,
-  statusErrorMessage: ''
+  statusErrorMessage: '',
+  getToken: () => loadTokenFromLocalStorage()
+
 }
 
 function authenticationData (state = initialState, action) {
@@ -25,7 +28,6 @@ function authenticationData (state = initialState, action) {
         statusErrorMessage: ''
       }
     case LOGIN_USER_SUCCESS:
-      // console.log('z', action)
       return {
         ...state,
         isAuthProccess: false,

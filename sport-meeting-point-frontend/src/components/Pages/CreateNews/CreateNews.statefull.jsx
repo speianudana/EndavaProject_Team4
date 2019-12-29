@@ -1,17 +1,18 @@
 import React, { Component } from 'react'
 import CreateNewsStateless from './CreateNews.stateless.jsx'
-import { tokenWorker } from '../../../utils/token-worker'
 import { url } from '../../../utils/server-url'
 import axios from 'axios'
+import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
 
-export default class CreateNewsStatefull extends Component {
-  constructor(props) {
+class CreateNewsStatefull extends Component {
+  constructor (props) {
     super(props)
     this.handleAllInputData.bind(this)
   }
 
-  handleAllInputData(data) {
-    const token = tokenWorker.loadTokenFromLocalStorage()
+  handleAllInputData (data) {
+    const token = this.props.getToken()
 
     const headers = {
       'Content-Type': 'application/json',
@@ -25,16 +26,24 @@ export default class CreateNewsStatefull extends Component {
         console.log(response)
       })
       .catch((error) => {
-        if (error.response === 401) {
-          tokenWorker.deleteTokenFromLocalStorage()
-          // eslint-disable-next-line no-undef
+        if (error.response.status === 401) {
           location.reload()
         }
         console.error(error)
       })
   }
 
-  render() {
-    return <CreateNewsStateless onHandleAllInputData={this.handleAllInputData} />
+  render () {
+    return <CreateNewsStateless onHandleAllInputData={(data) => this.handleAllInputData(data)} />
   }
 }
+
+const mapStateToProps = state => ({
+  getToken: state.authenticationData.getToken
+})
+
+CreateNewsStatefull.propTypes = {
+  getToken: PropTypes.func
+}
+
+export default connect(mapStateToProps)(CreateNewsStatefull)

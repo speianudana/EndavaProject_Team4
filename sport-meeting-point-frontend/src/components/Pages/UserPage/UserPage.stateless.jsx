@@ -25,7 +25,7 @@ const Button = ({ title, onClickHandle }) => (
   </button>
 )
 
-const UserPageStateless = ({ signOut, firstName, lastName, email, role }) => {
+const UserPageStateless = ({ signOut, firstName, lastName, email, role, dateOfBirth }) => {
   const [redirectToCreateEvent, setRedirectToCreateEvent] = React.useState(false)
   const [redirectToCreateNews, setRedirectToCreateNews] = React.useState(false)
 
@@ -53,6 +53,7 @@ const UserPageStateless = ({ signOut, firstName, lastName, email, role }) => {
             <PersonalDataLine title='First Name: ' text={firstName} />
             <PersonalDataLine title='Last Name: ' text={lastName} />
             <PersonalDataLine title='Authority: ' text={role.toLowerCase()} />
+            <PersonalDataLine title='Date of birth: ' text={dateOfBirth} />
 
           </div>
           {/* <div className={style.miniItem}> */}
@@ -81,7 +82,12 @@ UserPageStateless.propTypes = {
   firstName: PropTypes.string,
   lastName: PropTypes.string,
   email: PropTypes.string,
-  role: PropTypes.string
+  role: PropTypes.string,
+  dateOfBirth: PropTypes.string
+}
+
+UserPageStateless.defaultProps = {
+  dateOfBirth: '-'
 }
 
 Button.propTypes = {

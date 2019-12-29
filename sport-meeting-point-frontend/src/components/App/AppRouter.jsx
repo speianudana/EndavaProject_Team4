@@ -22,14 +22,9 @@ import {
   eventInfoUrl
 } from './AppConstRoutes.js'
 
-import UserPersonalDataComponent from '../UserData/UserPersonalData/UserPersonalData.component.jsx'
 import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
 
-const AppRouter = props => {
-  const isAuth = props.isAuthenticated
-  // console.log("qereqr: ", isAuth)
-
+const AppRouter = ({ isAuthenticated }) => {
   return (
     <Router>
       <Header />
@@ -44,21 +39,17 @@ const AppRouter = props => {
       <Route path={eventInfoUrl} component={EventInfo} />
       {/* This use get request, and data from url */}
 
-      <Route exact path={userPageUrl} component={isAuth ? UserPage : Index} />
-      <Route exact path={userPageCreateEventUrl} component={isAuth ? CreateEvent : Index} />
-      <Route exact path={userPageCreateNewsURL} component={isAuth ? CreateNews : Index} />
+      <Route exact path={userPageUrl} component={isAuthenticated ? UserPage : Index} />
+      <Route exact path={userPageCreateEventUrl} component={isAuthenticated ? CreateEvent : Index} />
+      <Route exact path={userPageCreateNewsURL} component={isAuthenticated ? CreateNews : Index} />
 
       <Footer />
       {/* <UserPersonalDataComponent /> */}
     </Router>)
 }
 
-// const mapStateToProps = state => ({
-//   isAuthenticated: state.userPersonalData.isAuthenticated
-// })
-
-// AppRouter.propTypes = {
-//   isAuthenticated: PropTypes.bool
-// }
+AppRouter.propTypes = {
+  isAuthenticated: PropTypes.bool
+}
 
 export default AppRouter

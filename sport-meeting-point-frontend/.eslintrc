@@ -8,6 +8,7 @@
     "standard-react"
   ],
   "rules": {
+    "react/jsx-fragments": "off"
     // "space-before-function-paren": 0
   },
   "env": {

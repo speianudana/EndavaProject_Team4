@@ -1,37 +1,38 @@
 import React, { PureComponent } from 'react'
 import CreateEventStateless from './CreateEvent.stateless.jsx'
-import { tokenWorker } from '../../../utils/token-worker'
 import { url } from '../../../utils/server-url'
 import axios from 'axios'
 import { FullPageLoading1 } from '../../Layouts/Loading'
+import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
+import { Redirect } from 'react-router-dom'
+import { eventInfoUrl } from '../../App/AppConstRoutes'
 
-export default class CreateEventStatefull extends PureComponent {
-  constructor(props) {
+class CreateEventStatefull extends PureComponent {
+  constructor (props) {
     super(props)
     this.handleAllInputData.bind(this)
 
-    // _isMounted = false;
-
     this.state = {
       validationMessage: [],
-      loadPage: false
+      loadPage: false,
+      getCreatedEventId: 0
     }
   }
 
-  componentDidMount() {
+  componentDidMount () {
     this._isMounted = true
   }
 
-  componentWillUnmount() {
+  componentWillUnmount () {
     this._isMounted = false
   }
 
-  handleAllInputData(data) {
+  handleAllInputData (data) {
     this.setState({ loadPage: true })
 
     const self = this
-    const token = tokenWorker.loadTokenFromLocalStorage()
-    // eslint-disable-next-line no-undef
+    const token = this.props.getToken()
     const formData = new FormData()
     const newData = {
       title: data.title.length > 0 ? data.title : null,
@@ -40,7 +41,6 @@ export default class CreateEventStatefull extends PureComponent {
       description: data.description.length > 0 ? data.description : null
     }
 
-    // eslint-disable-next-line no-undef
     formData.append('file', data.image != null ? data.image : new File([], ''))
     formData.append('data', JSON.stringify(newData))
 
@@ -61,25 +61,27 @@ export default class CreateEventStatefull extends PureComponent {
             if (self._isMounted) self.setState({ validationMessage: [] })
           }, 5000)
         } else {
-          console.log(response.data)
+          // console.log(response.data)
+          this.setState({ getCreatedEventId: Number(response.data) })
         }
       })
       .catch((error) => {
-        if (error.response === 401) {
-          tokenWorker.deleteTokenFromLocalStorage()
-          // eslint-disable-next-line no-undef
+        if (error.response.status === 401) {
           location.reload()
         }
-        console.error(error)
       })
       .then(() => {
         if (self._isMounted) self.setState({ loadPage: false })
       })
   }
 
-  render() {
+  render () {
+    if (this.state.getCreatedEventId !== 0) {
+      return <Redirect to={`${eventInfoUrl}?id=${this.state.getCreatedEventId}`} />
+    }
+
     return (
-      <>
+      <React.Fragment>
 
         {this.state.loadPage && <FullPageLoading1 />}
 
@@ -88,6 +90,17 @@ export default class CreateEventStatefull extends PureComponent {
           validationMessage={this.state.validationMessage}
         />
 
-      </>)
+      </React.Fragment>
+    )
   }
 }
+
+const mapStateToProps = state => ({
+  getToken: state.authenticationData.getToken
+})
+
+CreateEventStatefull.propTypes = {
+  getToken: PropTypes.func
+}
+
+export default connect(mapStateToProps)(CreateEventStatefull)

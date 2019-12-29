@@ -7,7 +7,7 @@ import { index } from '../../../App/AppConstRoutes'
 import { FullPageLoading1 as FullPageLoading } from '../../../Layouts/Loading'
 
 class RegistrationStatefull extends React.Component {
-  constructor(props) {
+  constructor (props) {
     super(props)
 
     this.handleBtnRegistr.bind(this)
@@ -21,22 +21,22 @@ class RegistrationStatefull extends React.Component {
     }
   }
 
-  componentDidMount() {
+  componentDidMount () {
     this._isMounted = true
   }
 
-  componentWillUnmount() {
+  componentWillUnmount () {
     this._isMounted = false
   }
 
-  /* TO DO: needed for correct backend validation
-
+  /*
+    TO DO: needed for correct backend validation
   */
-  setNullForEmptyString(str) {
+  setNullForEmptyString (str) {
     return str === '' ? null : str
   }
 
-  handleBtnRegistr(regStatelessAccData) {
+  handleBtnRegistr (regStatelessAccData) {
     const data = {
       firstName: this.setNullForEmptyString(regStatelessAccData.firstName),
       lastName: this.setNullForEmptyString(regStatelessAccData.lastName),
@@ -69,7 +69,7 @@ class RegistrationStatefull extends React.Component {
       })
   }
 
-  render() {
+  render () {
     if (this.state.redirectToHome) {
       return <Redirect to={index} />
     }

@@ -22,7 +22,7 @@ ValidationMsg.propTypes = {
   msg: PropTypes.string
 }
 
-export default function CreateEventStateless({ handleAllInputData, validationMessage }) {
+export default function CreateEventStateless ({ handleAllInputData, validationMessage }) {
   const [data, setData] = useState(
     {
       title: '',

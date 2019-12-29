@@ -5,7 +5,6 @@ import PropTypes from 'prop-types'
 import { index, loginUrl, userPageUrl } from '../../App/AppConstRoutes.js'
 import { Container } from '../Container'
 import { connect } from 'react-redux'
-// import {} from '../../UserData/UserPersonalData/UserPersonalData.action.jsx'
 
 const AuthContainer = ({ isAuthenticated, email }) => {
   if (!isAuthenticated) {

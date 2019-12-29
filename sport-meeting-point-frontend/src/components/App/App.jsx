@@ -10,7 +10,7 @@ function App (props) {
     props.tryAuthorizeUserUsingTokenFromLocalStorage()
   }, [])
 
-  return <AppRouter />
+  return <AppRouter isAuthenticated={props.isAuthenticated} />
 }
 
 const mapStateToProps = state => ({
@@ -23,7 +23,8 @@ const mapDispatchToProps = dispatch => ({
 })
 
 App.propTypes = {
-  tryAuthorizeUserUsingTokenFromLocalStorage: PropTypes.func
+  tryAuthorizeUserUsingTokenFromLocalStorage: PropTypes.func,
+  isAuthenticated: PropTypes.bool
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(App)

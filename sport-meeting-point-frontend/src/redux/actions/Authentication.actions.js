@@ -51,7 +51,7 @@ export function tokenToPersonalData () {
           dispatch(loginUserSuccess(res.data))
         })
         .catch(function () {
-          dispatch(loginUserFailure(''))
+          dispatch(loginUserFailure(' '))
         })
     }
   }

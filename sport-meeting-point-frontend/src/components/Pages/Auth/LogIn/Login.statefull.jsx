@@ -10,7 +10,7 @@ import { loginUser } from '../../../../redux/actions/Authentication.actions'
 
 class LoginStatefull extends Component {
   componentDidUpdate (prevProps, prevState, snapshot) {
-    console.log(this.props)
+    // console.log(this.props)
   }
 
   render () {
