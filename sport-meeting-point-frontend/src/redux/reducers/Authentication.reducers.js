@@ -1,28 +1,68 @@
-import { LOGIN_USER_REQUEST, LOGIN_USER_SUCCESS } from '../constants/Authentication.constants'
+import {
+  LOGIN_USER_REQUEST,
+  LOGIN_USER_SUCCESS,
+  LOGIN_USER_FAILURE,
+  LOGOUT_USER
+} from '../constants/Authentication.constants'
 
 const initialState = {
   email: '',
   firstName: '',
   lastName: '',
+  dateOfBirth: '',
+  role: '',
   isAuthenticated: false,
   isAuthProccess: false,
-  statusMessages: [],
-  statusError: false
+  statusErrorMessage: ''
 }
 
 function authenticationData (state = initialState, action) {
   switch (action.type) {
     case LOGIN_USER_REQUEST:
-      console.log('1', action.payload)
       return {
         ...state,
-        isAuthProccess: true
+        isAuthProccess: true,
+        statusErrorMessage: ''
       }
     case LOGIN_USER_SUCCESS:
-      console.log('2', action.payload)
+      // console.log('z', action)
       return {
         ...state,
-        isAuthProccess: false
+        isAuthProccess: false,
+        isAuthenticated: true,
+        email: action.payload.personalData.email,
+        firstName: action.payload.personalData.firstName,
+        lastName: action.payload.personalData.lastName,
+        dateOfBirth: action.payload.personalData.dob,
+        role: action.payload.personalData.role,
+        statusErrorMessage: ''
+
+      }
+    case LOGIN_USER_FAILURE:
+      return {
+        ...state,
+        isAuthProccess: false,
+        isAuthenticated: false,
+        statusErrorMessage: action.payload.statusErrorMessage,
+        email: '',
+        firstName: '',
+        lastName: '',
+        dateOfBirth: '',
+        role: ''
+
+      }
+    case LOGOUT_USER:
+      return {
+        ...state,
+        isAuthProccess: false,
+        isAuthenticated: false,
+        statusErrorMessage: '',
+        email: '',
+        firstName: '',
+        lastName: '',
+        dateOfBirth: '',
+        role: ''
+
       }
     default:
       return state

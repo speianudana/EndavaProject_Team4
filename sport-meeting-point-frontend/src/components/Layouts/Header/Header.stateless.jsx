@@ -59,74 +59,63 @@ MenuBtn.propTypes = {
   clickHandler: PropTypes.func
 }
 
-function HeaderStateless(props) {
+function HeaderStateless (props) {
   const [dropdownIsVisible, setDropdownVisible] = React.useState(false)
 
-  // console.log("aefdadf:", props)
-
   return (
-    <>
-      <Container className={style.containerMenu}>
-        <div className={style.menu}>
+    <Container className={style.containerMenu}>
+      <div className={style.menu}>
 
-          <div style={{ flexGrow: '4' }} className={style.menuElm}>
-            <Link to={index} className={[style.logo].join(' ')}>
+        <div style={{ flexGrow: '4' }} className={style.menuElm}>
+          <Link to={index} className={[style.logo].join(' ')}>
               Sport Meeting Point
-            </Link>
-          </div>
+          </Link>
+        </div>
 
-          <div style={{ flexGrow: '5' }} className={style.menuElm}>
-            <ClickableItem to={index} title='Home' />
-            <ClickableItem to={index} title='About' />
-            <ClickableItem to={index} title='Contact' />
-            <ClickableItem to={index} title='Feedback' />
-
-          </div>
-
-          <div style={{ flexGrow: '1' }} className={style.menuElm}>
-            <AuthContainer isAuthenticated={props.isAuthenticated} email={props.email} />
-          </div>
-
-          <div style={{ flexGrow: '1' }} className={style.menuElm}>
-
-            {/* <button onClick={() => {
-              setDropdownVisible(!dropdownIsVisible)
-            }} id={style.btnDropdown} className={style.btnMenu
-            }>
-              ☰
-            </button> */}
-            <MenuBtn clickHandler={() => { setDropdownVisible(!dropdownIsVisible) }} />
-
-          </div>
+        <div style={{ flexGrow: '5' }} className={style.menuElm}>
+          <ClickableItem to={index} title='Home' />
+          <ClickableItem to={index} title='About' />
+          <ClickableItem to={index} title='Contact' />
+          <ClickableItem to={index} title='Feedback' />
 
         </div>
 
-        <div className={style.sizeChecker}>
-          <div style={{ display: dropdownIsVisible ? 'block' : 'none' }} className={style.dropDownMenu1}>
-            <ClickableItem to={index} title='Home' />
-            <ClickableItem to={index} title='About' />
-            <ClickableItem to={index} title='Contact' />
-            <ClickableItem to={index} title='Feedback' />
-            <AuthContainer isAuthenticated={props.isAuthenticated} email={props.email} />
-          </div>
+        <div style={{ flexGrow: '1' }} className={style.menuElm}>
+          <AuthContainer isAuthenticated={props.isAuthenticated} email={props.email} />
         </div>
 
-      </Container>
+        <div style={{ flexGrow: '1' }} className={style.menuElm}>
 
-    </>
+          <MenuBtn clickHandler={() => { setDropdownVisible(!dropdownIsVisible) }} />
+
+        </div>
+
+      </div>
+
+      <div className={style.sizeChecker}>
+        <div style={{ display: dropdownIsVisible ? 'block' : 'none' }} className={style.dropDownMenu1}>
+          <ClickableItem to={index} title='Home' />
+          <ClickableItem to={index} title='About' />
+          <ClickableItem to={index} title='Contact' />
+          <ClickableItem to={index} title='Feedback' />
+          <AuthContainer isAuthenticated={props.isAuthenticated} email={props.email} />
+        </div>
+      </div>
+
+    </Container>
   )
 }
 
-// function mapStateToProps(state) {
-//   return {
-//     email: state.userPersonalData.email,
-//     isAuthenticated: state.userPersonalData.isAuthenticated
-//   }
-// }
+const mapStateToProps = state => (
+  {
+    isAuthenticated: state.authenticationData.isAuthenticated,
+    email: state.authenticationData.email
+  }
+)
 
 HeaderStateless.propTypes = {
   isAuthenticated: PropTypes.bool,
   email: PropTypes.string
 }
 
-export default React.memo(HeaderStateless)
+export default connect(mapStateToProps)(HeaderStateless)

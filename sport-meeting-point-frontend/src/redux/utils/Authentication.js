@@ -13,5 +13,10 @@ export function saveTokenInLocalStorage (token) {
 }
 
 export function loadTokenFromLocalStorage () {
-  return window.localStorage.getItem('token')
+  const data = window.localStorage.getItem('token')
+  if (data) return cryptor(data, false)
+}
+
+export function deleteTokenFromLocalStorage () {
+  window.localStorage.removeItem('token')
 }
