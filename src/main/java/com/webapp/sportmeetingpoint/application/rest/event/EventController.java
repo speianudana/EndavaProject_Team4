@@ -33,7 +33,7 @@ import java.util.stream.Collectors;
 
 @Log4j2
 @RestController
-@RequestMapping(value = "/api/event")
+@RequestMapping(value = "/api")
 public class EventController {
 
   private final UserSystemService userSystemService;
@@ -50,7 +50,7 @@ public class EventController {
 
   
   
-  @RequestMapping(value = "/add", method = RequestMethod.POST,
+  @RequestMapping(value = "/for_authenticated_user/event/add", method = RequestMethod.POST,
           consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
   public ResponseEntity<?> addNewEvent(
           @RequestParam("file")  MultipartFile file,
@@ -123,7 +123,7 @@ public class EventController {
     return new ResponseEntity<>(result.getId(), HttpStatus.OK);
   }
 
-  @RequestMapping(value = "/all_events", method = RequestMethod.GET)
+  @RequestMapping(value = "/for_all/event/all_events", method = RequestMethod.GET)
   public ResponseEntity<List<EventDTO>> getAllEventsWithoutImage() throws MessagingException {
 
     List<Event> allEvents=eventService.allEvents();
@@ -152,7 +152,7 @@ public class EventController {
   }
 
   
-  @RequestMapping(value = "/image_by_id", method = RequestMethod.POST)
+  @RequestMapping(value = "/for_all/event/image_by_id", method = RequestMethod.POST)
   public ResponseEntity<?> getEventImageById(@RequestBody final Integer eventId){
     
     Event event = eventService.findEventById(eventId);
@@ -171,7 +171,7 @@ public class EventController {
   }
 
 
-  @RequestMapping(value="/event_by_id", method=RequestMethod.GET)
+  @RequestMapping(value="/for_all/event/event_by_id", method=RequestMethod.GET)
   public ResponseEntity<EventInfoResponseDTO> getEventInfo(@RequestParam(name="id") final Integer paramId){
 
     EventInfoResponseDTO result;

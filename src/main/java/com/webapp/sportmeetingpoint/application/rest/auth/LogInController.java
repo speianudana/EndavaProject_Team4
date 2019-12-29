@@ -52,7 +52,7 @@ public class LogInController {
     if(errorMessages.size()>0){
       return ResponseEntity.ok().body(new ValidationErrorMessagesDTO(errorMessages));
     }
-    
+
     try {
       String username = requestDTO.getUsername();
       String password = requestDTO.getPassword();

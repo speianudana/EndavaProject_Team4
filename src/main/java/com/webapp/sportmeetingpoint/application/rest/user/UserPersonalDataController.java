@@ -18,7 +18,7 @@ import java.util.HashMap;
 
 
 @RestController
-@RequestMapping(value = "/api/user_personal_data")
+@RequestMapping(value = "/api/for_authenticated_user")
 public class UserPersonalDataController {
 
   private final JwtTokenProvider jwtTokenProvider;
@@ -33,27 +33,27 @@ public class UserPersonalDataController {
   @PostMapping("/get_data")
   public ResponseEntity tokenToPersonalData( ){
 
-    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+    try{
+      Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+      JwtUser jwtUser = (JwtUser)authentication.getPrincipal();
+      UserSystem userSystem = userSystemService.findById(jwtUser.getId());
+      UserPersonalData personalData = userSystem.getUserPersonalData();
+
+      UserPersonalDataDTO personalDataDTO = new UserPersonalDataDTO();
+      personalDataDTO.setDOB(personalData.getBirthDate()!=null?personalData.getBirthDate().toString():null);
+      personalDataDTO.setFirstName(personalData.getFirstName());
+      personalDataDTO.setLastName(personalData.getLastName());
+      personalDataDTO.setTelNumber(personalData.getTelephoneNumber());
+      personalDataDTO.setEmail(userSystem.getEmail());
+      personalDataDTO.setRole(userSystem.getUserRole().getName());
+
+      return ResponseEntity.ok().body(personalDataDTO);
+    }catch(Exception e){
+      return ResponseEntity.badRequest().body(null);
+    }
 
 
-
-
-    JwtUser jwtUser = (JwtUser)authentication.getPrincipal();
-    UserSystem userSystem = userSystemService.findById(jwtUser.getId());
-    UserPersonalData personalData = userSystem.getUserPersonalData();
-
-    UserPersonalDataDTO personalDataDTO = new UserPersonalDataDTO();
-    personalDataDTO.setDOB(personalData.getBirthDate()!=null?personalData.getBirthDate().toString():null);
-    personalDataDTO.setFirstName(personalData.getFirstName());
-    personalDataDTO.setLastName(personalData.getLastName());
-    personalDataDTO.setTelNumber(personalData.getTelephoneNumber());
-    personalDataDTO.setEmail(userSystem.getEmail());
-    personalDataDTO.setRole(userSystem.getUserRole().getName());
-
-    HashMap response = new HashMap();
-    response.put("personalData", personalDataDTO);
-
-    return ResponseEntity.ok(response);
   }
 
 
