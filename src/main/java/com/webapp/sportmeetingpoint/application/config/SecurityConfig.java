@@ -74,8 +74,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
       .exceptionHandling()
       .authenticationEntryPoint(jwtAuthenticationEntryPoint)
       .and()
-      .sessionManagement()
-      .and()
       .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
       .and()
       .apply(new JwtSecurityConfigurer(jwtTokenProvider));

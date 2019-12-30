@@ -10,6 +10,7 @@ html {
   background-color: #f6f7f9;
 }
 
+
 a {
   text-decoration-line: none;
   outline: none;
@@ -23,6 +24,8 @@ a:hover {
 
 body {
   min-width: 320px;
+  min-height: 100vh;
+  background: repeating-linear-gradient(0deg, hsla(347, 0%, 33%, 0.05) 0px, hsla(347, 0%, 33%, 0.05) 50px, transparent 50px, transparent 100px), repeating-linear-gradient(90deg, hsla(347, 0%, 33%, 0.05) 0px, hsla(347, 0%, 33%, 0.05) 50px, transparent 50px, transparent 100px), linear-gradient(90deg, hsl(139, 0%, 18%), hsl(139, 0%, 18%));
 }
 
 button {

@@ -7,6 +7,7 @@ import { Article } from './Article'
 // import exampleImg from '../../../../../static/qqq.jpg'
 import axios from 'axios'
 import { url } from '../../../../utils/server-url'
+import NewsContainer from './News'
 
 class IndexStatefull extends Component {
   constructor (props) {
@@ -38,6 +39,7 @@ class IndexStatefull extends Component {
 
         <Header />
         <SubHeader />
+        <NewsContainer />
 
         <Container>
 
