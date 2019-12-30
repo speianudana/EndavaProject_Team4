@@ -49,7 +49,7 @@ class CreateEventStatefull extends PureComponent {
       Authorization: `Bearer_${token}`
     }
 
-    axios.post(url + '/api/event/add', formData, {
+    axios.post(url + '/api/for_authenticated_user/event/add', formData, {
       headers: headers
     })
       .then((response) => {

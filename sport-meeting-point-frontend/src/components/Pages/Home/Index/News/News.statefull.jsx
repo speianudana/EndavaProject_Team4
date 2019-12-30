@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 // import PropTypes from 'prop-types'
 import NewsStateless from './News.stateless.jsx'
 import style from './style.scss'
+import { ButtonB } from '../../../../Layouts/Button'
 
 const hardCode = [
   {
@@ -40,7 +41,7 @@ export default class NewsStatefull extends Component {
         }
         <NewsStateless title='title1' text='text222' />
 
-        <button id={style.btnSeeMoreNews}>See more news...</button>
+        <ButtonB title='See more news...' onClickHandle={() => alert('see more news')} />
       </div>
     )
   }

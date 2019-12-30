@@ -12,7 +12,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 
 /*
 * TO DO:
-* Configuration for proper operation of routing in SPA
+* Configuration for proper operation of routing in SPA React
 *
 *
 * */

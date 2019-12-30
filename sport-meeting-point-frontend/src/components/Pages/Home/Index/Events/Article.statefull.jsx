@@ -67,7 +67,3 @@ ArticleStatefull.propTypes = {
 }
 
 export default ArticleStatefull
-
-ArticleStatefull.propType = {
-
-}
