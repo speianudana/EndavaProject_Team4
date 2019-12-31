@@ -21,7 +21,7 @@ public class NewsServiceImpl implements NewsService {
 
     @Override
     public News saveNews(News news, @NotNull UserSystem author) {
-        news.setUserActivity(author.getUserActivity());
+        news.setUserAuthorActivity(author.getUserAuthorActivity());
         return newsRepository.save(news);
     }
 

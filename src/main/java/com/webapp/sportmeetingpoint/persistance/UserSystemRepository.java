@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.Optional;
 
+@Transactional
 public interface UserSystemRepository extends CrudRepository<UserSystem, Long>, JpaRepository<UserSystem, Long> {
 
 

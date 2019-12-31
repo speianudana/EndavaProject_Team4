@@ -8,7 +8,6 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.util.Date;
 
 @EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor
@@ -31,8 +30,8 @@ public class News extends BaseEntity {
 //
 
   @ManyToOne(fetch = FetchType.EAGER)
-  @JoinColumn(name = "user_activity_fk_id", nullable = true)
-  private UserActivity userActivity;
+  @JoinColumn(name = "user_author_activity_fk_id", nullable = true)
+  private UserAuthorActivity userAuthorActivity;
 
 
 }

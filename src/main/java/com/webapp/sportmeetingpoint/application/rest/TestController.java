@@ -1,32 +1,53 @@
 package com.webapp.sportmeetingpoint.application.rest;
 
 
+import com.webapp.sportmeetingpoint.application.service.EventParticipantActivityService;
+import com.webapp.sportmeetingpoint.domain.entities.Event;
+import com.webapp.sportmeetingpoint.domain.entities.EventParticipantActivity;
+import com.webapp.sportmeetingpoint.domain.entities.UserSystem;
 import com.webapp.sportmeetingpoint.persistance.EventRepository;
+import com.webapp.sportmeetingpoint.persistance.EventParticipantActivityRepository;
+import com.webapp.sportmeetingpoint.persistance.UserSystemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
 
 
 @RequestMapping(value = "/api/test")
 @RestController
 public class TestController {
 
+  private final UserSystemRepository userSystemRepository;
+  private final EventRepository eventRepository;
+  private final EventParticipantActivityService eventParticipantActivityService;
+
   @Autowired
-  EventRepository eventRepository;
+  private EventParticipantActivityRepository eventParticipantActivityRepository;
+
+  public TestController(UserSystemRepository userSystemRepository, EventRepository eventRepository, EventParticipantActivityService eventParticipantActivityService) {
+    this.userSystemRepository = userSystemRepository;
+    this.eventRepository = eventRepository;
+    this.eventParticipantActivityService = eventParticipantActivityService;
+  }
 
   @RequestMapping(value = "/q", method = RequestMethod.GET)
-  public void doTest(){
+  public void doTest(@RequestParam("i1")Integer uId, @RequestParam("i2")Integer eId) throws Exception {
 
-    Byte[] z = eventRepository.findByIdEventImage(1).get();
+//    Byte[] z = eventRepository.findByIdEventImage(1).get();
+
+    UserSystem u = userSystemRepository.findById(uId);
+    Event e = eventRepository.findById(eId).orElse(null);
+    eventParticipantActivityService.unsubscribeUserToTheCurrentEvent(u, e);
+
+
+//
+//    EventParticipantActivity ep = eventParticipantActivityService.subscribeUserToTheCurrentEvent(u, e);
 
     char a = 'a';
 
   }
-
-
 
 
 }

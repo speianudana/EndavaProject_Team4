@@ -2,7 +2,9 @@
 
 
 
+DROP DATABASE "TestDB";
 
+CREATE DATABASE TestDB;
 
 -- delete all tables
 DROP TABLE PUBLIC."event",

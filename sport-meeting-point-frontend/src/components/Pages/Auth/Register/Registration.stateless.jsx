@@ -113,12 +113,10 @@ const RegistrationDataForm = React.memo(({ handleBtnRegistr, errorMsgs }) => {
 
       {
         regData.password !== regData.passwordRepeat &&
-        // eslint-disable-next-line react/jsx-indent
-        <p className={style.errorMsg}>*Password and password repeat is not equal.</p>
+          <p className={style.errorMsg}>*Password and password repeat is not equal.</p>
       }
 
       {
-        // eslint-disable-next-line react/prop-types
         errorMsgs.map((item, index) => {
           return <p className={style.errorMsg} key={index}>* {item}</p>
         })

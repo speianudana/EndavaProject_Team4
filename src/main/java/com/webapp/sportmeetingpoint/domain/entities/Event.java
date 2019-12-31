@@ -8,7 +8,9 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor
@@ -39,15 +41,11 @@ public class Event extends BaseEntity {
   @Column(name = "date")
   private Date date;
 
-
   @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "user_activity_fk_id", nullable = false)
-  private UserActivity userActivity;
+  @JoinColumn(name = "user_author_activity_fk_id", nullable = false)
+  private UserAuthorActivity userAuthorActivity;
 
-
-
-
-
-
+  @OneToMany(mappedBy = "event")
+  private List<EventParticipantActivity> participantActivity = new ArrayList<>();
 
 }

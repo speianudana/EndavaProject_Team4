@@ -14,22 +14,22 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-@Entity(name = "UserActivity")
-@Table(name = "user_activity")
-public class UserActivity extends BaseEntity {
+@Entity(name = "UserAuthorActivity")
+@Table(name = "user_author_activity")
+public class UserAuthorActivity extends BaseEntity {
 
 
   @OneToOne(fetch = FetchType.EAGER,
-          mappedBy = "userActivity")
+          mappedBy = "userAuthorActivity")
   private UserSystem userSystem;
 
   @OneToMany(
-          mappedBy = "userActivity"
+          mappedBy = "userAuthorActivity"
   )
   private List<News> news = new ArrayList<>();
 
   @OneToMany(
-          mappedBy = "userActivity"
+          mappedBy = "userAuthorActivity"
   )
   private List<Event> events = new ArrayList<>();
 

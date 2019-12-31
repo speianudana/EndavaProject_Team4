@@ -21,7 +21,7 @@ public class EventServiceImpl implements EventService {
 
   @Override
   public Event saveEvent(final Event event, final UserSystem author) {
-    event.setUserActivity(author.getUserActivity());
+    event.setUserAuthorActivity(author.getUserAuthorActivity());
     return eventRepository.save(event);
   }
   

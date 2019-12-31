@@ -7,7 +7,9 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @EqualsAndHashCode(callSuper = false)
 @Entity(name="UserSystem")
@@ -38,11 +40,14 @@ public class UserSystem extends BaseEntity {
   private UserRole userRole;
 
   @OneToOne(fetch = FetchType.EAGER, optional = false)
-  @JoinColumn(name = "user_activity_fk_id", nullable = false)
-  private UserActivity userActivity;
+  @JoinColumn(name = "user_author_activity_fk_id", nullable = false)
+  private UserAuthorActivity userAuthorActivity;
 
   @OneToOne(fetch = FetchType.EAGER, optional = false)
   @JoinColumn(name="user_system_validation_hash_fk_id", nullable = false)
   private UserSystemValidationHash userSystemValidationHash;
+
+  @OneToMany(mappedBy = "userSystem")
+  private List<EventParticipantActivity> participantActivity = new ArrayList<>();
 
 }

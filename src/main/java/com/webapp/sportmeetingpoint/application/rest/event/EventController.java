@@ -12,7 +12,6 @@ import com.webapp.sportmeetingpoint.domain.dto.ImageDTO;
 import com.webapp.sportmeetingpoint.domain.entities.Event;
 import com.webapp.sportmeetingpoint.domain.entities.UserPersonalData;
 import com.webapp.sportmeetingpoint.domain.entities.UserSystem;
-import com.webapp.sportmeetingpoint.util.mail.MailUtil;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -26,7 +25,6 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.mail.MessagingException;
 import javax.validation.*;
 import java.io.IOException;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -179,7 +177,7 @@ public class EventController {
     try{
 
       final Event dbEvent = eventService.findEventById(paramId);
-      final UserSystem getAuthor = dbEvent.getUserActivity().getUserSystem();
+      final UserSystem getAuthor = dbEvent.getUserAuthorActivity().getUserSystem();
       final UserPersonalData getAuthorPersonalData = getAuthor.getUserPersonalData();
       final String authorFullName = getAuthorPersonalData.getFirstName()+" "+getAuthorPersonalData.getLastName();
 

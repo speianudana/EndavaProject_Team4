@@ -1,9 +1,10 @@
 import { combineReducers } from 'redux'
-import authenticationData from './Authentication.reducers'
-// TO DO: for test
+import authenticationData from './Authentication.reducer'
+import allEventData from './Event.reducer'
 
 const rootReducer = combineReducers({
-  authenticationData
+  authenticationData,
+  allEventData
   // userPersonalData
 })
 

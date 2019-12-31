@@ -17,18 +17,18 @@ public class UserSystemServiceImpl implements UserSystemService {
   private final UserSystemRepository userSystemRepository;
   private final UserRoleRepository userRoleRepository;
   private final UserPersonalDataRepository userPersonalDataRepository;
-  private final UserActivityRepository userActivityRepository;
+  private final UserAuthorActivityRepository userAuthorActivityRepository;
   private final UserSystemValidationHashRepository userSystemValidationHashRepository;
 
   @Autowired
   public UserSystemServiceImpl(UserSystemRepository userSystemRepository, UserRoleRepository userRoleRepository,
-                               UserActivityRepository userActivityRepository,
+                               UserAuthorActivityRepository userAuthorActivityRepository,
                                UserPersonalDataRepository userPersonalDataRepository,
                                UserSystemValidationHashRepository userSystemValidationHashRepository) {
     this.userSystemRepository = userSystemRepository;
     this.userRoleRepository = userRoleRepository;
     this.userPersonalDataRepository = userPersonalDataRepository;
-    this.userActivityRepository = userActivityRepository;
+    this.userAuthorActivityRepository = userAuthorActivityRepository;
     this.userSystemValidationHashRepository = userSystemValidationHashRepository;
   }
 
@@ -39,7 +39,7 @@ public class UserSystemServiceImpl implements UserSystemService {
 
 
     UserRole role = userRoleRepository.findByName(AppUserRoles.USER.toString()).get();
-    UserActivity defaultUserActivity = userActivityRepository.save(new UserActivity());
+    UserAuthorActivity defaultUserAuthorActivity = userAuthorActivityRepository.save(new UserAuthorActivity());
     UserPersonalData defaultPersonalData =  userPersonalDataRepository.save(userPersonalData);
 
     String alphabet = RandomString.digits + "ACEFGHJKLMNPQRUVWXY"+"abcdefhijkprstuvwx";
@@ -53,7 +53,7 @@ public class UserSystemServiceImpl implements UserSystemService {
     userSystemValidationHash.setHash(hash);
     userSystemValidationHash = userSystemValidationHashRepository.save(userSystemValidationHash);
 
-    userSystem.setUserActivity(defaultUserActivity);
+    userSystem.setUserAuthorActivity(defaultUserAuthorActivity);
     userSystem.setUserRole(role);
     userSystem.setUserPersonalData(userPersonalData);
     userSystem.setUserSystemValidationHash(userSystemValidationHash);

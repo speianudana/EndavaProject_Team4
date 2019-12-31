@@ -1,19 +1,13 @@
 package com.webapp.sportmeetingpoint;
 
 
-import com.webapp.sportmeetingpoint.application.service.UserSystemService;
-import com.webapp.sportmeetingpoint.domain.entities.*;
 import com.webapp.sportmeetingpoint.persistance.EventRepository;
-import com.webapp.sportmeetingpoint.persistance.UserActivityRepository;
-import com.webapp.sportmeetingpoint.persistance.UserRoleRepository;
+import com.webapp.sportmeetingpoint.persistance.UserAuthorActivityRepository;
 import com.webapp.sportmeetingpoint.persistance.UserSystemRepository;
-import com.webapp.sportmeetingpoint.util.mail.MailUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
-
-import java.util.Date;
 
 @Component
 @Slf4j
@@ -24,7 +18,7 @@ public class DataInitializerForDevelopment implements CommandLineRunner {
   EventRepository eventRepository;
 
   @Autowired
-  UserActivityRepository userActivityRepository;
+  UserAuthorActivityRepository userAuthorActivityRepository;
 
   @Autowired
   UserSystemRepository userSystemRepository;

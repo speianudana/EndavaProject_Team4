@@ -1,6 +1,5 @@
 package com.webapp.sportmeetingpoint.application.service;
 
-import com.webapp.sportmeetingpoint.domain.entities.UserActivity;
 import com.webapp.sportmeetingpoint.domain.entities.UserPersonalData;
 import com.webapp.sportmeetingpoint.domain.entities.UserSystem;
 
