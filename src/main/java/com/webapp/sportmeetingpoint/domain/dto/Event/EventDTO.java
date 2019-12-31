@@ -1,4 +1,4 @@
-package com.webapp.sportmeetingpoint.domain.dto;
+package com.webapp.sportmeetingpoint.domain.dto.Event;
 
 
 import lombok.AllArgsConstructor;
@@ -16,7 +16,8 @@ public class EventDTO {
   private String description;
   private Byte[] image;
   private String address;
-
+  private String authorEmail;
+  private String authorFullName;
 
 
 }

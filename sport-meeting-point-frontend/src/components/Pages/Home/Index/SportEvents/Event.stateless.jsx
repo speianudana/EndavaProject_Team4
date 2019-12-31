@@ -23,14 +23,14 @@ Element.propTypes = {
 
 function imgShower (img) {
   switch (img) {
-    case '':
+    case null:
       return <LoadingType1 />
     default:
       return <img src={img} className={style.imgStyle} alt='' />
   }
 }
 
-export default function ArticleStateless ({ id, title, text, image }) {
+export default function EventStateless ({ id, title, text, image }) {
   return (
     <div className={style.mainContainer}>
       <div className={style.mainContainerChild}>
@@ -81,7 +81,7 @@ export default function ArticleStateless ({ id, title, text, image }) {
   )
 }
 
-ArticleStateless.propTypes = {
+EventStateless.propTypes = {
   id: PropTypes.number.isRequired,
   title: PropTypes.string,
   text: PropTypes.string,

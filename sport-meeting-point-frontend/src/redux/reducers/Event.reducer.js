@@ -1,12 +1,8 @@
 import {
-  ADD_EVENT_IN_ARRAY
-  // LOAD_A_FIXED_NUMBER_OF_EVENTS_ID,
-  // LOAD_EVENT_INFO_BY_ID,
-  // LOAD_GET_EVENT_IMAGE_BY_ID,
-  // LOAD_GET_EVENT_PARTICIPANTS_BY_ID
+  PUSH_EVENTS_WITHOUT_A_IMAGE_TO_ARRAY,
+  PUSH_EVENTS_WITH_A_IMAGE_TO_ARRAY
 
 } from '../constants/Event.constants'
-import SportEvent from '../../classes/SportEvent'
 
 const initialState = {
   allEvents: [],
@@ -16,12 +12,17 @@ const initialState = {
 
 function allEventData (state = initialState, action) {
   switch (action.type) {
-    case ADD_EVENT_IN_ARRAY:
-      state.allEvents.push(new SportEvent())
+    case PUSH_EVENTS_WITHOUT_A_IMAGE_TO_ARRAY:
       return {
         ...state,
-        allEvents: state.allEvents
+        allEvents: [...state.allEvents, ...action.payload]
       }
+    case PUSH_EVENTS_WITH_A_IMAGE_TO_ARRAY:
+      return {
+        ...state,
+        allEvents: [...state.allEvents]
+      }
+
     default:
       return state
   }

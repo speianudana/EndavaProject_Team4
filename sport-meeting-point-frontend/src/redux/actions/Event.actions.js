@@ -1,25 +1,82 @@
 import { url } from '../../utils/server-url'
-// import axios from 'axios'
 import * as authUtils from '../utils/Authentication'
-import SportEvent from '../../classes/SportEvent'
 import {
-  ADD_EVENT_IN_ARRAY,
-  LOAD_A_FIXED_NUMBER_OF_EVENTS
-  // LOAD_EVENT_INFO_BY_ID,
-  // LOAD_GET_EVENT_IMAGE_BY_ID,
-  // LOAD_GET_EVENT_PARTICIPANTS_BY_ID
+  PUSH_EVENTS_WITHOUT_A_IMAGE_TO_ARRAY,
+  PUSH_EVENTS_WITH_A_IMAGE_TO_ARRAY
 
 } from '../constants/Event.constants'
+import byteToImageSrc from '../../utils/byteToImageSrc'
 
-export function addEventInStore (data) {
+function addEventsInStore (data) {
   return {
-    type: ADD_EVENT_IN_ARRAY,
+    type: PUSH_EVENTS_WITHOUT_A_IMAGE_TO_ARRAY,
     payload: data
   }
 }
 
-export function loadFixedNumberOfEventsId (fixedNumber) {
-  return dispatch => {
+function addImageForEventIntoStore (id, image) {
+  return {
+    type: PUSH_EVENTS_WITH_A_IMAGE_TO_ARRAY,
+    payload: { id, image }
+  }
+}
 
+function fetchSportEventImage (sportEventObject) {
+  return dispatch => {
+    const token = authUtils.loadTokenFromLocalStorage()
+    const requestSetting = {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer_${token}`
+      }
+    }
+    fetch(`${url}/api/for_all/event/image_by_id?id=${sportEventObject.id}`, requestSetting)
+      .then(response => {
+        if (response.status === 200 && response.ok) return response.json()
+        else throw Error()
+      })
+      .then((data) => {
+        sportEventObject.image = byteToImageSrc(data.image)
+        dispatch(addImageForEventIntoStore(sportEventObject))
+      })
+      .catch((error) => {
+        console.warn('Event action fetch image error:', error)
+      })
+  }
+}
+
+export function loadFixedNumberOfEventsId (excludeIdArray = [], fixedNumber = 5) {
+  return dispatch => {
+    const token = authUtils.loadTokenFromLocalStorage()
+
+    const requestData = JSON.stringify({
+      getUIEventsId: excludeIdArray,
+      theNumberOfNecessaryEvents: fixedNumber
+    })
+
+    const requestSetting = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer_${token}`
+      },
+      body: requestData
+    }
+
+    fetch(`${url}/api/for_all/event/get_events`, requestSetting)
+      .then(response => {
+        if (response.status === 200 && response.ok) return response.json()
+        else throw Error()
+      })
+      .then((data) => {
+        dispatch(addEventsInStore(data))
+        data.forEach(a => {
+          dispatch(fetchSportEventImage(a))
+        })
+      })
+      .catch((error) => {
+        console.warn('Event action error:', error)
+      })
   }
 }

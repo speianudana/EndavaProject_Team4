@@ -1,13 +1,9 @@
 import React, { Component } from 'react'
 import { Container } from '../../../Layouts/Container'
 import { Header } from './Header'
-// import TestRedux from './TestRedux/TestRedux.statefull.jsx'
 import { SubHeader } from './SubHeader'
-import { Article } from './Events'
-// import exampleImg from '../../../../../static/qqq.jpg'
-import axios from 'axios'
-import { url } from '../../../../utils/server-url'
 import NewsContainer from './News'
+import EventsContainer from './SportEvents'
 
 class IndexStatefull extends Component {
   constructor (props) {
@@ -20,13 +16,6 @@ class IndexStatefull extends Component {
 
   componentDidMount () {
     this._isMounted = true
-    const self = this
-
-    axios.get(`${url}/api/for_all/event/all_events`)
-      .then(e => {
-        if (self._isMounted) { self.setState({ articles: e.data }) }
-      })
-      .catch(err => console.warn(err))
   }
 
   componentWillUnmount () {
@@ -43,21 +32,8 @@ class IndexStatefull extends Component {
 
         <Container>
 
-          {
+          <EventsContainer />
 
-            this.state.articles.map((item, index) => (
-              <Article
-                key={item.id}
-                id={item.id}
-                title={item.title}
-                text={item.previewMessage}
-                image=''
-              />)
-            )
-
-          }
-
-          {/* <LoadingType1 /> */}
           <br />
           <br />
         </Container>
