@@ -6,6 +6,7 @@ import {
 
 } from '../constants/Event.constants'
 import byteToImageSrc from '../../utils/byteToImageSrc'
+import noImage from '../../../static/No-Image-Basic.png'
 
 function addEventsInStore (data) {
   return {
@@ -37,7 +38,12 @@ function fetchSportEventImage (sportEventObject) {
         else throw Error()
       })
       .then((data) => {
-        sportEventObject.image = byteToImageSrc(data.image)
+        // console.log('object', data)
+        if (data === 'NOT_FOUND') {
+          sportEventObject.image = noImage
+        } else {
+          sportEventObject.image = byteToImageSrc(data.image)
+        }
         dispatch(addImageForEventIntoStore(sportEventObject))
       })
       .catch((error) => {
@@ -77,6 +83,31 @@ export function loadFixedNumberOfEventsId (excludeIdArray = [], fixedNumber = 5)
       })
       .catch((error) => {
         console.warn('Event action error:', error)
+      })
+  }
+}
+
+export function fetchSportEventById (sportEventId) {
+  return dispatch => {
+    const token = authUtils.loadTokenFromLocalStorage()
+    const requestSetting = {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer_${token}`
+      }
+    }
+    fetch(`${url}/api/for_all/event/event_by_id?id=${sportEventId}`, requestSetting)
+      .then(response => {
+        if (response.status === 200 && response.ok) return response.json()
+        else throw Error()
+      })
+      .then((data) => {
+        dispatch(addEventsInStore([data]))
+        // console.log(data)
+      })
+      .catch((error) => {
+        console.warn('Event action fetch event by id error:', error)
       })
   }
 }

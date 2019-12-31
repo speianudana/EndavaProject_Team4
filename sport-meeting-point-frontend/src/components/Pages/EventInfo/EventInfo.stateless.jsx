@@ -3,8 +3,6 @@ import style from './style.scss'
 import { Container } from '../../Layouts/Container'
 import PropTypes from 'prop-types'
 
-import noImage from '../../../../static/No-Image-Basic.png'
-
 import { ButtonA } from '../../Layouts/Button'
 
 export default function EventInfoStateless ({ title, previewMessage, description, authorFullName, eventDate, address, image, participants }) {
@@ -65,7 +63,6 @@ EventInfoStateless.defaultProps = {
   authorFullName: 'unknown',
   eventDate: '???',
   address: '???',
-  image: noImage,
   participants: []
 
 }

@@ -4,6 +4,7 @@ package com.webapp.sportmeetingpoint.application.rest.event;
 import com.webapp.sportmeetingpoint.application.service.EventService;
 import com.webapp.sportmeetingpoint.domain.dto.Event.EventDTO;
 import com.webapp.sportmeetingpoint.domain.dto.Event.TheNumberOfNecessaryEventsDTO;
+import com.webapp.sportmeetingpoint.domain.dto.EventInfoResponseDTO;
 import com.webapp.sportmeetingpoint.domain.dto.ImageDTO;
 import com.webapp.sportmeetingpoint.domain.entities.Event;
 import com.webapp.sportmeetingpoint.domain.entities.UserPersonalData;
@@ -16,6 +17,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.mail.MessagingException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -72,6 +74,36 @@ public class ReceiveEventController {
 
 
     return ResponseEntity.ok().body(result);
+  }
+
+  @RequestMapping(value="/event/event_by_id", method=RequestMethod.GET)
+  public ResponseEntity getEventInfo(@RequestParam(name="id") final Integer paramId){
+
+    EventDTO result = new EventDTO();
+
+    try{
+
+      final Event dbEvent = eventService.findEventById(paramId);
+      final UserSystem getAuthor = dbEvent.getUserAuthorActivity().getUserSystem();
+      final UserPersonalData getAuthorPersonalData = getAuthor.getUserPersonalData();
+      final String authorFullName = getAuthorPersonalData.getFirstName()+" "+getAuthorPersonalData.getLastName();
+
+
+      result.setAuthorFullName(authorFullName);
+      result.setAuthorEmail(getAuthor.getEmail());
+      result.setAddress(dbEvent.getAddress());
+      result.setDescription(dbEvent.getDescription());
+      result.setId(paramId);
+      result.setPreviewMessage(dbEvent.getPreviewMessage());
+      result.setTitle(dbEvent.getTitle());
+      result.setImage(null);
+
+
+      return ResponseEntity.ok().body(result);
+
+    }catch(Exception e){
+      return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    }
   }
 
 

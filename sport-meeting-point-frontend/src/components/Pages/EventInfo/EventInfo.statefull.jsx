@@ -1,51 +1,52 @@
 import React, { Component } from 'react'
 import EventInfoStateless from './EventInfo.stateless.jsx'
-// import PropTypes from 'prop-types'
-// import { get } from 'axios'
-// import { url } from '../../../utils/server-url'
+import PropTypes from 'prop-types'
 import { FullPageLoading1 as Loading } from '../../Layouts/Loading'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import { fetchSportEventById } from '../../../redux/actions/Event.actions'
+import noImg from '../../../../static/No-Image-Basic.png'
 
-export default class EventInfoStatefull extends Component {
+class EventInfoStatefull extends Component {
   constructor (props) {
     super(props)
 
-    // this.loadEventInfoById.bind(this)
-
     this.state = {
-      title: '',
-      previewMsg: '',
-      description: '',
-      address: '',
-      authorName: '',
-      eventDate: '',
-
-      isLoadAnimation: true
+      loadProccess: true,
+      sportEventArrayId: -1,
+      sportEventDbId: null
     }
   }
-
-  // loadEventInfoById (getEventId) {
-  //   get(`${url}/api/for_all/event/event_by_id?id=${getEventId}`)
-  //     .then(result => {
-  //       if (!this._isMounted) return
-  //       this.setState({
-  //         title: result.data.title,
-  //         previewMessage: result.data.previewMessage,
-  //         description: result.data.description,
-  //         address: result.data.address,
-  //         authorName: result.data.authorName,
-  //         eventDate: result.data.eventDate,
-  //         participantsName: result.data.participantsName,
-
-  //         isLoadAnimation: false
-  //       })
-  //     })
-  // }
 
   componentDidMount () {
     this._isMounted = true
 
     const getEventIdFromUrl = Number(window.location.href.split('?id=')[1])
-    // this.loadEventInfoById(getEventIdFromUrl)
+    const index1 = this.props.allEvents.findIndex(a => a.id === getEventIdFromUrl)
+
+    if (index1 === -1) {
+      this.setState({ sportEventDbId: getEventIdFromUrl })
+      this.props.fetchSportEventById(getEventIdFromUrl)
+    } else {
+      this.setState({
+        loadProccess: false,
+        sportEventArrayId: index1,
+        sportEventDbId: getEventIdFromUrl
+      })
+    }
+  }
+
+  componentDidUpdate (prevProps, prevState) {
+    if (this.props !== prevProps) {
+      const index1 = this.props.allEvents.findIndex(a => a.id === this.state.sportEventDbId)
+      if (index1 !== -1) {
+        // eslint-disable-next-line react/no-did-update-set-state
+        this.setState({
+          loadProccess: false,
+          sportEventArrayId: index1
+        })
+      }
+    }
   }
 
   componentWillUnmount () {
@@ -55,16 +56,37 @@ export default class EventInfoStatefull extends Component {
   render () {
     return (
       <>
-        {this.state.isLoadAnimation && <Loading />}
-        <EventInfoStateless
-          title={this.state.title}
-          authorFullName={this.state.authorName}
-          eventDate={this.state.eventDate}
-          address={this.state.address}
-          previewMessage={this.state.previewMessage}
-          description={this.state.description}
-        />
+        {this.state.loadProccess && <Loading />}
+        {
+          !this.state.loadProccess &&
+            <EventInfoStateless
+              title={this.props.allEvents[this.state.sportEventArrayId].title}
+              authorFullName={this.props.allEvents[this.state.sportEventArrayId].authorName}
+              eventDate={this.props.allEvents[this.state.sportEventArrayId].eventDate}
+              address={this.props.allEvents[this.state.sportEventArrayId].address}
+              previewMessage={this.props.allEvents[this.state.sportEventArrayId].previewMessage}
+              description={this.props.allEvents[this.state.sportEventArrayId].description}
+              image={this.props.allEvents[this.state.sportEventArrayId].image || noImg}
+            />
+        }
       </>
     )
   }
 }
+
+const mapStateToProps = state => ({
+  allEvents: state.allEventData.allEvents
+})
+
+const mapDispatchToProps = dispatch => (
+  {
+    fetchSportEventById: bindActionCreators(fetchSportEventById, dispatch)
+  }
+)
+
+EventInfoStatefull.propTypes = {
+  allEvents: PropTypes.array,
+  fetchSportEventById: PropTypes.func
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(EventInfoStatefull)

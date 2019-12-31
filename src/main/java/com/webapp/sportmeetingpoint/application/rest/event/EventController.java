@@ -169,38 +169,38 @@ public class EventController {
   }
 
 
-  @RequestMapping(value="/for_all/event/event_by_id", method=RequestMethod.GET)
-  public ResponseEntity<EventInfoResponseDTO> getEventInfo(@RequestParam(name="id") final Integer paramId){
-
-    EventInfoResponseDTO result;
-
-    try{
-
-      final Event dbEvent = eventService.findEventById(paramId);
-      final UserSystem getAuthor = dbEvent.getUserAuthorActivity().getUserSystem();
-      final UserPersonalData getAuthorPersonalData = getAuthor.getUserPersonalData();
-      final String authorFullName = getAuthorPersonalData.getFirstName()+" "+getAuthorPersonalData.getLastName();
-
-
-      result = EventInfoResponseDTO.eventInfoBuilder()
-        .id(paramId)
-        .title(dbEvent.getTitle())
-        .authorName(authorFullName)
-        .eventDate(new SimpleDateFormat("MM.dd.yyyy HH:mm:ss").format(dbEvent.getDate()))
-        .address(dbEvent.getAddress())
-        .previewMessage(dbEvent.getPreviewMessage())
-        .description(dbEvent.getDescription())
-        .build();
-
-
-
-    }catch(Exception e){
-      return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-    }
-
-
-    return new ResponseEntity<>(result, HttpStatus.OK);
-  }
+//  @RequestMapping(value="/for_all/event/event_by_id", method=RequestMethod.GET)
+//  public ResponseEntity<EventInfoResponseDTO> getEventInfo(@RequestParam(name="id") final Integer paramId){
+//
+//    EventInfoResponseDTO result;
+//
+//    try{
+//
+//      final Event dbEvent = eventService.findEventById(paramId);
+//      final UserSystem getAuthor = dbEvent.getUserAuthorActivity().getUserSystem();
+//      final UserPersonalData getAuthorPersonalData = getAuthor.getUserPersonalData();
+//      final String authorFullName = getAuthorPersonalData.getFirstName()+" "+getAuthorPersonalData.getLastName();
+//
+//
+//      result = EventInfoResponseDTO.eventInfoBuilder()
+//        .id(paramId)
+//        .title(dbEvent.getTitle())
+//        .authorName(authorFullName)
+//        .eventDate(new SimpleDateFormat("MM.dd.yyyy HH:mm:ss").format(dbEvent.getDate()))
+//        .address(dbEvent.getAddress())
+//        .previewMessage(dbEvent.getPreviewMessage())
+//        .description(dbEvent.getDescription())
+//        .build();
+//
+//
+//
+//    }catch(Exception e){
+//      return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+//    }
+//
+//
+//    return new ResponseEntity<>(result, HttpStatus.OK);
+//  }
 
 
 }
