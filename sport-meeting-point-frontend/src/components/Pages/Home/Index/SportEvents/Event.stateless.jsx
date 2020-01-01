@@ -21,7 +21,7 @@ Element.propTypes = {
   size: PropTypes.element
 }
 
-function imgShower (img) {
+function imgShower(img) {
   switch (img) {
     case null:
       return <LoadingType1 />
@@ -30,7 +30,16 @@ function imgShower (img) {
   }
 }
 
-export default function EventStateless ({ id, title, text, image }) {
+export default function EventStateless({
+  id,
+  title,
+  text,
+  image,
+  authorName,
+  address,
+  eventDate
+}) {
+
   return (
     <div className={style.mainContainer}>
       <div className={style.mainContainerChild}>
@@ -47,19 +56,19 @@ export default function EventStateless ({ id, title, text, image }) {
               <FaUser />
             </Element>
 
-            Username
+            {authorName}
 
             <Element>
               <FaCalendarCheck />
             </Element>
 
-            12.12.2011
+            {eventDate}
 
             <Element>
               <FaMapMarkedAlt />
             </Element>
 
-            St. Florilor 98 A
+            {address}
 
           </p>
 
@@ -85,5 +94,8 @@ EventStateless.propTypes = {
   id: PropTypes.number.isRequired,
   title: PropTypes.string,
   text: PropTypes.string,
-  image: PropTypes.string
+  image: PropTypes.string,
+  authorName: PropTypes.string,
+  address: PropTypes.string,
+  eventDate: PropTypes.string
 }

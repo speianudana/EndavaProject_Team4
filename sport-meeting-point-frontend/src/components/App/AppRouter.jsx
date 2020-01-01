@@ -24,24 +24,33 @@ import {
 
 import PropTypes from 'prop-types'
 
-const AppRouter = ({ isAuthenticated }) => {
+const Wrapper = ({ children }) => (
+  <div style={{ minHeight: '100vh' }}>
+    {children}
+  </div>
+)
+
+const AppRouter = ({ isAuthenticated, userRole }) => {
+
   return (
     <Router>
       <Header />
 
-      <Route exact path='/' render={() => (<Redirect to={index} />)} />
-      <Route exact path={index} component={Index} />
-      <Route exact path={registrationUrl} component={Register} />
-      <Route exact path={loginUrl} component={Login} />
+      <Wrapper>
+        <Route exact path='/' render={() => (<Redirect to={index} />)} />
+        <Route exact path={index} component={Index} />
+        <Route exact path={registrationUrl} component={Register} />
+        <Route exact path={loginUrl} component={Login} />
 
-      {/* This use get request, and data from url */}
-      <Route path={userActivationUrl} component={AccountActivator} />
-      <Route path={eventInfoUrl} component={EventInfo} />
-      {/* This use get request, and data from url */}
+        {/* This use get request, and data from url */}
+        <Route path={userActivationUrl} component={AccountActivator} />
+        <Route path={eventInfoUrl} component={EventInfo} />
+        {/* This use get request, and data from url */}
 
-      <Route exact path={userPageUrl} component={isAuthenticated ? UserPage : Index} />
-      <Route exact path={userPageCreateEventUrl} component={isAuthenticated ? CreateEvent : Index} />
-      <Route exact path={userPageCreateNewsURL} component={isAuthenticated ? CreateNews : Index} />
+        <Route exact path={userPageUrl} component={isAuthenticated ? UserPage : Index} />
+        <Route exact path={userPageCreateEventUrl} component={isAuthenticated ? CreateEvent : Index} />
+        <Route exact path={userPageCreateNewsURL} component={isAuthenticated ? CreateNews : Index} />
+      </Wrapper>
 
       <Footer />
       {/* <UserPersonalDataComponent /> */}
@@ -53,3 +62,6 @@ AppRouter.propTypes = {
 }
 
 export default AppRouter
+
+
+// 

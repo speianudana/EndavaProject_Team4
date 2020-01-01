@@ -71,7 +71,7 @@ class CreateEventStatefull extends PureComponent {
       })
       .catch((error) => {
         // clg
-        if (error.response.status === 401) {
+        if (error.response.status && error.response.status === 401) {
           location.reload()
         }
       })

@@ -8,11 +8,11 @@ import { loadFixedNumberOfEventsId } from '../../../../../redux/actions/Event.ac
 import { ButtonB } from '../../../../Layouts/Button/index'
 
 class EventsStatefull extends Component {
-  componentDidMount () {
+  componentDidMount() {
     if (this.props.allEvents.length < 5) this.props.loadEvents()
   }
 
-  render () {
+  render() {
     return (
       <div>
 
@@ -24,6 +24,9 @@ class EventsStatefull extends Component {
               title={item.title}
               text={item.previewMessage}
               image={item.image}
+              authorName={item.authorFullName}
+              address={item.address}
+              eventDate={item.eventDate}
             />
           ))
 

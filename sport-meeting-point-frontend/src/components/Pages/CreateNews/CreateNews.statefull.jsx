@@ -26,7 +26,7 @@ class CreateNewsStatefull extends Component {
         console.log(response)
       })
       .catch((error) => {
-        if (error.response.status === 401) {
+        if (error.response.status && error.response.status === 401) {
           location.reload()
         }
         console.error(error)

@@ -5,16 +5,17 @@ import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { authorizeUserIfTokenInLocalStorageIsValid } from '../../redux/actions/Authentication.actions'
 
-function App (props) {
+function App(props) {
   useEffect(() => {
     props.tryAuthorizeUserUsingTokenFromLocalStorage()
   }, [])
 
-  return <AppRouter isAuthenticated={props.isAuthenticated} />
+  return <AppRouter isAuthenticated={props.isAuthenticated} userRole={props.userRole} />
 }
 
 const mapStateToProps = state => ({
-  isAuthenticated: state.authenticationData.isAuthenticated
+  isAuthenticated: state.authenticationData.isAuthenticated,
+  userRole: state.authenticationData.role
 })
 
 const mapDispatchToProps = dispatch => ({
@@ -24,7 +25,8 @@ const mapDispatchToProps = dispatch => ({
 
 App.propTypes = {
   tryAuthorizeUserUsingTokenFromLocalStorage: PropTypes.func,
-  isAuthenticated: PropTypes.bool
+  isAuthenticated: PropTypes.bool,
+  userRole: PropTypes.string
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(App)

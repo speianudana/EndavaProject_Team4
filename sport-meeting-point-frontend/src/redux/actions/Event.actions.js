@@ -8,21 +8,21 @@ import {
 import byteToImageSrc from '../../utils/byteToImageSrc'
 import noImage from '../../../static/No-Image-Basic.png'
 
-function addEventsInStore (data) {
+function addEventsInStore(data) {
   return {
     type: PUSH_EVENTS_WITHOUT_A_IMAGE_TO_ARRAY,
     payload: data
   }
 }
 
-function addImageForEventIntoStore (id, image) {
+function addImageForEventIntoStore(id, image) {
   return {
     type: PUSH_EVENTS_WITH_A_IMAGE_TO_ARRAY,
     payload: { id, image }
   }
 }
 
-function fetchSportEventImage (sportEventObject) {
+function fetchSportEventImage(sportEventObject) {
   return dispatch => {
     const token = authUtils.loadTokenFromLocalStorage()
     const requestSetting = {
@@ -52,7 +52,7 @@ function fetchSportEventImage (sportEventObject) {
   }
 }
 
-export function loadFixedNumberOfEventsId (excludeIdArray = [], fixedNumber = 15) {
+export function loadFixedNumberOfEventsId(excludeIdArray = [], fixedNumber = 15) {
   return dispatch => {
     const token = authUtils.loadTokenFromLocalStorage()
 
@@ -77,7 +77,6 @@ export function loadFixedNumberOfEventsId (excludeIdArray = [], fixedNumber = 15
       })
       .then((data) => {
         dispatch(addEventsInStore(data))
-        console.table(data)
         data.forEach(a => {
           dispatch(fetchSportEventImage(a))
         })
@@ -88,7 +87,7 @@ export function loadFixedNumberOfEventsId (excludeIdArray = [], fixedNumber = 15
   }
 }
 
-export function fetchSportEventById (sportEventId) {
+export function fetchSportEventById(sportEventId) {
   return dispatch => {
     const token = authUtils.loadTokenFromLocalStorage()
     const requestSetting = {

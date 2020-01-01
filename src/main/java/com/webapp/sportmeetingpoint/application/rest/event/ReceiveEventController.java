@@ -56,9 +56,18 @@ public class ReceiveEventController {
         final EventDTO e = new EventDTO();
 
         UserSystem author = a.getUserAuthorActivity().getUserSystem();
-        final String authorEmail = author.getEmail();
-        UserPersonalData authorPersonalData = a.getUserAuthorActivity().getUserSystem().getUserPersonalData();
-        final String authorFullName = authorPersonalData.getFirstName() + " " + authorPersonalData.getLastName();
+
+        if(author!=null){
+          final String authorEmail = author.getEmail();
+          UserPersonalData authorPersonalData = a.getUserAuthorActivity().getUserSystem().getUserPersonalData();
+          final String authorFullName = authorPersonalData.getFirstName() + " " + authorPersonalData.getLastName();
+          e.setAuthorEmail(authorEmail);
+          e.setAuthorFullName(authorFullName);
+        }else{
+          e.setAuthorEmail("-deleted-");
+          e.setAuthorFullName("-deleted-");
+        }
+
 
         e.setId(a.getId());
         e.setTitle(a.getTitle());
@@ -66,10 +75,9 @@ public class ReceiveEventController {
         e.setDescription(a.getDescription());
         e.setImage(null);
         e.setAddress(a.getAddress());
-        e.setAuthorEmail(authorEmail);
-        e.setAuthorFullName(authorFullName);
 
-        DateFormat df = new SimpleDateFormat("dd-mm-yyyy");
+
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         e.setEventDate(df.format(a.getDate()));
 
 
@@ -105,7 +113,7 @@ public class ReceiveEventController {
       result.setImage(null);
 
 
-      DateFormat df = new SimpleDateFormat("dd-mm-yyyy");
+      DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
       result.setEventDate(df.format(dbEvent.getDate()));
 
       return ResponseEntity.ok().body(result);
