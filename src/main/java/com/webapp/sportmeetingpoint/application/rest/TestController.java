@@ -33,15 +33,18 @@ public class TestController {
   }
 
   @RequestMapping(value = "/q", method = RequestMethod.GET)
-  public void doTest(@RequestParam("i1")Integer uId, @RequestParam("i2")Integer eId) throws Exception {
+  public void doTest(@RequestParam("i1") Integer uId, @RequestParam("i2") Integer eId,
+                     @RequestParam("subscribe") Integer subscribe) throws Exception {
 
 //    Byte[] z = eventRepository.findByIdEventImage(1).get();
 
-    UserSystem u = userSystemRepository.findById(uId);
+    UserSystem u = userSystemRepository.findById(uId).orElse(null);
     Event e = eventRepository.findById(eId).orElse(null);
-    eventParticipantActivityService.unsubscribeUserToTheCurrentEvent(u, e);
 
-
+    if (subscribe == 1)
+      eventParticipantActivityService.subscribeUserToTheCurrentEvent(u, e);
+    else
+      eventParticipantActivityService.unsubscribeUserToTheCurrentEvent(u, e);
 //
 //    EventParticipantActivity ep = eventParticipantActivityService.subscribeUserToTheCurrentEvent(u, e);
 

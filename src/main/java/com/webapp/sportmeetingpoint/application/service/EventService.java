@@ -13,4 +13,8 @@ public interface EventService {
   
   List<Event> allEvents();
 
+  List<Event> find(final List<Integer> excludedIds, final Integer limit);
+
+  List<Event> find(final Integer limit);
+
 }

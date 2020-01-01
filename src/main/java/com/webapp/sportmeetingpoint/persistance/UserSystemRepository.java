@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Transactional
-public interface UserSystemRepository extends CrudRepository<UserSystem, Long>, JpaRepository<UserSystem, Long> {
+public interface UserSystemRepository extends CrudRepository<UserSystem, Integer>, JpaRepository<UserSystem, Integer> {
 
 
   @Query("SELECT u FROM UserSystem u WHERE u.email = :email1")
@@ -22,9 +22,6 @@ public interface UserSystemRepository extends CrudRepository<UserSystem, Long>, 
   Optional<UserSystem> findByPassword(@Param("password1") final String password);
 
   List<UserSystem> findAll();
-
-  UserSystem findById(Integer id);
-
 
   @Transactional
   void deleteById(Integer id);

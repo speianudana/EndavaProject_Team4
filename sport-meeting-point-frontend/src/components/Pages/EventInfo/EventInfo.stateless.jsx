@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 
 import { ButtonA } from '../../Layouts/Button'
 
-export default function EventInfoStateless ({ title, previewMessage, description, authorFullName, eventDate, address, image, participants }) {
+export default function EventInfoStateless({ title, previewMessage, description, authorFullName, eventDate, address, image, participants }) {
   return (
     <Container>
 
@@ -33,7 +33,10 @@ export default function EventInfoStateless ({ title, previewMessage, description
         <br />
 
         <h4>Participants:</h4>
-        <p>1, 2, 3, 4</p>
+        <br />
+        {
+          participants
+        }
         <br />
         <br />
 
@@ -56,10 +59,9 @@ EventInfoStateless.propTypes = {
   eventDate: PropTypes.string,
   address: PropTypes.string,
   image: PropTypes.string,
-  participants: PropTypes.array
+  participants: PropTypes.node
 }
 
 EventInfoStateless.defaultProps = {
-  participants: []
 
 }

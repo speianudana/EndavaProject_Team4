@@ -4,12 +4,10 @@ package com.webapp.sportmeetingpoint.application.rest.event;
 import com.webapp.sportmeetingpoint.application.service.EventService;
 import com.webapp.sportmeetingpoint.domain.dto.Event.EventDTO;
 import com.webapp.sportmeetingpoint.domain.dto.Event.TheNumberOfNecessaryEventsDTO;
-import com.webapp.sportmeetingpoint.domain.dto.EventInfoResponseDTO;
 import com.webapp.sportmeetingpoint.domain.dto.ImageDTO;
 import com.webapp.sportmeetingpoint.domain.entities.Event;
 import com.webapp.sportmeetingpoint.domain.entities.UserPersonalData;
 import com.webapp.sportmeetingpoint.domain.entities.UserSystem;
-import com.webapp.sportmeetingpoint.persistance.EventRepository;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,7 +17,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.mail.MessagingException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -29,12 +26,10 @@ import java.util.stream.Collectors;
 @RequestMapping(value = "/api/for_all")
 public class ReceiveEventController {
 
-  private final EventRepository eventRepository;
   private final EventService eventService;
 
   @Autowired
-  public ReceiveEventController(EventRepository eventRepository, EventService eventService) {
-    this.eventRepository = eventRepository;
+  public ReceiveEventController(EventService eventService) {
     this.eventService = eventService;
   }
 
@@ -48,9 +43,9 @@ public class ReceiveEventController {
     List<Event> eventsFromDb = new ArrayList<>();
 
     if (excludedIds == null || excludedIds.size() == 0)
-      eventsFromDb = eventRepository.findAllUseLimit(limit);
+      eventsFromDb = eventService.find(limit);
     else
-      eventsFromDb = eventRepository.findAllAndExcludeValueByListUseLimit(excludedIds, limit);
+      eventsFromDb = eventService.find(excludedIds, limit);
 
     List<EventDTO> result = eventsFromDb.stream().map(a -> {
         final EventDTO e = new EventDTO();

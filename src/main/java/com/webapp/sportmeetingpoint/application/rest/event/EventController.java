@@ -87,7 +87,19 @@ public class EventController {
         e.printStackTrace();
       }
     }
-    
+
+    Set<ConstraintViolation<CreateEventDTO>> validates = validator.validate(eventDTO);
+
+    if(validates.size()>0){
+      List<String> errorMessages = validates.stream().map(ConstraintViolation::getMessageTemplate)
+        .collect(Collectors.toList());
+
+      HashMap result = new HashMap();
+      result.put("validationMessage", errorMessages);
+
+      return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
     Event e = new Event();
     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
@@ -105,17 +117,7 @@ public class EventController {
       return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
   
-    Set<ConstraintViolation<CreateEventDTO>> validates = validator.validate(eventDTO);
-  
-    if(validates.size()>0){
-      List<String> errorMessages = validates.stream().map(ConstraintViolation::getMessageTemplate)
-        .collect(Collectors.toList());
-      
-      HashMap result = new HashMap();
-      result.put("validationMessage", errorMessages);
-      
-      return new ResponseEntity<>(result, HttpStatus.OK);
-    }
+
     
     Event result = eventService.saveEvent(e, userSystem);
     

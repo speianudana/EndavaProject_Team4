@@ -35,5 +35,15 @@ public class EventServiceImpl implements EventService {
     return eventRepository.findAll();
   }
 
+  @Override
+  public List<Event> find(List<Integer> excludedIds, Integer limit) {
+    return eventRepository.findAllAndExcludeValueByListUseLimit(excludedIds, limit);
+  }
+
+  @Override
+  public List<Event> find(Integer limit) {
+    return eventRepository.findAllUseLimit(limit);
+  }
+
 
 }
