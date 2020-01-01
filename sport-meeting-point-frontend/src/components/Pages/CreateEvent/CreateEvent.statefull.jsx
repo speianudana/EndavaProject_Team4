@@ -31,6 +31,8 @@ class CreateEventStatefull extends PureComponent {
   handleAllInputData (data) {
     this.setState({ loadPage: true })
 
+    // console.log('z1', data)
+
     const self = this
     const token = this.props.getToken()
     const formData = new FormData()
@@ -38,7 +40,9 @@ class CreateEventStatefull extends PureComponent {
       title: data.title.length > 0 ? data.title : null,
       address: data.address.length > 0 ? data.address : null,
       previewMessage: data.previewMessage.length > 0 ? data.previewMessage : null,
-      description: data.description.length > 0 ? data.description : null
+      description: data.description.length > 0 ? data.description : null,
+    /*format YYYY-MM-DD*/
+      eventDate: data.date
     }
 
     formData.append('file', data.image != null ? data.image : new File([], ''))
@@ -66,6 +70,7 @@ class CreateEventStatefull extends PureComponent {
         }
       })
       .catch((error) => {
+        // clg
         if (error.response.status === 401) {
           location.reload()
         }

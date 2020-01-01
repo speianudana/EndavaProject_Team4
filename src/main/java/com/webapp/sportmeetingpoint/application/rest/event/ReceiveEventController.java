@@ -17,7 +17,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.mail.MessagingException;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -45,7 +47,7 @@ public class ReceiveEventController {
 
     List<Event> eventsFromDb = new ArrayList<>();
 
-    if(excludedIds==null || excludedIds.size()==0)
+    if (excludedIds == null || excludedIds.size() == 0)
       eventsFromDb = eventRepository.findAllUseLimit(limit);
     else
       eventsFromDb = eventRepository.findAllAndExcludeValueByListUseLimit(excludedIds, limit);
@@ -56,7 +58,7 @@ public class ReceiveEventController {
         UserSystem author = a.getUserAuthorActivity().getUserSystem();
         final String authorEmail = author.getEmail();
         UserPersonalData authorPersonalData = a.getUserAuthorActivity().getUserSystem().getUserPersonalData();
-        final String authorFullName = authorPersonalData.getFirstName()+" " + authorPersonalData.getLastName();
+        final String authorFullName = authorPersonalData.getFirstName() + " " + authorPersonalData.getLastName();
 
         e.setId(a.getId());
         e.setTitle(a.getTitle());
@@ -67,6 +69,10 @@ public class ReceiveEventController {
         e.setAuthorEmail(authorEmail);
         e.setAuthorFullName(authorFullName);
 
+        DateFormat df = new SimpleDateFormat("dd-mm-yyyy");
+        e.setEventDate(df.format(a.getDate()));
+
+
         return e;
       }
 
@@ -76,17 +82,17 @@ public class ReceiveEventController {
     return ResponseEntity.ok().body(result);
   }
 
-  @RequestMapping(value="/event/event_by_id", method=RequestMethod.GET)
-  public ResponseEntity getEventInfo(@RequestParam(name="id") final Integer paramId){
+  @RequestMapping(value = "/event/event_by_id", method = RequestMethod.GET)
+  public ResponseEntity getEventInfo(@RequestParam(name = "id") final Integer paramId) {
 
     EventDTO result = new EventDTO();
 
-    try{
+    try {
 
       final Event dbEvent = eventService.findEventById(paramId);
       final UserSystem getAuthor = dbEvent.getUserAuthorActivity().getUserSystem();
       final UserPersonalData getAuthorPersonalData = getAuthor.getUserPersonalData();
-      final String authorFullName = getAuthorPersonalData.getFirstName()+" "+getAuthorPersonalData.getLastName();
+      final String authorFullName = getAuthorPersonalData.getFirstName() + " " + getAuthorPersonalData.getLastName();
 
 
       result.setAuthorFullName(authorFullName);
@@ -99,21 +105,24 @@ public class ReceiveEventController {
       result.setImage(null);
 
 
+      DateFormat df = new SimpleDateFormat("dd-mm-yyyy");
+      result.setEventDate(df.format(dbEvent.getDate()));
+
       return ResponseEntity.ok().body(result);
 
-    }catch(Exception e){
+    } catch (Exception e) {
       return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
   }
 
 
   @RequestMapping(value = "/event/image_by_id", method = RequestMethod.GET)
-  public ResponseEntity<?> getEventImageById(@RequestParam("id") final Integer eventId){
+  public ResponseEntity<?> getEventImageById(@RequestParam("id") final Integer eventId) {
 
     Event event = eventService.findEventById(eventId);
 
 
-    if(event == null || event.getImage()==null){
+    if (event == null || event.getImage() == null) {
       return ResponseEntity.ok(HttpStatus.NOT_FOUND);
     }
 

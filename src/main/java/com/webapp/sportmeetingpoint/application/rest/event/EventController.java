@@ -65,11 +65,11 @@ public class EventController {
   
     CreateEventDTO eventDTO = null;
   
-    if(!data.isEmpty() && data != null){
+    if(data != null && !data.isEmpty()){
        eventDTO = new ObjectMapper().readValue(data, CreateEventDTO.class);
     }
     
-    if(!file.isEmpty() && eventDTO!=null){
+    if(eventDTO!=null && !file.isEmpty() ){
       try {
     
         Byte[] byteImage = new Byte[file.getBytes().length];
@@ -89,11 +89,12 @@ public class EventController {
     }
     
     Event e = new Event();
-    
+    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
     try{
       
       e.setTitle(eventDTO.getTitle());
-      e.setDate(new Date());
+      e.setDate(simpleDateFormat.parse(eventDTO.getEventDate()));
       e.setDescription(eventDTO.getDescription());
       e.setPreviewMessage(eventDTO.getPreviewMessage());
       e.setAddress(eventDTO.getAddress());
@@ -120,87 +121,6 @@ public class EventController {
     
     return new ResponseEntity<>(result.getId(), HttpStatus.OK);
   }
-
-  @RequestMapping(value = "/for_all/event/all_events", method = RequestMethod.GET)
-  public ResponseEntity<List<EventDTO>> getAllEventsWithoutImage() throws MessagingException {
-
-    List<Event> allEvents=eventService.allEvents();
-  
-//    MailUtil.getMailUtilObject().sendMailAsync("ipostu20000127@gmail.com",
-//      "<h2>Hello world</h2>");
-
-    
-    List<EventDTO> result = allEvents.stream().map( a -> {
-        final EventDTO e = new EventDTO();
-        
-        e.setId(a.getId());
-        e.setTitle(a.getTitle());
-        e.setPreviewMessage(a.getPreviewMessage());
-        e.setDescription(a.getDescription());
-        e.setImage(null);
-        e.setAddress(a.getAddress());
-        
-        return e;
-      }
-
-    ).collect(Collectors.toList());
-  
-  
-    return new ResponseEntity<>(result, HttpStatus.OK);
-  }
-
-  
-  @RequestMapping(value = "/for_all/event/image_by_id", method = RequestMethod.POST)
-  public ResponseEntity<?> getEventImageById(@RequestBody final Integer eventId){
-    
-    Event event = eventService.findEventById(eventId);
-
-
-    if(event == null || event.getImage()==null){
-      return ResponseEntity.ok(HttpStatus.NOT_FOUND);
-    }
-    
-    ImageDTO result = new ImageDTO();
-    
-    result.setId(eventId);
-    result.setImage(event.getImage());
-    
-    return new ResponseEntity<>(result, HttpStatus.OK);
-  }
-
-
-//  @RequestMapping(value="/for_all/event/event_by_id", method=RequestMethod.GET)
-//  public ResponseEntity<EventInfoResponseDTO> getEventInfo(@RequestParam(name="id") final Integer paramId){
-//
-//    EventInfoResponseDTO result;
-//
-//    try{
-//
-//      final Event dbEvent = eventService.findEventById(paramId);
-//      final UserSystem getAuthor = dbEvent.getUserAuthorActivity().getUserSystem();
-//      final UserPersonalData getAuthorPersonalData = getAuthor.getUserPersonalData();
-//      final String authorFullName = getAuthorPersonalData.getFirstName()+" "+getAuthorPersonalData.getLastName();
-//
-//
-//      result = EventInfoResponseDTO.eventInfoBuilder()
-//        .id(paramId)
-//        .title(dbEvent.getTitle())
-//        .authorName(authorFullName)
-//        .eventDate(new SimpleDateFormat("MM.dd.yyyy HH:mm:ss").format(dbEvent.getDate()))
-//        .address(dbEvent.getAddress())
-//        .previewMessage(dbEvent.getPreviewMessage())
-//        .description(dbEvent.getDescription())
-//        .build();
-//
-//
-//
-//    }catch(Exception e){
-//      return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-//    }
-//
-//
-//    return new ResponseEntity<>(result, HttpStatus.OK);
-//  }
 
 
 }

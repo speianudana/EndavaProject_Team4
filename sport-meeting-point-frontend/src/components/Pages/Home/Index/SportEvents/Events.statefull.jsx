@@ -5,14 +5,11 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { loadFixedNumberOfEventsId } from '../../../../../redux/actions/Event.actions'
 // import noImg from '../../../../../../static/No-Image-Basic.png'
+import { ButtonB } from '../../../../Layouts/Button/index'
 
 class EventsStatefull extends Component {
   componentDidMount () {
     if (this.props.allEvents.length < 5) this.props.loadEvents()
-  }
-
-  componentDidUpdate (prevProps, prevState) {
-    // console.log(this.props)
   }
 
   render () {
@@ -32,6 +29,7 @@ class EventsStatefull extends Component {
 
         }
 
+        <ButtonB title='See more events...' onClickHandle={() => alert('see more events')} />
       </div>
     )
   }

@@ -60,9 +60,6 @@ EventInfoStateless.propTypes = {
 }
 
 EventInfoStateless.defaultProps = {
-  authorFullName: 'unknown',
-  eventDate: '???',
-  address: '???',
   participants: []
 
 }

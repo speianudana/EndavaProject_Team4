@@ -26,7 +26,9 @@ public class CreateEventDTO {
   
   @NotNull(message = "Address is required")
   private String address;
-  
+
+  /*format YYYY-MM-DD*/
+  private String eventDate;
   
   private Byte[] image;
   

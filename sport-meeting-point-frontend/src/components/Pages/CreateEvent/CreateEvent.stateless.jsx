@@ -3,6 +3,7 @@ import style from './style.scss'
 import { Container } from '../../Layouts/Container'
 import { ButtonA } from '../../Layouts/Button'
 import PropTypes from 'prop-types'
+import getCurrentDate from '../../../utils/getCurrentDate'
 
 const validationLimit = {
   title: 64,
@@ -28,9 +29,12 @@ export default function CreateEventStateless ({ handleAllInputData, validationMe
       address: '',
       previewMessage: '',
       description: '',
+      date: getCurrentDate(),
       image: null
     }
   )
+
+  // console.log(getCurrentDate())
 
   return (
     <Container>
@@ -75,16 +79,20 @@ export default function CreateEventStateless ({ handleAllInputData, validationMe
           className={style.inputText}
         />
 
+        <p>5) Event date: </p>
+        <input 
+          onChange={e => setData({ ...data, date: e.target.value })}
+          type='date' 
+          data-date='' 
+          data-date-format='DD MMMM YYYY' 
+        /> 
+
+        <p>6)Event image: </p>
+        <br />
         <input
           type='file'
           onChange={e => setData({ ...data, image: e.target.files[0] })}
-        // onChange={e => {
-        //   imageReader.convertFileToRawData(e.target.files[0])
-        //     .then(imgRawData => setData({ ...data, image: imgRawData }))
-        // }}
         />
-
-        {/* <img src={data.image} alt="" /> */}
 
         <ButtonA
           onClick={e => handleAllInputData(data)}

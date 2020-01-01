@@ -97,7 +97,7 @@ export function loginUser (email, password) {
       })
     })
       .then((response) => {
-        console.log(response)
+        // console.log(response)
         if (response.status === 200 && response.ok) return response.json()
         else throw Error()
       })
@@ -105,7 +105,7 @@ export function loginUser (email, password) {
         if (data.token) {
           authUtils.saveTokenInLocalStorage(data.token)
           dispatch(tokenToPersonalData())
-          console.log('token:', data.token)
+          // console.log('token:', data.token)
         } else if (data.validationErrorMessages) {
           console.warn(data.validationErrorMessages)
           dispatch(loginUserFailure(data.validationErrorMessages))

@@ -20,7 +20,6 @@ class EventInfoStatefull extends Component {
 
   componentDidMount () {
     this._isMounted = true
-
     const getEventIdFromUrl = Number(window.location.href.split('?id=')[1])
     const index1 = this.props.allEvents.findIndex(a => a.id === getEventIdFromUrl)
 
@@ -61,7 +60,7 @@ class EventInfoStatefull extends Component {
           !this.state.loadProccess &&
             <EventInfoStateless
               title={this.props.allEvents[this.state.sportEventArrayId].title}
-              authorFullName={this.props.allEvents[this.state.sportEventArrayId].authorName}
+              authorFullName={this.props.allEvents[this.state.sportEventArrayId].authorFullName}
               eventDate={this.props.allEvents[this.state.sportEventArrayId].eventDate}
               address={this.props.allEvents[this.state.sportEventArrayId].address}
               previewMessage={this.props.allEvents[this.state.sportEventArrayId].previewMessage}

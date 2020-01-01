@@ -18,6 +18,7 @@ public class EventDTO {
   private String address;
   private String authorEmail;
   private String authorFullName;
-
+  /*format: dd-mm-yyyy*/
+  private String eventDate;
 
 }

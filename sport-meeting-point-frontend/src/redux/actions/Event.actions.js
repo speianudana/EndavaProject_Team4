@@ -52,7 +52,7 @@ function fetchSportEventImage (sportEventObject) {
   }
 }
 
-export function loadFixedNumberOfEventsId (excludeIdArray = [], fixedNumber = 5) {
+export function loadFixedNumberOfEventsId (excludeIdArray = [], fixedNumber = 15) {
   return dispatch => {
     const token = authUtils.loadTokenFromLocalStorage()
 
@@ -77,6 +77,7 @@ export function loadFixedNumberOfEventsId (excludeIdArray = [], fixedNumber = 5)
       })
       .then((data) => {
         dispatch(addEventsInStore(data))
+        console.table(data)
         data.forEach(a => {
           dispatch(fetchSportEventImage(a))
         })
@@ -104,6 +105,7 @@ export function fetchSportEventById (sportEventId) {
       })
       .then((data) => {
         dispatch(addEventsInStore([data]))
+        dispatch(fetchSportEventImage(data))
         // console.log(data)
       })
       .catch((error) => {
