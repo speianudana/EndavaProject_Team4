@@ -2,7 +2,7 @@ import React from 'react'
 import style from './style.scss'
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
-import { index, loginUrl, userPageUrl } from '../../App/AppConstRoutes.js'
+import { index, about, loginUrl, userPageUrl } from '../../App/AppConstRoutes.js'
 import { Container } from '../Container'
 import { connect } from 'react-redux'
 
@@ -58,7 +58,7 @@ MenuBtn.propTypes = {
   clickHandler: PropTypes.func
 }
 
-function HeaderStateless (props) {
+function HeaderStateless(props) {
   const [dropdownIsVisible, setDropdownVisible] = React.useState(false)
 
   return (
@@ -67,13 +67,13 @@ function HeaderStateless (props) {
 
         <div style={{ flexGrow: '4' }} className={style.menuElm}>
           <Link to={index} className={[style.logo].join(' ')}>
-              Sport Meeting Point
+            Sport Meeting Point
           </Link>
         </div>
 
         <div style={{ flexGrow: '5' }} className={style.menuElm}>
           <ClickableItem to={index} title='Home' />
-          <ClickableItem to={index} title='About' />
+          <ClickableItem to={about} title='About' />
           <ClickableItem to={index} title='Contact' />
           <ClickableItem to={index} title='Feedback' />
 
@@ -94,7 +94,7 @@ function HeaderStateless (props) {
       <div className={style.sizeChecker}>
         <div style={{ display: dropdownIsVisible ? 'block' : 'none' }} className={style.dropDownMenu1}>
           <ClickableItem to={index} title='Home' />
-          <ClickableItem to={index} title='About' />
+          <ClickableItem to={about} title='About' />
           <ClickableItem to={index} title='Contact' />
           <ClickableItem to={index} title='Feedback' />
           <AuthContainer isAuthenticated={props.isAuthenticated} email={props.email} />

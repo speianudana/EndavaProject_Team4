@@ -1,5 +1,6 @@
 
 export const index = '/home/index'
+export const about = '/home/about'
 
 export const registrationUrl = '/auth/register'
 export const loginUrl = '/auth/login'

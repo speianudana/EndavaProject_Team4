@@ -48,6 +48,8 @@ class EventInfoStatefull extends Component {
       })
     }
 
+    window.scrollTo(0, 0);
+
   }
 
   shouldComponentUpdate(nextProps, nextState) {

@@ -4,6 +4,7 @@ import { Header } from '../Layouts/Header'
 import { Footer } from '../Layouts/Footer'
 
 import { Index } from '../Pages/Home/Index'
+import About from '../Pages/Home/About'
 import { Register } from '../Pages/Auth/Register'
 import { Login } from '../Pages/Auth/LogIn'
 import AccountActivator from '../Pages/Auth/AccountActivator'
@@ -14,7 +15,9 @@ import CreateEvent from '../Pages/CreateEvent'
 import CreateNews from '../Pages/CreateNews'
 
 import {
-  index, registrationUrl,
+  index,
+  about,
+  registrationUrl,
   loginUrl, userPageUrl,
   userPageCreateEventUrl,
   userPageCreateNewsURL,
@@ -39,6 +42,7 @@ const AppRouter = ({ isAuthenticated, userRole }) => {
       <Wrapper>
         <Route exact path='/' render={() => (<Redirect to={index} />)} />
         <Route exact path={index} component={Index} />
+        <Route exact path={about} component={About} />
         <Route exact path={registrationUrl} component={Register} />
         <Route exact path={loginUrl} component={Login} />
 

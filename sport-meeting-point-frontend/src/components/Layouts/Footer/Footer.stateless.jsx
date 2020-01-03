@@ -5,7 +5,7 @@ import { Container } from '../Container'
 
 export default function FooterStateless() {
   return (
-    <footer style={{ backgroundColor: 'rgb(24, 24, 34)' }}>
+    <footer style={{ backgroundColor: 'rgb(34, 34, 40)' }}>
       <Container>
         <div id={style.mainHead}>
           <div className={style.miniContainer}>
