@@ -9,7 +9,10 @@ import { ButtonB } from '../../../../Layouts/Button/index'
 
 class EventsStatefull extends Component {
   componentDidMount() {
-    if (this.props.allEvents.length < 5) this.props.loadEvents()
+    // console.log(this.props.allEvents)
+    const excludedIds = this.props.allEvents.map(a => Number(a.id))
+
+    if (this.props.allEvents.length < 5) this.props.loadEvents(excludedIds, 5)
   }
 
   render() {

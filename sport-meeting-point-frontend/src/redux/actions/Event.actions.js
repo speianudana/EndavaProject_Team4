@@ -16,12 +16,14 @@ function addEventsInStore(data) {
 }
 
 function addImageForEventIntoStore() {
-  return {
-    type: REFRESH_SPORT_EVENT_ARRAY
-  }
+  return refreshSportEventArray()
 }
 
 function addParticipantsForEventIntoStore() {
+  return refreshSportEventArray()
+}
+
+function refreshSportEventArray() {
   return {
     type: REFRESH_SPORT_EVENT_ARRAY
   }
@@ -75,7 +77,6 @@ function fetchParticipantsForSportEvent(sportEventObject) {
         else throw Error()
       })
       .then((data) => {
-        // console.log('test11', data)
         sportEventObject.participants = data
         dispatch(addParticipantsForEventIntoStore())
       })
@@ -87,7 +88,7 @@ function fetchParticipantsForSportEvent(sportEventObject) {
   }
 }
 
-export function loadFixedNumberOfEventsId(excludeIdArray = [], fixedNumber = 5) {
+function loadFixedNumberOfEventsId(excludeIdArray = [], fixedNumber = 5) {
   return dispatch => {
     const token = authUtils.loadTokenFromLocalStorage()
 
@@ -114,6 +115,7 @@ export function loadFixedNumberOfEventsId(excludeIdArray = [], fixedNumber = 5) 
         dispatch(addEventsInStore(data))
         data.forEach(a => {
           dispatch(fetchSportEventImage(a))
+          dispatch(fetchParticipantsForSportEvent(a))
         })
       })
       .catch((error) => {
@@ -122,7 +124,7 @@ export function loadFixedNumberOfEventsId(excludeIdArray = [], fixedNumber = 5) 
   }
 }
 
-export function fetchSportEventById(sportEventId) {
+function fetchSportEventById(sportEventId) {
   return dispatch => {
     const token = authUtils.loadTokenFromLocalStorage()
     const requestSetting = {
@@ -147,4 +149,11 @@ export function fetchSportEventById(sportEventId) {
         console.warn('Event action fetch event by id error:', error)
       })
   }
+}
+
+
+export {
+  refreshSportEventArray,
+  fetchSportEventById,
+  loadFixedNumberOfEventsId
 }

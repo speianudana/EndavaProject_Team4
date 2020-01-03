@@ -4,20 +4,12 @@ import PropTypes from 'prop-types'
 import { FullPageLoading1 as Loading } from '../../Layouts/Loading'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { fetchSportEventById } from '../../../redux/actions/Event.actions'
 import noImg from '../../../../static/No-Image-Basic.png'
+import { ParticipantView } from './EventInfo.utils.jsx'
+import {
+  fetchSportEventById
+} from '../../../redux/actions/Event.actions'
 
-const ParticipantView = ({ arr }) => (
-  <>
-    {
-      arr.map((a, i) => (
-        <p key={i}>
-          {a.firstName} {a.lastName}  -  {a.email}
-        </p>
-      ))
-    }
-  </>
-)
 
 class EventInfoStatefull extends Component {
   constructor(props) {
@@ -25,49 +17,55 @@ class EventInfoStatefull extends Component {
 
     this.state = {
 
+
       loadProccess: true,
-      eventInfo: null,
-      participants: null,
-      sportEventDbId: 0,
+      getSportEventId: null,
+      getSportEventArrayIndex: -1
+
     }
   }
 
   componentDidMount() {
     this._isMounted = true
-    const getEventIdFromUrl = Number(window.location.href.split('?id=')[1])
+    const getEventIdFromUrl = Number(
+      window.location.href.split('?id=')[1]
+    )
+
     this.setState({
-      sportEventDbId: getEventIdFromUrl
+      getSportEventId: getEventIdFromUrl
     })
 
-    const index1 = this.props.allEvents.findIndex(a => a.id === getEventIdFromUrl)
-    if (index1 === -1) this.props.fetchSportEventById(getEventIdFromUrl)
+    const arrIndex = this.props.allEvents.findIndex(a => (
+      a.id === getEventIdFromUrl
+    ))
+
+    if (arrIndex === -1) {
+      this.props.fetchSportEventById(getEventIdFromUrl)
+    } else {
+      this.setState({
+        getSportEventArrayIndex: arrIndex,
+        loadProccess: false
+      })
+    }
 
   }
 
   shouldComponentUpdate(nextProps, nextState) {
+    if (this.state.getSportEventArrayIndex === -1 && this.state.getSportEventId) {
+      const arrIndex = this.props.allEvents.findIndex(a => (
+        a.id === this.state.getSportEventId
+      ))
 
-    if (this.state.sportEventDbId !== nextState.sportEventDbId) return false
-    if (this.state.eventInfo === null) {
-      const index = this.props.allEvents.findIndex(a => a.id === this.state.sportEventDbId)
-      if (index !== -1) {
+      if (arrIndex !== -1) {
         this.setState({
-          loadProccess: false,
-          eventInfo: this.props.allEvents[index]
+          getSportEventArrayIndex: arrIndex,
+          loadProccess: false
         })
+
+        return false
       }
-      return false
+
     }
-    if (this.state.participants === null) {
-      const index = this.props.allEvents.findIndex(a => a.id === this.state.sportEventDbId)
-      if (index !== -1 && this.props.allEvents[index].participants
-        && this.props.allEvents[index].participants.length > 0) {
-        this.setState({
-          participants: this.props.allEvents[index].participants
-        })
-      }
-      return false
-    }
-    if (this.props !== nextProps) return false
 
     return true
   }
@@ -77,22 +75,24 @@ class EventInfoStatefull extends Component {
   }
 
   render() {
+    const sportEvent = this.props.allEvents[this.state.getSportEventArrayIndex]
+
     return (
       <>
         {this.state.loadProccess && <Loading />}
         {
-          this.state.eventInfo &&
+          this.state.getSportEventArrayIndex !== -1 &&
           <EventInfoStateless
-            title={this.state.eventInfo.title}
-            authorFullName={this.state.eventInfo.authorFullName}
-            eventDate={this.state.eventInfo.eventDate}
-            address={this.state.eventInfo.address}
-            previewMessage={this.state.eventInfo.previewMessage}
-            description={this.state.eventInfo.description}
-            image={this.state.eventInfo.image || noImg}
-            participants={this.state.participants
-              ? <ParticipantView arr={this.state.participants} />
-              : div}
+            title={sportEvent.title}
+            authorFullName={sportEvent.authorFullName}
+            eventDate={sportEvent.eventDate}
+            address={sportEvent.address}
+            previewMessage={sportEvent.previewMessage}
+            description={sportEvent.description}
+            image={sportEvent.image || noImg}
+            participants={sportEvent.participants && sportEvent.participants.length > 0
+              ? <ParticipantView arr={sportEvent.participants} />
+              : <div />}
           />
         }
       </>
@@ -106,7 +106,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => (
   {
-    fetchSportEventById: bindActionCreators(fetchSportEventById, dispatch)
+    fetchSportEventById: bindActionCreators(fetchSportEventById, dispatch),
   }
 )
 
