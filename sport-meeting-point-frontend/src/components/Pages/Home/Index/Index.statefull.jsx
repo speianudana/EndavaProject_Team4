@@ -4,9 +4,10 @@ import { Header } from './Header'
 import { SubHeader } from './SubHeader'
 import NewsContainer from './News'
 import EventsContainer from './SportEvents'
+import MoveButtonTop from './MoveTopButton'
 
 class IndexStatefull extends Component {
-  constructor (props) {
+  constructor(props) {
     super(props)
 
     this.state = {
@@ -14,21 +15,23 @@ class IndexStatefull extends Component {
     }
   }
 
-  componentDidMount () {
+  componentDidMount() {
     this._isMounted = true
   }
 
-  componentWillUnmount () {
+  componentWillUnmount() {
     this._isMounted = false
   }
 
-  render () {
+  render() {
     return (
       <>
 
         <Header />
         <SubHeader />
         <NewsContainer />
+
+        <MoveButtonTop />
 
         <Container>
 

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 
 const ButtonA = ({ title, className, onClick, style }) => {
   return (
-    <button onClick={onClick} style={style} className={`${scss.btnA} ${className}`}>
+    <button onClick={e => onClick(e)} style={style} className={`${scss.btnA} ${className}`}>
       {title}
     </button>
   )

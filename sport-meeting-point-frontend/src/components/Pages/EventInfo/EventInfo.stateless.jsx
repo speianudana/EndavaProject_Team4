@@ -5,12 +5,21 @@ import PropTypes from 'prop-types'
 
 import { ButtonA } from '../../Layouts/Button'
 
-export default function EventInfoStateless({ title, previewMessage, description, authorFullName, eventDate, address, image, participants }) {
+export default function EventInfoStateless({ title, previewMessage, description, authorFullName,
+  eventDate, address, image, participants, alreadyParticipating,
+  onNotParticipateClick, onParticipateClick }) {
+
   return (
     <Container>
 
       <div id={style.mainContainer}>
         <h1>{title}</h1>
+        {
+          alreadyParticipating &&
+          <span style={{ color: 'green' }}>
+            You are participating
+          </span>
+        }
         <br />
         <br />
 
@@ -40,9 +49,28 @@ export default function EventInfoStateless({ title, previewMessage, description,
         <br />
         <br />
 
+
+
         <div id={style.rectForButtonParticipate}>
-          <ButtonA className={style.participateBtn} title='Participate' />
+
+          {!alreadyParticipating &&
+            <ButtonA
+              onClick={e => onParticipateClick(e)}
+              className={style.participateBtn}
+              title='Participate'
+            />
+          }
+
+          {alreadyParticipating &&
+            <ButtonA
+              onClick={e => onNotParticipateClick(e)}
+              className={style.participateBtn}
+              title='Not participate'
+            />
+          }
+
         </div>
+
 
       </div>
 

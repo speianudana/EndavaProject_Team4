@@ -6,10 +6,9 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import noImg from '../../../../static/No-Image-Basic.png'
 import { ParticipantView } from './EventInfo.utils.jsx'
-import {
-  fetchSportEventById
-} from '../../../redux/actions/Event.actions'
-
+import { fetchSportEventById } from '../../../redux/actions/Event.actions'
+import { subscribeUserToEvent } from '../../../rest/SportEvent'
+import { CustomAlertOk, CustomAlertWarning } from '../../Layouts/CustomAlert'
 
 class EventInfoStatefull extends Component {
   constructor(props) {
@@ -20,12 +19,22 @@ class EventInfoStatefull extends Component {
 
       loadProccess: true,
       getSportEventId: null,
-      getSportEventArrayIndex: -1
+      getSportEventArrayIndex: -1,
+
+      messageNode: null,
+      messageText: '',
+      reloadOnDeleteMessageNode: false,
+
+      getUserAlreadyParticipateToThisEvent: false
 
     }
+
+    this.onParticipateClick.bind(this)
+    this.onNotParticipateClick.bind(this)
   }
 
   componentDidMount() {
+
     this._isMounted = true
     const getEventIdFromUrl = Number(
       window.location.href.split('?id=')[1]
@@ -63,9 +72,21 @@ class EventInfoStatefull extends Component {
           getSportEventArrayIndex: arrIndex,
           loadProccess: false
         })
-
-        return false
       }
+    }
+
+    if (!this.state.getUserAlreadyParticipateToThisEvent
+      && this.state.getSportEventArrayIndex !== -1
+      && this.props.allEvents[this.state.getSportEventArrayIndex].participants
+      && this.props.allEvents[this.state.getSportEventArrayIndex].participants.length > 0) {
+
+      const index = this.props.allEvents[this.state.getSportEventArrayIndex].participants
+        .findIndex(a => a.email === this.props.getUserEmail)
+
+      if (index !== -1)
+        this.setState({
+          getUserAlreadyParticipateToThisEvent: true
+        })
 
     }
 
@@ -76,12 +97,61 @@ class EventInfoStatefull extends Component {
     this._isMounted = false
   }
 
+  onParticipateClick(e) {
+    const token = this.props.getTokenMethod()
+    const eventId = this.props.allEvents[this.state.getSportEventArrayIndex].id
+
+    subscribeUserToEvent(token, eventId)
+      .then(res => {
+        if (!this._isMounted) return
+
+        this.setState({
+          messageNode: CustomAlertOk,
+          messageText: 'Congratulations, you have successfully signed up for this event',
+          reloadOnDeleteMessageNode: true
+        })
+
+      })
+      .catch(e => {
+        if (!this._isMounted) return
+
+        if (e.status === 401) {
+
+          this.setState({
+            messageNode: CustomAlertWarning,
+            messageText: 'To participate in the event, please login or register'
+          })
+
+        }
+      })
+  }
+
+  onNotParticipateClick(e) {
+    alert('zzz')
+  }
+
   render() {
     const sportEvent = this.props.allEvents[this.state.getSportEventArrayIndex]
+    const Message = this.state.messageNode
 
     return (
       <>
         {this.state.loadProccess && <Loading />}
+
+        {
+          Message && <Message
+            message={this.state.messageText}
+            onCloseHandler={e => {
+              this.setState({
+                messageNode: null
+              })
+
+              if (this.state.reloadOnDeleteMessageNode) location.reload()
+
+            }}
+          />
+        }
+
         {
           this.state.getSportEventArrayIndex !== -1 &&
           <EventInfoStateless
@@ -95,6 +165,11 @@ class EventInfoStatefull extends Component {
             participants={sportEvent.participants && sportEvent.participants.length > 0
               ? <ParticipantView arr={sportEvent.participants} />
               : <div />}
+
+            alreadyParticipating={this.state.getUserAlreadyParticipateToThisEvent}
+
+            onParticipateClick={e => this.onParticipateClick(e)}
+            onNotParticipateClick={e => this.onNotParticipateClick(e)}
           />
         }
       </>
@@ -103,7 +178,10 @@ class EventInfoStatefull extends Component {
 }
 
 const mapStateToProps = state => ({
-  allEvents: state.allEventData.allEvents
+  allEvents: state.allEventData.allEvents,
+  getTokenMethod: state.authenticationData.getToken,
+  isAuthenticated: state.authenticationData.isAuthenticated,
+  getUserEmail: state.authenticationData.email,
 })
 
 const mapDispatchToProps = dispatch => (
