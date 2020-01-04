@@ -35,8 +35,28 @@ export function subscribeUserToEvent(token, eventId) {
 }
 
 export function unsubscribeUserToEvent(token, eventId) {
+  return new Promise((resolve, reject) => {
+
+    const requestSetting = {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer_${token}`
+      }
+    }
+
+    fetch(`${url}/api/for_authenticated_user/unsubscribe?event_id=${eventId}`, requestSetting)
+      .then(response => {
+        if (response.status === 200 && response.ok) resolve('Success')
+        else reject({
+          status: response.status
+        })
+      })
+      .then((data) => {
+      })
+      .catch((error) => {
+      })
 
 
-
-
+  })
 }

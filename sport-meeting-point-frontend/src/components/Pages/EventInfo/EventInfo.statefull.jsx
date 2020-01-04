@@ -6,8 +6,8 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import noImg from '../../../../static/No-Image-Basic.png'
 import { ParticipantView } from './EventInfo.utils.jsx'
-import { fetchSportEventById } from '../../../redux/actions/Event.actions'
-import { subscribeUserToEvent } from '../../../rest/SportEvent'
+import { fetchSportEventById, refreshSportEventArray } from '../../../redux/actions/Event.actions'
+import { subscribeUserToEvent, unsubscribeUserToEvent } from '../../../rest/SportEvent'
 import { CustomAlertOk, CustomAlertWarning } from '../../Layouts/CustomAlert'
 
 class EventInfoStatefull extends Component {
@@ -15,15 +15,13 @@ class EventInfoStatefull extends Component {
     super(props)
 
     this.state = {
-
-
-      loadProccess: true,
-      getSportEventId: null,
-      getSportEventArrayIndex: -1,
+      loadPage: true,
+      sportEvent: null,
+      eventDbId: null,
 
       messageNode: null,
-      messageText: '',
       reloadOnDeleteMessageNode: false,
+      messageText: '',
 
       getUserAlreadyParticipateToThisEvent: false
 
@@ -31,6 +29,25 @@ class EventInfoStatefull extends Component {
 
     this.onParticipateClick.bind(this)
     this.onNotParticipateClick.bind(this)
+    this.loadEvent.bind(this)
+  }
+
+  loadEvent(eventDbId) {
+    const events = this.props.allEvents
+
+    const eIndex = events.findIndex(a => a.id === eventDbId)
+
+    this.setState({
+      eventDbId: eventDbId
+    })
+
+    if (eIndex === -1) {
+      this.props.fetchSportEventById(eventDbId)
+    } else {
+      this.props.refreshSportEventArray()
+    }
+
+
   }
 
   componentDidMount() {
@@ -39,59 +56,47 @@ class EventInfoStatefull extends Component {
     const getEventIdFromUrl = Number(
       window.location.href.split('?id=')[1]
     )
+    this.loadEvent(getEventIdFromUrl)
 
-    this.setState({
-      getSportEventId: getEventIdFromUrl
-    })
-
-    const arrIndex = this.props.allEvents.findIndex(a => (
-      a.id === getEventIdFromUrl
-    ))
-
-    if (arrIndex === -1) {
-      this.props.fetchSportEventById(getEventIdFromUrl)
-    } else {
-      this.setState({
-        getSportEventArrayIndex: arrIndex,
-        loadProccess: false
-      })
-    }
 
     window.scrollTo(0, 0);
 
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    if (this.state.getSportEventArrayIndex === -1 && this.state.getSportEventId) {
-      const arrIndex = this.props.allEvents.findIndex(a => (
-        a.id === this.state.getSportEventId
-      ))
+    if (!this.state.sportEvent) {
+      const events = this.props.allEvents
+      const eIndex = events.findIndex(a => a.id === this.state.eventDbId)
 
-      if (arrIndex !== -1) {
+      if (eIndex !== -1) {
         this.setState({
-          getSportEventArrayIndex: arrIndex,
-          loadProccess: false
+          sportEvent: events[eIndex],
+          loadPage: false
         })
+        return false
+      }
+    } else {
+      if (!this.state.getUserAlreadyParticipateToThisEvent
+        && this.state.sportEvent.participants
+        && this.state.sportEvent.participants.length > 0) {
+
+        const z = this.state.sportEvent.participants.findIndex(a => a.email === this.props.getUserEmail)
+
+        if (z !== -1) {
+          this.setState({
+            getUserAlreadyParticipateToThisEvent: true
+          })
+
+          return false
+        }
       }
     }
 
-    if (!this.state.getUserAlreadyParticipateToThisEvent
-      && this.state.getSportEventArrayIndex !== -1
-      && this.props.allEvents[this.state.getSportEventArrayIndex].participants
-      && this.props.allEvents[this.state.getSportEventArrayIndex].participants.length > 0) {
 
-      const index = this.props.allEvents[this.state.getSportEventArrayIndex].participants
-        .findIndex(a => a.email === this.props.getUserEmail)
-
-      if (index !== -1)
-        this.setState({
-          getUserAlreadyParticipateToThisEvent: true
-        })
-
-    }
 
     return true
   }
+
 
   componentWillUnmount() {
     this._isMounted = false
@@ -99,7 +104,7 @@ class EventInfoStatefull extends Component {
 
   onParticipateClick(e) {
     const token = this.props.getTokenMethod()
-    const eventId = this.props.allEvents[this.state.getSportEventArrayIndex].id
+    const eventId = this.state.eventDbId
 
     subscribeUserToEvent(token, eventId)
       .then(res => {
@@ -127,16 +132,36 @@ class EventInfoStatefull extends Component {
   }
 
   onNotParticipateClick(e) {
-    alert('zzz')
+    const token = this.props.getTokenMethod()
+    const eventId = this.state.eventDbId
+
+    unsubscribeUserToEvent(token, eventId)
+      .then(res => {
+        if (!this._isMounted) return
+
+        this.setState({
+          messageNode: CustomAlertWarning,
+          messageText: 'We regret that you unsubscribed from the event',
+          reloadOnDeleteMessageNode: true
+        })
+
+      })
+      .catch(e => {
+        if (!this._isMounted) return
+
+        if (e.status === 401) {
+
+        }
+      })
   }
 
   render() {
-    const sportEvent = this.props.allEvents[this.state.getSportEventArrayIndex]
+    const sportEvent = this.state.sportEvent
     const Message = this.state.messageNode
 
     return (
       <>
-        {this.state.loadProccess && <Loading />}
+        {this.state.loadPage && <Loading />}
 
         {
           Message && <Message
@@ -153,7 +178,7 @@ class EventInfoStatefull extends Component {
         }
 
         {
-          this.state.getSportEventArrayIndex !== -1 &&
+          sportEvent &&
           <EventInfoStateless
             title={sportEvent.title}
             authorFullName={sportEvent.authorFullName}
@@ -187,6 +212,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => (
   {
     fetchSportEventById: bindActionCreators(fetchSportEventById, dispatch),
+    refreshSportEventArray: bindActionCreators(refreshSportEventArray, dispatch)
   }
 )
 
