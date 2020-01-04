@@ -4,11 +4,10 @@
   "description": "-",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev_local_network": "webpack-dev-server --mode development --hot --port=8090 --host=192.168.0.18",
-    "dev": "webpack-dev-server --mode development --hot --port=8090",
-    "build": "webpack --mode production",
     "start": "node scripts/start.js",
+    "dev": "webpack-dev-server --config webpack.dev.js --hot --port=8090",
+    "build": "webpack --config webpack.prod.js",
+    "show:build": "webpack --config webpack.prod.js --show 1",
     "lint": "eslint src/**/*.js src/**/*.jsx",
     "lint:fix": "eslint src/**/*.js src/**/*.jsx --fix"
   },
@@ -40,6 +39,7 @@
     "react-router-dom": "^5.1.2",
     "sass-loader": "^8.0.0",
     "style-loader": "^1.0.0",
+    "terser-webpack-plugin": "^2.3.1",
     "webpack": "^4.41.2",
     "webpack-bundle-analyzer": "^3.6.0",
     "webpack-cli": "^3.3.10",
