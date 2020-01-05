@@ -68,7 +68,6 @@ class EventInfoStatefull extends Component {
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    console.log('terewf')
     if (!this.state.sportEvent && !nextState.sportEvent) {
       const events = this.props.allEvents
       const eIndex = events.findIndex(a => a.id === this.state.eventDbId)
