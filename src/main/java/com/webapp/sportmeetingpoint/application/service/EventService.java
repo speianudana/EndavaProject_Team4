@@ -1,13 +1,15 @@
 package com.webapp.sportmeetingpoint.application.service;
 
 import com.webapp.sportmeetingpoint.domain.entities.Event;
+import com.webapp.sportmeetingpoint.domain.entities.EventImage;
 import com.webapp.sportmeetingpoint.domain.entities.UserSystem;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 public interface EventService {
 
-  Event saveEvent(Event event, UserSystem author);
+  Event saveEvent(Event event, UserSystem author, EventImage eventImage);
 
   Event findEventById(Integer id);
   

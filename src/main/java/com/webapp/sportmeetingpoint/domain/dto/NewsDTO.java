@@ -12,7 +12,6 @@ public class NewsDTO {
 
     private String title;
     private String context;
-    private String date;
 
 
 

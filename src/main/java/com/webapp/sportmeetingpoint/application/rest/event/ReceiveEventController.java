@@ -6,8 +6,10 @@ import com.webapp.sportmeetingpoint.domain.dto.Event.EventDTO;
 import com.webapp.sportmeetingpoint.domain.dto.Event.TheNumberOfNecessaryEventsDTO;
 import com.webapp.sportmeetingpoint.domain.dto.ImageDTO;
 import com.webapp.sportmeetingpoint.domain.entities.Event;
+import com.webapp.sportmeetingpoint.domain.entities.EventImage;
 import com.webapp.sportmeetingpoint.domain.entities.UserPersonalData;
 import com.webapp.sportmeetingpoint.domain.entities.UserSystem;
+import com.webapp.sportmeetingpoint.persistance.EventImageRepository;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -32,6 +34,9 @@ public class ReceiveEventController {
   public ReceiveEventController(EventService eventService) {
     this.eventService = eventService;
   }
+
+  @Autowired
+  EventImageRepository eventImageRepository;
 
   @RequestMapping(value = "/event/get_events", method = RequestMethod.POST)
   public ResponseEntity getAllEventsWithoutImage(@RequestBody final TheNumberOfNecessaryEventsDTO reqData)
@@ -123,13 +128,13 @@ public class ReceiveEventController {
   public ResponseEntity<?> getEventImageById(@RequestParam("id") final Integer eventId) {
 
     Event event = eventService.findEventById(eventId);
+    EventImage eventImage = eventImageRepository.findById(event.getEventImageId()).orElse(null);
 
-
-    if (event == null || event.getImage() == null) {
+    if (eventImage == null || eventImage.getImage() == null) {
       return ResponseEntity.ok(HttpStatus.NOT_FOUND);
     }
 
-    return new ResponseEntity<>(new ImageDTO(event.getId(), event.getImage()), HttpStatus.OK);
+    return new ResponseEntity<>(new ImageDTO(event.getId(), eventImage.getImage()), HttpStatus.OK);
   }
 
 }

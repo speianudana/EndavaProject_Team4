@@ -2,6 +2,7 @@ package com.webapp.sportmeetingpoint.application.service;
 
 
 import com.webapp.sportmeetingpoint.domain.entities.Event;
+import com.webapp.sportmeetingpoint.domain.entities.EventImage;
 import com.webapp.sportmeetingpoint.domain.entities.UserSystem;
 import com.webapp.sportmeetingpoint.persistance.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,14 +14,22 @@ import java.util.List;
 public class EventServiceImpl implements EventService {
 
   private final EventRepository eventRepository;
+  private final EventImageRepository eventImageRepository;
 
   @Autowired
-  public EventServiceImpl( EventRepository eventRepository) {
+  public EventServiceImpl( EventRepository eventRepository,
+                           EventImageRepository eventImageRepository) {
     this.eventRepository = eventRepository;
+    this.eventImageRepository = eventImageRepository;
   }
 
   @Override
-  public Event saveEvent(final Event event, final UserSystem author) {
+  public Event saveEvent(final Event event, final UserSystem author, final EventImage eventImage) {
+    if(eventImage.getImage()!=null){
+      EventImage eventImage1 = eventImageRepository.save(eventImage);
+      event.setEventImageId(eventImage1.getId());
+    }
+
     event.setUserAuthorActivity(author.getUserAuthorActivity());
     return eventRepository.save(event);
   }

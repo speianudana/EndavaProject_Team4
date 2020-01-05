@@ -54,7 +54,9 @@ function fetchSportEventImage(sportEventObject) {
         dispatch(addImageForEventIntoStore())
       })
       .catch((error) => {
-        console.warn('Event action fetch image error:', error)
+        // console.warn('Event action fetch image error:', error)
+        sportEventObject.image = noImage
+        dispatch(addImageForEventIntoStore())
       })
   }
 }

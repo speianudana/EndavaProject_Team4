@@ -51,6 +51,7 @@
 }
 
 .btnMenu {
+  cursor: default;
   font-size: 27px;
   color: white;
   border: none;
@@ -60,10 +61,10 @@
   transition: background .2s linear;
 }
 
-.btnMenu:hover {
-  background: rgba(2, 28, 43, 0.75);
-  cursor: pointer;
-}
+// .btnMenu:hover {
+//   background: rgba(2, 28, 43, 0.75);
+//   cursor: pointer;
+// }
 
 .dropDownMenu1 {
   position: relative;

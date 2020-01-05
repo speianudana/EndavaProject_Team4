@@ -10,6 +10,7 @@ import com.webapp.sportmeetingpoint.domain.dto.Event.EventDTO;
 import com.webapp.sportmeetingpoint.domain.dto.EventInfoResponseDTO;
 import com.webapp.sportmeetingpoint.domain.dto.ImageDTO;
 import com.webapp.sportmeetingpoint.domain.entities.Event;
+import com.webapp.sportmeetingpoint.domain.entities.EventImage;
 import com.webapp.sportmeetingpoint.domain.entities.UserPersonalData;
 import com.webapp.sportmeetingpoint.domain.entities.UserSystem;
 import lombok.extern.log4j.Log4j2;
@@ -110,16 +111,17 @@ public class EventController {
       e.setDescription(eventDTO.getDescription());
       e.setPreviewMessage(eventDTO.getPreviewMessage());
       e.setAddress(eventDTO.getAddress());
-      e.setImage(eventDTO.getImage());
-      
+
     }catch(Exception ex){
       log.debug(ex.getMessage());
       return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
-  
 
-    
-    Event result = eventService.saveEvent(e, userSystem);
+
+    EventImage eImage = new EventImage();
+    eImage.setImage(eventDTO.getImage());
+
+    Event result = eventService.saveEvent(e, userSystem, eImage);
     
     return new ResponseEntity<>(result.getId(), HttpStatus.OK);
   }

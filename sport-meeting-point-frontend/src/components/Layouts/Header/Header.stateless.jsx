@@ -6,7 +6,7 @@ import { index, about, loginUrl, userPageUrl } from '../../App/AppConstRoutes.js
 import { Container } from '../Container'
 import { connect } from 'react-redux'
 
-const AuthContainer = ({ isAuthenticated, email }) => {
+const AuthContainer = ({ isAuthenticated }) => {
   if (!isAuthenticated) {
     return (
       <button className={style.btnMenu}>
@@ -18,9 +18,9 @@ const AuthContainer = ({ isAuthenticated, email }) => {
   } else {
     return (
       <button className={style.btnMenu}>
-
-        <Link to={userPageUrl} id={style.accountBtn}>
-          {email}
+        <Link style={{ color: 'rgb(7, 197, 204)' }} to={userPageUrl} className={style.aClass}>
+          {/* <Link to={userPageUrl} id={style.accountBtn}> */}
+          {'My Page'}
         </Link>
       </button>
     )
@@ -29,7 +29,6 @@ const AuthContainer = ({ isAuthenticated, email }) => {
 
 AuthContainer.propTypes = {
   isAuthenticated: PropTypes.bool,
-  email: PropTypes.string
 }
 
 const ClickableItem = ({ to, title }) => (
@@ -80,7 +79,7 @@ function HeaderStateless(props) {
         </div>
 
         <div style={{ flexGrow: '1' }} className={style.menuElm}>
-          <AuthContainer isAuthenticated={props.isAuthenticated} email={props.email} />
+          <AuthContainer isAuthenticated={props.isAuthenticated} />
         </div>
 
         <div style={{ flexGrow: '1' }} className={style.menuElm}>
@@ -97,7 +96,7 @@ function HeaderStateless(props) {
           <ClickableItem to={about} title='About' />
           <ClickableItem to={index} title='Contact' />
           <ClickableItem to={index} title='Feedback' />
-          <AuthContainer isAuthenticated={props.isAuthenticated} email={props.email} />
+          <AuthContainer isAuthenticated={props.isAuthenticated} />
         </div>
       </div>
 

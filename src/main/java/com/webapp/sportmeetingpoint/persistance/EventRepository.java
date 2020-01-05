@@ -12,7 +12,6 @@ import javax.validation.constraints.Max;
 import java.util.List;
 import java.util.Optional;
 
-@Transactional
 public interface EventRepository extends CrudRepository<Event, Integer> {
 
 
@@ -39,6 +38,14 @@ public interface EventRepository extends CrudRepository<Event, Integer> {
     @Query(value = "SELECT * FROM Event u LIMIT ?1",nativeQuery = true)
     @Transactional
     List<Event> findAllUseLimit(Integer limit);
-  
+
+    @Modifying
+    @Transactional
+    @Query(value = "SELECT * FROM \"event\" as e " +
+      "INNER JOIN \"event_participant_activity\" as ac " +
+      "ON ac.event_fk_id=e.id " +
+      "WHERE ac.user_system_fk_id=?1 ", nativeQuery = true)
+    List<Event> findAllForSubscriberUser(final Integer userId);
+
 
 }
