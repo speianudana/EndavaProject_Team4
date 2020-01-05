@@ -1,7 +1,10 @@
+@import "../../../mixins/BoxShadow.mixin.scss";
+
 .container {
   width: 500px;
   overflow: hidden;
   background: rgba(192, 192, 192, 0.875);
+  // @include box-shadow();
   box-shadow: 0 0 20px black;
   border-radius: 8px;
   position: fixed;

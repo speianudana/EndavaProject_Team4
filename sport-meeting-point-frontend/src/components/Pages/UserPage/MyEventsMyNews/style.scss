@@ -1,0 +1,76 @@
+@import "../../../../mixins/GradientHorizontal_2.mixin.scss";
+@import "../../../../mixins/BoxShadow.mixin.scss";
+
+$bRadius: 6px;
+
+#myNewsMyEvents {
+  left: 50%;
+  width: 80%;
+  height: 410px;
+  background-color: rgb(238, 238, 238);
+  border: 1px solid gray;
+  @include box-shadow(2px, 10px, 17px, -2px, rgba(0, 0, 0, 0.75));
+  margin: 5px;
+  border-radius: 6px;
+}
+
+
+#myNewsMyEventsTopBar {
+  height: 45px;
+  width: 100%;
+  background-color: rgba(34, 34, 40, 0.95);
+  border-top-left-radius: $bRadius;
+  border-top-right-radius: $bRadius;
+}
+
+.btnMyNewsMyEventsTopBar {
+  height: 100%;
+  width: 50%;
+  background-color: transparent;
+  border: 1px solid rgb(228, 228, 228);
+  color: rgb(228, 228, 228);
+  font-weight: bold;
+  font-size: 19px;
+}
+
+.btnMyNewsMyEventsBody {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  overflow-y: scroll;
+  height: 365px;
+  // justify-content: center;
+}
+
+.titleLink {
+  color: rgb(0, 76, 218);
+  cursor: pointer;
+}
+
+.titleLink:hover {
+  text-decoration: underline;
+}
+
+.clickedBtn {
+  color: rgb(194, 192, 192);
+  border-color: rgb(194, 192, 192);
+}
+
+.btnMyNewsMyEventsTopBar:hover {
+  color: rgb(194, 192, 192);
+  border-color: rgb(194, 192, 192);
+}
+
+.btnMyNewsMyEventsTopBar:nth-child(1) {
+  border-top-left-radius: $bRadius;
+}
+
+.btnMyNewsMyEventsTopBar:nth-child(2) {
+  border-top-right-radius: $bRadius;
+}
+
+.boxItem {
+  padding: 10px 0 10px 0;
+  width: 95%;
+  border-bottom: 1px solid gray;
+}

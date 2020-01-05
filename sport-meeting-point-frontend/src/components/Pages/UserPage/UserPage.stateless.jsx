@@ -5,7 +5,8 @@ import style from './style.scss'
 import unauthUserImg from '../../../../static/unauth_usr.png'
 import { Redirect } from 'react-router-dom'
 import { userPageCreateEventUrl, userPageCreateNewsURL } from '../../App/AppConstRoutes'
-// import CreateEvent from './CreateEvent'
+import { LoadingType1 as Loading } from '../../Layouts/Loading'
+import MyEventsMyNews from './MyEventsMyNews'
 
 const PersonalDataLine = ({ title, text }) => (
   <p className={style.txt}>
@@ -41,9 +42,12 @@ const UserPageStateless = ({ signOut, firstName, lastName, email, role, dateOfBi
             <img id={style.userImg} src={unauthUserImg} alt='' />
           </div>
           <div className={style.miniItem}>
-            <button className={`${style.btn} ${style.simpleBtn}`}>Load user image</button>
-            <button className={`${style.btn} ${style.simpleBtn}`}>Reset personal data</button>
-            <button onClick={() => signOut()} id={style.exitBtn} className={style.btn}>Exit</button>
+            <Button title='Create Event' onClickHandle={e => setRedirectToCreateEvent(true)} />
+            <Button title='Create News' onClickHandle={e => setRedirectToCreateNews(true)} />
+            <Button title='Load user image' onClickHandle={e => alert(true)} />
+            <Button title='Reset personal data' onClickHandle={e => alert(true)} />
+            <Button title='Exit' onClickHandle={() => signOut()} />
+
           </div>
         </div>
 
@@ -56,22 +60,12 @@ const UserPageStateless = ({ signOut, firstName, lastName, email, role, dateOfBi
             <PersonalDataLine title='Date of birth: ' text={dateOfBirth} />
 
           </div>
-          {/* <div className={style.miniItem}> */}
-          {/*  <button className={`${style.btn} ${style.simpleBtn}`} */}
-          {/*    onClick={e => setRedirectToCreateEvent(true)} > */}
-          {/*    Create event */}
-          {/*  </button> */}
-          {/* </div> */}
-          <div className={style.miniItem}>
-
-            <Button title='Create Event' onClickHandle={e => setRedirectToCreateEvent(true)} />
-            <Button title='Create News' onClickHandle={e => setRedirectToCreateNews(true)} />
-          </div>
 
         </div>
 
+        <MyEventsMyNews />
+
       </main>
-      {/* <CreateEvent /> */}
 
     </Container>
   )

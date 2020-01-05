@@ -4,7 +4,7 @@
 .main {
   padding: 5px 5px;
   background: transparent; //#e4e4e4;
-  min-height: 120vh;
+  // min-height: 120vh;
   display: flex;
   // align-items: center;
   justify-content: center;
@@ -76,17 +76,6 @@
 .simpleBtn:hover {
   background-color: rgb(144, 159, 175);
 }
-
-
-#exitBtn {
-  background-color: rgb(179, 4, 4);
-
-}
-
-#exitBtn:hover {
-  background-color: rgb(66, 0, 0);
-}
-
 
 
 

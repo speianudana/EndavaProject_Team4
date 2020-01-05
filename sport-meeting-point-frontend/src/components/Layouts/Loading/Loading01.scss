@@ -1,4 +1,5 @@
 @import "../../../mixins/Filter.scss";
+@import "../../../mixins/NoSelect.scss";
 
 #loadingBase {
   top: 0px;
@@ -22,6 +23,7 @@
 
 .animate {
   cursor: default;
+  @include noSelect;
   color: rgb(196, 196, 196);
   display: flex;
   justify-content: center;

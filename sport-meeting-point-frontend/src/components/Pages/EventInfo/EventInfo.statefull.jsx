@@ -44,7 +44,11 @@ class EventInfoStatefull extends Component {
     if (eIndex === -1) {
       this.props.fetchSportEventById(eventDbId)
     } else {
-      this.props.refreshSportEventArray()
+      this.setState({
+        sportEvent: events[eIndex],
+        loadPage: false
+      })
+      // this.props.refreshSportEventArray()
     }
 
 
@@ -64,7 +68,8 @@ class EventInfoStatefull extends Component {
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    if (!this.state.sportEvent) {
+    console.log('terewf')
+    if (!this.state.sportEvent && !nextState.sportEvent) {
       const events = this.props.allEvents
       const eIndex = events.findIndex(a => a.id === this.state.eventDbId)
 
@@ -73,10 +78,11 @@ class EventInfoStatefull extends Component {
           sportEvent: events[eIndex],
           loadPage: false
         })
-        return false
+        // return false
       }
     } else {
-      if (!this.state.getUserAlreadyParticipateToThisEvent
+      if (this.state.sportEvent
+        && !this.state.getUserAlreadyParticipateToThisEvent
         && this.state.sportEvent.participants
         && this.state.sportEvent.participants.length > 0) {
 
@@ -87,9 +93,25 @@ class EventInfoStatefull extends Component {
             getUserAlreadyParticipateToThisEvent: true
           })
 
-          return false
+          // return false
+        }
+      } else if (nextState.sportEvent
+        && !this.state.getUserAlreadyParticipateToThisEvent
+        && nextState.sportEvent.participants
+        && nextState.sportEvent.participants.length > 0) {
+
+        const z = nextState.sportEvent.participants.findIndex(a => a.email === this.props.getUserEmail)
+
+        if (z !== -1) {
+          this.setState({
+            getUserAlreadyParticipateToThisEvent: true
+          })
+
+          // return false
         }
       }
+
+
     }
 
 
