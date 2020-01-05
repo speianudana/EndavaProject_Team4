@@ -2,6 +2,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import style from './style.scss'
 import { LoadingType1 as Load } from '../../../Layouts/Loading'
+import { Link } from 'react-router-dom'
+import { eventInfoUrl } from '../../../App/AppConstRoutes'
 
 function MyEventsMyNewsStateless({ eventsArray, newsArray, isLoading }) {
 
@@ -37,8 +39,12 @@ function MyEventsMyNewsStateless({ eventsArray, newsArray, isLoading }) {
           && eventsArray.length > 0
           && eventsArray.map((a, i) => (
             <div key={i} className={style.boxItem}>
-              <h3 className={style.titleLink}>{a.title}</h3>
-              <p>{a.text}</p>
+              <h3 className={style.titleLink}>
+                <Link to={`${eventInfoUrl}?id=${a.id}`}>
+                  {a.title}
+                </Link>
+              </h3>
+              <p>{a.previewMessage}</p>
             </div>
           ))
         }

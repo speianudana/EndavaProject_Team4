@@ -51,6 +51,7 @@ public class EventsAndNewsTheUserIsSubscribedTo {
 
     List<EventDTO> eventsDTO = events.stream().map(a->{
       EventDTO item = new EventDTO();
+      item.setId(a.getId());
       item.setTitle(a.getTitle());
       item.setPreviewMessage(a.getPreviewMessage());
 

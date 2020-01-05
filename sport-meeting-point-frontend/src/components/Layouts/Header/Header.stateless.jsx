@@ -20,7 +20,7 @@ const AuthContainer = ({ isAuthenticated }) => {
       <button className={style.btnMenu}>
         <Link style={{ color: 'rgb(7, 197, 204)' }} to={userPageUrl} className={style.aClass}>
           {/* <Link to={userPageUrl} id={style.accountBtn}> */}
-          {'My Page'}
+          {'My Profile'}
         </Link>
       </button>
     )
