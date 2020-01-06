@@ -1,6 +1,4 @@
 import React, { Component } from 'react'
-import axios from 'axios'
-import { url } from '../../../../utils/server-url'
 import AccountActivatorStateless from '../AccountActivator/AccountActivator.stateless.jsx'
 import { Redirect } from 'react-router-dom'
 import { loginUrl, index } from '../../../App/AppConstRoutes'
@@ -36,15 +34,6 @@ export default class AccountActivatorStatefull extends Component {
       .catch(err => {
         self.setState({ redirectToHome: true })
       })
-    // axios.get(`${url}/api/for_all/auth/validate?data=${data[1]}`).then(result => {
-    //   if (this._isMounted) {
-    //     this.setState({ loadAnimation: false })
-    //   }
-    // })
-    //   .catch(error => {
-    //     console.warn('Account activation error: ', error)
-    //     this.setState({ redirectToHome: true })
-    //   })
   }
 
   componentWillUnmount() {

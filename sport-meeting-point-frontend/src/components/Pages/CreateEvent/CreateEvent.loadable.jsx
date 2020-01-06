@@ -1,12 +1,11 @@
 import React, { Suspense } from 'react'
+import { FullPageLoading1 as Load } from '../../Layouts/Loading'
 
 const CreateEventStatefull = React.lazy(() => import('./CreateEvent.statefull.jsx'))
 
-const LoadingComponent = () => (<div>Loading...</div>)
-
-export default function CreateEventLoadable () {
+export default function CreateEventLoadable() {
   return (
-    <Suspense fallback={<LoadingComponent />}>
+    <Suspense fallback={<Load />}>
       <CreateEventStatefull />
     </Suspense>
   )
