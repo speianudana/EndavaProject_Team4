@@ -124,6 +124,10 @@ public class ReceiveNewsController {
     public ResponseEntity<?> getNewsImageById(@RequestParam("id") final Integer newsId) {
 
         News news = newsService.findNewsById(newsId);
+
+        if(news.getNewsImageId()==null)
+            return ResponseEntity.ok(HttpStatus.NOT_FOUND);
+
         NewsImage newsImage = newsImageRepository.findById(news.getNewsImageId()).orElse(null);
 
         if (newsImage == null || newsImage.getImage() == null) {

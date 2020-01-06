@@ -16,7 +16,6 @@ public class NewsImage extends BaseEntity {
 
     @Lob
     @Column(name = "image",  nullable = false)
-    @Basic(fetch=FetchType.LAZY, optional=true)
     private Byte[] image;
 
 }

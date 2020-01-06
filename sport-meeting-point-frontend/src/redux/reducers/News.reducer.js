@@ -6,9 +6,7 @@ import {
 } from '../constants/News.constants'
 
 const initialState = {
-    allNews: [],
-    allNewsId: () => (initialState.allNews.map(a => Number(a.id)))
-
+    allNews: []
 }
 
 function allNewsData(state = initialState, action) {

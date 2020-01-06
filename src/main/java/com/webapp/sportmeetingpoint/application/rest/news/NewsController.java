@@ -30,7 +30,7 @@ import java.util.stream.Collectors;
 
 @Log4j2
 @RestController
-@RequestMapping(value = "/api/news")
+@RequestMapping(value = "/api/for_authenticated_user")
 public class NewsController {
 
     private final UserSystemService userSystemService;
@@ -45,12 +45,13 @@ public class NewsController {
 
     }
 
-    @RequestMapping(value = "/for_authenticated_user/news/add", method = RequestMethod.POST,
+    @RequestMapping(value = "/news/add", method = RequestMethod.POST,
             consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<?> addNewNews(
             @RequestParam("file") MultipartFile file,
             @RequestParam("data")  String data
     )throws IOException {
+
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         JwtUser jwtUser = (JwtUser)authentication.getPrincipal();
         UserSystem userSystem = userSystemService.findById(jwtUser.getId());
@@ -93,12 +94,10 @@ public class NewsController {
         }
 
         News e = new News();
-//        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
         try{
 
             e.setTitle(newsDTO.getTitle());
-//            e.setDate(simpleDateFormat.parse(newsDTO.getNewsDate()));
             e.setContext(newsDTO.getContext());
 
         }catch(Exception ex){

@@ -51,7 +51,7 @@ const AppRouter = ({ isAuthenticated, userRole }) => {
         {/* This use get request, and data from url */}
         <Route path={userActivationUrl} component={AccountActivator} />
         <Route path={eventInfoUrl} component={EventInfo} />
-        {/* <Route path={eventInfoUrl} component={EventInfo} /> */}
+        <Route path={newsInfoUrl} component={NewsInfo} />
 
         {/* This use get request, and data from url */}
 

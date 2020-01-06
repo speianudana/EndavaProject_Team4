@@ -1,4 +1,4 @@
-import {url} from '../../utils/server-url'
+import { url } from '../../utils/server-url'
 import * as authUtils from '../utils/Authentication'
 import {
     PUSH_NEWS_WITHOUT_A_IMAGE_TO_ARRAY,
@@ -61,7 +61,7 @@ function fetchSportNewsImage(sportNewsObject) {
 }
 
 
-function loadFixedNumberOfNewsId(excludeIdArray = [], fixedNumber = 5) {
+function loadFixedNumberOfNews(excludeIdArray = [], fixedNumber = 5) {
     return dispatch => {
         const token = authUtils.loadTokenFromLocalStorage();
 
@@ -126,5 +126,5 @@ function fetchSportNewsById(sportNewsId) {
 export {
     refreshSportNewsArray,
     fetchSportNewsById,
-    loadFixedNumberOfNewsId
+    loadFixedNumberOfNews
 }

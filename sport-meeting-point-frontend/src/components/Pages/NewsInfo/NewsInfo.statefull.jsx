@@ -1,12 +1,12 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import NewsInfoStateless from './NewsInfo.stateless.jsx'
 import PropTypes from 'prop-types'
-import {FullPageLoading1 as Loading} from '../../Layouts/Loading'
-import {connect} from 'react-redux'
-import {bindActionCreators} from 'redux'
+import { FullPageLoading1 as Loading } from '../../Layouts/Loading'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
 import noImg from '../../../../static/No-Image-Basic.png'
-import {fetchSportNewsById, refreshSportNewsArray} from '../../../redux/actions/News.actions'
-import {CustomAlertOk, CustomAlertWarning} from '../../Layouts/CustomAlert'
+import { fetchSportNewsById, refreshSportNewsArray } from '../../../redux/actions/News.actions'
+import { CustomAlertOk, CustomAlertWarning } from '../../Layouts/CustomAlert'
 
 class NewsInfoStatefull extends Component {
     constructor(props) {
@@ -58,10 +58,33 @@ class NewsInfoStatefull extends Component {
         );
         this.loadNews(getNewsIdFromUrl);
 
+        // console.log(this.props)
 
         window.scrollTo(0, 0);
 
     }
+
+    shouldComponentUpdate(nextProps, nextState) {
+        if (!this.state.sportNews && !nextState.sportNews) {
+            const news = this.props.allNews
+            const nIndex = news.findIndex(a => a.id === this.state.newsDbId)
+
+            if (nIndex !== -1) {
+                this.setState({
+                    sportNews: news[nIndex],
+                    loadPage: false
+                })
+                // return false
+            }
+
+
+        }
+
+        // console.log(this.props, "---aaaa----", nextProps)
+
+        return true
+    }
+
 
 
     componentWillUnmount() {
@@ -71,13 +94,14 @@ class NewsInfoStatefull extends Component {
 
     render() {
         const sportNews = this.state.sportNews;
-        const Message = this.state.messageNode;
+        console.log(sportNews)
+        // const Message = this.state.messageNode;
 
         return (
             <>
-                {this.state.loadPage && <Loading/>}
+                {this.state.loadPage && <Loading />}
 
-                {
+                {/* {
                     Message && <Message
                         message={this.state.messageText}
                         onCloseHandler={e => {
@@ -89,7 +113,7 @@ class NewsInfoStatefull extends Component {
 
                         }}
                     />
-                }
+                } */}
 
                 {
                     sportNews &&
@@ -116,7 +140,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => (
     {
-        fetchSportEventById: bindActionCreators(fetchSportNewsById, dispatch),
+        fetchSportNewsById: bindActionCreators(fetchSportNewsById, dispatch),
         refreshSportEventArray: bindActionCreators(refreshSportNewsArray, dispatch)
     }
 );

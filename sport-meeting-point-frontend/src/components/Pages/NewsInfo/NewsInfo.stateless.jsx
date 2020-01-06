@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 
 import { ButtonA } from '../../Layouts/Button'
 
-export default function NewsInfoStateless({ title, context,  authorFullName, image}) {
+export default function NewsInfoStateless({ title, context, authorFullName, image }) {
 
     return (
         <Container>
@@ -25,8 +25,10 @@ export default function NewsInfoStateless({ title, context,  authorFullName, ima
 
                 <div>
                     <img src={image} className={`${style.imgProp} ${style.leftimg}`} alt='' />
-
+                    <br />
                 </div>
+
+                <div id={style.rectForButtonParticipate}></div>
 
 
             </div>
