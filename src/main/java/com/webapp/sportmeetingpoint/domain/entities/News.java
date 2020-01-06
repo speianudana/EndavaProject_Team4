@@ -1,19 +1,17 @@
 package com.webapp.sportmeetingpoint.domain.entities;
 
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 
-@EqualsAndHashCode(callSuper = false)
+
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
+@Getter
+@Setter
 @Entity(name = "News")
 @Table(name = "news")
 public class News extends BaseEntity {
@@ -26,12 +24,11 @@ public class News extends BaseEntity {
   @Column(name = "context", columnDefinition = "varchar(1000)", nullable = false)
   private String context;
 
-  @Lob
-  @Column(name = "image",  nullable = true)
-  private Byte[] image;
+  @Column(name="news_image_id")
+  private Integer newsImageId;
 
-  @Column(name = "date")
-  private Date date;
+//  @Column(name = "date")
+//  private Date date;
 
 
   @ManyToOne(fetch = FetchType.EAGER)

@@ -4,8 +4,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.webapp.sportmeetingpoint.application.security.jwt.JwtUser;
 import com.webapp.sportmeetingpoint.application.service.NewsService;
 import com.webapp.sportmeetingpoint.application.service.UserSystemService;
-import com.webapp.sportmeetingpoint.domain.dto.NewsDTO;
+import com.webapp.sportmeetingpoint.domain.dto.News.NewsDTO;
 import com.webapp.sportmeetingpoint.domain.entities.News;
+import com.webapp.sportmeetingpoint.domain.entities.NewsImage;
 import com.webapp.sportmeetingpoint.domain.entities.UserSystem;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +23,6 @@ import javax.validation.Validation;
 import javax.validation.Validator;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
@@ -47,7 +47,7 @@ public class NewsController {
 
     @RequestMapping(value = "/for_authenticated_user/news/add", method = RequestMethod.POST,
             consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<?> addNewEvent(
+    public ResponseEntity<?> addNewNews(
             @RequestParam("file") MultipartFile file,
             @RequestParam("data")  String data
     )throws IOException {
@@ -93,21 +93,24 @@ public class NewsController {
         }
 
         News e = new News();
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+//        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
         try{
 
             e.setTitle(newsDTO.getTitle());
-            e.setDate(simpleDateFormat.parse(newsDTO.getNewsDate()));
+//            e.setDate(simpleDateFormat.parse(newsDTO.getNewsDate()));
             e.setContext(newsDTO.getContext());
-            e.setImage(newsDTO.getImage());
 
         }catch(Exception ex){
             log.debug(ex.getMessage());
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
-        News result = newsService.saveNews(e, userSystem);
+
+        NewsImage eImage = new NewsImage();
+        eImage.setImage(newsDTO.getImage());
+
+        News result = newsService.saveNews(e, userSystem, eImage);
 
         return new ResponseEntity<>(result.getId(), HttpStatus.OK);
     }

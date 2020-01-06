@@ -17,9 +17,11 @@ import javax.validation.constraints.Size;
     @NotNull(message = "Title is required")
     private String title;
 
-    @Size(min=1, max=100, message = "Maximum context length 1000 characters")
+    @Size(min=1, max=2000, message = "Maximum context length 2000 characters")
     @NotNull(message = "Context is required")
     private String context;
+
+//    private String eventDate;
 
     private Byte[] image;
 

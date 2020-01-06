@@ -1,4 +1,4 @@
-package com.webapp.sportmeetingpoint.domain.dto;
+package com.webapp.sportmeetingpoint.domain.dto.News;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -13,17 +13,13 @@ import java.util.Date;
 @Data
 public class NewsDTO {
 
-    @Size(min=1, max=64, message = "Maximum title length 64 characters")
-    @NotNull(message = "Title is required")
+    private Integer id;
     private String title;
-
-    @Size(min=1, max=500, message = "Maximum preview message length 200 characters")
-    @NotNull(message = "Context is required")
     private String context;
-
+    private String authorEmail;
+    private String authorFullName;
     /*format YYYY-MM-DD*/
-    private String newsDate;
-
+//    private String newsDate;
     private Byte[] image;
 
 

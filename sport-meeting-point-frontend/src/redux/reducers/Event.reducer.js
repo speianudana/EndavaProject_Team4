@@ -9,7 +9,7 @@ const initialState = {
   allEvents: [],
   allEventsId: () => (initialState.allEvents.map(a => Number(a.id)))
 
-}
+};
 
 function allEventData(state = initialState, action) {
   switch (action.type) {
@@ -17,7 +17,7 @@ function allEventData(state = initialState, action) {
       return {
         ...state,
         allEvents: [...state.allEvents, ...action.payload]
-      }
+      };
     case REFRESH_SPORT_EVENT_ARRAY:
       return {
         ...state,

@@ -29,6 +29,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
   private static final String AUTH_ENDPOINT = "/api/auth/**";
   private static final String EVENT_ENDPOINT = "/api/event/**";
+  private static final String NEWS_ENDPOINT = "/api/news/**";
 
   private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
 

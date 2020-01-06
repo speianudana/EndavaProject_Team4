@@ -1,7 +1,7 @@
 package com.webapp.sportmeetingpoint.domain.dto.User;
 
 import com.webapp.sportmeetingpoint.domain.dto.Event.EventDTO;
-import com.webapp.sportmeetingpoint.domain.dto.NewsDTO;
+import com.webapp.sportmeetingpoint.domain.dto.News.NewsDTO;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 

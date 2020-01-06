@@ -1,61 +1,109 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import CreateNewsStateless from './CreateNews.stateless.jsx'
 import { url } from '../../../utils/server-url'
 import axios from 'axios'
+import { FullPageLoading1 } from '../../Layouts/Loading'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
-import saveNews from '../../../rest/SportNews/saveNewsAPI'
+import { Redirect } from 'react-router-dom'
+import { newsInfoUrl } from '../../App/AppConstRoutes'
 
-class CreateNewsStatefull extends Component {
-  constructor(props) {
-    super(props)
-    this.handleAllInputData.bind(this)
-  }
+class CreateNewsStatefull extends PureComponent {
+    constructor (props) {
+        super(props);
+        this.onHandleAllInputData.bind(this);
 
-  handleAllInputData(data) {
-    const token = this.props.getToken()
-
-    const reqData = {
-      title: data.title,
-      context: data.context,
-      image: data.image
+        this.state = {
+            validationMessage: [],
+            loadPage: false,
+            getCreatedNewsId: 0
+        }
     }
 
-    saveNews(reqData, token)
+    componentDidMount () {
+        this._isMounted = true
+    }
 
-    // console.log(token)
-    // console.log(data)
+    componentWillUnmount () {
+        this._isMounted = false
+    }
 
-    // const headers = {
-    //   'Content-Type': 'application/json',
-    //   Authorization: `Bearer_${token}`
-    // }
+    onHandleAllInputData (data) {
+        this.setState({ loadPage: true });
 
-    // axios.post(url + '/api/news/add', data, {
-    //   headers: headers
-    // })
-    //   .then((response) => {
-    //     console.log(response)
-    //   })
-    //   .catch((error) => {
-    //     if (error.response.status && error.response.status === 401) {
-    //       location.reload()
-    //     }
-    //     console.error(error)
-    //   })
-  }
+        // console.log('z1', data)
 
-  render() {
-    return <CreateNewsStateless onHandleAllInputData={(data) => this.handleAllInputData(data)} />
-  }
+        const self = this;
+        const token = this.props.getToken();
+        const formData = new FormData();
+        const newData = {
+            title: data.title.length > 0 ? data.title : null,
+            context: data.context.length > 0 ? data.context : null,
+            /*format YYYY-MM-DD*/
+            // newsDate: data.date
+        };
+
+        formData.append('file', data.image != null ? data.image : new File([], ''));
+        formData.append('data', JSON.stringify(newData));
+
+        const headers = {
+            'Content-Type': undefined,
+            Authorization: `Bearer_${token}`
+        };
+
+        axios.post(url + '/api/for_authenticated_user/news/add', formData, {
+            headers: headers
+        })
+            .then((response) => {
+                if (!self._isMounted) return;
+
+                if (response.data.validationMessage) {
+                    self.setState({ validationMessage: response.data.validationMessage });
+                    setTimeout(() => {
+                        if (self._isMounted) self.setState({ validationMessage: [] })
+                    }, 5000)
+                } else {
+                    // console.log(response.data)
+                    this.setState({ getCreatedNewsId: Number(response.data) })
+                }
+            })
+            .catch((error) => {
+                // clg
+                if (error.response.status && error.response.status === 401) {
+                    location.reload()
+                }
+            })
+            .then(() => {
+                if (self._isMounted) self.setState({ loadPage: false })
+            })
+    }
+
+    render () {
+        if (this.state.getCreatedNewsId !== 0) {
+            return <Redirect to={`${newsInfoUrl}?id=${this.state.getCreatedNewsId}`} />
+        }
+
+        return (
+            <React.Fragment>
+
+                {this.state.loadPage && <FullPageLoading1 />}
+
+                <CreateNewsStateless
+                    onHandleAllInputData={e => this.onHandleAllInputData(e)}
+                    validationMessage={this.state.validationMessage}
+                />
+
+            </React.Fragment>
+        )
+    }
 }
 
 const mapStateToProps = state => ({
-  getToken: state.authenticationData.getToken
-})
+    getToken: state.authenticationData.getToken
+});
 
 CreateNewsStatefull.propTypes = {
-  getToken: PropTypes.func
-}
+    getToken: PropTypes.func
+};
 
 export default connect(mapStateToProps)(CreateNewsStatefull)

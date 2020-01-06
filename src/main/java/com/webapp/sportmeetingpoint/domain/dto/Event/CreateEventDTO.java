@@ -1,4 +1,4 @@
-package com.webapp.sportmeetingpoint.domain.dto;
+package com.webapp.sportmeetingpoint.domain.dto.Event;
 
 
 import lombok.Data;
@@ -29,7 +29,7 @@ public class CreateEventDTO {
 
   /*format YYYY-MM-DD*/
   private String eventDate;
-  
+
   private Byte[] image;
   
   

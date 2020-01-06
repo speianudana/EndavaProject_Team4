@@ -34,7 +34,7 @@ public class AccountValidatorController {
     this.userSystemRepository = userSystemRepository;
   }
 
-  @RequestMapping(value = "/validate", method = RequestMethod.GET)
+  @RequestMapping(value = "/validate/event", method = RequestMethod.GET)
   public ResponseEntity<?> getAllEventsWithoutImage(@RequestParam(name = "data") final String data)
     throws MessagingException {
     Boolean result = false;
@@ -60,6 +60,31 @@ public class AccountValidatorController {
 
     return new ResponseEntity<>( HttpStatus.OK);
   }
+  @RequestMapping(value = "/validate/news", method = RequestMethod.GET)
+  public ResponseEntity<?> getAllNewsWithoutImage(@RequestParam(name = "data") final String data)
+          throws MessagingException {
+    Boolean result = false;
 
+    String[] hashAndUserId = data.split("_");
+
+    try{
+      UserSystem user = userSystemService.findById(UtilMethods.alphabetCharactersToNumber(hashAndUserId[1]));
+      if(user.getIsActivated()) throw new Exception("This user is already activated");
+
+      final String userSystemHash = user.getUserSystemValidationHash().getHash();
+      if(!userSystemHash.equals(hashAndUserId[0]))
+        throw new Exception("User system activation hash from db is not equal with request hash.");
+
+      userSystemRepository.updateSetSystemUserActivatedValue(true, user.getId());
+
+    }
+    catch(Exception e){
+      return new ResponseEntity<>( HttpStatus.BAD_REQUEST);
+    }
+
+
+
+    return new ResponseEntity<>( HttpStatus.OK);
+  }
 
 }

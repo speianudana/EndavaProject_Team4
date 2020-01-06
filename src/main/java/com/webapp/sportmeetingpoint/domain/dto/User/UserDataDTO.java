@@ -1,4 +1,4 @@
-package com.webapp.sportmeetingpoint.domain.dto.Event;
+package com.webapp.sportmeetingpoint.domain.dto.User;
 
 
 import lombok.AllArgsConstructor;

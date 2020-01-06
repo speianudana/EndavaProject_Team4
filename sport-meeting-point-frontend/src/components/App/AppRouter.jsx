@@ -9,6 +9,7 @@ import { Register } from '../Pages/Auth/Register'
 import { Login } from '../Pages/Auth/LogIn'
 import AccountActivator from '../Pages/Auth/AccountActivator'
 import EventInfo from '../Pages/EventInfo'
+import NewsInfo from '../Pages/NewsInfo'
 
 import UserPage from '../Pages/UserPage'
 import CreateEvent from '../Pages/CreateEvent'
@@ -22,7 +23,8 @@ import {
   userPageCreateEventUrl,
   userPageCreateNewsURL,
   userActivationUrl,
-  eventInfoUrl
+  eventInfoUrl,
+  newsInfoUrl
 } from './AppConstRoutes.js'
 
 import PropTypes from 'prop-types'
@@ -49,6 +51,8 @@ const AppRouter = ({ isAuthenticated, userRole }) => {
         {/* This use get request, and data from url */}
         <Route path={userActivationUrl} component={AccountActivator} />
         <Route path={eventInfoUrl} component={EventInfo} />
+        <Route path={eventInfoUrl} component={EventInfo} />
+
         {/* This use get request, and data from url */}
 
         <Route exact path={userPageUrl} component={isAuthenticated ? UserPage : Index} />
