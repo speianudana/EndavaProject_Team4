@@ -78,7 +78,7 @@ public class RegistrationController {
     userSystem.setPassword(jwtTokenProvider.passwordEncoder().encode(password));
     userSystem.setEmail(data.getEmail());
     userSystem.setUpdatedDate(now);
-    userSystem.setIsActivated(true);
+    userSystem.setIsActivated(false);
 
     UserSystem result = userSystemService.register(userSystem, personalData );
 
