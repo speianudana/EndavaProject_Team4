@@ -10,3 +10,4 @@ export const userPageCreateEventUrl = '/user/page/add/event'
 export const userPageCreateNewsURL = '/user/page/add/news'
 
 export const eventInfoUrl = '/event/info'
+export const newsInfoUrl = '/news/info'

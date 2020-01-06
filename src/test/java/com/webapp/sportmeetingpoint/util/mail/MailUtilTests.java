@@ -23,7 +23,7 @@ public class MailUtilTests {
     this.accountPassword = System.getenv("MAIL_PASSWORD");
   }
 
-  @Test
+//  @Test
   public void testSendMailAndReceiveMail() throws Exception {
     final String title = "Testing";
     final String hashToCheckSendAndReceiveMail = new RandomString(100).nextString();

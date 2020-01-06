@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.Date;
 
 @EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor
@@ -28,6 +29,10 @@ public class News extends BaseEntity {
   @Lob
   @Column(name = "image",  nullable = true)
   private Byte[] image;
+
+  @Column(name = "date")
+  private Date date;
+
 
   @ManyToOne(fetch = FetchType.EAGER)
   @JoinColumn(name = "user_author_activity_fk_id", nullable = true)
