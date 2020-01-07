@@ -11,7 +11,7 @@ export function subscribeUserToEvent(token, eventId) {
       }
     }
 
-    fetch(`${url}/api/for_authenticated_user/subscribe?event_id=${eventId}`, requestSetting)
+    fetch(`${url}/api/for_authenticated_user/subscribe_to_event?event_id=${eventId}`, requestSetting)
       .then(response => {
         if (response.status === 200 && response.ok) resolve('Success')
         else reject({
@@ -45,7 +45,7 @@ export function unsubscribeUserToEvent(token, eventId) {
       }
     }
 
-    fetch(`${url}/api/for_authenticated_user/unsubscribe?event_id=${eventId}`, requestSetting)
+    fetch(`${url}/api/for_authenticated_user/unsubscribe_to_event?event_id=${eventId}`, requestSetting)
       .then(response => {
         if (response.status === 200 && response.ok) resolve('Success')
         else reject({

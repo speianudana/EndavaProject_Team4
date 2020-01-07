@@ -59,7 +59,6 @@ class NewsStatefull extends Component {
 
 
           }
-          <NewsStateless title='title1' text='text222' />
         </div>
 
         <Container>

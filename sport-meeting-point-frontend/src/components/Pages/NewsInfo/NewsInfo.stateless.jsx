@@ -3,9 +3,10 @@ import style from './style.scss'
 import { Container } from '../../Layouts/Container'
 import PropTypes from 'prop-types'
 
-import { ButtonA } from '../../Layouts/Button'
+import { ButtonA as Btn } from '../../Layouts/Button'
 
-export default function NewsInfoStateless({ title, context, authorFullName, image }) {
+function NewsInfoStateless({ id, title, context, authorFullName, image,
+    onSubscribeClick, onUnsubscribeClick }) {
 
     return (
         <Container>
@@ -28,7 +29,18 @@ export default function NewsInfoStateless({ title, context, authorFullName, imag
                     <br />
                 </div>
 
-                <div id={style.rectForButtonParticipate}></div>
+                <div id={style.rectForButtonParticipate}>
+                    <Btn
+                        title='Subscribe'
+                        onClick={() => onSubscribeClick(id)}
+                    />
+
+                    <Btn
+                        title='Unsubscribe'
+                        onClick={() => onUnsubscribeClick(id)}
+                    />
+
+                </div>
 
 
             </div>
@@ -48,3 +60,6 @@ NewsInfoStateless.propTypes = {
 NewsInfoStateless.defaultProps = {
 
 };
+
+
+export default NewsInfoStateless

@@ -26,6 +26,8 @@ class NewsInfoStatefull extends Component {
         };
 
         this.loadNews.bind(this);
+        this.onSubscribeClick.bind(this)
+        this.onUnsubscribeClick.bind(this)
     }
 
     loadNews(newsDbId) {
@@ -58,8 +60,6 @@ class NewsInfoStatefull extends Component {
         );
         this.loadNews(getNewsIdFromUrl);
 
-        // console.log(this.props)
-
         window.scrollTo(0, 0);
 
     }
@@ -80,8 +80,6 @@ class NewsInfoStatefull extends Component {
 
         }
 
-        // console.log(this.props, "---aaaa----", nextProps)
-
         return true
     }
 
@@ -91,10 +89,17 @@ class NewsInfoStatefull extends Component {
         this._isMounted = false
     }
 
+    onSubscribeClick(newsId) {
+        console.log(newsId)
+    }
+
+    onUnsubscribeClick(newsId) {
+        console.log(newsId)
+    }
+
 
     render() {
         const sportNews = this.state.sportNews;
-        console.log(sportNews)
         // const Message = this.state.messageNode;
 
         return (
@@ -118,12 +123,14 @@ class NewsInfoStatefull extends Component {
                 {
                     sportNews &&
                     <NewsInfoStateless
+                        id={sportNews.id}
                         title={sportNews.title}
                         authorFullName={sportNews.authorFullName}
                         // newsDate={sportNews.newsDate}
                         context={sportNews.context}
                         image={sportNews.image || noImg}
-
+                        onSubscribeClick={id => this.onSubscribeClick(id)}
+                        onUnsubscribeClick={id => this.onUnsubscribeClick(id)}
                     />
                 }
             </>

@@ -71,7 +71,7 @@ public class EventParticipantsController {
     }
   }
 
-  @RequestMapping(value="/for_authenticated_user/subscribe", method = RequestMethod.GET)
+  @RequestMapping(value="/for_authenticated_user/subscribe_to_event", method = RequestMethod.GET)
   public ResponseEntity subscribeUserToEvent(@RequestParam(value="event_id") final Integer eventId){
 
     try{
@@ -90,10 +90,9 @@ public class EventParticipantsController {
       log.debug("exception on subscribeUserToEvent ",e);
       return ResponseEntity.badRequest().body(null);
     }
-
   }
 
-  @RequestMapping(value="/for_authenticated_user/unsubscribe", method = RequestMethod.GET)
+  @RequestMapping(value="/for_authenticated_user/unsubscribe_to_event", method = RequestMethod.GET)
   public ResponseEntity unsubscribeUserToEvent(@RequestParam(value="event_id") final Integer eventId){
 
     try{

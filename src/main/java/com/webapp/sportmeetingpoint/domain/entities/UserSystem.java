@@ -50,4 +50,7 @@ public class UserSystem extends BaseEntity {
   @OneToMany(mappedBy = "userSystem")
   private List<EventParticipantActivity> participantActivity = new ArrayList<>();
 
+  @OneToMany(mappedBy = "userSystem")
+  private List<NewsSubscribeActivity> newsSubscribeActivity = new ArrayList<>();
+
 }

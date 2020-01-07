@@ -5,7 +5,9 @@ import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 
 @NoArgsConstructor
@@ -35,5 +37,7 @@ public class News extends BaseEntity {
   @JoinColumn(name = "user_author_activity_fk_id", nullable = true)
   private UserAuthorActivity userAuthorActivity;
 
+  @OneToMany(mappedBy = "news")
+  private List<NewsSubscribeActivity> newsSubscribeActivity = new ArrayList<>();
 
 }

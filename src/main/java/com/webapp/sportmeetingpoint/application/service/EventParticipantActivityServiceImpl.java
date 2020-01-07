@@ -76,7 +76,5 @@ public class EventParticipantActivityServiceImpl implements EventParticipantActi
 
     eventParticipantActivityRepository.delete(commonEventParticipantActivity);
 
-    char a='a';
-
   }
 }
