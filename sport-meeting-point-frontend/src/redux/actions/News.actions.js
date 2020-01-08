@@ -7,6 +7,7 @@ import {
 } from '../constants/News.constants'
 import byteToImageSrc from '../../utils/byteToImageSrc'
 import noImage from '../../../static/No-Image-Basic.png'
+import { getSubscribesForEventByEventId } from '../../rest/SportNews'
 
 function addNewsInStore(data) {
     return {
@@ -27,6 +28,9 @@ function addImageForNewsIntoStore() {
     return refreshSportNewsArray()
 }
 
+function setSubscribersForNewsObject() {
+    return refreshSportNewsArray()
+}
 
 function fetchSportNewsImage(sportNewsObject) {
     return dispatch => {
@@ -88,6 +92,7 @@ function loadFixedNumberOfNews(excludeIdArray = [], fixedNumber = 5) {
                 dispatch(addNewsInStore(data));
                 data.forEach(a => {
                     dispatch(fetchSportNewsImage(a))
+                    dispatch(fetchSubscribersByNewsId(a))
                 })
             })
             .catch((error) => {
@@ -114,6 +119,7 @@ function fetchSportNewsById(sportNewsId) {
             .then((data) => {
                 dispatch(addNewsInStore([data]));
                 dispatch(fetchSportNewsImage(data))
+                dispatch(fetchSubscribersByNewsId(data))
                 // console.log(data)
             })
             .catch((error) => {
@@ -122,6 +128,23 @@ function fetchSportNewsById(sportNewsId) {
     }
 }
 
+function fetchSubscribersByNewsId(newsObj) {
+    return dispatch => {
+        const token = authUtils.loadTokenFromLocalStorage()
+        getSubscribesForEventByEventId(newsObj.id, token)
+            .then(res => {
+                if (res.status === 200 && res.ok) {
+                    res.json()
+                        .then(data => {
+                            // console.log(data)
+                            newsObj.subscribers = data
+                            dispatch(setSubscribersForNewsObject())
+                        })
+                }
+            })
+
+    }
+}
 
 export {
     refreshSportNewsArray,

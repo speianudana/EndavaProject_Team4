@@ -6,7 +6,8 @@ import PropTypes from 'prop-types'
 import { ButtonA as Btn } from '../../Layouts/Button'
 
 function NewsInfoStateless({ id, title, context, authorFullName, image,
-    onSubscribeClick, onUnsubscribeClick }) {
+    onSubscribeClick, onUnsubscribeClick,
+    getUserAlreadyIsSubscribedToThisNews }) {
 
     return (
         <Container>
@@ -30,15 +31,16 @@ function NewsInfoStateless({ id, title, context, authorFullName, image,
                 </div>
 
                 <div id={style.rectForButtonParticipate}>
-                    <Btn
+
+                    {!getUserAlreadyIsSubscribedToThisNews && <Btn
                         title='Subscribe'
                         onClick={() => onSubscribeClick(id)}
-                    />
+                    />}
 
-                    <Btn
+                    {getUserAlreadyIsSubscribedToThisNews && <Btn
                         title='Unsubscribe'
                         onClick={() => onUnsubscribeClick(id)}
-                    />
+                    />}
 
                 </div>
 

@@ -7,6 +7,7 @@ import { bindActionCreators } from 'redux'
 import noImg from '../../../../static/No-Image-Basic.png'
 import { fetchSportNewsById, refreshSportNewsArray } from '../../../redux/actions/News.actions'
 import { CustomAlertOk, CustomAlertWarning } from '../../Layouts/CustomAlert'
+import { subscribeToNews, unsubscribeToNews, getSubscribesForEventByEventId } from '../../../rest/SportNews'
 
 class NewsInfoStatefull extends Component {
     constructor(props) {
@@ -21,13 +22,21 @@ class NewsInfoStatefull extends Component {
             reloadOnDeleteMessageNode: false,
             messageText: '',
 
-            // getUserAlreadyParticipateToThisEvent: false
+            getUserAlreadyIsSubscribedToThisNews: false
 
         };
 
         this.loadNews.bind(this);
         this.onSubscribeClick.bind(this)
         this.onUnsubscribeClick.bind(this)
+
+        // getSubscribesForEventByEventId(1, this.props.getTokenMethod())
+        //     .then(res => {
+        //         res.json()
+        //             .then(data => {
+        //                 console.log(data)
+        //             })
+        //     })
     }
 
     loadNews(newsDbId) {
@@ -80,6 +89,19 @@ class NewsInfoStatefull extends Component {
 
         }
 
+
+        if (!this.state.getUserAlreadyIsSubscribedToThisNews
+            && this.state.sportNews
+            && this.state.sportNews.subscribers
+            && this.state.sportNews.subscribers.findIndex(a => a.email === this.props.getUserEmail) !== -1) {
+
+
+            this.setState({ getUserAlreadyIsSubscribedToThisNews: true })
+        }
+
+        console.log(this.state.getUserAlreadyIsSubscribedToThisNews, nextState.getUserAlreadyIsSubscribedToThisNews)
+        // console.log(this.props.getUserEmail)
+
         return true
     }
 
@@ -89,12 +111,19 @@ class NewsInfoStatefull extends Component {
         this._isMounted = false
     }
 
-    onSubscribeClick(newsId) {
-        console.log(newsId)
+    onSubscribeClick(newsId, ) {
+        subscribeToNews(newsId, this.props.getTokenMethod())
+            .then(res => {
+                if (res.status === 200 && res.ok) location.reload()
+            })
+
     }
 
     onUnsubscribeClick(newsId) {
-        console.log(newsId)
+        unsubscribeToNews(newsId, this.props.getTokenMethod())
+            .then(res => {
+                if (res.status === 200 && res.ok) location.reload()
+            })
     }
 
 
@@ -131,6 +160,7 @@ class NewsInfoStatefull extends Component {
                         image={sportNews.image || noImg}
                         onSubscribeClick={id => this.onSubscribeClick(id)}
                         onUnsubscribeClick={id => this.onUnsubscribeClick(id)}
+                        getUserAlreadyIsSubscribedToThisNews={this.state.getUserAlreadyIsSubscribedToThisNews}
                     />
                 }
             </>
