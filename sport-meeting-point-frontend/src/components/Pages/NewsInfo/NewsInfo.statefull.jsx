@@ -99,7 +99,7 @@ class NewsInfoStatefull extends Component {
             this.setState({ getUserAlreadyIsSubscribedToThisNews: true })
         }
 
-        console.log(this.state.getUserAlreadyIsSubscribedToThisNews, nextState.getUserAlreadyIsSubscribedToThisNews)
+        // console.log(this.state.getUserAlreadyIsSubscribedToThisNews, nextState.getUserAlreadyIsSubscribedToThisNews)
         // console.log(this.props.getUserEmail)
 
         return true

@@ -1,9 +1,8 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import MyEventsMyNewsStateless from './MyEventsMyNews.stateless.jsx'
-import { eventAndNewsAttendedByUser } from '../../../../rest/User'
 import { connect } from 'react-redux'
-
+import { eventsForTheSubscriber } from 'restApi/SportEvent/index.js'
 
 class MyEventsMyNewsStatefull extends Component {
 
@@ -21,23 +20,22 @@ class MyEventsMyNewsStatefull extends Component {
 
     const self = this
 
-    eventAndNewsAttendedByUser(this.props.getToken())
+    eventsForTheSubscriber(this.props.getToken())
       .then(res => {
         if (res.status === 200 && res.ok) return res.json()
         else throw Error()
       })
       .then(data => {
-        console.log(data)
         if (self._isMount) {
           self.setState({
-            events: data.events && data.events.length > 0 ? data.events : [],
-            news: data.news && data.news.length > 0 ? data.news : []
+            events: data && data.length > 0 ? data : [],
           })
         }
       })
       .catch(err => {
-        console.warn('error on myevents and mynews', err)
+        console.warn('error on my events and my news', err)
       })
+
 
   }
 

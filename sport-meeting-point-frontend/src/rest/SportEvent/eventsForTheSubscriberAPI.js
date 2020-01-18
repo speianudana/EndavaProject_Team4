@@ -1,7 +1,6 @@
 import { url } from '../../utils/server-url'
 
-
-export default function eventAndNewsAttendedByUser(token) {
+export default function eventsForTheSubscriber(token) {
 
   const config = {
     method: 'GET',
@@ -11,7 +10,6 @@ export default function eventAndNewsAttendedByUser(token) {
     }
   }
 
-  return fetch(`${url}/api/for_authenticated_user/get_events_and_news`, config)
-
+  return fetch(`${url}/api/for_authenticated_user/get_events_for_subscriber`, config)
 
 }

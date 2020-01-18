@@ -54,5 +54,10 @@ public class EventServiceImpl implements EventService {
     return eventRepository.findAllUseLimit(limit);
   }
 
+  @Override
+  public List<Event> eventsForTheSubscriberByUserSystemId(Integer userId) {
+    return eventRepository.eventsForTheSubscriberByUserSystemId(userId);
+  }
+
 
 }

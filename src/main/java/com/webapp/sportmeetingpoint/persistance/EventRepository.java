@@ -41,11 +41,11 @@ public interface EventRepository extends CrudRepository<Event, Integer> {
 
     @Modifying
     @Transactional
-    @Query(value = "SELECT * FROM \"event\" as e " +
-      "INNER JOIN \"event_participant_activity\" as ac " +
+    @Query(value = "SELECT * FROM \"event\" AS e " +
+      "INNER JOIN \"event_participant_activity\" AS ac " +
       "ON ac.event_fk_id=e.id " +
       "WHERE ac.user_system_fk_id=?1 ", nativeQuery = true)
-    List<Event> findAllForSubscriberUser(final Integer userId);
+    List<Event> eventsForTheSubscriberByUserSystemId(final Integer userId);
 
 
 }

@@ -1,0 +1,23 @@
+/*
+
+IMPORTANT!!!!
+
+  So that the import syntax works correctly, write ALL alias here
+
+*/
+{
+  "compilerOptions": {
+    "target": "es2017",
+    "allowSyntheticDefaultImports": false,
+    "baseUrl": "./",
+    "paths": {
+      "restApi/*": [
+        "src/rest/*"
+      ]
+    }
+  },
+  "exclude": [
+    "node_modules",
+    "static"
+  ]
+}

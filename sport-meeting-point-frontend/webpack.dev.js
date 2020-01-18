@@ -1,5 +1,6 @@
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const commonAlias = require('./commonAlias')
 // const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 // const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 // const { CleanWebpackPlugin } = require('clean-webpack-plugin')
@@ -19,6 +20,9 @@ module.exports = (env, options) => {
       filename: '[name].dev.js',
       chunkFilename: '[name]_[chunkhash].js',
       publicPath: '/'
+    },
+    resolve: {
+      alias: commonAlias
     },
     devtool: 'inline-source-map',
     module: {

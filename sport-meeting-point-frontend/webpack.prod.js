@@ -1,4 +1,5 @@
 const path = require('path')
+const commonAlias = require('./commonAlias')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin')
@@ -21,6 +22,9 @@ module.exports = (env, options) => {
       filename: '[name].[contenthash].js',
       chunkFilename: '[name]_[chunkhash].js',
       publicPath: '/'
+    },
+    resolve: {
+      alias: commonAlias
     },
     devtool: '',
     optimization: {

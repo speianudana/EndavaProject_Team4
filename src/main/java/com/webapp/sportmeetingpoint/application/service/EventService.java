@@ -19,4 +19,6 @@ public interface EventService {
 
   List<Event> find(final Integer limit);
 
+  List<Event> eventsForTheSubscriberByUserSystemId(final Integer userId);
+
 }

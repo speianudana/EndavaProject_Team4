@@ -1,5 +1,5 @@
-import eventAndNewsAttendedByUser from './eventsAndNewsAttendedByTheUserAPI'
+// import eventAndNewsAttendedByUser from './eventsAndNewsAttendedByTheUserAPI'
 import activateUser from './userActivationByHashAPI'
 // const eventAndNewsByUser = eventAndNewsAttendedByUser
 
-export { eventAndNewsAttendedByUser, activateUser }
+export { activateUser }
