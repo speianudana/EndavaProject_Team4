@@ -38,4 +38,12 @@ public interface NewsRepository extends CrudRepository<News, Integer> {
     @Transactional
     List<News> findAllUseLimit(Integer limit);
 
+
+    @Modifying
+    @Transactional
+    @Query(value = "SELECT * FROM \"news\" as n " +
+      " INNER JOIN \"news_subscribe_activity\" as na " +
+      " ON na.\"news_fk_id\"=n.\"id\" AND na.\"user_system_fk_id\"=?1 ", nativeQuery = true)
+    List<News> newsForTheSubscriberByUserSystemId(final Integer userId);
+
 }

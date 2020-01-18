@@ -9,7 +9,6 @@ import { bindActionCreators } from 'redux'
 import { loginUser } from '../../../../redux/actions/Authentication.actions'
 
 class LoginStatefull extends Component {
-
   render () {
     if (this.props.isAuthenticated) return <Redirect to={index} />
 

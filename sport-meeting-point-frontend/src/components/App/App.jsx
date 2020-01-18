@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { authorizeUserIfTokenInLocalStorageIsValid } from '../../redux/actions/Authentication.actions'
 
-function App(props) {
+function App (props) {
   useEffect(() => {
     props.tryAuthorizeUserUsingTokenFromLocalStorage()
   }, [])

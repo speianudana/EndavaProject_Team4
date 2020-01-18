@@ -35,8 +35,11 @@ const Wrapper = ({ children }) => (
   </div>
 )
 
-const AppRouter = ({ isAuthenticated, userRole }) => {
+Wrapper.propTypes = {
+  children: PropTypes.node
+}
 
+const AppRouter = ({ isAuthenticated, userRole }) => {
   return (
     <Router>
       <Header />
@@ -66,10 +69,10 @@ const AppRouter = ({ isAuthenticated, userRole }) => {
 }
 
 AppRouter.propTypes = {
-  isAuthenticated: PropTypes.bool
+  isAuthenticated: PropTypes.bool,
+  userRole: PropTypes.string
 }
 
 export default AppRouter
 
-
-// 
+//

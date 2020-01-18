@@ -28,7 +28,7 @@ const AuthContainer = ({ isAuthenticated }) => {
 }
 
 AuthContainer.propTypes = {
-  isAuthenticated: PropTypes.bool,
+  isAuthenticated: PropTypes.bool
 }
 
 const ClickableItem = ({ to, title }) => (
@@ -57,7 +57,7 @@ MenuBtn.propTypes = {
   clickHandler: PropTypes.func
 }
 
-function HeaderStateless(props) {
+function HeaderStateless (props) {
   const [dropdownIsVisible, setDropdownVisible] = React.useState(false)
 
   return (
@@ -112,8 +112,8 @@ const mapStateToProps = state => (
 )
 
 HeaderStateless.propTypes = {
-  isAuthenticated: PropTypes.bool,
-  email: PropTypes.string
+  isAuthenticated: PropTypes.bool
+  // email: PropTypes.string
 }
 
 export default connect(mapStateToProps)(HeaderStateless)

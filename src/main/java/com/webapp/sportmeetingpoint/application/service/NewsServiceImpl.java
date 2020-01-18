@@ -56,5 +56,10 @@ public class NewsServiceImpl implements NewsService {
         return newsRepository.findAllUseLimit(limit);
     }
 
+    @Override
+    public List<News> newsForTheSubscriberByUserSystemId(Integer userId) {
+        return newsRepository.newsForTheSubscriberByUserSystemId(userId);
+    }
+
 
 }

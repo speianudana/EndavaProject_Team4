@@ -28,9 +28,6 @@ target/
 /.nb-gradle/
 build/
 
-### VS Code ###
-.vscode/
-
 ###
 src/main/resources/static
 
@@ -44,5 +41,4 @@ src/main/resources/static
 
 *~
 *.orig
-.vscode
 .eslintcache

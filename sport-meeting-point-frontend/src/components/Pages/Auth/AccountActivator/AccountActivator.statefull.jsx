@@ -5,7 +5,7 @@ import { loginUrl, index } from '../../../App/AppConstRoutes'
 import { activateUser } from '../../../../rest/User/index'
 
 export default class AccountActivatorStatefull extends Component {
-  constructor(props) {
+  constructor (props) {
     super(props)
 
     this.state = {
@@ -17,7 +17,7 @@ export default class AccountActivatorStatefull extends Component {
     this.redirectToLogin.bind(this)
   }
 
-  componentDidMount() {
+  componentDidMount () {
     this._isMounted = true
 
     const data = window.location.href.split('?')[1]
@@ -32,19 +32,20 @@ export default class AccountActivatorStatefull extends Component {
         }
       })
       .catch(err => {
+        console.warn(err)
         self.setState({ redirectToHome: true })
       })
   }
 
-  componentWillUnmount() {
+  componentWillUnmount () {
     this._isMounted = false
   }
 
-  redirectToLogin() {
+  redirectToLogin () {
     this.setState({ redirectToLogin: true })
   }
 
-  render() {
+  render () {
     if (this.state.redirectToLogin) return <Redirect to={loginUrl} />
     if (this.state.redirectToHome) return <Redirect to={index} />
 

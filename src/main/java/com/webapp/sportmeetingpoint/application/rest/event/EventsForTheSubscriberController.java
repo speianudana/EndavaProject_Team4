@@ -32,7 +32,6 @@ public class EventsForTheSubscriberController {
   public ResponseEntity getEventsForSubscriber() {
     Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
     JwtUser jwtUser = (JwtUser) authentication.getPrincipal();
-
     final Integer getUserId = jwtUser.getId();
 
     List<Event> eventsForSubscriber = eventService.eventsForTheSubscriberByUserSystemId(getUserId);

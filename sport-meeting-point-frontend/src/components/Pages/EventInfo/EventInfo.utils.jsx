@@ -1,4 +1,5 @@
-import React, { Component } from 'react'
+import React from 'react'
+import PropTypes from 'prop-types'
 
 const ParticipantView = ({ arr }) => (
   <>
@@ -11,5 +12,9 @@ const ParticipantView = ({ arr }) => (
     }
   </>
 )
+
+ParticipantView.propTypes = {
+  arr: PropTypes.array
+}
 
 export { ParticipantView }

@@ -1,16 +1,15 @@
 import { url } from '../../utils/server-url'
 
-export default function saveNews({
+export default function saveNews ({
   title,
   context,
   image
 },
-  token) {
-
+token) {
   const formData = new FormData()
   const jsonData = JSON.stringify({
     title: title,
-    context: context,
+    context: context
   })
 
   // console.log(image)
@@ -30,7 +29,6 @@ export default function saveNews({
       console.log('success')
     })
     .catch(err => {
-      console.log('error')
+      console.warn('error:', err)
     })
-
 }

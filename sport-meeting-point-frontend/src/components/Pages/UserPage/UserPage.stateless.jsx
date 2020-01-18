@@ -5,7 +5,6 @@ import style from './style.scss'
 import unauthUserImg from '../../../../static/unauth_usr.png'
 import { Redirect } from 'react-router-dom'
 import { userPageCreateEventUrl, userPageCreateNewsURL } from '../../App/AppConstRoutes'
-import { LoadingType1 as Loading } from '../../Layouts/Loading'
 import MyEventsMyNews from './MyEventsMyNews'
 
 const PersonalDataLine = ({ title, text }) => (

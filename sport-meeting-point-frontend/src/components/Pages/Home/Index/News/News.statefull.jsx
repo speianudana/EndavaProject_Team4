@@ -1,45 +1,37 @@
 import React, { Component } from 'react'
-// import PropTypes from 'prop-types'
+import PropTypes from 'prop-types'
 import NewsStateless from './News.stateless.jsx'
 import style from './style.scss'
 import { ButtonB } from '../../../../Layouts/Button'
 import { Container } from '../../../../Layouts/Container'
-import imgTest1 from '../../../../../../static/q1.jpg'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { loadFixedNumberOfNews } from '../../../../../redux/actions/News.actions'
 
-
 class NewsStatefull extends Component {
-
-  constructor(props) {
+  constructor (props) {
     super(props)
 
     this.loadNewsFromServer.bind(this)
   }
 
-  loadNewsFromServer() {
+  loadNewsFromServer () {
     const excludedIds = this.props.allNews.map(a => Number(a.id))
 
     this.props.loadFixedNumberOfNews(excludedIds || [], 5)
   }
 
-  componentDidMount() {
-
+  componentDidMount () {
     const excludedIds = this.props.allNews.map(a => Number(a.id))
 
-    if (excludedIds && excludedIds < 5)
-      this.loadNewsFromServer()
+    if (excludedIds && excludedIds < 5) { this.loadNewsFromServer() }
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
-    // console.log(this.props)
-
+  shouldComponentUpdate (nextProps, nextState) {
     return true
   }
 
-
-  render() {
+  render () {
     return (
       <>
         <div id={style.mainContainer}>
@@ -56,8 +48,6 @@ class NewsStatefull extends Component {
               />
             ))
 
-
-
           }
         </div>
 
@@ -73,11 +63,15 @@ const mapStateToProps = state => ({
   allNews: state.allNewsData.allNews
 })
 
-
 const mapDispatchToProps = dispatch => {
   return {
     loadFixedNumberOfNews: bindActionCreators(loadFixedNumberOfNews, dispatch)
   }
+}
+
+NewsStatefull.propTypes = {
+  allNews: PropTypes.array,
+  loadFixedNumberOfNews: PropTypes.func
 }
 
 export default connect(mapStateToProps,

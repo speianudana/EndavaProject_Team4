@@ -5,10 +5,11 @@ import PropTypes from 'prop-types'
 
 import { ButtonA } from '../../Layouts/Button'
 
-export default function EventInfoStateless({ title, previewMessage, description, authorFullName,
+export default function EventInfoStateless ({
+  title, previewMessage, description, authorFullName,
   eventDate, address, image, participants, alreadyParticipating,
-  onNotParticipateClick, onParticipateClick }) {
-
+  onNotParticipateClick, onParticipateClick
+}) {
   return (
     <Container>
 
@@ -16,9 +17,9 @@ export default function EventInfoStateless({ title, previewMessage, description,
         <h1>{title}</h1>
         {
           alreadyParticipating &&
-          <span style={{ color: 'green' }}>
+            <span style={{ color: 'green' }}>
             You are participating
-          </span>
+            </span>
         }
         <br />
         <br />
@@ -49,8 +50,6 @@ export default function EventInfoStateless({ title, previewMessage, description,
         <br />
         <br />
 
-
-
         <div id={style.rectForButtonParticipate}>
 
           {!alreadyParticipating &&
@@ -58,19 +57,16 @@ export default function EventInfoStateless({ title, previewMessage, description,
               onClick={e => onParticipateClick(e)}
               className={style.participateBtn}
               title='Participate'
-            />
-          }
+            />}
 
           {alreadyParticipating &&
             <ButtonA
               onClick={e => onNotParticipateClick(e)}
               className={style.participateBtn}
               title='Not participate'
-            />
-          }
+            />}
 
         </div>
-
 
       </div>
 
@@ -87,7 +83,10 @@ EventInfoStateless.propTypes = {
   eventDate: PropTypes.string,
   address: PropTypes.string,
   image: PropTypes.string,
-  participants: PropTypes.node
+  participants: PropTypes.node,
+  alreadyParticipating: PropTypes.bool,
+  onNotParticipateClick: PropTypes.func,
+  onParticipateClick: PropTypes.func
 }
 
 EventInfoStateless.defaultProps = {

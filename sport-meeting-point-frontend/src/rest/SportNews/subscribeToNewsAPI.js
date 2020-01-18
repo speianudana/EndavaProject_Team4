@@ -1,7 +1,6 @@
 import { url } from '../../utils/server-url'
 
-function subscribeToNews(newsId, token) {
-
+function subscribeToNews (newsId, token) {
   const requestSettings = {
     method: 'GET',
     headers: {
@@ -12,11 +11,9 @@ function subscribeToNews(newsId, token) {
 
   return fetch(`${url}/api/for_authenticated_user/subscribe_to_news?newsId=${newsId}`,
     requestSettings)
-
 }
 
-function unsubscribeToNews(newsId, token) {
-
+function unsubscribeToNews (newsId, token) {
   const requestSettings = {
     method: 'GET',
     headers: {
@@ -27,10 +24,9 @@ function unsubscribeToNews(newsId, token) {
 
   return fetch(`${url}/api/for_authenticated_user/unsubscribe_to_news?newsId=${newsId}`,
     requestSettings)
-
 }
 
-function getSubscribesForEventByEventId(newsId, token) {
+function getSubscribesForEventByEventId (newsId, token) {
   const requestSettings = {
     method: 'GET',
     headers: {
@@ -41,8 +37,6 @@ function getSubscribesForEventByEventId(newsId, token) {
 
   return fetch(`${url}/api/for_all/news/get_news_participants?id=${newsId}`,
     requestSettings)
-
 }
-
 
 export { subscribeToNews, unsubscribeToNews, getSubscribesForEventByEventId }

@@ -16,7 +16,8 @@ jsconfig.json
 
 
 const commonAlias = {
-  'restApi': path.join(__dirname, './src/rest')
+  'restApi': path.join(__dirname, './src/rest'),
+  'utils': path.join(__dirname, './src/utils'),
 }
 
 module.exports = commonAlias

@@ -8,11 +8,13 @@ IMPORTANT!!!!
 {
   "compilerOptions": {
     "target": "es2017",
-    "allowSyntheticDefaultImports": false,
     "baseUrl": "./",
     "paths": {
       "restApi/*": [
         "src/rest/*"
+      ],
+      "utils/*": [
+        "src/utils/*"
       ]
     }
   },

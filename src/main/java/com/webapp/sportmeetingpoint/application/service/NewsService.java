@@ -16,4 +16,6 @@ public interface NewsService {
     List<News> find(final List<Integer> excludedIds, final Integer limit);
 
     List<News> find(final Integer limit);
+
+    List<News> newsForTheSubscriberByUserSystemId(final Integer userId);
 }

@@ -21,7 +21,7 @@ Element.propTypes = {
   size: PropTypes.element
 }
 
-function imgShower(img) {
+function imgShower (img) {
   switch (img) {
     case null:
       return <LoadingType1 />
@@ -30,7 +30,7 @@ function imgShower(img) {
   }
 }
 
-export default function EventStateless({
+export default function EventStateless ({
   id,
   title,
   text,
@@ -39,7 +39,6 @@ export default function EventStateless({
   address,
   eventDate
 }) {
-
   return (
     <div className={style.mainContainer}>
       <div className={style.mainContainerChild}>

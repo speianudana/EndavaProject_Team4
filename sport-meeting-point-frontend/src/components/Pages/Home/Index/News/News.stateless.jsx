@@ -4,16 +4,14 @@ import style from './style.scss'
 import { Redirect } from 'react-router-dom'
 import { newsInfoUrl } from '../../../../App/AppConstRoutes'
 
-function titleCharacterCounter(str) {
+function titleCharacterCounter (str) {
   return str.length > 130 ? str.substring(0, 127) + '...' : str
 }
 
-function NewsStateless({ title, text, img, id }) {
-
+function NewsStateless ({ title, text, img, id }) {
   const [redirectToInfoNews, setRedirectToInfoNews] = React.useState(false)
 
-  if (redirectToInfoNews)
-    return <Redirect to={`${newsInfoUrl}?id=${id}`} />
+  if (redirectToInfoNews) { return <Redirect to={`${newsInfoUrl}?id=${id}`} /> }
 
   return (
     <div onClick={() => setRedirectToInfoNews(true)} className={style.itemContainer}>
@@ -30,7 +28,9 @@ function NewsStateless({ title, text, img, id }) {
 
 NewsStateless.propTypes = {
   title: PropTypes.string,
-  text: PropTypes.string
+  text: PropTypes.string,
+  img: PropTypes.any,
+  id: PropTypes.number
 }
 
 export default NewsStateless

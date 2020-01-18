@@ -4,41 +4,46 @@ import style from './style.scss'
 import { IconContext } from 'react-icons'
 import { IoMdCheckmark, IoMdClose, IoMdAlert } from 'react-icons/io'
 
-
 const Icon = ({ item, color, size = '55px' }) => (
   <IconContext.Provider value={{ color: color, size: size }}>
-    <span >
+    <span>
       {item}
     </span>
   </IconContext.Provider>
 )
 
-function CustomAlertStateless({ type = 1, message, onCloseHandler }) {
+Icon.propTypes = {
+  item: PropTypes.node,
+  color: PropTypes.string,
+  size: PropTypes.string
+}
+
+function CustomAlertStateless ({ type = 1, message, onCloseHandler }) {
   return (
     <div className={style.container}>
       {
         type === 1 &&
-        <Icon
-          item={<IoMdCheckmark />}
-          color='green'
-        />
+          <Icon
+            item={<IoMdCheckmark />}
+            color='green'
+          />
 
-        ||
+      }
 
+      {
         type === 2 &&
-        <Icon
-          item={<IoMdClose />}
-          color='red'
-        />
+          <Icon
+            item={<IoMdClose />}
+            color='red'
+          />
+      }
 
-        ||
-
+      {
         type === 3 &&
-        <Icon
-          item={<IoMdAlert />}
-          color='yellow'
-        />
-
+          <Icon
+            item={<IoMdAlert />}
+            color='yellow'
+          />
       }
 
       <p className={style.content}>
@@ -60,4 +65,3 @@ CustomAlertStateless.propTypes = {
 }
 
 export default CustomAlertStateless
-

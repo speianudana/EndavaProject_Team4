@@ -5,63 +5,60 @@ import PropTypes from 'prop-types'
 
 import { ButtonA as Btn } from '../../Layouts/Button'
 
-function NewsInfoStateless({ id, title, context, authorFullName, image,
-    onSubscribeClick, onUnsubscribeClick,
-    getUserAlreadyIsSubscribedToThisNews }) {
+function NewsInfoStateless ({
+  id, title, context, authorFullName, image,
+  onSubscribeClick, onUnsubscribeClick,
+  getUserAlreadyIsSubscribedToThisNews
+}) {
+  return (
+    <Container>
 
-    return (
-        <Container>
+      <div id={style.mainContainer}>
+        <h1>{title}</h1>
 
-            <div id={style.mainContainer}>
-                <h1>{title}</h1>
+        <br />
+        <br />
 
-                <br />
-                <br />
+        <p> Author: {authorFullName}</p>
+        <br />
 
-                <p> Author: {authorFullName}</p>
-                <br />
+        <p>{context}</p>
+        <br />
+        <br />
 
-                <p>{context}</p>
-                <br />
-                <br />
+        <div>
+          <img src={image} className={`${style.imgProp} ${style.leftimg}`} alt='' />
+          <br />
+        </div>
 
-                <div>
-                    <img src={image} className={`${style.imgProp} ${style.leftimg}`} alt='' />
-                    <br />
-                </div>
+        <div id={style.rectForButtonParticipate}>
 
-                <div id={style.rectForButtonParticipate}>
+          {
+            !getUserAlreadyIsSubscribedToThisNews &&
+              <Btn title='Subscribe' onClick={() => onSubscribeClick(id)} />
+          }
 
-                    {!getUserAlreadyIsSubscribedToThisNews && <Btn
-                        title='Subscribe'
-                        onClick={() => onSubscribeClick(id)}
-                    />}
+          {getUserAlreadyIsSubscribedToThisNews &&
+            <Btn title='Unsubscribe' onClick={() => onUnsubscribeClick(id)} />}
 
-                    {getUserAlreadyIsSubscribedToThisNews && <Btn
-                        title='Unsubscribe'
-                        onClick={() => onUnsubscribeClick(id)}
-                    />}
+        </div>
 
-                </div>
+      </div>
 
+    </Container>
 
-            </div>
-
-        </Container>
-
-    )
+  )
 }
 
 NewsInfoStateless.propTypes = {
-    title: PropTypes.string,
-    context: PropTypes.string,
-    authorFullName: PropTypes.string,
-    image: PropTypes.string,
-};
-
-NewsInfoStateless.defaultProps = {
-
-};
-
+  title: PropTypes.string,
+  context: PropTypes.string,
+  authorFullName: PropTypes.string,
+  image: PropTypes.string,
+  id: PropTypes.number,
+  onSubscribeClick: PropTypes.func,
+  onUnsubscribeClick: PropTypes.func,
+  getUserAlreadyIsSubscribedToThisNews: PropTypes.bool
+}
 
 export default NewsInfoStateless

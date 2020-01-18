@@ -3,7 +3,7 @@ import { FullPageLoading1 as Load } from '../../Layouts/Loading'
 
 const CreateNewsStatefull = React.lazy(() => import('./CreateNews.statefull.jsx'))
 
-export default function CreateNewsLoadable() {
+export default function CreateNewsLoadable () {
   return (
     <Suspense fallback={<Load />}>
       <CreateNewsStatefull />

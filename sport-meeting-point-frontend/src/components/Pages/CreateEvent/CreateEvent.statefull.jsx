@@ -10,8 +10,8 @@ import { eventInfoUrl } from '../../App/AppConstRoutes'
 
 class CreateEventStatefull extends PureComponent {
   constructor (props) {
-    super(props);
-    this.handleAllInputData.bind(this);
+    super(props)
+    this.handleAllInputData.bind(this)
 
     this.state = {
       validationMessage: [],
@@ -29,38 +29,38 @@ class CreateEventStatefull extends PureComponent {
   }
 
   handleAllInputData (data) {
-    this.setState({ loadPage: true });
+    this.setState({ loadPage: true })
 
     // console.log('z1', data)
 
-    const self = this;
-    const token = this.props.getToken();
-    const formData = new FormData();
+    const self = this
+    const token = this.props.getToken()
+    const formData = new FormData()
     const newData = {
       title: data.title.length > 0 ? data.title : null,
       address: data.address.length > 0 ? data.address : null,
       previewMessage: data.previewMessage.length > 0 ? data.previewMessage : null,
       description: data.description.length > 0 ? data.description : null,
-    /*format YYYY-MM-DD*/
+      /* format YYYY-MM-DD */
       eventDate: data.date
-    };
+    }
 
-    formData.append('file', data.image != null ? data.image : new File([], ''));
-    formData.append('data', JSON.stringify(newData));
+    formData.append('file', data.image != null ? data.image : new File([], ''))
+    formData.append('data', JSON.stringify(newData))
 
     const headers = {
       'Content-Type': undefined,
       Authorization: `Bearer_${token}`
-    };
+    }
 
     axios.post(url + '/api/for_authenticated_user/event/add', formData, {
       headers: headers
     })
       .then((response) => {
-        if (!self._isMounted) return;
+        if (!self._isMounted) return
 
         if (response.data.validationMessage) {
-          self.setState({ validationMessage: response.data.validationMessage });
+          self.setState({ validationMessage: response.data.validationMessage })
           setTimeout(() => {
             if (self._isMounted) self.setState({ validationMessage: [] })
           }, 5000)
@@ -102,10 +102,10 @@ class CreateEventStatefull extends PureComponent {
 
 const mapStateToProps = state => ({
   getToken: state.authenticationData.getToken
-});
+})
 
 CreateEventStatefull.propTypes = {
   getToken: PropTypes.func
-};
+}
 
 export default connect(mapStateToProps)(CreateEventStatefull)
