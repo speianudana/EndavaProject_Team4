@@ -37,11 +37,16 @@ public class MailUtil {
   private void sendMail(String recipient,final String title,final String htmlText) throws MessagingException {
 
     Properties properties = new Properties();
-
-    properties.put("mail.smtp.auth","true");
-    properties.put("mail.smtp.starttls.enable","true");
     properties.put("mail.smtp.host","smtp.gmail.com");
     properties.put("mail.smtp.port",  "587");
+    properties.put("mail.smtp.auth",  "true");
+    properties.put("mail.smtp.socketFactory.port",  "587");
+    properties.put("mail.smtp.socketFactory.fallback",  "true");
+    properties.put("mail.smtp.starttls.enable",  "true");
+    properties.put("mail.smtp.starttls.required",  "true");
+    properties.put("mail.smtp.ssl.enable",  "false");
+
+
 
 
     Session session = Session.getDefaultInstance(properties, new Authenticator() {

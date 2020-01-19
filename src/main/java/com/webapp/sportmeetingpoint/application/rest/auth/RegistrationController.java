@@ -28,8 +28,11 @@ public class RegistrationController {
   private final UserSystemService userSystemService;
   private final Validator validator;
 
-  @Value("${frontend.url}")
-  private String url;
+  @Value("${frontend.url.dev}")
+  private String frontendUrlDev;
+
+  @Value("${frontend.url.prod}")
+  private String frontendUrlProd;
 
 
   @Autowired
@@ -87,8 +90,19 @@ public class RegistrationController {
 
     new MailUtil().sendMailAsync(result.getEmail(),
       "Account activation - Sport Meeting Point",
-      "<h2><a href="+url+"/auth/activation?"+ readyHash
-        +">To activate your account, click here.</a></h2>"
+
+      "<h1>Dev. mode:</h1>" +
+        "<h2>" +
+        "<a href="+frontendUrlDev+"/auth/activation?"+ readyHash
+        +">To activate your account, click here.</a>" +
+        "</h2>" +
+        "<br/>" +
+        "<h1>Prod. mode:</h1>"+
+        "<h2>" +
+        "<a href="+frontendUrlProd+"/auth/activation?"+ readyHash
+        +">To activate your account, click here.</a>" +
+        "</h2>" +
+        "<br/>"
     );
 
 
