@@ -29,7 +29,7 @@ target/
 build/
 
 ###
-src/main/resources/static
+#src/main/resources/static
 
 #node_modules
 /sport-meeting-point-frontend/node_modules
