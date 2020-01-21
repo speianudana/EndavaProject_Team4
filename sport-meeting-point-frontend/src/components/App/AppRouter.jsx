@@ -4,7 +4,9 @@ import { Header } from '../Layouts/Header'
 import { Footer } from '../Layouts/Footer'
 
 import { Index } from '../Pages/Home/Index'
-import About from '../Pages/Home/About'
+import About from '../Pages/Home/InfoApp'
+import Contacts from '../Pages/Home/Contacts'
+
 import { Register } from '../Pages/Auth/Register'
 import { Login } from '../Pages/Auth/LogIn'
 import AccountActivator from '../Pages/Auth/AccountActivator'
@@ -24,13 +26,14 @@ import {
   userPageCreateNewsURL,
   userActivationUrl,
   eventInfoUrl,
-  newsInfoUrl
+  newsInfoUrl,
+  contacts
 } from './AppConstRoutes.js'
 
 import PropTypes from 'prop-types'
 
 const Wrapper = ({ children }) => (
-  <div style={{ minHeight: '100vh' }}>
+  <div style={{minHeight:'100vh'}}>
     {children}
   </div>
 )
@@ -50,6 +53,8 @@ const AppRouter = ({ isAuthenticated, userRole }) => {
         <Route exact path={about} component={About} />
         <Route exact path={registrationUrl} component={Register} />
         <Route exact path={loginUrl} component={Login} />
+        <Route exact path={contacts} component={Contacts} />
+
 
         {/* This use get request, and data from url */}
         <Route path={userActivationUrl} component={AccountActivator} />

@@ -19,7 +19,8 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  tryAuthorizeUserUsingTokenFromLocalStorage: bindActionCreators(authorizeUserIfTokenInLocalStorageIsValid,
+  tryAuthorizeUserUsingTokenFromLocalStorage: bindActionCreators(
+    authorizeUserIfTokenInLocalStorageIsValid,
     dispatch)
 })
 

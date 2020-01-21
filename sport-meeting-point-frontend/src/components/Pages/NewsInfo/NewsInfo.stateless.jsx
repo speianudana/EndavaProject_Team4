@@ -2,13 +2,15 @@ import React from 'react'
 import style from './style.scss'
 import { Container } from '../../Layouts/Container'
 import PropTypes from 'prop-types'
+import * as sportCategoryDictionary from 'data/SportCategories/SportCategories.dictionary'
 
 import { ButtonA as Btn } from '../../Layouts/Button'
 
 function NewsInfoStateless ({
   id, title, context, authorFullName, image,
   onSubscribeClick, onUnsubscribeClick,
-  getUserAlreadyIsSubscribedToThisNews
+  getUserAlreadyIsSubscribedToThisNews,
+  category
 }) {
   return (
     <Container>
@@ -17,6 +19,9 @@ function NewsInfoStateless ({
         <h1>{title}</h1>
 
         <br />
+        <br />
+
+        <p> Category: {sportCategoryDictionary.keyToValue(category).eng}</p>
         <br />
 
         <p> Author: {authorFullName}</p>
@@ -58,7 +63,8 @@ NewsInfoStateless.propTypes = {
   id: PropTypes.number,
   onSubscribeClick: PropTypes.func,
   onUnsubscribeClick: PropTypes.func,
-  getUserAlreadyIsSubscribedToThisNews: PropTypes.bool
+  getUserAlreadyIsSubscribedToThisNews: PropTypes.bool,
+  category: PropTypes.string
 }
 
 export default NewsInfoStateless

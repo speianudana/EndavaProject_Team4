@@ -21,6 +21,7 @@ public class NewsDTO {
     /*format YYYY-MM-DD*/
 //    private String newsDate;
     private Byte[] image;
+    private String sportCategory;
 
 
 

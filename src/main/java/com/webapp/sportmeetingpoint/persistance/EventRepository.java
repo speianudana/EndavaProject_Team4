@@ -12,6 +12,7 @@ import javax.validation.constraints.Max;
 import java.util.List;
 import java.util.Optional;
 
+@Transactional
 public interface EventRepository extends CrudRepository<Event, Integer> {
 
 

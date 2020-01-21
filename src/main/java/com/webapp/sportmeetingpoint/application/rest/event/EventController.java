@@ -4,11 +4,10 @@ package com.webapp.sportmeetingpoint.application.rest.event;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.webapp.sportmeetingpoint.application.security.jwt.JwtUser;
 import com.webapp.sportmeetingpoint.application.service.EventService;
+import com.webapp.sportmeetingpoint.application.service.SportCategoryService;
 import com.webapp.sportmeetingpoint.application.service.UserSystemService;
 import com.webapp.sportmeetingpoint.domain.dto.Event.CreateEventDTO;
-import com.webapp.sportmeetingpoint.domain.entities.Event;
-import com.webapp.sportmeetingpoint.domain.entities.EventImage;
-import com.webapp.sportmeetingpoint.domain.entities.UserSystem;
+import com.webapp.sportmeetingpoint.domain.entities.*;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -32,15 +31,18 @@ public class EventController {
 
   private final UserSystemService userSystemService;
   private final EventService eventService;
+  private final SportCategoryService sportCategoryService;
   private final Validator validator;
-  
+
   @Autowired
-  public EventController(UserSystemService userSystemService, EventService eventService,
-    Validator validator) {
+  public EventController(UserSystemService userSystemService, EventService eventService, SportCategoryService sportCategoryService, Validator validator) {
     this.userSystemService = userSystemService;
     this.eventService = eventService;
-    this.validator = Validation.buildDefaultValidatorFactory().usingContext().getValidator();
+    this.sportCategoryService = sportCategoryService;
+    this.validator = validator;
   }
+
+
 
   
   
@@ -107,6 +109,9 @@ public class EventController {
       e.setPreviewMessage(eventDTO.getPreviewMessage());
       e.setAddress(eventDTO.getAddress());
 
+      SportCategory sportCategory = sportCategoryService.findByName(eventDTO.getSportCategory()).get();
+      e.setSportCategory(sportCategory);
+
     }catch(Exception ex){
       log.debug(ex.getMessage());
       return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -117,7 +122,7 @@ public class EventController {
     eImage.setImage(eventDTO.getImage());
 
     Event result = eventService.saveEvent(e, userSystem, eImage);
-    
+
     return new ResponseEntity<>(result.getId(), HttpStatus.OK);
   }
 

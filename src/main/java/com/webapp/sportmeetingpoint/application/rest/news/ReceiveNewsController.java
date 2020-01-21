@@ -73,6 +73,7 @@ public class ReceiveNewsController {
                     e.setTitle(a.getTitle());
                     e.setContext(a.getContext());
                     e.setImage(null);
+                    e.setSportCategory(a.getSportCategory().getName());
 
 //
 //                    DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
@@ -107,6 +108,7 @@ public class ReceiveNewsController {
             result.setContext(dbNews.getContext());
             result.setTitle(dbNews.getTitle());
             result.setImage(null);
+            result.setSportCategory(dbNews.getSportCategory().getName());
 
 //
 //            DateFormat df = new SimpleDateFormat("yyyy-MM-dd");

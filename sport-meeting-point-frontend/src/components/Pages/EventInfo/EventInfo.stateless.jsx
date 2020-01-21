@@ -8,7 +8,7 @@ import { ButtonA } from '../../Layouts/Button'
 export default function EventInfoStateless ({
   title, previewMessage, description, authorFullName,
   eventDate, address, image, participants, alreadyParticipating,
-  onNotParticipateClick, onParticipateClick
+  onNotParticipateClick, onParticipateClick, category
 }) {
   return (
     <Container>
@@ -27,6 +27,7 @@ export default function EventInfoStateless ({
         <p> Author: {authorFullName}</p>
         <p> Event date: {eventDate}</p>
         <p> Address: {address}</p>
+        <p> Category: {category}</p>
         <br />
 
         <h4>Preview message:</h4>
@@ -86,7 +87,8 @@ EventInfoStateless.propTypes = {
   participants: PropTypes.node,
   alreadyParticipating: PropTypes.bool,
   onNotParticipateClick: PropTypes.func,
-  onParticipateClick: PropTypes.func
+  onParticipateClick: PropTypes.func,
+  category: PropTypes.string
 }
 
 EventInfoStateless.defaultProps = {

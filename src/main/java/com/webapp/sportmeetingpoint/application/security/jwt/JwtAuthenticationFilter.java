@@ -10,6 +10,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -41,9 +42,14 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     try{
       
       if(token!=null && jwtTokenProvider.validateToken(token)){
-    
-        UsernamePasswordAuthenticationToken authentication  = jwtTokenProvider.getAuthentication(token);
-    
+        UsernamePasswordAuthenticationToken authentication = null;
+
+        try{
+          authentication  = jwtTokenProvider.getAuthentication(token);
+        }catch(UsernameNotFoundException e){
+          log.error("User not found", e);
+        }
+
     
         if(authentication!=null){
           authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(req));

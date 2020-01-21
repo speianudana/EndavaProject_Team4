@@ -3,7 +3,6 @@ import CreateEventStateless from './CreateEvent.stateless.jsx'
 import { url } from '../../../utils/server-url'
 import axios from 'axios'
 import { FullPageLoading1 } from '../../Layouts/Loading'
-import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { Redirect } from 'react-router-dom'
 import { eventInfoUrl } from '../../App/AppConstRoutes'
@@ -31,8 +30,6 @@ class CreateEventStatefull extends PureComponent {
   handleAllInputData (data) {
     this.setState({ loadPage: true })
 
-    // console.log('z1', data)
-
     const self = this
     const token = this.props.getToken()
     const formData = new FormData()
@@ -41,6 +38,7 @@ class CreateEventStatefull extends PureComponent {
       address: data.address.length > 0 ? data.address : null,
       previewMessage: data.previewMessage.length > 0 ? data.previewMessage : null,
       description: data.description.length > 0 ? data.description : null,
+      sportCategory: data.selectedCategory,
       /* format YYYY-MM-DD */
       eventDate: data.date
     }
@@ -93,6 +91,7 @@ class CreateEventStatefull extends PureComponent {
         <CreateEventStateless
           handleAllInputData={e => this.handleAllInputData(e)}
           validationMessage={this.state.validationMessage}
+          allCategories={this.props.allCategories}
         />
 
       </React.Fragment>
@@ -100,12 +99,9 @@ class CreateEventStatefull extends PureComponent {
   }
 }
 
-const mapStateToProps = state => ({
-  getToken: state.authenticationData.getToken
-})
-
 CreateEventStatefull.propTypes = {
-  getToken: PropTypes.func
+  getToken: PropTypes.func,
+  allCategories: PropTypes.array
 }
 
-export default connect(mapStateToProps)(CreateEventStatefull)
+export default (CreateEventStatefull)

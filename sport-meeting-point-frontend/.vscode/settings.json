@@ -1,4 +1,5 @@
 {
+
   "breadcrumbs.enabled": true,
   "debug.toolBarLocation": "floating",
   "editor.codeLens": false,
@@ -47,9 +48,9 @@
       },
     ]
   },
-  "files.exclude": {
-    "node_modules/": true,
-  },
+  // "files.exclude": {
+  //   "node_modules/": true,
+  // },
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": true
   }

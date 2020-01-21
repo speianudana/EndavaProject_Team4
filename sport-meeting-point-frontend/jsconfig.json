@@ -5,9 +5,13 @@ IMPORTANT!!!!
   So that the import syntax works correctly, write ALL alias here
 
 */
+
+
 {
   "compilerOptions": {
-    "target": "es2017",
+    "target": "es6",
+    "module": "commonjs",
+    "allowSyntheticDefaultImports": true,
     "baseUrl": "./",
     "paths": {
       "restApi/*": [
@@ -15,6 +19,9 @@ IMPORTANT!!!!
       ],
       "utils/*": [
         "src/utils/*"
+      ],
+      "data/*": [
+        "src/redux/*"
       ]
     }
   },

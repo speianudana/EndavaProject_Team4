@@ -123,6 +123,7 @@ class NewsInfoStatefull extends Component {
               onSubscribeClick={id => this.onSubscribeClick(id)}
               onUnsubscribeClick={id => this.onUnsubscribeClick(id)}
               getUserAlreadyIsSubscribedToThisNews={this.state.getUserAlreadyIsSubscribedToThisNews}
+              category={sportNews.sportCategory}
             />
         }
       </>

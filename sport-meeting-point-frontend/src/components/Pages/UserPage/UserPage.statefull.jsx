@@ -23,7 +23,7 @@ class UserPageStatefull extends Component {
   }
 }
 
-const mapStateToPops = state => ({
+export const mapStateToPops = state => ({
   email: state.authenticationData.email,
   firstName: state.authenticationData.firstName,
   lastName: state.authenticationData.lastName,

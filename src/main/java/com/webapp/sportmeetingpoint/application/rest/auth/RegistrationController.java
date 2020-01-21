@@ -21,7 +21,6 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(value = "/api/auth")
-@CrossOrigin
 public class RegistrationController {
 
   private final JwtTokenProvider jwtTokenProvider;

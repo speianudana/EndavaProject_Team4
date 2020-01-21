@@ -30,13 +30,11 @@ public class JwtUserDetailsService implements UserDetailsService {
   public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
     UserSystem userSystem = userSystemService.findByEmail(s);
 
-    if(s == null){
+    if(userSystem == null){
       throw new UsernameNotFoundException("User with email: "+ s + "not found!");
     }
 
-    JwtUser jwtUser = JwtUserFactory.create(userSystem);
-
-    return jwtUser;
+    return JwtUserFactory.create(userSystem);
   }
 
 

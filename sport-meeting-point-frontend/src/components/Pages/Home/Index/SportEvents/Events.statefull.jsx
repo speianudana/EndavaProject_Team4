@@ -9,10 +9,13 @@ import { ButtonB } from '../../../../Layouts/Button/index'
 
 class EventsStatefull extends Component {
   componentDidMount () {
-    // console.log(this.props.allEvents)
     const excludedIds = this.props.allEvents.map(a => Number(a.id))
 
     if (this.props.allEvents.length < 5) this.props.loadEvents(excludedIds, 5)
+  }
+
+  shouldComponentUpdate (nextProps, nextState) {
+    return true
   }
 
   render () {
@@ -30,12 +33,11 @@ class EventsStatefull extends Component {
               authorName={item.authorFullName}
               address={item.address}
               eventDate={item.eventDate}
+              category={item.category}
             />
           ))
 
         }
-
-        <ButtonB title='See more events...' onClickHandle={() => alert('see more events')} />
       </div>
     )
   }

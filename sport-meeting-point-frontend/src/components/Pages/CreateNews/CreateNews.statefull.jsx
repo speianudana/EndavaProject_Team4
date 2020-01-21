@@ -3,10 +3,11 @@ import CreateNewsStateless from './CreateNews.stateless.jsx'
 import { url } from '../../../utils/server-url'
 import axios from 'axios'
 import { FullPageLoading1 } from '../../Layouts/Loading'
-import { connect } from 'react-redux'
+
 import PropTypes from 'prop-types'
 import { Redirect } from 'react-router-dom'
 import { newsInfoUrl } from '../../App/AppConstRoutes'
+import handle401error from 'utils/handle401error'
 
 class CreateNewsStatefull extends PureComponent {
   constructor (props) {
@@ -38,7 +39,8 @@ class CreateNewsStatefull extends PureComponent {
     const formData = new FormData()
     const newData = {
       title: data.title.length > 0 ? data.title : null,
-      context: data.context.length > 0 ? data.context : null
+      context: data.context.length > 0 ? data.context : null,
+      sportCategory: data.selectedCategory
       /* format YYYY-MM-DD */
       // newsDate: data.date
     }
@@ -69,9 +71,10 @@ class CreateNewsStatefull extends PureComponent {
       })
       .catch((error) => {
         // clg
-        if (error.response.status && error.response.status === 401) {
-          location.reload()
-        }
+        handle401error(error.response.status, true)
+        // if (error.response.status && error.response.status === 401) {
+        //   location.reload()
+        // }
       })
       .then(() => {
         if (self._isMounted) self.setState({ loadPage: false })
@@ -91,6 +94,7 @@ class CreateNewsStatefull extends PureComponent {
         <CreateNewsStateless
           onHandleAllInputData={e => this.onHandleAllInputData(e)}
           validationMessage={this.state.validationMessage}
+          allCategories={this.props.allSportCategories}
         />
 
       </React.Fragment>
@@ -98,12 +102,9 @@ class CreateNewsStatefull extends PureComponent {
   }
 }
 
-const mapStateToProps = state => ({
-  getToken: state.authenticationData.getToken
-})
-
 CreateNewsStatefull.propTypes = {
-  getToken: PropTypes.func
+  getToken: PropTypes.func,
+  allSportCategories: PropTypes.array
 }
 
-export default connect(mapStateToProps)(CreateNewsStatefull)
+export default CreateNewsStatefull

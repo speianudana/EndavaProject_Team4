@@ -3,11 +3,10 @@ package com.webapp.sportmeetingpoint.application.rest.news;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.webapp.sportmeetingpoint.application.security.jwt.JwtUser;
 import com.webapp.sportmeetingpoint.application.service.NewsService;
+import com.webapp.sportmeetingpoint.application.service.SportCategoryService;
 import com.webapp.sportmeetingpoint.application.service.UserSystemService;
 import com.webapp.sportmeetingpoint.domain.dto.News.NewsDTO;
-import com.webapp.sportmeetingpoint.domain.entities.News;
-import com.webapp.sportmeetingpoint.domain.entities.NewsImage;
-import com.webapp.sportmeetingpoint.domain.entities.UserSystem;
+import com.webapp.sportmeetingpoint.domain.entities.*;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -36,18 +35,23 @@ public class NewsController {
     private final UserSystemService userSystemService;
     private final NewsService newsService;
     private final Validator validator;
+    private final SportCategoryService sportCategoryService;
 
     @Autowired
-    public NewsController(UserSystemService userSystemService, NewsService newsService, Validator validator) {
+    public NewsController(UserSystemService userSystemService,
+                          NewsService newsService,
+                          Validator validator,
+                          SportCategoryService sportCategoryService) {
         this.userSystemService = userSystemService;
         this.newsService = newsService;
         this.validator = Validation.buildDefaultValidatorFactory().usingContext().getValidator();
+        this.sportCategoryService = sportCategoryService;
 
     }
 
     @RequestMapping(value = "/news/add", method = RequestMethod.POST,
             consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<?> addNewNews(
+    public ResponseEntity addNewNews(
             @RequestParam("file") MultipartFile file,
             @RequestParam("data")  String data
     )throws IOException {
@@ -99,19 +103,25 @@ public class NewsController {
 
             e.setTitle(newsDTO.getTitle());
             e.setContext(newsDTO.getContext());
+            NewsImage eImage = new NewsImage();
+            eImage.setImage(newsDTO.getImage());
 
+            SportCategory sportCategory = sportCategoryService
+              .findByName(newsDTO.getSportCategory())
+              .get();
+
+            e.setSportCategory(sportCategory);
+
+            e = newsService.saveNews(e, userSystem, eImage);
         }catch(Exception ex){
             log.debug(ex.getMessage());
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
 
-        NewsImage eImage = new NewsImage();
-        eImage.setImage(newsDTO.getImage());
 
-        News result = newsService.saveNews(e, userSystem, eImage);
 
-        return new ResponseEntity<>(result.getId(), HttpStatus.OK);
+        return ResponseEntity.ok().body(e.getId());
     }
 
 }

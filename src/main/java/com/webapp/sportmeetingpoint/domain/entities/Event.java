@@ -1,7 +1,10 @@
 package com.webapp.sportmeetingpoint.domain.entities;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.*;
@@ -16,7 +19,7 @@ import java.util.List;
 @Setter
 @Entity(name = "Event")
 @Table(name = "event")
-public class Event extends BaseEntity  {
+public class Event extends BaseEntity {
 
 
   @NotNull(message = "Title is required!")
@@ -36,7 +39,7 @@ public class Event extends BaseEntity  {
   @Column(name = "date")
   private Date date;
 
-  @Column(name="event_image_id")
+  @Column(name = "event_image_id")
   private Integer eventImageId;
 
   @ManyToOne(fetch = FetchType.LAZY)
@@ -45,5 +48,19 @@ public class Event extends BaseEntity  {
 
   @OneToMany(mappedBy = "event")
   private List<EventParticipantActivity> participantActivity = new ArrayList<>();
+
+//  @ManyToMany(fetch=FetchType.LAZY)
+//  @JoinTable(name="event_categories",
+//    joinColumns = @JoinColumn(name="event_id"),
+//    inverseJoinColumns = @JoinColumn(name="category_id")
+//  )
+//  List<SportCategory> categories;
+
+
+  @ManyToOne(fetch = FetchType.LAZY, optional = false)
+  @JoinColumn(name = "category_id", nullable = false)
+  @OnDelete(action = OnDeleteAction.CASCADE)
+  @JsonIgnore
+  private SportCategory sportCategory;
 
 }

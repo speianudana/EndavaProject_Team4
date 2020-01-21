@@ -27,6 +27,9 @@ public class CreateEventDTO {
   @NotNull(message = "Address is required")
   private String address;
 
+  @NotNull(message = "Category is required")
+  private String sportCategory;
+
   /*format YYYY-MM-DD*/
   private String eventDate;
 

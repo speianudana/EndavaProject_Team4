@@ -63,6 +63,8 @@ class EventInfoStatefull extends Component {
   }
 
   shouldComponentUpdate (nextProps, nextState) {
+    // TO DO: Костыльный код by Иван П.
+
     if (!this.state.sportEvent && !nextState.sportEvent) {
       const events = this.props.allEvents
       const eIndex = events.findIndex(a => a.id === this.state.eventDbId)
@@ -103,6 +105,8 @@ class EventInfoStatefull extends Component {
         }
       }
     }
+
+    console.log(this.state.sportEvent)
 
     return true
   }
@@ -204,6 +208,7 @@ class EventInfoStatefull extends Component {
                 : <div />}
 
               alreadyParticipating={this.state.getUserAlreadyParticipateToThisEvent}
+              category={sportEvent.category}
 
               onParticipateClick={e => this.onParticipateClick(e)}
               onNotParticipateClick={e => this.onNotParticipateClick(e)}

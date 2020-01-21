@@ -5,10 +5,7 @@ import com.webapp.sportmeetingpoint.application.service.EventService;
 import com.webapp.sportmeetingpoint.domain.dto.Event.EventDTO;
 import com.webapp.sportmeetingpoint.domain.dto.Event.TheNumberOfNecessaryEventsDTO;
 import com.webapp.sportmeetingpoint.domain.dto.ImageDTO;
-import com.webapp.sportmeetingpoint.domain.entities.Event;
-import com.webapp.sportmeetingpoint.domain.entities.EventImage;
-import com.webapp.sportmeetingpoint.domain.entities.UserPersonalData;
-import com.webapp.sportmeetingpoint.domain.entities.UserSystem;
+import com.webapp.sportmeetingpoint.domain.entities.*;
 import com.webapp.sportmeetingpoint.persistance.EventImageRepository;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +17,7 @@ import javax.mail.MessagingException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -57,13 +55,13 @@ public class ReceiveEventController {
 
         UserSystem author = a.getUserAuthorActivity().getUserSystem();
 
-        if(author!=null){
+        if (author != null) {
           final String authorEmail = author.getEmail();
           UserPersonalData authorPersonalData = a.getUserAuthorActivity().getUserSystem().getUserPersonalData();
           final String authorFullName = authorPersonalData.getFirstName() + " " + authorPersonalData.getLastName();
           e.setAuthorEmail(authorEmail);
           e.setAuthorFullName(authorFullName);
-        }else{
+        } else {
           e.setAuthorEmail("-deleted-");
           e.setAuthorFullName("-deleted-");
         }
@@ -75,6 +73,7 @@ public class ReceiveEventController {
         e.setDescription(a.getDescription());
         e.setImage(null);
         e.setAddress(a.getAddress());
+        e.setCategory(a.getSportCategory().getName());
 
 
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
@@ -111,6 +110,8 @@ public class ReceiveEventController {
       result.setPreviewMessage(dbEvent.getPreviewMessage());
       result.setTitle(dbEvent.getTitle());
       result.setImage(null);
+      result.setCategory(dbEvent.getSportCategory().getName());
+//      result.setCategory(dbEvent.getCategories().get(0).getName());
 
 
       DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
