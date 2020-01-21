@@ -1,22 +1,19 @@
 import React, { Component } from 'react'
-import { Container } from '../../../Layouts/Container'
-import { Header } from './Header'
-import { SubHeader } from './SubHeader'
-import NewsContainer from './News'
-import EventsContainer from './SportEvents'
-import MoveButtonTop from './MoveTopButton'
-
+import IndexStateless from './Index.stateless.jsx'
 class IndexStatefull extends Component {
   constructor (props) {
     super(props)
 
     this.state = {
-      articles: []
+      news: [],
+      events: []
     }
   }
 
   componentDidMount () {
     this._isMounted = true
+
+      const self = this
   }
 
   componentWillUnmount () {
@@ -25,22 +22,10 @@ class IndexStatefull extends Component {
 
   render () {
     return (
-      <>
-
-        <Header />
-        <SubHeader />
-        <NewsContainer />
-
-        <MoveButtonTop />
-
-        <Container>
-
-          <EventsContainer />
-
-          <br />
-          <br />
-        </Container>
-      </>
+        <IndexStateless
+            eventsArray={this.state.events}
+            newsArray={this.state.news}
+        />
     )
   }
 }

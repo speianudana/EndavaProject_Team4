@@ -7,8 +7,11 @@ const LoadingComponent = () => (<Loading />)
 
 export default function EventsLoadable () {
   return (
-    <Suspense fallback={<LoadingComponent />}>
       <EventsStatefull />
-    </Suspense>
-  )
+
+)
 }
+// return (
+{/*<Suspense fallback={<LoadingComponent />}>*/}
+{/*<EventsStatefull />*/}
+// </Suspense>

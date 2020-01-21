@@ -1,5 +1,5 @@
 .containerMenu {
-  background: rgb(34, 34, 40);
+  background: rgb(7, 97, 125);
 }
 
 .menu {
@@ -9,7 +9,7 @@
   flex-direction: row;
   align-items: center;
   list-style-type: none;
-
+  height: 75px;
 }
 
 .menuElm {
@@ -26,10 +26,11 @@
 }
 
 .logo {
-  font-family: Impact, Charcoal, sans-serif;
+  font-family: "Times New Roman", serif;
   color: rgb(230, 230, 230);
   text-decoration: none;
   font-size: 30px;
+  margin-top: 5px;
 }
 
 .logo:hover {
@@ -41,8 +42,8 @@
 .aClass {
 
   font-size: 22px;
-  color: rgb(228, 228, 228);
-  font-family: Verdana, Geneva, sans-serif;
+  color: rgb(249, 168, 40);
+  font-family: "Times New Roman", serif;
 }
 
 .aClass:hover {
@@ -113,5 +114,5 @@
 #accountBtn {
   font-size: 17px;
   color: rgb(7, 197, 204);
-  font-family: Verdana, Geneva, sans-serif;
+  font-family: "Times New Roman", serif;
 }

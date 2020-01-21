@@ -51,9 +51,6 @@ class NewsStatefull extends Component {
           }
         </div>
 
-        <Container>
-          <ButtonB title='See more news...' onClickHandle={() => this.loadNewsFromServer()} />
-        </Container>
       </>
     )
   }

@@ -11,7 +11,9 @@ services:
 
   sport-meeting-point:
     restart: on-failure
-    build: ./
+    build:
+      context: .
+      dockerfile: Dockerfile
     environment:
       WAIT_HOSTS: postgres:5432
     depends_on:

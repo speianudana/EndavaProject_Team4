@@ -1,0 +1,108 @@
+img{
+    max-width: 100%;
+}
+.container{
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.container .about{
+    text-align: center;
+    font-size: 38px;
+    font-family: "Times New Roman", serif;
+    text-transform: uppercase;
+    margin-top: 30px;
+    color: rgb(249, 168, 40);
+
+}
+.cards{
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 70px;
+    padding: 1.5%;
+    box-sizing: border-box;
+}
+.card{
+    width:400px;
+    height: 400px;
+    position: relative;
+    margin-bottom: 20px;
+    padding-bottom: 30px;
+    background: rgb(249, 168, 40);
+    box-shadow: rgba(0,0,0,0.19) 0 0 8px 0;
+    border-radius: 4px;
+    /*max-width: 320px;*/
+    margin-right: 20px;
+    margin-bottom: 20px;
+}
+
+/*@media screen and (max-width: 600px){*/
+/*    .card{*/
+/*        width: 100%;*/
+/*    }*/
+/*}*/
+
+@media screen and (min-width: 700px){
+    .card{
+        /*max-width: 320px;*/
+        /*margin-right: 20px;*/
+        /*margin-bottom: 20px;*/
+    }
+}
+
+.card span {
+    display: block;
+}
+
+.card .cardSummary{
+    padding: 5% 5% 3% 5%;
+    color: lightgoldenrodyellow;
+}
+.card .cardHeader{
+    position: relative;
+    height: 300px;
+    overflow: hidden;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-color: rgba(255,255,255,.15);
+    background-blend-mode: overlay;
+    border-radius: 4px 4px 0 0;
+}
+.card .cardTitle{
+    background: rgba(104, 156, 210, .85);
+    padding: 3.5% 0 2.5% 0;
+    text-transform: uppercase;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+
+}
+.card .cardMeta{
+    max-height: 0;
+    overflow: hidden;
+    color: #666;
+    font-size: .78em;
+    text-transform: uppercase;
+    position: absolute;
+    bottom: 5%;
+    padding: 0 5%;
+    transition-property: max-height;
+    transition-duration: .4s;
+    transition-timing-function: ease-in-out;
+}
+.card:hover, .card:focus{
+    background: rgb(7, 97, 125);
+    box-shadow: rgba(249, 168, 40, 0.45) 0 0 20px 0;
+}
+.card:hover .cardTitle, .card:focus .cardTitle{
+    background: rgba(104, 156, 210, .85);
+}
+.card:hover .cardMeta, .card:focus .cardMeta{
+    max-height: 1em;
+}
+
+.btnMenu{
+    background: transparent;
+}

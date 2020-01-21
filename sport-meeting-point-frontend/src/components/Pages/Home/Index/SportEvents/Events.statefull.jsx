@@ -34,8 +34,6 @@ class EventsStatefull extends Component {
           ))
 
         }
-
-        <ButtonB title='See more events...' onClickHandle={() => alert('see more events')} />
       </div>
     )
   }
