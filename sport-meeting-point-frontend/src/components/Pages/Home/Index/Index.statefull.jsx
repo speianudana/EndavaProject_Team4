@@ -12,8 +12,6 @@ class IndexStatefull extends Component {
 
   componentDidMount () {
     this._isMounted = true
-
-      const self = this
   }
 
   componentWillUnmount () {
@@ -22,10 +20,10 @@ class IndexStatefull extends Component {
 
   render () {
     return (
-        <IndexStateless
-            eventsArray={this.state.events}
-            newsArray={this.state.news}
-        />
+      <IndexStateless
+        eventsArray={this.state.events}
+        newsArray={this.state.news}
+      />
     )
   }
 }

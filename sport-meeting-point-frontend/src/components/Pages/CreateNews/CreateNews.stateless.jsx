@@ -70,7 +70,7 @@ export default function CreateNewsStateless ({ onHandleAllInputData, validationM
 
         <div style={{ flexDirection: 'column' }} className={`${style.createNewsField} ${style.inputRight}`}>
           <div className={style.dDownContainer}>
-            <button className={style.newsCategoryBtn}>Event Category &rsaquo;&rsaquo;</button>
+            <button className={style.newsCategoryBtn}>News Category &rsaquo;&rsaquo;</button>
 
             <ul className={style.dDownContent}>
               {allCategories.length > 0 && allCategories.map((item, index) => (
