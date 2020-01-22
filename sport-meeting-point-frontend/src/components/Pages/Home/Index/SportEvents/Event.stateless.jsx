@@ -2,14 +2,15 @@ import React from 'react'
 import style from './style.scss'
 import { Link } from 'react-router-dom'
 import { LoadingType1 } from '../../../../Layouts/Loading'
-import { FaUser, FaCalendarCheck, FaMapMarkedAlt } from 'react-icons/fa'
+import { FaUser, FaCalendarCheck, FaMapMarkedAlt, FaRunning } from 'react-icons/fa'
 import { IconContext } from 'react-icons'
 import { eventInfoUrl } from '../../../../App/AppConstRoutes'
 import PropTypes from 'prop-types'
+import * as categoryDict from 'data/SportCategories/SportCategories.dictionary'
 
 const Element = ({ children, color = '#818181', size = '13px' }) => (
   <IconContext.Provider value={{ color: color, size: size }}>
-    <span style={{ margin: '5px' }}>
+    <span style={{ margin: '5px 5px 5px 15px' }}>
       {children}
     </span>
   </IconContext.Provider>
@@ -21,7 +22,7 @@ Element.propTypes = {
   size: PropTypes.element
 }
 
-function imgShower (img) {
+function imgShower(img) {
   switch (img) {
     case null:
       return <LoadingType1 />
@@ -30,7 +31,7 @@ function imgShower (img) {
   }
 }
 
-export default function EventStateless ({
+export default function EventStateless({
   id,
   title,
   text,
@@ -70,6 +71,12 @@ export default function EventStateless ({
 
             {address}
 
+            <Element>
+              <FaRunning />
+            </Element>
+
+            {categoryDict.keyToValue(category).eng}
+
           </p>
 
           <hr className={style.hrProp} />
@@ -80,7 +87,7 @@ export default function EventStateless ({
 
           <div className={style.linkProp}>
             <Link to={`${eventInfoUrl}?id=${id}`} style={{ color: '#15AD72' }}>
-                            Read More »
+              Read More »
             </Link>
           </div>
 

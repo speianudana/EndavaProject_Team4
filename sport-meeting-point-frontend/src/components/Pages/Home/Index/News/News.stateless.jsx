@@ -4,12 +4,14 @@ import style from './style.scss'
 import { Redirect } from 'react-router-dom'
 import { newsInfoUrl } from '../../../../App/AppConstRoutes'
 import { LoadingType1 } from '../../../../Layouts/Loading'
+import { Link } from 'react-router-dom'
+import * as categoryDict from 'data/SportCategories/SportCategories.dictionary'
 
-function titleCharacterCounter (str) {
+function titleCharacterCounter(str) {
   return str.length > 130 ? str.substring(0, 127) + '...' : str
 }
 
-function imgShower (img) {
+function imgShower(img) {
   switch (img) {
     case null:
       return <LoadingType1 />
@@ -18,7 +20,7 @@ function imgShower (img) {
   }
 }
 
-function NewsStateless ({ title, text, img, id }) {
+function NewsStateless({ title, text, category, img, id }) {
   const [redirectToInfoNews, setRedirectToInfoNews] = React.useState(false)
 
   if (redirectToInfoNews) {
@@ -26,14 +28,35 @@ function NewsStateless ({ title, text, img, id }) {
   }
 
   return (
-    <div onClick={() => setRedirectToInfoNews(false)} className={style.mainContainer}>
 
+    <div className={style.mainContainer}>
       <div className={style.mainContainerChild}>
         {imgShower(img)}
       </div>
-      <p className={style.title}>{titleCharacterCounter(title)}</p>
-      <br /><br />
-      <p className={style.itemTextParagraph}>{text}</p>
+      <div
+        className={style.mainContainerChild}
+      >
+        <div className={style.mainContainerChildBox}>
+          <p className={style.title}>{title}</p>
+          <p className={style.textInfo}>
+            {categoryDict.keyToValue(category).eng}
+
+          </p>
+
+          {/* <hr className={style.hrProp} /> */}
+
+          <p className={style.text}>
+            {text}
+          </p>
+
+          <div className={style.linkProp}>
+            <Link to={`${newsInfoUrl}?id=${id}`} style={{ color: '#15AD72' }}>
+              Read More »
+            </Link>
+          </div>
+
+        </div>
+      </div>
     </div>
 
   )

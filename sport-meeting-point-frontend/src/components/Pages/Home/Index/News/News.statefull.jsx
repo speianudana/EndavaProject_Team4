@@ -12,19 +12,12 @@ class NewsStatefull extends Component {
   constructor(props) {
     super(props)
 
-    this.loadNewsFromServer.bind(this)
   }
 
-  loadNewsFromServer() {
-    // const excludedIds = this.props.allNews.map(a => Number(a.id))
 
-    // this.props.loadFixedNumberOfNews(excludedIds || [], 5)
-  }
 
   componentDidMount() {
-    const excludedIds = this.props.allNews.map(a => Number(a.id))
 
-    if (excludedIds && excludedIds < 5) { this.loadNewsFromServer() }
   }
 
   shouldComponentUpdate(nextProps, nextState) {
@@ -45,6 +38,7 @@ class NewsStatefull extends Component {
                 title={item.title}
                 text={item.context}
                 img={item.image}
+                category={item.sportCategory}
               />
             ))
 
