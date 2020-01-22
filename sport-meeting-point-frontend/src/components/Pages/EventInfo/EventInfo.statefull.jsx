@@ -106,8 +106,6 @@ class EventInfoStatefull extends Component {
       }
     }
 
-    console.log(this.state.sportEvent)
-
     return true
   }
 

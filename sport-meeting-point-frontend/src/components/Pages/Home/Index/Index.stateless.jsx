@@ -6,46 +6,29 @@ import style from './style.scss'
 import NewsContainer from './News/index.js'
 import EventsContainer from './SportEvents'
 
-function IndexStateless ({ eventsArray, newsArray, isLoading }) {
-  /*
-      This var shows what will be displayed in the window, news or events
-    */
-  const [isEvent, setIsEvent] = React.useState(true)
+
+function IndexStateless({ eventsArray, newsArray, isLoading, showEvents,
+  setShowEvents }) {
+
   return (
     <div id={style.NewsEvents}>
       <div id={style.NewsEventsTopBar}>
         <button
-          className={`${style.btnNewsEventsTopBar} ${isEvent ? style.clickedBtn : ''}`}
-          onClick={e => setIsEvent(true)}
+          className={`${style.btnNewsEventsTopBar} ${showEvents ? style.clickedBtn : ''}`}
+          onClick={e => setShowEvents(true)}
         >
-                    Events
+          Events
         </button>
         <button
-          className={`${style.btnNewsEventsTopBar} ${!isEvent ? style.clickedBtn : ''}`}
-          onClick={e => setIsEvent(false)}
+          className={`${style.btnNewsEventsTopBar} ${!showEvents ? style.clickedBtn : ''}`}
+          onClick={e => setShowEvents(false)}
         >
-                    News
+          News
         </button>
       </div>
 
-      {!isEvent && <NewsContainer />}
-      {isEvent && <EventsContainer />}
-      {/* <EventsContainer /> */}
-
-      {/* <div className={style.btnNewsEventsBody}>
-
-        {
-          setIsEvent => (
-            <NewsContainer />
-          )
-        }
-
-        {
-          <EventsContainer />
-
-        }
-
-      </div> */}
+      {!showEvents && <NewsContainer />}
+      {showEvents && <EventsContainer />}
     </div>
 
   )

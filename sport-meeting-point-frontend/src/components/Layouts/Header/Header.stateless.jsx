@@ -62,7 +62,7 @@ AuthContainer.propTypes = {
   isAuthenticated: PropTypes.bool
 }
 
-const ClickableItem = ({ text = null, to, icon, handleClick }) => (
+const ClickableItem = ({ text = null, to, icon, handleClick = () => {} }) => (
   <button onClick={e => handleClick(e)} className={style.btnMenu}>
     <Link to={to} className={style.aClass}>
       <Element color='rgb(249, 168, 40)' size='25px'>
@@ -79,7 +79,7 @@ const ClickableItem = ({ text = null, to, icon, handleClick }) => (
 ClickableItem.propTypes = {
   to: PropTypes.string,
   icon: PropTypes.any,
-  handleClick: PropTypes.any,
+  handleClick: PropTypes.func,
   text: PropTypes.string
 }
 

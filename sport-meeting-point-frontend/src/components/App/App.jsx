@@ -4,13 +4,17 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { authorizeUserIfTokenInLocalStorageIsValid } from '../../redux/actions/Authentication.actions'
+import ScrollPageEventWrapper from 'data/ScrollPageEvent/ScrollPageEventWrapper.jsx'
 
-function App (props) {
+function App(props) {
   useEffect(() => {
     props.tryAuthorizeUserUsingTokenFromLocalStorage()
   }, [])
 
-  return <AppRouter isAuthenticated={props.isAuthenticated} userRole={props.userRole} />
+  return (
+    <ScrollPageEventWrapper>
+      <AppRouter isAuthenticated={props.isAuthenticated} userRole={props.userRole} />
+    </ScrollPageEventWrapper>)
 }
 
 const mapStateToProps = state => ({

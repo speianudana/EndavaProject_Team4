@@ -29,12 +29,12 @@ public interface NewsRepository extends CrudRepository<News, Integer> {
     List<News> findAll();
 
     @Modifying
-    @Query(value = "SELECT * FROM News u WHERE u.id NOT IN ?1 LIMIT ?2",nativeQuery = true)
+    @Query(value = "SELECT * FROM News u WHERE u.id NOT IN ?1 ORDER BY u.id DESC LIMIT ?2 ",nativeQuery = true)
     @Transactional
     List<News> findAllAndExcludeValueByListUseLimit(List<Integer> ids, Integer limit);
 
     @Modifying
-    @Query(value = "SELECT * FROM News u LIMIT ?1",nativeQuery = true)
+    @Query(value = "SELECT * FROM News u  ORDER BY u.id DESC LIMIT ?1",nativeQuery = true)
     @Transactional
     List<News> findAllUseLimit(Integer limit);
 

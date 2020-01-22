@@ -40,7 +40,7 @@ public class ReceiveNewsController {
 
     @RequestMapping(value = "/news/get_news", method = RequestMethod.POST)
     public ResponseEntity getAllNewsWithoutImage(@RequestBody final TheNumberOfNecessaryNewsDTO reqData)
-            throws MessagingException {
+      throws MessagingException {
 
         List<Integer> excludedIds = reqData.getGetUINewsId();
         final Integer limit = reqData.getTheNumberOfNecessaryNews();
@@ -53,35 +53,35 @@ public class ReceiveNewsController {
             newsFromDb = newsService.find(excludedIds, limit);
 
         List<NewsDTO> result = newsFromDb.stream().map(a -> {
-                    final NewsDTO e = new NewsDTO();
+              final NewsDTO e = new NewsDTO();
 
-                    UserSystem author = a.getUserAuthorActivity().getUserSystem();
+              UserSystem author = a.getUserAuthorActivity().getUserSystem();
 
-                    if(author!=null){
-                        final String authorEmail = author.getEmail();
-                        UserPersonalData authorPersonalData = a.getUserAuthorActivity().getUserSystem().getUserPersonalData();
-                        final String authorFullName = authorPersonalData.getFirstName() + " " + authorPersonalData.getLastName();
-                        e.setAuthorEmail(authorEmail);
-                        e.setAuthorFullName(authorFullName);
-                    }else{
-                        e.setAuthorEmail("-deleted-");
-                        e.setAuthorFullName("-deleted-");
-                    }
+              if (author != null) {
+                  final String authorEmail = author.getEmail();
+                  UserPersonalData authorPersonalData = a.getUserAuthorActivity().getUserSystem().getUserPersonalData();
+                  final String authorFullName = authorPersonalData.getFirstName() + " " + authorPersonalData.getLastName();
+                  e.setAuthorEmail(authorEmail);
+                  e.setAuthorFullName(authorFullName);
+              } else {
+                  e.setAuthorEmail("-deleted-");
+                  e.setAuthorFullName("-deleted-");
+              }
 
 
-                    e.setId(a.getId());
-                    e.setTitle(a.getTitle());
-                    e.setContext(a.getContext());
-                    e.setImage(null);
-                    e.setSportCategory(a.getSportCategory().getName());
+              e.setId(a.getId());
+              e.setTitle(a.getTitle());
+              e.setContext(a.getContext());
+              e.setImage(null);
+              e.setSportCategory(a.getSportCategory().getName());
 
 //
 //                    DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 //                    e.setNewsDate(df.format(a.getDate()));
 
 
-                    return e;
-                }
+              return e;
+          }
 
         ).collect(Collectors.toList());
 
@@ -124,19 +124,21 @@ public class ReceiveNewsController {
 
     @RequestMapping(value = "/news/image_by_id", method = RequestMethod.GET)
     public ResponseEntity<?> getNewsImageById(@RequestParam("id") final Integer newsId) {
+        try {
+            News news = newsService.findNewsById(newsId);
 
-        News news = newsService.findNewsById(newsId);
+            if (news.getNewsImageId() == null)
+                return ResponseEntity.ok(HttpStatus.NOT_FOUND);
 
-        if(news.getNewsImageId()==null)
-            return ResponseEntity.ok(HttpStatus.NOT_FOUND);
+            NewsImage newsImage = newsImageRepository.findById(news.getNewsImageId()).orElse(null);
 
-        NewsImage newsImage = newsImageRepository.findById(news.getNewsImageId()).orElse(null);
+            if (newsImage == null || newsImage.getImage() == null) {
+                return ResponseEntity.ok(HttpStatus.NOT_FOUND);
+            }
 
-        if (newsImage == null || newsImage.getImage() == null) {
+            return new ResponseEntity<>(new ImageDTO(news.getId(), newsImage.getImage()), HttpStatus.OK);
+        } catch (Exception e) {
             return ResponseEntity.ok(HttpStatus.NOT_FOUND);
         }
-
-        return new ResponseEntity<>(new ImageDTO(news.getId(), newsImage.getImage()), HttpStatus.OK);
     }
-
 }

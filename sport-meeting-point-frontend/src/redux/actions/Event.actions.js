@@ -2,34 +2,48 @@ import { url } from '../../utils/server-url'
 import * as authUtils from '../utils/Authentication'
 import {
   PUSH_EVENTS_WITHOUT_A_IMAGE_TO_ARRAY,
-  REFRESH_SPORT_EVENT_ARRAY
+  REFRESH_SPORT_EVENT_ARRAY,
+  SET_FETCH_COMPLETE,
+  SET_IS_FETCHING
 
 } from '../constants/Event.constants'
 import byteToImageSrc from '../../utils/byteToImageSrc'
 import noImage from '../../../static/No-Image-Basic.png'
 
-function addEventsInStore (data) {
+function addEventsInStore(data) {
   return {
     type: PUSH_EVENTS_WITHOUT_A_IMAGE_TO_ARRAY,
     payload: data
   }
 }
 
-function addImageForEventIntoStore () {
+function addImageForEventIntoStore() {
   return refreshSportEventArray()
 }
 
-function addParticipantsForEventIntoStore () {
+function addParticipantsForEventIntoStore() {
   return refreshSportEventArray()
 }
 
-function refreshSportEventArray () {
+function refreshSportEventArray() {
   return {
     type: REFRESH_SPORT_EVENT_ARRAY
   }
 }
 
-function fetchSportEventImage (sportEventObject) {
+function startFetch() {
+  return {
+    type: SET_IS_FETCHING
+  }
+}
+
+function stopFetch() {
+  return {
+    type: SET_FETCH_COMPLETE
+  }
+}
+
+function fetchSportEventImage(sportEventObject) {
   return dispatch => {
     const token = authUtils.loadTokenFromLocalStorage()
     const requestSetting = {
@@ -39,6 +53,8 @@ function fetchSportEventImage (sportEventObject) {
         Authorization: `Bearer_${token}`
       }
     }
+    dispatch(startFetch())
+
     fetch(`${url}/api/for_all/event/image_by_id?id=${sportEventObject.id}`, requestSetting)
       .then(response => {
         if (response.status === 200 && response.ok) return response.json()
@@ -46,6 +62,7 @@ function fetchSportEventImage (sportEventObject) {
       })
       .then((data) => {
         // console.log('object', data)
+        dispatch(stopFetch())
         if (data === 'NOT_FOUND') {
           sportEventObject.image = noImage
         } else {
@@ -57,11 +74,12 @@ function fetchSportEventImage (sportEventObject) {
         console.warn('Event action fetch image error:', error)
         sportEventObject.image = noImage
         dispatch(addImageForEventIntoStore())
+        dispatch(stopFetch())
       })
   }
 }
 
-function fetchParticipantsForSportEvent (sportEventObject) {
+function fetchParticipantsForSportEvent(sportEventObject) {
   return dispatch => {
     const token = authUtils.loadTokenFromLocalStorage()
     const requestSetting = {
@@ -88,7 +106,7 @@ function fetchParticipantsForSportEvent (sportEventObject) {
   }
 }
 
-function loadFixedNumberOfEventsId (excludeIdArray = [], fixedNumber = 5) {
+function loadFixedNumberOfEventsId(excludeIdArray = [], fixedNumber = 5) {
   return dispatch => {
     const token = authUtils.loadTokenFromLocalStorage()
 
@@ -124,7 +142,7 @@ function loadFixedNumberOfEventsId (excludeIdArray = [], fixedNumber = 5) {
   }
 }
 
-function fetchSportEventById (sportEventId) {
+function fetchSportEventById(sportEventId) {
   return dispatch => {
     const token = authUtils.loadTokenFromLocalStorage()
     const requestSetting = {

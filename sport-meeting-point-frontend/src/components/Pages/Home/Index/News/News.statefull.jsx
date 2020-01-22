@@ -9,29 +9,29 @@ import { bindActionCreators } from 'redux'
 import { loadFixedNumberOfNews } from '../../../../../redux/actions/News.actions'
 
 class NewsStatefull extends Component {
-  constructor (props) {
+  constructor(props) {
     super(props)
 
     this.loadNewsFromServer.bind(this)
   }
 
-  loadNewsFromServer () {
-    const excludedIds = this.props.allNews.map(a => Number(a.id))
+  loadNewsFromServer() {
+    // const excludedIds = this.props.allNews.map(a => Number(a.id))
 
-    this.props.loadFixedNumberOfNews(excludedIds || [], 5)
+    // this.props.loadFixedNumberOfNews(excludedIds || [], 5)
   }
 
-  componentDidMount () {
+  componentDidMount() {
     const excludedIds = this.props.allNews.map(a => Number(a.id))
 
     if (excludedIds && excludedIds < 5) { this.loadNewsFromServer() }
   }
 
-  shouldComponentUpdate (nextProps, nextState) {
+  shouldComponentUpdate(nextProps, nextState) {
     return true
   }
 
-  render () {
+  render() {
     return (
       <>
         <div id={style.mainContainer}>

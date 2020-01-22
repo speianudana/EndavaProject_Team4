@@ -2,35 +2,50 @@ import { url } from '../../utils/server-url'
 import * as authUtils from '../utils/Authentication'
 import {
   PUSH_NEWS_WITHOUT_A_IMAGE_TO_ARRAY,
-  REFRESH_SPORT_NEWS_ARRAY
+  REFRESH_SPORT_NEWS_ARRAY,
+  SET_NEWS_FETCH_COMPLETE,
+  SET_NEWS_IS_FETCH
 
 } from '../constants/News.constants'
 import byteToImageSrc from '../../utils/byteToImageSrc'
 import noImage from '../../../static/No-Image-Basic.png'
 import { getSubscribesForEventByEventId } from '../../rest/SportNews'
 
-function addNewsInStore (data) {
+function addNewsInStore(data) {
   return {
     type: PUSH_NEWS_WITHOUT_A_IMAGE_TO_ARRAY,
     payload: data
   }
 }
 
-function refreshSportNewsArray () {
+function refreshSportNewsArray() {
   return {
     type: REFRESH_SPORT_NEWS_ARRAY
   }
 }
 
-function addImageForNewsIntoStore () {
+function addImageForNewsIntoStore() {
   return refreshSportNewsArray()
 }
 
-function setSubscribersForNewsObject () {
+function setSubscribersForNewsObject() {
   return refreshSportNewsArray()
 }
 
-function fetchSportNewsImage (sportNewsObject) {
+function startFetch() {
+  return {
+    type: SET_NEWS_IS_FETCH
+  }
+}
+
+function stopFetch() {
+  return {
+    type: SET_NEWS_FETCH_COMPLETE,
+
+  }
+}
+
+function fetchSportNewsImage(sportNewsObject) {
   return dispatch => {
     const token = authUtils.loadTokenFromLocalStorage()
     const requestSetting = {
@@ -40,6 +55,7 @@ function fetchSportNewsImage (sportNewsObject) {
         Authorization: `Bearer_${token}`
       }
     }
+    dispatch(startFetch())
     fetch(`${url}/api/for_all/news/image_by_id?id=${sportNewsObject.id}`, requestSetting)
       .then(response => {
         if (response.status === 200 && response.ok) return response.json()
@@ -52,17 +68,19 @@ function fetchSportNewsImage (sportNewsObject) {
         } else {
           sportNewsObject.image = byteToImageSrc(data.image)
         }
+        dispatch(stopFetch())
         dispatch(addImageForNewsIntoStore())
       })
       .catch((error) => {
         console.warn('News action fetch image error:', error)
         sportNewsObject.image = noImage
+        dispatch(stopFetch())
         dispatch(addImageForNewsIntoStore())
       })
   }
 }
 
-function loadFixedNumberOfNews (excludeIdArray = [], fixedNumber = 5) {
+function loadFixedNumberOfNews(excludeIdArray = [], fixedNumber = 5) {
   return dispatch => {
     const token = authUtils.loadTokenFromLocalStorage()
 
@@ -98,7 +116,7 @@ function loadFixedNumberOfNews (excludeIdArray = [], fixedNumber = 5) {
   }
 }
 
-function fetchSportNewsById (sportNewsId) {
+function fetchSportNewsById(sportNewsId) {
   return dispatch => {
     const token = authUtils.loadTokenFromLocalStorage()
     const requestSetting = {
@@ -125,7 +143,7 @@ function fetchSportNewsById (sportNewsId) {
   }
 }
 
-function fetchSubscribersByNewsId (newsObj) {
+function fetchSubscribersByNewsId(newsObj) {
   return dispatch => {
     const token = authUtils.loadTokenFromLocalStorage()
     getSubscribesForEventByEventId(newsObj.id, token)

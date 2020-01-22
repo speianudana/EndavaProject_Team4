@@ -10,7 +10,6 @@
   "editor.fontLigatures": true,
   "editor.formatOnPaste": true,
   "editor.formatOnType": false,
-  "editor.formatOnSave": false,
   "editor.letterSpacing": 0.2,
   "editor.lineHeight": 17,
   "editor.minimap.enabled": false,
@@ -52,6 +51,8 @@
   //   "node_modules/": true,
   // },
   "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": true
-  }
+    // "source.fixAll.eslint": true
+  },
+  "editor.formatOnSave": true,
+
 }

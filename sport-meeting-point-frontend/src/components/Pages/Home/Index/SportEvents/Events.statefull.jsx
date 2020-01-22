@@ -5,20 +5,20 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { loadFixedNumberOfEventsId } from '../../../../../redux/actions/Event.actions'
 // import noImg from '../../../../../../static/No-Image-Basic.png'
-import { ButtonB } from '../../../../Layouts/Button/index'
+// import { ButtonB } from '../../../../Layouts/Button/index'
 
 class EventsStatefull extends Component {
-  componentDidMount () {
-    const excludedIds = this.props.allEvents.map(a => Number(a.id))
+  componentDidMount() {
+    // const excludedIds = this.props.allEvents.map(a => Number(a.id))
 
-    if (this.props.allEvents.length < 5) this.props.loadEvents(excludedIds, 5)
+    // if (this.props.allEvents.length < 5) this.props.loadEvents(excludedIds, 5)
   }
 
-  shouldComponentUpdate (nextProps, nextState) {
+  shouldComponentUpdate(nextProps, nextState) {
     return true
   }
 
-  render () {
+  render() {
     return (
       <div>
 

@@ -128,14 +128,18 @@ public class ReceiveEventController {
   @RequestMapping(value = "/event/image_by_id", method = RequestMethod.GET)
   public ResponseEntity<?> getEventImageById(@RequestParam("id") final Integer eventId) {
 
-    Event event = eventService.findEventById(eventId);
-    EventImage eventImage = eventImageRepository.findById(event.getEventImageId()).orElse(null);
+    try {
+      Event event = eventService.findEventById(eventId);
+      EventImage eventImage = eventImageRepository.findById(event.getEventImageId()).orElse(null);
 
-    if (eventImage == null || eventImage.getImage() == null) {
+      if (eventImage == null || eventImage.getImage() == null) {
+        return ResponseEntity.ok(HttpStatus.NOT_FOUND);
+      }
+
+      return new ResponseEntity<>(new ImageDTO(event.getId(), eventImage.getImage()), HttpStatus.OK);
+    }catch(Exception e){
       return ResponseEntity.ok(HttpStatus.NOT_FOUND);
     }
-
-    return new ResponseEntity<>(new ImageDTO(event.getId(), eventImage.getImage()), HttpStatus.OK);
   }
 
 }

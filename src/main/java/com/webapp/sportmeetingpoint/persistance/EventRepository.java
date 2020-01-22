@@ -31,12 +31,12 @@ public interface EventRepository extends CrudRepository<Event, Integer> {
     List<Event> findAll();
 
     @Modifying
-    @Query(value = "SELECT * FROM Event u WHERE u.id NOT IN ?1 LIMIT ?2",nativeQuery = true)
+    @Query(value = "SELECT * FROM Event u WHERE u.id NOT IN ?1 ORDER BY u.id DESC LIMIT ?2",nativeQuery = true)
     @Transactional
     List<Event> findAllAndExcludeValueByListUseLimit(List<Integer> ids, Integer limit);
 
     @Modifying
-    @Query(value = "SELECT * FROM Event u LIMIT ?1",nativeQuery = true)
+    @Query(value = "SELECT * FROM Event u ORDER BY u.id DESC LIMIT ?1",nativeQuery = true)
     @Transactional
     List<Event> findAllUseLimit(Integer limit);
 

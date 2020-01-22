@@ -2,6 +2,7 @@ import React from 'react'
 import style from './style.scss'
 import { Container } from '../../Layouts/Container'
 import PropTypes from 'prop-types'
+import * as categoryUtils from 'data/SportCategories/SportCategories.dictionary'
 
 import { ButtonA } from '../../Layouts/Button'
 
@@ -27,7 +28,7 @@ export default function EventInfoStateless ({
         <p> Author: {authorFullName}</p>
         <p> Event date: {eventDate}</p>
         <p> Address: {address}</p>
-        <p> Category: {category}</p>
+        <p> Category: {categoryUtils.keyToValue(category).eng}</p>
         <br />
 
         <h4>Preview message:</h4>

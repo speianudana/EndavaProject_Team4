@@ -1,0 +1,1 @@
+export const SCROLL_EVENT = 'SCROLL_EVENT'
